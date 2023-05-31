@@ -1660,11 +1660,11 @@
         Integrazione di Astra Trident
       </a></li><li 
       data-pdf-exists="true" 
-      data-pdf-filename="Protezione dei dati"
+      data-pdf-filename="Protezione dei dati e disaster recovery"
       data-li-level="2#" 
       class=" "
     ><a class="na-navbar-padding" href="/it-it/trident/trident-reco/backup.html">
-        Protezione dei dati
+        Protezione dei dati e disaster recovery
       </a></li><li 
       data-pdf-exists="true" 
       data-pdf-filename="Sicurezza"
@@ -1820,7 +1820,7 @@
 <p class="page-details">
   
     
-    <time datetime="2023-05-23 15:26:10 +0000">05/23/2023</time>
+    <time datetime="2023-05-31 19:45:49 +0000">05/31/2023</time>
     
   
 
@@ -2034,6 +2034,34 @@ Se necessario, aprire <code>deploy/kubernetes/snapshot-controller/rbac-snapshot-
 </div>
 </li>
 </ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ripristinare-i-dati-del-volume-utilizzando-le-snapshot">Ripristinare i dati del volume utilizzando le snapshot</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La directory Snapshot è nascosta per impostazione predefinita per facilitare la massima compatibilità dei volumi con cui viene eseguito il provisioning mediante <code>ontap-nas</code> e. <code>ontap-nas-economy</code> driver. Attivare il <code>.snapshot</code> directory per ripristinare i dati direttamente dalle snapshot.</p>
+</div>
+<div class="paragraph">
+<p>Utilizzare la CLI ONTAP per il ripristino dello snapshot del volume per ripristinare uno stato di un volume registrato in uno snapshot precedente.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>cluster1::*&gt; volume snapshot restore -vserver vs0 -volume vol3 -snapshot vol3_snap_archive</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="Nota">
+</td>
+<td class="content">
+Quando si ripristina una copia snapshot, la configurazione del volume esistente viene sovrascritta. Le modifiche apportate ai dati del volume dopo la creazione della copia snapshot andranno perse.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
