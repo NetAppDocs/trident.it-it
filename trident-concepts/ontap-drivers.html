@@ -9,15 +9,15 @@
   <meta property="og:title" content="Driver ONTAP" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://docs.netapp.com/it-it/trident/trident-concepts/ontap-drivers.html" />
-	<meta property="og:description" content="Scopri come creare e utilizzare un backend Element con l"installazione di Trident." />
+	<meta property="og:description" content="Astra Trident offre cinque driver di storage ONTAP esclusivi per la comunicazione con i cluster ONTAP." />
   <meta property="og:image" content="https://docs.netapp.com/it-it/trident/images/logo-tophat-social.png" />
   <meta property="og:image:alt" content="NetApp Logo" />
   <meta name="format-detection" content="telephone=no">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="encoding" content="utf-8">
   <meta http-equiv="nss-type" content="Product Documentation"/>
-  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="Scopri come creare e utilizzare un backend Element con l"installazione di Trident.">
-  <meta name="keywords" content=" trident backend, AFF, FAS, ONTAP Select, Cloud, Amazon FSx for NetApp ONTAP, drivers, ONTAP drivers"><!-- Icons -->
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="Astra Trident offre cinque driver di storage ONTAP esclusivi per la comunicazione con i cluster ONTAP.">
+  <meta name="keywords" content=" trident backend, AFF, FAS, ONTAP Select, Cloud, Amazon FSx for NetApp ONTAP, drivers, ONTAP drivers, access modes, rwo, rwx, rwp, rwop"><!-- Icons -->
   <link rel="icon" href="/it-it/trident/images/favicon.ico" type="image/x-icon">
 
   <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
@@ -1820,7 +1820,7 @@
 <p class="page-details">
   
     
-    <time datetime="2023-05-23 15:26:10 +0000">05/23/2023</time>
+    <time datetime="2023-07-05 16:30:09 +0000">07/05/2023</time>
     
   
 
@@ -1833,13 +1833,16 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph lead">
-<p>Astra Trident offre cinque driver di storage ONTAP esclusivi per la comunicazione con i cluster ONTAP. Scopri di più su come ciascun driver gestisce la creazione di volumi, il controllo degli accessi e le relative funzionalità.</p>
+<p>Astra Trident offre cinque driver di storage ONTAP esclusivi per la comunicazione con i cluster ONTAP.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="informazioni-sui-driver-di-storage-ontap">Informazioni sui driver di storage ONTAP</h2>
+<h2 id="driver-supportati-da-astra-control">Driver supportati da Astra Control</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Astra Control offre protezione perfetta, disaster recovery e mobilità (spostamento di volumi tra cluster Kubernetes) per i volumi creati con <code>ontap-nas</code>, <code>ontap-nas-flexgroup</code>, e. <code>ontap-san</code> driver. Vedere <a href="https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites" target="_blank" rel="noopener">"Prerequisiti per la replica di Astra Control"</a> per ulteriori informazioni.</p>
+</div>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -1847,9 +1850,6 @@
 <img src="/us-en/trident/images/warning.svg" alt="Attenzione">
 </td>
 <td class="content">
-<div class="paragraph">
-<p>Astra Control offre protezione perfetta, disaster recovery e mobilità (spostamento di volumi tra cluster Kubernetes) per i volumi creati con <code>ontap-nas</code>, <code>ontap-nas-flexgroup</code>, e. <code>ontap-san</code> driver. Vedere <a href="https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites" target="_blank" rel="noopener">"Prerequisiti per la replica di Astra Control"</a> per ulteriori informazioni.</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1870,13 +1870,21 @@
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="driver-storage-astra-trident-per-ontap">Driver storage Astra Trident per ONTAP</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Astra Trident fornisce i seguenti driver di storage per comunicare con il cluster ONTAP. Le modalità di accesso supportate sono: <em>ReadWriteOnce</em> (RWO), <em>ReadOnlyMany</em> (ROX), <em>ReadWriteMany</em> (RWX), <em>ReadWriteOncePod</em> (RWOP).</p>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
 </colgroup>
 <thead>
 <tr>
@@ -1897,7 +1905,7 @@
 <p>Filesystem</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>RWO, ROX, RWX</p>
+<p>RWO, ROX, RWX, RWOP</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>"", nfs</p>
@@ -1927,7 +1935,7 @@
 <p>Filesystem</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>RWO, ROX, RWX</p>
+<p>RWO, ROX, RWX, RWOP</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>"", nfs</p>
@@ -1942,7 +1950,7 @@
 <p>Blocco</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>RWO, ROX, RWX</p>
+<p>RWO, ROX, RWX, RWOP</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Nessun file system; dispositivo a blocchi raw</p>
@@ -1957,7 +1965,7 @@
 <p>Filesystem</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>RWO, ROX</p>
+<p>RWO, ROX, RWOP</p>
 </div>
 <div class="paragraph">
 <p>RWX non è disponibile in modalità volume filesystem.</p>
@@ -1975,7 +1983,7 @@
 <p>Blocco</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>RWO, ROX, RWX</p>
+<p>RWO, ROX, RWX, RWOP</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Nessun file system; dispositivo a blocchi raw</p>
@@ -1990,7 +1998,7 @@
 <p>Filesystem</p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>RWO, ROX</p>
+<p>RWO, ROX, RWOP</p>
 </div>
 <div class="paragraph">
 <p>RWX non è disponibile in modalità volume filesystem.</p>
@@ -2008,7 +2016,7 @@
 <img src="/us-en/trident/images/note.svg" alt="Nota">
 </td>
 <td class="content">
-I backend ONTAP possono essere autenticati utilizzando le credenziali di accesso per un ruolo di protezione (nome utente/password) o utilizzando la chiave privata e il certificato installati sul cluster ONTAP. È possibile aggiornare i backend esistenti per passare da una modalità di autenticazione all&#8217;altra con <code>tridentctl update backend</code>.
+I backend ONTAP possono essere autenticati utilizzando le credenziali di accesso per un ruolo di protezione (nome utente/password) o la chiave privata e il certificato installati sul cluster ONTAP. È possibile aggiornare i backend esistenti per passare da una modalità di autenticazione all&#8217;altra con <code>tridentctl update backend</code>.
 </td>
 </tr>
 </table>
