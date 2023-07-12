@@ -1820,7 +1820,7 @@
 <p class="page-details">
   
     
-    <time datetime="2023-05-23 15:26:10 +0000">05/23/2023</time>
+    <time datetime="2023-07-12 14:56:28 +0000">07/12/2023</time>
     
   
 
@@ -1838,7 +1838,54 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="selezionare-una-versione">Selezionare una versione</h2>
+<h2 id="considerazioni-prima-dellaggiornamento">Considerazioni prima dell&#8217;aggiornamento</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Quando si esegue l&#8217;aggiornamento all&#8217;ultima release di Astra Trident, considerare quanto segue:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Dovrebbe essere installata una sola istanza di Astra Trident in tutti gli spazi dei nomi di un determinato cluster Kubernetes.</p>
+</li>
+<li>
+<p>A partire da Trident 20.01, solo la versione beta di <a href="https://kubernetes.io/docs/concepts/storage/volume-snapshots/" target="_blank" rel="noopener">"snapshot dei volumi"</a> è supportato. Gli amministratori di Kubernetes devono fare attenzione a eseguire il backup o la conversione degli oggetti snapshot alfa in versione beta in modo sicuro per conservare le snapshot alfa legacy.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>CSI Volume Snapshots è ora una funzionalità GA, a partire da Kubernetes 1.20. Prima di eseguire l&#8217;aggiornamento, è necessario rimuovere i CRD snapshot Alpha utilizzando <code>tridentctl obliviate alpha-snapshot-crd</code> Per eliminare i CRD per le specifiche di snapshot alfa.</p>
+</li>
+<li>
+<p>La versione beta delle snapshot dei volumi introduce un set modificato di CRD e un controller di snapshot, entrambi da configurare prima di aggiornare Astra Trident.</p>
+</li>
+<li>
+<p>Per ulteriori informazioni, fare riferimento a. <a href="https://netapp.io/2020/01/30/alpha-to-beta-snapshots/" target="_blank" rel="noopener">"Cosa occorre sapere prima di aggiornare il cluster Kubernetes"</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Tutti gli aggiornamenti dalle versioni 19.04 e precedenti richiedono la migrazione dei metadati di Astra Trident <code>etcd</code> Agli oggetti CRD. Controllare <a href="https://docs.netapp.com/us-en/trident/earlier-versions.html">"Documentazione specifica per la release di Astra Trident"</a> per comprendere il funzionamento dell&#8217;aggiornamento.</p>
+</li>
+<li>
+<p>Durante l&#8217;aggiornamento, è importante fornire <code>parameter.fsType</code> poll <code>StorageClasses</code> Utilizzato da Astra Trident. È possibile eliminare e ricreare <code>StorageClasses</code> senza interrompere i volumi preesistenti.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Si tratta di un requisito <strong>*</strong>* per l&#8217;applicazione <a href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/" target="_blank" rel="noopener">"contesti di sicurezza"</a> Per volumi SAN.</p>
+</li>
+<li>
+<p>La directory <a href="https://github.com/NetApp/trident/tree/master/trident-installer/sample-input" target="_blank" rel="noopener">sample input</a> contiene esempi, come <a href="https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-basic.yaml.templ" target="_blank" rel="noopener"><code>storage-class-basic.yaml.templ</code></a> e <a href="https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-bronze-default.yaml" target="_blank" rel="noopener"><code>storage-class-bronze-default.yaml</code></a>. Per ulteriori informazioni, vedere <a href="../trident-rn.html">"Problemi noti"</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fase-1-selezionare-una-versione">Fase 1: Selezionare una versione</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Le versioni di Astra Trident seguono una data-based <code>YY.MM</code> Convenzione di naming, dove "YY" è l&#8217;ultima cifra dell&#8217;anno e "MM" è il mese. I rilasci di punti seguono un <code>YY.MM.X</code> convention, dove "X" è il livello di patch. Selezionare la versione a cui eseguire l&#8217;aggiornamento in base alla versione da cui si sta eseguendo l&#8217;aggiornamento.</p>
@@ -1863,23 +1910,14 @@
 </li>
 </ul>
 </div>
-<div class="admonitionblock warning">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<img src="/us-en/trident/images/warning.svg" alt="Attenzione">
+<img src="/us-en/trident/images/note.svg" alt="Nota">
 </td>
 <td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Tutti gli aggiornamenti per le versioni 19.04 e precedenti richiedono la migrazione dei metadati di Astra Trident <code>etcd</code> Agli oggetti CRD. Verificare la documentazione della release per comprendere il funzionamento dell&#8217;aggiornamento.</p>
-</li>
-<li>
-<p>Durante l&#8217;aggiornamento, è importante fornire <code>parameter.fsType</code> poll <code>StorageClasses</code> Utilizzato da Astra Trident. È possibile eliminare e ricreare <code>StorageClasses</code> senza interrompere i volumi preesistenti. Si tratta di un <strong>requisito</strong> per l&#8217;applicazione di <a href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/" target="_blank" rel="noopener">security contesti</a> per i volumi SAN. La directory <a href="https://github.com/NetApp/trident/tree/master/trident-installer/sample-input" target="_blank" rel="noopener">sample input</a> contiene esempi, ad esempio <a href="https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-basic.yaml.templ" target="_blank" rel="noopener"><code>storage-class-basic.yaml.templ</code></a> e <a href="https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-bronze-default.yaml" target="_blank" rel="noopener"><code>storage-class-bronze-default.yaml</code></a>. Per ulteriori informazioni, vedere <a href="../trident-rn.html">"Problemi noti"</a>.</p>
-</li>
-</ul>
-</div>
+Quando si esegue l&#8217;aggiornamento utilizzando l&#8217;operatore Trident su OpenShift Container Platform, è necessario eseguire l&#8217;aggiornamento a Trident 21.01.1 o versione successiva. L&#8217;operatore Trident rilasciato con 21.01.0 contiene un problema noto che è stato risolto nel 21.01.1. Per ulteriori informazioni, vedere <a href="https://github.com/NetApp/trident/issues/517" target="_blank" rel="noopener">"Dettagli del problema su GitHub"</a>.
 </td>
 </tr>
 </table>
@@ -1887,16 +1925,90 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="selezionare-unopzione-di-aggiornamento">Selezionare un&#8217;opzione di aggiornamento</h2>
+<h2 id="fase-2-determinare-il-metodo-di-installazione-originale">Fase 2: Determinare il metodo di installazione originale</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Ci sono due opzioni per aggiornare Astra Trident. In genere, si utilizzerà la stessa opzione utilizzata per l&#8217;installazione iniziale, tuttavia è possibile <a href="../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods">"passare da un metodo di installazione all&#8217;altro"</a>.</p>
+<p>In genere, è necessario eseguire l&#8217;aggiornamento utilizzando lo stesso metodo utilizzato per l&#8217;installazione iniziale, tuttavia è possibile <a href="../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods">"passare da un metodo di installazione all&#8217;altro"</a>.</p>
+</div>
+<div class="paragraph">
+<p>Per determinare la versione utilizzata per installare Astra Trident:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Utilizzare <code>kubectl get pods - trident</code> esaminare i pod.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Se non è disponibile un pod per l&#8217;operatore, Astra Trident è stato installato utilizzando <code>tridentctl</code>.</p>
+</li>
+<li>
+<p>Se è presente un pod operatore, Astra Trident è stato installato utilizzando l&#8217;operatore Trident manualmente o utilizzando Helm.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Se è presente un pod per l&#8217;operatore, utilizzare <code>kubectl describe tproc trident</code> Per determinare se Astra Trident è stato installato utilizzando Helm.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Se è presente un&#8217;etichetta Helm, Astra Trident è stato installato utilizzando Helm.</p>
+</li>
+<li>
+<p>Se non è presente alcuna etichetta Helm, Astra Trident è stato installato manualmente utilizzando l&#8217;operatore Trident.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fase-3-selezionare-un-metodo-di-aggiornamento">Fase 3: Selezionare un metodo di aggiornamento</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Esistono due metodi per aggiornare Astra Trident.</p>
+</div>
+<div class="sect2">
+<h3 id="quando-eseguire-laggiornamento-utilizzando-loperatore">Quando eseguire l&#8217;aggiornamento utilizzando l&#8217;operatore</h3>
+<div class="paragraph">
+<p>È possibile <a href="upgrade-operator.html">"Eseguire l&#8217;aggiornamento utilizzando l&#8217;operatore Trident"</a> se:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="upgrade-operator.html">"Eseguire l&#8217;aggiornamento utilizzando l&#8217;operatore Trident"</a><br>
-*</p>
+<p>In origine Astra Trident è stato installato utilizzando l&#8217;operatore o <code>tridentctl</code>.</p>
+</li>
+<li>
+<p>CSI Trident è stato disinstallato e i metadati dell&#8217;installazione persistono.</p>
+</li>
+<li>
+<p>Si dispone di un&#8217;installazione Astra Trident basata su CSI. Tutte le release a partire dalla versione 19.07 sono basate su CSI. È possibile esaminare i pod nello spazio dei nomi Trident per verificare la versione.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>La denominazione dei pod nelle versioni precedenti alla 23.01 utilizza: <code>trident-csi-*</code></p>
+</li>
+<li>
+<p>La naming dei pod nella versione 23.01 e successive utilizza:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>trident-controller-&lt;generated id&gt;</code> per il controller pod</p>
+</li>
+<li>
+<p><code>trident-node-&lt;operating system&gt;-&lt;generated id&gt;</code> per i pod di nodi</p>
+</li>
+<li>
+<p><code>trident-operator-&lt;generated id&gt;</code> per il pod operatore</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1907,10 +2019,20 @@
 <img src="/us-en/trident/images/warning.svg" alt="Attenzione">
 </td>
 <td class="content">
-CSI Volume Snapshots è ora una funzionalità GA, a partire da Kubernetes 1.20. Quando si aggiorna Astra Trident, tutti i CRS e i CRD di snapshot alfa precedenti (classi di snapshot dei volumi, snapshot dei volumi e contenuti di snapshot dei volumi) devono essere rimossi prima di eseguire l&#8217;aggiornamento. Fare riferimento a. <a href="https://netapp.io/2020/01/30/alpha-to-beta-snapshots/" target="_blank" rel="noopener">"questo blog"</a> Comprendere i passaggi necessari per la migrazione delle snapshot Alpha alle specifiche beta/GA.
+Non utilizzare l&#8217;operatore per aggiornare Trident se si utilizza un `etcd`Versione Trident basata su (19.04 o precedente).
 </td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="quando-eseguire-laggiornamento-utilizzando-tridentctl">Quando eseguire l&#8217;aggiornamento utilizzando <code>tridentctl</code></h3>
+<div class="paragraph">
+<p>È possibile  Se in origine è stato installato Astra Trident usando `tridenctll'.</p>
+</div>
+<div class="paragraph">
+<p><code>tridentctl</code> È il metodo convenzionale di installazione di Astra Trident e offre la maggior parte delle opzioni per coloro che richiedono una personalizzazione complessa. Per ulteriori informazioni, fare riferimento a. <a href="..trident-get-started/kubernetes-deploy.html#choose-your-installation-method">"Scegliere il metodo di installazione desiderato"</a>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1918,7 +2040,7 @@ CSI Volume Snapshots è ora una funzionalità GA, a partire da Kubernetes 1.20. 
 <h2 id="modifiche-alloperatore">Modifiche all&#8217;operatore</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>La release 21.01 di Astra Trident introduce alcune importanti modifiche architetturali all&#8217;operatore, vale a dire quanto segue:</p>
+<p>La release 21.01 di Astra Trident ha introdotto modifiche architetturali per l&#8217;operatore:</p>
 </div>
 <div class="ulist">
 <ul>
