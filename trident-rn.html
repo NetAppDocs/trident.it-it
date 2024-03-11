@@ -1,0 +1,3731 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head class="at-element-marker">
+  <title>Novità</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Novità" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/it-it/trident/trident-rn.html" />
+	<meta property="og:description" content="NetApp continua a migliorare e migliorare i propri prodotti e servizi. Ecco alcune delle funzionalità, dei miglioramenti e delle correzioni dei bug più recen..." />
+  <meta property="og:image" content="https://docs.netapp.com/it-it/trident/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="NetApp continua a migliorare e migliorare i propri prodotti e servizi. Ecco alcune delle funzionalità, dei miglioramenti e delle correzioni dei bug più recen...">
+  <meta name="keywords" content=" what"s new, new features, enhancements, known issues, resolved issues, troubleshooting"><!-- Icons -->
+  <link rel="icon" href="/it-it/trident/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/it-it/trident/css/ie-netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/it-it/trident/css/ie-landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/it-it/trident/css/ie-tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel="canonical" href="https://docs.netapp.com/it-it/trident/trident-rn.html" />
+  <link rel="alternate" hreflang="x-default" href="https://docs.netapp.com/us-en/trident/trident-rn.html" />
+  <link rel="alternate" hreflang="it" href="https://docs.netapp.com/it-it/trident/trident-rn.html" />
+  <link rel="alternate" hreflang="en" href="https://docs.netapp.com/us-en/trident/trident-rn.html" />
+  <link rel="alternate" hreflang="ja" href="https://docs.netapp.com/ja-jp/trident/trident-rn.html" />
+  <link rel="alternate" hreflang="ko" href="https://docs.netapp.com/ko-kr/trident/trident-rn.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://docs.netapp.com/zh-cn/trident/trident-rn.html" />
+  <link rel="alternate" hreflang="zh-Hant" href="https://docs.netapp.com/zh-tw/trident/trident-rn.html" />
+  <link rel="alternate" hreflang="de" href="https://docs.netapp.com/de-de/trident/trident-rn.html" />
+  <link rel="alternate" hreflang="es" href="https://docs.netapp.com/es-es/trident/trident-rn.html" />
+  <link rel="alternate" hreflang="fr" href="https://docs.netapp.com/fr-fr/trident/trident-rn.html" />
+  <!-- Top level site integrations -->
+<script type="text/javascript" src="https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js"></script>
+    <script type="text/javascript" src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" charset="UTF-8" data-document-language="true" data-domain-script="72570c5c-fe30-465f-b0e0-b77f7fb4ae34"></script>
+    <script type="text/javascript">function OptanonWrapper() { }</script>
+    <script type="text/plain" class="optanon-category-C0002" src="https://assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js"></script>
+    <script class="optanon-category-C0001">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.setAttributeNode(d.createAttribute('data-ot-ignore'));j.setAttribute('class','optanon-category-C0001');j.async=true;
+        j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'';f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MD73T9M');</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+      const MASTHEAD_OFFSET = 65;
+      const SECTIONS = $("main h2, main h3");
+      // PAGE NAV - Init
+      if (SECTIONS.length == 0) {
+        // remove if there is no elements
+        /*
+        $("#ie-right-navbar").remove();
+        $("#ie-right-navbar-collapse").remove();
+        */
+      } else {
+        $(".page-nav-title").css('display', 'block');
+        for (var i = 0; i < SECTIONS.length; i++) {
+          var sectionId = $(SECTIONS[i]).attr('id');
+          var sectionName = $(SECTIONS[i]).text();
+          var subClass = $(SECTIONS[i]).is("h3") ? ' page-nav__sublink' : '';
+          $("#page-menu").append('<li class="page-nav-item"><a href="#' + sectionId + '" class="page-nav__link' + subClass + '">' + sectionName + '</a></li>');
+        }
+      }
+    });
+  </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/it-it/trident/js/na-search.js'></script><script src='/it-it/trident/js/ie-clouddocs.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><script>
+    /*
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+      */
+  </script>
+  <script src='/it-it/trident/js/custom-dropdown.js'></script>
+  <script src='/it-it/trident/js/FileSaver.min.js'></script>
+  <script src='/it-it/trident/js/jszip-utils.min.js'></script>
+  <script src='/it-it/trident/js/jszip.min.js'></script><script src='/it-it/trident/js/ie-pdf-ux.js'></script></head>
+
+
+  <body class role="document" data-flavor="">
+    <div class="skip-to-main">
+      <a href="#main" >Skip to main content</a>
+    </div><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MD73T9M"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><div id="page" class="">
+      <div id="ie-phone-menu" class=""></div>
+      <div id="ie-content-wrap" class="">
+        <nav id="ie-new-header">
+    <ul>
+        <li id="ie-phone-menu-button">
+            <a href="#">
+                <image id="" src="/it-it/trident/images/hamburger.svg" alt="menu" />
+            </a>
+        </li>
+
+        <li>
+            <a href="https://www.netapp.com/it">
+                <image id="ie-header-logo" src="/it-it/trident/images/netapp_logo.svg" alt="netapp" />
+            </a>
+        </li>
+        <li id="ie-header-docs">
+            <a href="https://www.netapp.com/it/support-and-training/documentation/">Documenti</a>
+        </li>
+
+        <!-- Empty container to push header left with or without lang selector -->
+        <li id="empty-container" style="margin-left: auto">
+        </li>
+        <!-- Start Language Selector --><li id="ie-language-dropdown">
+            <div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+                <div class="custom-dropdown-select custom-dropdown-select-lang">
+                    <img src="/it-it/trident/images/language_white_24dp.svg" class="n-globe__icon" />
+                    <span class="lang-name">Italiano</span>
+                    <img src="/it-it/trident/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/it-it/trident/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu"><li>
+                        <a href="https://docs.netapp.com/it-it/trident/trident-rn.html"
+                            target="_self"><span translate="no" class="notranslate">Italiano</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/us-en/trident/trident-rn.html"
+                            target="_self"><span translate="no" class="notranslate">English</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ja-jp/trident/trident-rn.html"
+                            target="_self"><span translate="no" class="notranslate">日本語</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ko-kr/trident/trident-rn.html"
+                            target="_self"><span translate="no" class="notranslate">한국어</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/zh-cn/trident/trident-rn.html"
+                            target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/zh-tw/trident/trident-rn.html"
+                            target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/de-de/trident/trident-rn.html"
+                            target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/es-es/trident/trident-rn.html"
+                            target="_self"><span translate="no" class="notranslate">Español</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/fr-fr/trident/trident-rn.html"
+                            target="_self"><span translate="no" class="notranslate">Français</span></a>
+                    </li></ul>
+            </div>
+            </li>
+        <!-- End Language Selector -->
+
+
+        <li id="ie-allnetapp">
+            <div id="allnetapp-dropdown" class="custom-dropdown custom-dropdown-allnetapp">
+                <div class="custom-dropdown-select custom-dropdown-select-allnetapp">
+                    <img src="/it-it/trident/images/apps_white_24dp.svg" alt="" class="allnetapp-icon" />
+                    <span class="allnetapp-name">Tutto NetApp</span>
+                    <img src="/it-it/trident/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/it-it/trident/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu allnetapp-dropdown">
+                    <li>
+                        <a href="https://bluexp.netapp.com/"
+                            target="_self"><span translate="no" class="notranslate">BlueXP</span></a>
+                    </li>
+                    <li>
+                        <a href="https://mysupport.netapp.com/site/"
+                            target="_self"><span translate="no" class="notranslate">Supporto</span></a>
+                    </li>
+                    <li>
+                        <a href="https://kb.netapp.com/"
+                            target="_self"><span translate="no" class="notranslate">Knowledge Base</span></a>
+                    </li>
+                    <li>
+                        <a href="https://www.netapp.com/it/support-and-training/netapp-learning-services/"
+                            target="_self"><span translate="no" class="notranslate">Training</span></a>
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+
+    </ul>
+</nav>
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+
+<div id="ie-new-sidebar-collapse" style="display: none">
+    <img id="sidebar-expand" class="ie-searchbox-icon" src="/it-it/trident/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-new-sidebar">
+    <div id="ie-product-identity-lockup">
+        <div id="sidebar-collapse" class="">
+            <img src="/it-it/trident/images/double_arrow.svg" alt="" />
+        </div>
+        <div id="ie-breadcrumb" class="">
+  <ul class="ie-breadcrumb">
+    <li class="">
+      <a href="https://docs.netapp.com">Tutti i documenti</a>
+    </li>
+    
+    
+
+    
+    <li class="">
+      <a href="https://docs.netapp.com/it-it/astra-family/">
+        Astra
+      </a>
+    </li>
+    
+  </ul>
+  
+  <div class="ie-product-name" >
+    <!--<a href="/it-it/trident/">-->
+      Astra Trident
+    <!--</a>-->
+  </div>
+</div>
+
+            
+<div id="ie-selectors"><div id="version-dropdown-new" class="custom-dropdown" >
+  <div class="custom-dropdown-select unselected" title=" 24.02">
+    <label>Versione</label>
+    <span translate="no" class="notranslate">24.02</span>
+    <img src="/it-it/trident/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown version invisible" />
+    <img src="/it-it/trident/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup version" />
+  </div>
+
+  <ul class="custom-dropdown-menu"><li>
+      
+      <a href="https://docs.netapp.com/it-it/trident/trident-rn.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 24.02</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/it-it/trident-2310/trident-rn.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 23.10</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/it-it/trident-2307/trident-rn.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 23.07</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/it-it/trident-2304/trident-rn.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 23.04</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/it-it/trident-2301/trident-rn.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 23.01</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/it-it/trident-2210/trident-rn.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 22.10</span></span>
+      </a>
+                     
+    </li>
+    
+  </ul>
+</div></div>
+        
+        
+
+<div id="ie-searchbox" class="ie-searchbox-sidebar ">
+    <img class="ie-searchbox-icon" src="/it-it/trident/images/loupe.svg" alt=""/>
+    <div id="react-search" 
+        data-search-html="/it-it/trident/search.html" 
+        data-type="widget"
+        data-placeholder="Esplora la documentazione"
+        data-no-results-found="Nessun risultato per {query}"
+        data-did-you-mean="Cerca {suggestion}."
+        data-no-results-found-did-you-mean="Nessun risultato per {query}. Intendi {suggestion}?"
+        data-results-found="{hitCount} risultati trovati"
+        data-error-message="Si è verificato un errore. Riprova."
+        data-error-reset="Reimposta ricerca"
+        data-sk-es-pf-indexes="" 
+        data-flavor="">
+    </div>
+</div>
+        
+    </div>
+    <div id="ie-new-toc"><script>
+  let sidebarAccordion = true;
+
+  /* specific css rules for Mac */
+  if(navigator.platform.match('Mac') !== null) {
+    document.body.setAttribute('class', 'OSX');
+  }
+
+</script>
+
+<div id="ie-sidebar-container">
+  <ul id="ie-sidebar-list" ><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Documentazione di Astra Trident"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/index.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/it-it/trident/index.html">
+        Documentazione di Astra Trident
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Note di rilascio"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Note di rilascio</div>-->
+         Note di rilascio
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Novità"
+      data-li-level="2#" 
+      class="  ie-sidebar-selected    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-rn.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-rn.html">
+        Novità
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Versioni precedenti"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/earlier-versions.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/earlier-versions.html">
+        Versioni precedenti
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Inizia subito"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Inizia subito</div>-->
+         Inizia subito
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Scopri Astra Trident"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Scopri Astra Trident</div>-->
+         Scopri Astra Trident
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Panoramica di Astra Trident"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-get-started/intro.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-get-started/intro.html">
+        Panoramica di Astra Trident
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Architettura Astra Trident"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-get-started/architecture.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-get-started/architecture.html">
+        Architettura Astra Trident
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Concetti"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Concetti</div>-->
+         Concetti
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Provisioning"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-concepts/provisioning.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-concepts/provisioning.html">
+        Provisioning
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Snapshot dei volumi"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-concepts/snapshots.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-concepts/snapshots.html">
+        Snapshot dei volumi
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Pool virtuali"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-concepts/virtual-storage-pool.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-concepts/virtual-storage-pool.html">
+        Pool virtuali
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gruppi di accesso ai volumi"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-concepts/vol-access-groups.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-concepts/vol-access-groups.html">
+        Gruppi di accesso ai volumi
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Avvio rapido"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-get-started/quickstart.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-get-started/quickstart.html">
+        Avvio rapido
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Requisiti"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-get-started/requirements.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-get-started/requirements.html">
+        Requisiti
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Installare Astra Trident"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Installare Astra Trident</div>-->
+         Installare Astra Trident
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Panoramica dell'installazione"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-get-started/kubernetes-deploy.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-get-started/kubernetes-deploy.html">
+        Panoramica dell'installazione
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Installare utilizzando l'operatore Trident"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Installare utilizzando l'operatore Trident</div>-->
+         Installare utilizzando l'operatore Trident
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Implementare manualmente l'operatore Trident (Standard)"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-get-started/kubernetes-deploy-operator.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-get-started/kubernetes-deploy-operator.html">
+        Implementare manualmente l'operatore Trident (Standard)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Implementare manualmente l'operatore Trident (offline)"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-get-started/kubernetes-deploy-operator-mirror.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-get-started/kubernetes-deploy-operator-mirror.html">
+        Implementare manualmente l'operatore Trident (offline)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="USA Trident Helm Chart (standard)"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-get-started/kubernetes-deploy-helm.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-get-started/kubernetes-deploy-helm.html">
+        USA Trident Helm Chart (standard)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="USA grafico Helm Trident (offline)"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-get-started/kubernetes-deploy-helm-mirror.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-get-started/kubernetes-deploy-helm-mirror.html">
+        USA grafico Helm Trident (offline)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Personalizzare l'installazione dell'operatore Trident"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-get-started/kubernetes-customize-deploy.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-get-started/kubernetes-customize-deploy.html">
+        Personalizzare l'installazione dell'operatore Trident
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Installare usando tridentctl"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Installare usando tridentctl</div>-->
+         Installare usando tridentctl
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Installare usando tridentctl"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-get-started/kubernetes-deploy-tridentctl.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-get-started/kubernetes-deploy-tridentctl.html">
+        Installare usando tridentctl
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Personalizzare l'installazione di tridentctl"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-get-started/kubernetes-customize-deploy-tridentctl.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html">
+        Personalizzare l'installazione di tridentctl
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilizzare Astra Trident"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Utilizzare Astra Trident</div>-->
+         Utilizzare Astra Trident
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Preparare il nodo di lavoro"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/worker-node-prep.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-use/worker-node-prep.html">
+        Preparare il nodo di lavoro
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurare e gestire i backend"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Configurare e gestire i backend</div>-->
+         Configurare e gestire i backend
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Panoramica"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/backends.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-use/backends.html">
+        Panoramica
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Azure NetApp Files"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Azure NetApp Files</div>-->
+         Azure NetApp Files
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Panoramica"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/anf.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/anf.html">
+        Panoramica
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Prepararsi alla configurazione"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/anf-prep.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/anf-prep.html">
+        Prepararsi alla configurazione
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Opzioni di configurazione ed esempi"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/anf-examples.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/anf-examples.html">
+        Opzioni di configurazione ed esempi
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud Volumes Service per Google Cloud"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/gcp.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-use/gcp.html">
+        Cloud Volumes Service per Google Cloud
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="NetApp HCI o SolidFire"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/element.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-use/element.html">
+        NetApp HCI o SolidFire
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Driver SAN ONTAP"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Driver SAN ONTAP</div>-->
+         Driver SAN ONTAP
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Panoramica"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/ontap-san.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/ontap-san.html">
+        Panoramica
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Prepararsi alla configurazione"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/ontap-san-prep.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/ontap-san-prep.html">
+        Prepararsi alla configurazione
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Opzioni di configurazione ed esempi"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/ontap-san-examples.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/ontap-san-examples.html">
+        Opzioni di configurazione ed esempi
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Driver NAS ONTAP"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Driver NAS ONTAP</div>-->
+         Driver NAS ONTAP
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Panoramica"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/ontap-nas.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/ontap-nas.html">
+        Panoramica
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Prepararsi alla configurazione"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/ontap-nas-prep.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/ontap-nas-prep.html">
+        Prepararsi alla configurazione
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Opzioni di configurazione ed esempi"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/ontap-nas-examples.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/ontap-nas-examples.html">
+        Opzioni di configurazione ed esempi
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Amazon FSX per NetApp ONTAP"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Amazon FSX per NetApp ONTAP</div>-->
+         Amazon FSX per NetApp ONTAP
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Panoramica"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/trident-fsx.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/trident-fsx.html">
+        Panoramica
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Integra Amazon FSX per ONTAP"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/trident-fsx-prep.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/trident-fsx-prep.html">
+        Integra Amazon FSX per ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Opzioni di configurazione ed esempi"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/trident-fsx-examples.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/trident-fsx-examples.html">
+        Opzioni di configurazione ed esempi
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurare il componente aggiuntivo Astra Trident EKS sul cluster EKS"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/trident-aws-addon.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/trident-aws-addon.html">
+        Configurare il componente aggiuntivo Astra Trident EKS sul cluster EKS
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Crea backend con kubectl"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/backend-kubectl.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-use/backend-kubectl.html">
+        Crea backend con kubectl
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestire i backend"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Gestire i backend</div>-->
+         Gestire i backend
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestire i backend con kubectl"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/backend_ops_kubectl.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/backend_ops_kubectl.html">
+        Gestire i backend con kubectl
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestire i backend con tridentctl"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/backend_ops_tridentctl.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/backend_ops_tridentctl.html">
+        Gestire i backend con tridentctl
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Passare da un'opzione di gestione back-end all'altra"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/backend_options.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-use/backend_options.html">
+        Passare da un'opzione di gestione back-end all'altra
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Creare e gestire classi di archiviazione"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Creare e gestire classi di archiviazione</div>-->
+         Creare e gestire classi di archiviazione
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Creare una classe di storage"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/create-stor-class.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-use/create-stor-class.html">
+        Creare una classe di storage
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestire le classi di storage"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/manage-stor-class.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-use/manage-stor-class.html">
+        Gestire le classi di storage
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Provisioning e gestione dei volumi"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Provisioning e gestione dei volumi</div>-->
+         Provisioning e gestione dei volumi
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Provisioning di un volume"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/vol-provision.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-use/vol-provision.html">
+        Provisioning di un volume
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Espandere i volumi"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/vol-expansion.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-use/vol-expansion.html">
+        Espandere i volumi
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Importa volumi"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/vol-import.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-use/vol-import.html">
+        Importa volumi
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Condividere i volumi NFS tra spazi dei nomi"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/volume-share.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-use/volume-share.html">
+        Condividere i volumi NFS tra spazi dei nomi
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilizzare la topologia CSI"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/csi-topology.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-use/csi-topology.html">
+        Utilizzare la topologia CSI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilizzare le snapshot"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/vol-snapshots.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-use/vol-snapshots.html">
+        Utilizzare le snapshot
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestisci e monitora Astra Trident"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Gestisci e monitora Astra Trident</div>-->
+         Gestisci e monitora Astra Trident
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Aggiorna Astra Trident"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Aggiorna Astra Trident</div>-->
+         Aggiorna Astra Trident
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Panoramica sull'aggiornamento"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-managing-k8s/upgrade-trident.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-managing-k8s/upgrade-trident.html">
+        Panoramica sull'aggiornamento
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Eseguire l'upgrade con l'operatore"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Eseguire l'upgrade con l'operatore</div>-->
+         Eseguire l'upgrade con l'operatore
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Comprendere il flusso di lavoro di aggiornamento dell'operatore"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-managing-k8s/upgrade-operator-overview.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-managing-k8s/upgrade-operator-overview.html">
+        Comprendere il flusso di lavoro di aggiornamento dell'operatore
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Eseguire l'upgrade con l'operatore"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-managing-k8s/upgrade-operator.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/it-it/trident/trident-managing-k8s/upgrade-operator.html">
+        Eseguire l'upgrade con l'operatore
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Upgrade con tridentctl"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-managing-k8s/upgrade-tridentctl.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-managing-k8s/upgrade-tridentctl.html">
+        Upgrade con tridentctl
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestisci Astra Trident usando tridentctl"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-managing-k8s/tridentctl.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-managing-k8s/tridentctl.html">
+        Gestisci Astra Trident usando tridentctl
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Monitorare Astra Trident"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-use/monitor-trident.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-use/monitor-trident.html">
+        Monitorare Astra Trident
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Disinstallare Astra Trident"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-managing-k8s/uninstall-trident.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-managing-k8s/uninstall-trident.html">
+        Disinstallare Astra Trident
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Astra Trident per Docker"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Astra Trident per Docker</div>-->
+         Astra Trident per Docker
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Prerequisiti per l'implementazione"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-docker/prereqs-docker.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-docker/prereqs-docker.html">
+        Prerequisiti per l'implementazione
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Implementare Astra Trident"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-docker/deploy-docker.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-docker/deploy-docker.html">
+        Implementare Astra Trident
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Aggiornare o disinstallare Trident"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-docker/upgrade-uninstall-docker.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-docker/upgrade-uninstall-docker.html">
+        Aggiornare o disinstallare Trident
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Lavorare con i volumi"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-docker/volumes-docker.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-docker/volumes-docker.html">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Lavorare con i volumi</div>-->
+         Lavorare con i volumi
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Opzioni di volume specifiche del driver"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-docker/volume-driver-options.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-docker/volume-driver-options.html">
+        Opzioni di volume specifiche del driver
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Raccogliere i log"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-docker/collect-logs-docker.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-docker/collect-logs-docker.html">
+        Raccogliere i log
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestire più istanze di Astra Trident"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-docker/multiple-instances-docker.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-docker/multiple-instances-docker.html">
+        Gestire più istanze di Astra Trident
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Opzioni di configurazione dello storage"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-docker/stor-config.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-docker/stor-config.html">
+        Opzioni di configurazione dello storage
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Problemi noti"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-docker/known-issues-docker.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-docker/known-issues-docker.html">
+        Problemi noti
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Best practice e consigli"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Best practice e consigli</div>-->
+         Best practice e consigli
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Implementazione"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-reco/deploy-reco.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-reco/deploy-reco.html">
+        Implementazione
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurazione dello storage"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-reco/storage-config-best-practices.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-reco/storage-config-best-practices.html">
+        Configurazione dello storage
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Integrazione di Astra Trident"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-reco/integrate-trident.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-reco/integrate-trident.html">
+        Integrazione di Astra Trident
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Protezione dei dati e disaster recovery"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-reco/backup.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-reco/backup.html">
+        Protezione dei dati e disaster recovery
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sicurezza"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Sicurezza</div>-->
+         Sicurezza
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Consigli sulla sicurezza"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-reco/security-reco.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-reco/security-reco.html">
+        Consigli sulla sicurezza
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Linux Unified Key Setup (LUKS)"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-reco/security-luks.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/it-it/trident/trident-reco/security-luks.html">
+        Linux Unified Key Setup (LUKS)
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Conoscenza e supporto"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Conoscenza e supporto</div>-->
+         Conoscenza e supporto
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FAQ"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/faq.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/faq.html">
+        FAQ
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Risoluzione dei problemi"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/troubleshooting.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/troubleshooting.html">
+        Risoluzione dei problemi
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Richiedi assistenza"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/get-help.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/get-help.html">
+        Richiedi assistenza
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Riferimento"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/it-it/trident/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/it-it/trident/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Riferimento</div>-->
+         Riferimento
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Porte Astra Trident"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-reference/ports.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-reference/ports.html">
+        Porte Astra Trident
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="API REST di Astra Trident"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-reference/rest-api.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-reference/rest-api.html">
+        API REST di Astra Trident
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Opzioni della riga di comando"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-reference/trident-cl.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-reference/trident-cl.html">
+        Opzioni della riga di comando
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kubernetes e Astra Trident Objects"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-reference/objects.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-reference/objects.html">
+        Kubernetes e Astra Trident Objects
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Pod Security Standards (PSS) e Security Context Constraints (SCC)"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/trident-reference/pod-security.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/it-it/trident/trident-reference/pod-security.html">
+        Pod Security Standards (PSS) e Security Context Constraints (SCC)
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Note legali"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/trident-rn.html" 
+      dale-entry-url="/legal-notices.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/it-it/trident/legal-notices.html">
+        Note legali
+      </a></li></ul>
+</div>
+<script>
+
+  $(".ie-sidebar-button").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    expandedLI = $('li.ie-sidebar-expand')
+
+    const li = $(this).closest("li");
+
+    const parentsLI = $(li).parents('li');
+
+    expandedLI.map(element => {
+      if (sidebarAccordion && !li.hasClass('ie-sidebar-expand') && jQuery.inArray(expandedLI[element], parentsLI) == -1) {
+        $(expandedLI[element]).toggleClass('ie-sidebar-expand');
+        $(expandedLI[element]).children("ul").animate({ height: 'toggle' }, 400, function () {
+          $(li).children("ul").toggleClass('ie-sidebar-open');
+
+        })
+      }
+
+    })
+
+    $(li).toggleClass('ie-sidebar-expand');
+    $(li).children("ul").animate({ height: 'toggle' }, 400, function () {
+      $(li).children("ul").toggleClass('ie-sidebar-open');
+    })
+  });
+
+
+  
+    $("li.ie-sidebar-selected").parents('ul').toggleClass("ie-sidebar-open");
+    $("li.ie-sidebar-selected").toggleClass("ie-sidebar-expand")
+    $("ul.ie-sidebar-open").parent().toggleClass("ie-sidebar-expand");
+    $("li.ie-sidebar-selected").children('ul').toggleClass("ie-sidebar-open")
+  
+  
+</script>
+    </div>
+</div>
+<script>
+
+    
+    let sidebarScrollTopPosition = 0;
+    $("#ie-new-toc").on("scroll", function () {
+        if (sidebarScrollTopPosition == 0) {
+            $.cookie("sidebarScroll", $("#ie-new-toc").scrollTop(), {
+                path: "/it-it/trident"
+            });
+        }
+
+        if ($("#ie-new-toc").scrollTop() > 0) {
+            $('#ie-product-identity-lockup').addClass('ie-addShadow');
+        } else {
+            $('#ie-product-identity-lockup').removeClass('ie-addShadow');
+        }
+    });
+
+    $(function () {
+        if ($.cookie("sidebarScroll")) {
+            $("#ie-new-toc").scrollTop($.cookie("sidebarScroll"));
+        }
+    });
+
+    function setSidebarBottom() {
+        const footerGap = PXinViewport($(".n-footer"));
+        document.getElementById("ie-new-sidebar").style.bottom = Math.max(0, footerGap) + "px";
+    }
+
+    window.onscroll = () => {
+        setSidebarBottom();
+    };
+
+    $("#sidebar-collapse").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        if ($.cookie("sidebarScroll")) {
+            sidebarScrollTopPosition = $.cookie("sidebarScroll");
+        }
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 350, function () {
+            $("#ie-new-sidebar-collapse").show();
+            $("#ie-new-sidebar").removeClass("open")
+            $("#ie-new-sidebar").addClass("close")
+            $("#ie-new-sidebar").removeAttr("style")
+        });
+        $(".ie-content-pane").animate({ width: (width + sidebarWidth), marginLeft: (marginLeft - sidebarWidth) }, 350, function () {
+            resizeContent()
+        })
+
+    });
+    $("#sidebar-expand").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 250, function () {
+            $('#ie-new-sidebar').css('display', 'flex');
+            $("#ie-new-sidebar-collapse").hide();
+            $("#ie-new-sidebar").removeClass("close")
+            $("#ie-new-sidebar").addClass("open")
+            setSidebarBottom();
+
+            if (sidebarScrollTopPosition != 0) {
+                $.cookie("sidebarScroll", sidebarScrollTopPosition, {
+                    path: "/it-it/trident"
+                })
+                $("#ie-new-toc").scrollTop(sidebarScrollTopPosition);
+                sidebarScrollTopPosition = 0;
+            }
+        });
+        $(".ie-content-pane").animate({ width: (width - sidebarWidth), 'marginLeft': (marginLeft + sidebarWidth) }, 250, function () {
+            resizeContent()
+        })
+    });
+    function resizeContent() {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        const rightNavbarVisible =  $("#ie-right-navbar").css('display') && $("#ie-right-navbar").css('display') != 'none';
+        const sidebarVisible = $("#ie-new-sidebar").css('display') != 'none';
+        const rightNavbarWidth = $("#ie-right-navbar").width();
+        const rightNavbarCollapseWidth = $("#ie-right-navbar-collapse").width();
+        const rightNavbarCollapseVisible = $("#ie-right-navbar-collapse").css('display') && $("#ie-right-navbar-collapse").css('display') != 'none';
+        
+        if (rightNavbarVisible && sidebarVisible) {
+            $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarWidth}px)`)
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+        } else if (sidebarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarCollapseWidth}px)`)
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar").width()}px)`)
+            }
+
+        } else if (rightNavbarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            $(".ie-content-pane").width(`calc(100% - ${rightNavbarWidth}px)`)
+        } else {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${rightNavbarCollapseWidth}px)`);
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar-collapse").width()}px) `);
+            }
+            
+        }
+    }
+    $(window).on("resize load", function () {
+        setSidebarBottom();
+        resizeContent()
+    });
+
+
+</script>
+
+<div class="ie-content-pane ie-component-detail-content ie-component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <!-- include utility.html -->
+      <div class="ie-info-disclaimer">
+    <span>
+      <div class="ie-info-disclaimer-container">
+        <div class="ie-info-disclaimer-icon">
+          <img src="/it-it/trident/images/notification-icons.svg" class="luci-icon" alt="" />
+        </div>
+        <div class="ie-info-disclaimer-content">
+          <span> La versione in lingua italiana fornita proviene da una traduzione automatica. Per eventuali incoerenze, fare riferimento alla versione in lingua inglese. </span>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+    </span>
+  </div><div class="ie-component-detail-heading-wrap">
+  <h1 class="ie-component-detail-heading">Novità</h1>
+</div>
+
+<div id="ie-byline">
+  
+<div class="page-details">
+    
+        
+            <time datetime="2024-03-07 06:23:03 +0000">03/07/2024</time>
+        
+    
+    
+        <span>Collaboratori
+        </span>
+    
+    
+        <a target="_blank" class="ext-link-indicator" href="/it-it/trident/feed.xml"><img width="21" height="21" src="/it-it/trident/images/rss-button.png" alt="RSS" title="Iscriviti agli aggiornamenti RSS per questa pagina" /></a>
+    
+</div>
+<div class="page-controls">
+    <div id="contribute-dropdown" class="custom-dropdown custom-dropdown-contrib" >
+        <div class="custom-dropdown-select custom-dropdown-select-contrib">
+        <span class="contrib-name"><img src="/it-it/trident/images/discuss-sm.svg" alt="" class="github-icon" />Suggerisci modifiche</span>
+        <img src="/it-it/trident/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown invisible" />
+        <img src="/it-it/trident/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup" />
+        </div>
+        <ul class="custom-dropdown-menu suggested-changes-dropdown"><li>
+                <a target="_blank" href="https://github.com/NetAppDocs/trident.it-it/issues/new?template=new-from-page.yml&page-url=https://docs.netapp.com/it-it/trident/trident-rn.html&page-title=Novità" class="page-nav-contribute-link" role="button">Richiedi modifiche alla documentazione</a>
+            </li><li> 
+                <a target="_blank" href="https://github.com/NetAppDocs/trident/blob/main/trident-rn.adoc" class="page-nav-contribute-link" role="button">Modifica questa pagina</a>
+            </li><li><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  >Scopri come collaborare</a></li>
+        </ul>
+    </div>
+    <div id="pdf-control-container">
+        <div class="n-pdf-header">
+            <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+                <img class="adobe-icon" src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>PDF<img src="/it-it/trident/images/dropdown-arrow.svg" class="custom-icon" alt="" />
+            </a>
+        </div>
+        <div class="n-pdf-body-container">
+            <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+                    
+                    
+                    
+                    <a target="_blank" class="pdf-download-link" href="/it-it/trident/pdfs/fullsite-sidebar/Documentazione_di_Astra_Trident_24_02.pdf" >
+                    <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>PDF del sito di questa documentazione</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Note_di_rilascio.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Note di rilascio
+          </a>
+          
+    <ul class="subfolders" id="pdf-remove" style="display:none;"><li class="active"></li></ul>
+  
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Inizia_subito.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Inizia subito
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Scopri_Astra_Trident.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Scopri Astra Trident
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Concetti.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Concetti
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Installare_Astra_Trident.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Installare Astra Trident
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Installare_utilizzando_l_operatore_Trident.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Installare utilizzando l'operatore Trident
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Installare_usando_tridentctl.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Installare usando tridentctl
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Utilizzare_Astra_Trident.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Utilizzare Astra Trident
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Configurare_e_gestire_i_backend.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Configurare e gestire i backend
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Azure_NetApp_Files.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Azure NetApp Files
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Driver_SAN_ONTAP.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Driver SAN ONTAP
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Driver_NAS_ONTAP.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Driver NAS ONTAP
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Amazon_FSX_per_NetApp_ONTAP.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Amazon FSX per NetApp ONTAP
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Gestire_i_backend.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Gestire i backend
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Creare_e_gestire_classi_di_archiviazione.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Creare e gestire classi di archiviazione
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Provisioning_e_gestione_dei_volumi.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Provisioning e gestione dei volumi
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Gestisci_e_monitora_Astra_Trident.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Gestisci e monitora Astra Trident
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Aggiorna_Astra_Trident.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Aggiorna Astra Trident
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Eseguire_l_upgrade_con_l_operatore.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Eseguire l'upgrade con l'operatore
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Astra_Trident_per_Docker.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Astra Trident per Docker
+          </a>
+          
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Lavorare_con_i_volumi.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Lavorare con i volumi
+          </a>
+          
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Best_practice_e_consigli.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Best practice e consigli
+          </a>
+          
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Sicurezza.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Sicurezza
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Conoscenza_e_supporto.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Conoscenza e supporto
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/it-it/trident/pdfs/sidebar/Riferimento.pdf" 
+            
+          >
+            <img src="/it-it/trident/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Riferimento
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+</li></ul>
+            <div class="zip-pdf-link-container" style="display: none;">   
+                <a href="#" id="zipPdf">
+                <img src="/it-it/trident/images/pdf-zip.png" alt="" width="16" height="16"/>
+                <pre>Raccolta di documenti PDF separati<span class="zip-size"></span></pre>
+                </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+        </div>
+    </div>        
+<script>
+$("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+$("#toggleButtonPdf").on('click', function(e){ 
+    e.stopPropagation();
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+});
+
+//hide is by clicking outside pdfcontainer
+$(document).on('click', function (e) {
+    if ($('#toggleContainerPdf').is(':visible') && !$('.n-pdf-body-container').is(e.target) && !$('.n-pdf-body-container').has(e.target).length)  {
+        
+        $("#toggleContainerPdf").toggle('display');
+        $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+        $("#toggleButtonPdf").removeClass("active");
+    }
+});
+</script>
+<script>
+    function getPdfLocation() {
+        const pdfLocation = window.scrollX + document.querySelector('#pdf-control-container').getBoundingClientRect().left
+        if (pdfLocation < 450) {
+            $(".n-pdf-body-container").addClass("block")
+        } else {
+            $(".n-pdf-body-container").removeClass("block")
+        }
+    
+    }
+    $( window ).on( "resize", function() {
+        getPdfLocation()
+} );
+</script>
+<script>
+    const pdfButtonWidth =  $(".n-pdf-header").width();
+    const pdfMenuWidth = $(".n-pdf-body-container").width();
+    $(".n-pdf-body-container").css('margin-left', `calc(${pdfButtonWidth - pdfMenuWidth}px)`);
+</script>
+</div>
+
+    
+
+</div>
+
+
+
+
+<div class="content-to-index">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Le Note di rilascio forniscono informazioni su nuove funzionalità, miglioramenti e correzioni di bug nell'ultima versione di Astra Trident.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/warning.svg" alt="Attenzione">
+</td>
+<td class="content">
+Il <code>tridentctl</code> Il file binario per Linux fornito nel file zip del programma di installazione è la versione testata e supportata. Tenere presente che il <code>macos</code> binario fornito in <code>/extras</code> parte del file zip non è testata o supportata.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="novità-del-2402">Novità del 24,02</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="miglioramenti">Miglioramenti</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Aggiunto supporto per Cloud Identity.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>AKS con ANF - Azure workload Identity verrà utilizzato come Cloud Identity.</p>
+</li>
+<li>
+<p>EKS con FSxN - il ruolo AWS IAM verrà utilizzato come identità Cloud.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Aggiunto il supporto per installare Astra Trident come add-on sul cluster EKS dalla console EKS.</p>
+</li>
+<li>
+<p>È stata aggiunta la possibilità di configurare e disattivare la riparazione automatica iSCSI (<a href="https://github.com/NetApp/trident/issues/864">"Problema n. 864"</a>).</p>
+</li>
+<li>
+<p>È stata aggiunta la personalità FSX ai driver ONTAP per consentire l'integrazione con AWS IAM e SecretsManager e per consentire ad Astra Trident di eliminare i volumi FSX con i backup (<a href="https://github.com/NetApp/trident/issues/453">"Problema n. 453"</a>).</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="kubernetes">Kubernetes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Aggiunto supporto per Kubernetes 1,29.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="correzioni">Correzioni</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Messaggi di avviso ACP fissi, quando ACP non è abilitato (<a href="https://github.com/NetApp/trident/issues/866">"Problema n. 866"</a>).</p>
+</li>
+<li>
+<p>È stato aggiunto un ritardo di 10 secondi prima di eseguire una suddivisione dei cloni durante l'eliminazione dello snapshot per i driver ONTAP, quando un clone è associato allo snapshot.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dipendenze">Dipendenze</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Rimosso il framework degli attestati in-toto dai manifesti di immagini multipiattaforma.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="modifiche-nel-2310">Modifiche nel 23,10</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="correzioni-2">Correzioni</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Espansione del volume fisso se la nuova dimensione richiesta è inferiore alle dimensioni del volume totale per i driver di storage ontap-nas e ontap-nas-flexgroup (<a href="https://github.com/NetApp/trident/issues/834" target="_blank" rel="noopener">"Problema n. 834"</a>).</p>
+</li>
+<li>
+<p>Dimensioni fisse del volume per visualizzare solo le dimensioni utilizzabili del volume durante l'importazione per i driver di storage ontap-nas e ontap-nas-flexgroup (<a href="https://github.com/NetApp/trident/issues/722" target="_blank" rel="noopener">"Problema n. 722"</a>).</p>
+</li>
+<li>
+<p>Conversione fissa del nome FlexVol per ONTAP-NAS-Economy.</p>
+</li>
+<li>
+<p>Risolto il problema di inizializzazione di Astra Trident su un nodo Windows quando il nodo viene riavviato.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="miglioramenti-2">Miglioramenti</h3>
+<div class="sect3">
+<h4 id="kubernetes-2">Kubernetes</h4>
+<div class="paragraph">
+<p>Aggiunto supporto per Kubernetes 1,28.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="astra-trident">Astra Trident</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Aggiunto supporto per l'utilizzo di Azure Managed Identity (AMI) con driver di storage Azure-netapp-Files.</p>
+</li>
+<li>
+<p>Aggiunto supporto per NVMe su TCP per il driver ONTAP-SAN.</p>
+</li>
+<li>
+<p>Aggiunta la possibilità di sospendere il provisioning di un volume quando il backend è impostato sullo stato sospeso dall'utente (<a href="https://github.com/NetApp/trident/issues/558" target="_blank" rel="noopener">"Problema n. 558"</a>).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="funzionalità-avanzate-disponibili-in-astra-control">Funzionalità avanzate disponibili in Astra Control</h3>
+<div class="paragraph">
+<p>Con Astra Trident 23,10, un nuovo componente software chiamato Astra Control Provivisioner è disponibile per gli utenti con licenza Astra Control. Questo provisioner fornisce l'accesso a un superset di funzionalità avanzate di gestione e provisioning dello storage, oltre a quelle supportate da Astra Trident. Per la release 23,10, queste funzionalità includono:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Funzionalità di backup e ripristino per le applicazioni con backend di storage con garanzia di driver basati sulla convenienza di ontap-nas</p>
+</li>
+<li>
+<p>Maggiore sicurezza backend dello storage con crittografia Kerberos 5</p>
+</li>
+<li>
+<p>Recovery di dati con snapshot</p>
+</li>
+<li>
+<p>Miglioramenti di SnapMirror</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="https://docs.netapp.com/us-en/astra-control-center/release-notes/whats-new.html" target="_blank" rel="noopener">"Scopri di più su Astra Control Provisioner."</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="modifiche-nel-23-07-1">Modifiche nel 23.07.1</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Kubernetes:</strong> eliminazione di daemonset fissa per supportare aggiornamenti senza downtime (.<a href="https://github.com/NetApp/trident/issues/740" target="_blank" rel="noopener">"Problema n. 740"</a>).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="modifiche-nel-2307">Modifiche nel 23,07</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="correzioni-3">Correzioni</h3>
+<div class="sect3">
+<h4 id="kubernetes-3">Kubernetes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Risolto l'aggiornamento Trident per ignorare i vecchi pod bloccati in stato di terminazione (<a href="https://github.com/NetApp/trident/issues/740" target="_blank" rel="noopener">"Problema n. 740"</a>).</p>
+</li>
+<li>
+<p>Aggiunta tolleranza alla definizione "versione-pod-tridente-transitorio" (<a href="https://github.com/NetApp/trident/issues/795" target="_blank" rel="noopener">"Problema n. 795"</a>).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="astra-trident-2">Astra Trident</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Sono state risolte le richieste ZAPI ONTAP per garantire che i numeri di serie LUN vengano interrogati quando si ottengono gli attributi LUN per identificare e correggere i dispositivi iSCSI fantasma durante le operazioni di staging dei nodi.</p>
+</li>
+<li>
+<p>Correzione della gestione degli errori nel codice del driver di archiviazione (<a href="https://github.com/NetApp/trident/issues/816" target="_blank" rel="noopener">"Problema n. 816"</a>).</p>
+</li>
+<li>
+<p>Risolto il ridimensionamento delle quote quando si utilizzano i driver ONTAP con use-REST=true.</p>
+</li>
+<li>
+<p>Creazione di cloni di LUN fissi in ontap-san-economy.</p>
+</li>
+<li>
+<p>Ripristina campo informazioni di pubblicazione da <code>rawDevicePath</code> a. <code>devicePath</code>; aggiunta della logica per popolare e recuperare (in alcuni casi) <code>devicePath</code> campo.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="miglioramenti-3">Miglioramenti</h3>
+<div class="sect3">
+<h4 id="kubernetes-4">Kubernetes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Aggiunto supporto per l'importazione di snapshot pre-sottoposte a provisioning.</p>
+</li>
+<li>
+<p>Distribuzione ridotta al minimo e permessi linux daemesort (<a href="https://github.com/NetApp/trident/issues/817" target="_blank" rel="noopener">"Problema n. 817"</a>).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="astra-trident-3">Astra Trident</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Non è più necessario specificare il campo dello stato per volumi e snapshot "online".</p>
+</li>
+<li>
+<p>Aggiorna lo stato backend se il backend ONTAP è offline (<a href="https://github.com/NetApp/trident/issues/801" target="_blank" rel="noopener">"Numeri 801"</a>, <a href="https://github.com/NetApp/trident/issues/543" target="_blank" rel="noopener">"N. 543"</a>).</p>
+</li>
+<li>
+<p>Il numero di serie LUN viene sempre recuperato e pubblicato durante il flusso di lavoro ControllerVolumePublish.</p>
+</li>
+<li>
+<p>Aggiunta logica aggiuntiva per verificare il numero di serie e le dimensioni del dispositivo multipath iSCSI.</p>
+</li>
+<li>
+<p>Verifica aggiuntiva dei volumi iSCSI per assicurare che il dispositivo multipath corretto non venga messo in fase.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="miglioramento-sperimentale">Miglioramento sperimentale</h4>
+<div class="paragraph">
+<p>Aggiunto il supporto dell'anteprima tecnica per NVMe su TCP per il driver ONTAP-SAN.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="documentazione">Documentazione</h4>
+<div class="paragraph">
+<p>Sono stati apportati molti miglioramenti a livello organizzativo e di formattazione.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dipendenze-2">Dipendenze</h3>
+<div class="sect3">
+<h4 id="kubernetes-5">Kubernetes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Supporto rimosso per istantanee v1beta1.</p>
+</li>
+<li>
+<p>Rimosso il supporto per volumi e classi di storage pre-CSI.</p>
+</li>
+<li>
+<p>Aggiornato il numero minimo di Kubernetes supportati a 1,22.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="modifiche-nel-2304">Modifiche nel 23,04</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/important.svg" alt="Importante">
+</td>
+<td class="content">
+Force volume Detach for ONTAP-SAN-* Volumes è supportato solo con le versioni di Kubernetes con la funzionalità non-Graceal Node Shutdown abilitata. La funzione Force Detach deve essere attivata al momento dell'installazione utilizzando <code>--enable-force-detach</code> Flag del programma di installazione Trident.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="correzioni-4">Correzioni</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixed Trident Operator to Use IPv6 localhost for installation when specified in spec.</p>
+</li>
+<li>
+<p>Sono stati corretti i permessi del ruolo del cluster Trident Operator per essere sincronizzati con i permessi del bundle (<a href="https://github.com/NetApp/trident/issues/799" target="_blank" rel="noopener">"Numero 799"</a>).</p>
+</li>
+<li>
+<p>Risolto il problema relativo al collegamento di un volume di blocco raw su più nodi in modalità RWX.</p>
+</li>
+<li>
+<p>Supporto corretto della clonazione FlexGroup e importazione di volumi per volumi SMB.</p>
+</li>
+<li>
+<p>Risolto il problema a causa del quale il controller Trident non poteva spegnersi immediatamente (<a href="https://github.com/NetApp/trident/issues/811">"Numero 811"</a>).</p>
+</li>
+<li>
+<p>Aggiunta correzione per elencare tutti i nomi di igroup associati a un LUN specificato fornito con i driver ontap-san-*.</p>
+</li>
+<li>
+<p>Aggiunta di una correzione per consentire l'esecuzione di processi esterni fino al completamento.</p>
+</li>
+<li>
+<p>Corretto errore di compilazione per l'architettura s390 (<a href="https://github.com/NetApp/trident/issues/537">"Numero 537"</a>).</p>
+</li>
+<li>
+<p>Corretto livello di registrazione errato durante le operazioni di montaggio del volume (<a href="https://github.com/NetApp/trident/issues/781">"Numero 781"</a>).</p>
+</li>
+<li>
+<p>Risolto il potenziale errore di asserzione del tipo (<a href="https://github.com/NetApp/trident/issues/802">"Numero 802"</a>).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="miglioramenti-4">Miglioramenti</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Kubernetes:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Aggiunto supporto per Kubernetes 1.27.</p>
+</li>
+<li>
+<p>Aggiunto supporto per l'importazione di volumi LUKS.</p>
+</li>
+<li>
+<p>Aggiunto supporto per la modalità di accesso al PVC ReadWriteOncePod.</p>
+</li>
+<li>
+<p>Aggiunto il supporto per force Detach per volumi ONTAP-SAN-* durante scenari di non-Graged Node Shutdown.</p>
+</li>
+<li>
+<p>Tutti i volumi ONTAP-SAN-* ora utilizzeranno igroups per nodo. Le LUN verranno mappate solo agli igroups mentre vengono pubblicate attivamente su tali nodi per migliorare la nostra posizione in materia di sicurezza. I volumi esistenti verranno opportunamente trasferiti al nuovo schema di igroup quando Trident stabilisce che è sicuro farlo senza influire sui carichi di lavoro attivi (<a href="https://github.com/NetApp/trident/issues/758">"Numero 758"</a>).</p>
+</li>
+<li>
+<p>Sicurezza Trident migliorata grazie alla pulizia degli igroups gestiti da Trident inutilizzati dai backend ONTAP-SAN-*.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Aggiunto supporto per volumi SMB con Amazon FSX ai driver di storage ontap-nas-Economy e ontap-nas-Flexgroup.</p>
+</li>
+<li>
+<p>Supporto aggiunto per le condivisioni SMB con i driver di storage ontap-nas, ontap-nas-Economy e ontap-nas-Flexgroup.</p>
+</li>
+<li>
+<p>Aggiunto supporto per i nodi arm64 (<a href="https://github.com/NetApp/trident/issues/732">"Numero 732"</a>).</p>
+</li>
+<li>
+<p>Miglioramento della procedura di shutdown di Trident disattivando prima i server API (<a href="https://github.com/NetApp/trident/issues/811">"Numero 811"</a>).</p>
+</li>
+<li>
+<p>Aggiunto supporto di build multipiattaforma per host Windows e arm64 a Makefile; vedere BUILD.MD.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dipendenze-3">Dipendenze</h3>
+<div class="paragraph">
+<p><strong>Kubernetes:</strong> gli igroups con ambito backend non verranno più creati durante la configurazione dei driver ontap-san e ontap-san-Economy (<a href="https://github.com/NetApp/trident/issues/758">"Numero 758"</a>).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cambiamenti-nel-23-01-1">Cambiamenti nel 23.01.1</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="correzioni-5">Correzioni</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Fixed Trident Operator to Use IPv6 localhost for installation when specified in spec.</p>
+</li>
+<li>
+<p>Sono stati corretti i permessi del ruolo del cluster Trident Operator per essere sincronizzati con le autorizzazioni del bundle <a href="https://github.com/NetApp/trident/issues/799" target="_blank" rel="noopener">"Numero 799"</a>.</p>
+</li>
+<li>
+<p>Aggiunta di una correzione per consentire l'esecuzione di processi esterni fino al completamento.</p>
+</li>
+<li>
+<p>Risolto il problema relativo al collegamento di un volume di blocco raw su più nodi in modalità RWX.</p>
+</li>
+<li>
+<p>Supporto corretto della clonazione FlexGroup e importazione di volumi per volumi SMB.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cambiamenti-nel-23-01">Cambiamenti nel 23.01</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/important.svg" alt="Importante">
+</td>
+<td class="content">
+Kubernetes 1.27 è ora supportato in Trident. Aggiornare Astra Trident prima di aggiornare Kubernetes.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="correzioni-6">Correzioni</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Kubernetes: Aggiunta di opzioni per escludere la creazione della policy di sicurezza Pod per correggere le installazioni Trident tramite Helm (<a href="https://github.com/NetApp/trident/issues/794" target="_blank" rel="noopener">"Numeri 783, 794"</a>).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="miglioramenti-5">Miglioramenti</h3>
+<div class="ulist">
+<div class="title">Kubernetes</div>
+<ul>
+<li>
+<p>Aggiunto supporto per Kubernetes 1.26.</p>
+</li>
+<li>
+<p>Migliore utilizzo delle risorse RBAC di Trident (<a href="https://github.com/NetApp/trident/issues/757" target="_blank" rel="noopener">"Numero 757"</a>).</p>
+</li>
+<li>
+<p>Aggiunta dell'automazione per rilevare e correggere sessioni iSCSI interrotte o obsolete sui nodi host.</p>
+</li>
+<li>
+<p>Aggiunto supporto per l'espansione dei volumi crittografati con LUKS.</p>
+</li>
+<li>
+<p>Kubernetes: Aggiunto il supporto della rotazione delle credenziali per i volumi crittografati LUKS.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Astra Trident</div>
+<ul>
+<li>
+<p>Aggiunto supporto per volumi SMB con Amazon FSX per ONTAP al driver di storage ontap-nas.</p>
+</li>
+<li>
+<p>Aggiunto supporto per le autorizzazioni NTFS quando si utilizzano volumi SMB.</p>
+</li>
+<li>
+<p>Aggiunto supporto per pool di storage per volumi GCP con livello di servizio CVS.</p>
+</li>
+<li>
+<p>Aggiunto supporto per l'utilizzo opzionale di flexgroupAggregateList durante la creazione di FlexGroups con il driver di storage ontap-nas-flexgroup.</p>
+</li>
+<li>
+<p>Performance migliorate per il driver di storage ontap-nas-economy durante la gestione di più FlexVol.</p>
+</li>
+<li>
+<p>Aggiornamenti dataLIF abilitati per tutti i driver di storage NAS ONTAP.</p>
+</li>
+<li>
+<p>È stata aggiornata la convenzione di denominazione di Trident Deployment e DemonSet per riflettere il sistema operativo del nodo host.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dipendenze-4">Dipendenze</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Kubernetes: Aggiornato il numero minimo di Kubernetes supportati a 1.21.</p>
+</li>
+<li>
+<p>Non specificare più le LIF dei dati durante la configurazione <code>ontap-san</code> oppure <code>ontap-san-economy</code> driver.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cambiamenti-nel-22-10">Cambiamenti nel 22.10</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Prima di eseguire l'aggiornamento ad Astra Trident 22.10, è necessario leggere le seguenti informazioni critiche.</strong></p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/warning.svg" alt="Attenzione">
+</td>
+<td class="content">
+<div class="title">&lt;strong&gt; informazioni sulle &lt;/strong&gt; di Astra Trident 22.10</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Kubernetes 1.25 è ora supportato in Trident. Devi aggiornare Astra Trident alla versione 22.10 prima di eseguire l'aggiornamento a Kubernetes 1.25.</p>
+</li>
+<li>
+<p>Astra Trident applica ora rigorosamente l'utilizzo della configurazione multipathing negli ambienti SAN, con un valore consigliato di <code>find_multipaths: no</code> nel file multipath.conf.</p>
+<div class="paragraph">
+<p>Utilizzo di configurazioni o utilizzo non multipathing di <code>find_multipaths: yes</code> oppure <code>find_multipaths: smart</code> il valore nel file multipath.conf causerà errori di montaggio. Trident ha raccomandato l'uso di <code>find_multipaths: no</code> dalla release 21.07.</p>
+</div>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="correzioni-7">Correzioni</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Risolto il problema specifico del backend ONTAP creato con <code>credentials</code> il campo non riesce a entrare in linea durante l'aggiornamento 22.07.0 (<a href="https://github.com/NetApp/trident/issues/759" target="_blank" rel="noopener">"Numero 759"</a>).</p>
+</li>
+<li>
+<p><strong>Docker:</strong> risolto un problema che causava il mancato avvio del plug-in del volume Docker in alcuni ambienti (<a href="https://github.com/NetApp/trident/issues/548" target="_blank" rel="noopener">"Numero 548"</a> e. <a href="https://github.com/NetApp/trident/issues/760" target="_blank" rel="noopener">"Numero 760"</a>).</p>
+</li>
+<li>
+<p>Risolto il problema SLM specifico dei backend SAN ONTAP per garantire la pubblicazione solo di un sottoinsieme di dati LIF appartenenti ai nodi di reporting.</p>
+</li>
+<li>
+<p>Risolto il problema delle performance in cui si verificavano scansioni non necessarie per LUN iSCSI durante il collegamento di un volume.</p>
+</li>
+<li>
+<p>Sono stati rimossi tentativi granulari all'interno del workflow iSCSI di Astra Trident per accelerare i guasti e ridurre gli intervalli di tentativi esterni.</p>
+</li>
+<li>
+<p>Risolto un problema a causa del quale si verificava un errore durante lo spurgo di un dispositivo iSCSI quando il dispositivo multipath corrispondente era già stato svuotato.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="miglioramenti-6">Miglioramenti</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Kubernetes:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Aggiunto supporto per Kubernetes 1.25. Devi aggiornare Astra Trident alla versione 22.10 prima di eseguire l'aggiornamento a Kubernetes 1.25.</p>
+</li>
+<li>
+<p>Aggiunta di un ServiceAccount, ClusterRole e ClusterRoleBinding separato per la distribuzione Trident e DemonSet per consentire futuri miglioramenti delle autorizzazioni.</p>
+</li>
+<li>
+<p>Supporto aggiunto per <a href="https://docs.netapp.com/us-en/trident/trident-use/volume-share.html">"condivisione di volumi tra spazi dei nomi"</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Tutti i Trident <code>ontap-*</code> I driver di storage ora funzionano con l'API REST di ONTAP.</p>
+</li>
+<li>
+<p>Aggiunto nuovo operatore yaml (<code>bundle_post_1_25.yaml</code>) senza un <code>PodSecurityPolicy</code> Per supportare Kubernetes 1.25.</p>
+</li>
+<li>
+<p>Aggiunto <a href="https://docs.netapp.com/us-en/trident/trident-reco/security-luks.html">"Supporto per volumi con crittografia LUKS"</a> per <code>ontap-san</code> e. <code>ontap-san-economy</code> driver di storage.</p>
+</li>
+<li>
+<p>Aggiunto supporto per nodi Windows Server 2019.</p>
+</li>
+<li>
+<p>Aggiunto <a href="https://docs.netapp.com/us-en/trident/trident-use/anf.html">"Supporto per volumi SMB su nodi Windows"</a> tramite il <code>azure-netapp-files</code> driver di storage.</p>
+</li>
+<li>
+<p>Il rilevamento automatico dello switchover MetroCluster per i driver ONTAP è ora generalmente disponibile.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dipendenze-5">Dipendenze</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Kubernetes:</strong> aggiornato il numero minimo di Kubernetes supportati a 1.20.</p>
+</li>
+<li>
+<p>Driver ADS (Astra Data Store) rimosso.</p>
+</li>
+<li>
+<p>Supporto rimosso per <code>yes</code> e. <code>smart</code> opzioni per <code>find_multipaths</code> Durante la configurazione del multipathing del nodo di lavoro per iSCSI.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cambiamenti-nel-22-07">Cambiamenti nel 22.07</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="correzioni-8">Correzioni</h3>
+<div class="paragraph">
+<p><strong>Kubernetes</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Risolto il problema della gestione dei valori booleani e numerici per il selettore di nodi durante la configurazione di Trident con Helm o l'operatore Trident. (<a href="https://github.com/NetApp/trident/issues/700" target="_blank" rel="noopener">"Numero GitHub 700"</a>)</p>
+</li>
+<li>
+<p>Risolto il problema di gestione degli errori dal percorso non CHAP, in modo che il kubelet ritenta in caso di errore. <a href="https://github.com/NetApp/trident/issues/736" target="_blank" rel="noopener">"Numero GitHub 736"</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="miglioramenti-7">Miglioramenti</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Transizione da k8s.gcr.io a registry.k8s.io come registro predefinito per le immagini CSI</p>
+</li>
+<li>
+<p>I volumi ONTAP-SAN ora utilizzeranno igroups per nodo e mapperanno solo le LUN agli igroups mentre vengono attivamente pubblicate su tali nodi per migliorare la nostra posizione di sicurezza. I volumi esistenti verranno opportunamente trasferiti al nuovo schema di igroup quando Astra Trident stabilisce che è sicuro farlo senza influire sui carichi di lavoro attivi.</p>
+</li>
+<li>
+<p>Incluso un ResourceQuota con installazioni Trident per garantire che Trident DemonSet venga pianificato quando il consumo di PriorityClass è limitato per impostazione predefinita.</p>
+</li>
+<li>
+<p>Aggiunto il supporto per le funzioni di rete al driver Azure NetApp Files. (<a href="https://github.com/NetApp/trident/issues/717" target="_blank" rel="noopener">"Numero GitHub 717"</a>)</p>
+</li>
+<li>
+<p>Aggiunta dell'anteprima tecnica per il rilevamento automatico dello switchover MetroCluster ai driver ONTAP. (<a href="https://github.com/NetApp/trident/issues/228" target="_blank" rel="noopener">"Numero GitHub 228"</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dipendenze-6">Dipendenze</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Kubernetes:</strong> aggiornato il numero minimo di Kubernetes supportati a 1.19.</p>
+</li>
+<li>
+<p>La configurazione back-end non consente più l'utilizzo di più tipi di autenticazione in una singola configurazione.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rimozioni">Rimozioni</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Il driver CVS AWS (obsoleto dal 22.04) è stato rimosso.</p>
+</li>
+<li>
+<p>Kubernetes</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Rimozione della funzionalità SYS_ADMIN non necessaria dai pod di nodi.</p>
+</li>
+<li>
+<p>Riduce il nodeprep fino alle semplici informazioni host e al rilevamento attivo del servizio per confermare al meglio che i servizi NFS/iSCSI sono disponibili sui nodi di lavoro.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="documentazione-2">Documentazione</h3>
+<div class="paragraph">
+<p>Un nuovo <a href="https://docs.netapp.com/us-en/trident/trident-reference/pod-security.html">"Standard di sicurezza Pod"</a> (PSS) è stata aggiunta la sezione che descrive i permessi abilitati da Astra Trident durante l'installazione.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cambiamenti-nel-22-04">Cambiamenti nel 22.04</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>NetApp continua a migliorare e migliorare i propri prodotti e servizi. Ecco alcune delle funzionalità più recenti di Astra Trident. Per le versioni precedenti, fare riferimento a. <a href="https://docs.netapp.com/us-en/trident/earlier-versions.html">"Versioni precedenti della documentazione"</a>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/important.svg" alt="Importante">
+</td>
+<td class="content">
+Se si esegue l'aggiornamento da una release precedente di Trident e si utilizza Azure NetApp Files, il <code>location</code> il parametro di configurazione è ora un campo singleton obbligatorio.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="correzioni-9">Correzioni</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Analisi migliorata dei nomi degli iniziatori iSCSI. (<a href="https://github.com/NetApp/trident/issues/681" target="_blank" rel="noopener">"Numero GitHub 681"</a>)</p>
+</li>
+<li>
+<p>Risolto il problema a causa del quale i parametri della classe di storage CSI non erano consentiti. (<a href="https://github.com/NetApp/trident/issues/598" target="_blank" rel="noopener">"Numero GitHub 598"</a>)</p>
+</li>
+<li>
+<p>È stata corretta la dichiarazione della chiave duplicata in Trident CRD. (<a href="https://github.com/NetApp/trident/issues/671" target="_blank" rel="noopener">"Numero GitHub 671"</a>)</p>
+</li>
+<li>
+<p>Sono stati corretti registri Snapshot CSI imprecisi. (<a href="https://github.com/NetApp/trident/issues/629" target="_blank" rel="noopener">"Numero GitHub 629"</a>))</p>
+</li>
+<li>
+<p>Risolto il problema di annullamento della pubblicazione dei volumi sui nodi cancellati. (<a href="https://github.com/NetApp/trident/issues/691" target="_blank" rel="noopener">"Numero GitHub 691"</a>)</p>
+</li>
+<li>
+<p>Aggiunta la gestione delle incoerenze del file system sui dispositivi a blocchi. (<a href="https://github.com/NetApp/trident/issues/656" target="_blank" rel="noopener">"Numero GitHub 656"</a>)</p>
+</li>
+<li>
+<p>Risolto il problema di recupero delle immagini con supporto automatico durante l'impostazione di <code>imageRegistry</code> flag durante l'installazione. (<a href="https://github.com/NetApp/trident/issues/715" target="_blank" rel="noopener">"Numero GitHub 715"</a>)</p>
+</li>
+<li>
+<p>Risolto il problema a causa del quale il driver Azure NetApp Files non riusciva a clonare un volume con più regole di esportazione.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="miglioramenti-8">Miglioramenti</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Le connessioni in entrata agli endpoint sicuri di Trident ora richiedono almeno TLS 1.3. (<a href="https://github.com/NetApp/trident/issues/698" target="_blank" rel="noopener">"Numero GitHub 698"</a>)</p>
+</li>
+<li>
+<p>Trident aggiunge ora gli header HSTS alle risposte dai suoi endpoint sicuri.</p>
+</li>
+<li>
+<p>Trident ora tenta di attivare automaticamente la funzione di permessi unix di Azure NetApp Files.</p>
+</li>
+<li>
+<p><strong>Kubernetes</strong>: Trident demonset ora funziona con la classe di priorità system-node-critical. (<a href="https://github.com/NetApp/trident/issues/694" target="_blank" rel="noopener">"Numero GitHub 694"</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rimozioni-2">Rimozioni</h3>
+<div class="paragraph">
+<p>Il driver e-Series (disattivato dal 20.07) è stato rimosso.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cambiamenti-nel-22-01-1">Cambiamenti nel 22.01.1</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="correzioni-10">Correzioni</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Risolto il problema di annullamento della pubblicazione dei volumi sui nodi cancellati. (<a href="https://github.com/NetApp/trident/issues/691">"Numero GitHub 691"</a>)</p>
+</li>
+<li>
+<p>Risolto il problema dell'accesso ai campi nil per lo spazio aggregato nelle risposte API ONTAP.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cambiamenti-nel-22-01-0">Cambiamenti nel 22.01.0</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="correzioni-11">Correzioni</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Kubernetes:</strong> aumenta il tempo di tentativi di backoff per la registrazione dei nodi per cluster di grandi dimensioni.</p>
+</li>
+<li>
+<p>Risolto il problema per cui il driver Azure-netapp-Files poteva essere confuso da più risorse con lo stesso nome.</p>
+</li>
+<li>
+<p>Le LIF dati ONTAP SAN IPv6 ora funzionano se specificate con parentesi quadre.</p>
+</li>
+<li>
+<p>Risolto il problema a causa del quale il tentativo di importare un volume già importato restituisce EOF lasciando PVC in stato di attesa. (<a href="https://github.com/NetApp/trident/issues/489">"Numero GitHub 489"</a>)</p>
+</li>
+<li>
+<p>Risolto il problema relativo al rallentamento delle prestazioni di Astra Trident quando vengono creati più di 32 snapshot su un volume SolidFire.</p>
+</li>
+<li>
+<p>Ha sostituito SHA-1 con SHA-256 nella creazione del certificato SSL.</p>
+</li>
+<li>
+<p>Corretto il driver Azure NetApp Files per consentire nomi di risorse duplicati e limitare le operazioni a un'unica posizione.</p>
+</li>
+<li>
+<p>Corretto il driver Azure NetApp Files per consentire nomi di risorse duplicati e limitare le operazioni a un'unica posizione.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="miglioramenti-9">Miglioramenti</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Miglioramenti di Kubernetes:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Aggiunto supporto per Kubernetes 1.23.</p>
+</li>
+<li>
+<p>Aggiungi le opzioni di pianificazione per i pod Trident se installati tramite Trident Operator o Helm. (<a href="https://github.com/NetApp/trident/issues/651" target="_blank" rel="noopener">"Numero GitHub 651"</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Consenti volumi cross-area nel driver GCP. (<a href="https://github.com/NetApp/trident/issues/633" target="_blank" rel="noopener">"Numero GitHub 633"</a>)</p>
+</li>
+<li>
+<p>Aggiunto il supporto per l'opzione 'unixPermissions' ai volumi Azure NetApp Files. (<a href="https://github.com/NetApp/trident/issues/666" target="_blank" rel="noopener">"Numero GitHub 666"</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dipendenze-7">Dipendenze</h3>
+<div class="paragraph">
+<p>L'interfaccia REST di Trident può ascoltare e servire solo a 127.0.0.1 o [::1] indirizzi</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cambiamenti-nel-21-10-1">Cambiamenti nel 21.10.1</h2>
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/warning.svg" alt="Attenzione">
+</td>
+<td class="content">
+La versione v21.10.0 presenta un problema che può mettere il controller Trident in uno stato CrashLoopBackOff quando un nodo viene rimosso e quindi aggiunto di nuovo al cluster Kubernetes. Questo problema è stato risolto in v21.10.1 (problema di GitHub 669).
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="correzioni-12">Correzioni</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Correzione della potenziale condizione di gara durante l'importazione di un volume su un backend CVS GCP, con conseguente mancata importazione.</p>
+</li>
+<li>
+<p>Risolto un problema che può portare il controller Trident in uno stato CrashLoopBackOff quando un nodo viene rimosso e quindi aggiunto di nuovo al cluster Kubernetes (problema GitHub 669).</p>
+</li>
+<li>
+<p>Risolto il problema a causa del quale le SVM non venivano più rilevate se non è stato specificato alcun nome SVM (problema di GitHub 612).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cambiamenti-nel-21-10-0">Cambiamenti nel 21.10.0</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="correzioni-13">Correzioni</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Risolto il problema a causa del quale i cloni dei volumi XFS non potevano essere montati sullo stesso nodo del volume di origine (problema di GitHub 514).</p>
+</li>
+<li>
+<p>Risolto il problema a causa del quale Astra Trident ha registrato un errore irreversibile durante lo shutdown (problema di GitHub 597).</p>
+</li>
+<li>
+<p>Correzioni relative a Kubernetes:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Restituisce lo spazio utilizzato di un volume come restoreDim minimo quando si creano snapshot con <code>ontap-nas</code> e. <code>ontap-nas-flexgroup</code> Driver (problema GitHub 645).</p>
+</li>
+<li>
+<p>Risolto il problema in cui <code>Failed to expand filesystem</code> L'errore è stato registrato dopo il ridimensionamento del volume (problema di GitHub 560).</p>
+</li>
+<li>
+<p>Risolto il problema di blocco di un pod <code>Terminating</code> (Problema 572 di GitHub).</p>
+</li>
+<li>
+<p>Risolto il caso in cui un <code>ontap-san-economy</code> FlexVol potrebbe essere pieno di LUN snapshot (problema GitHub 533).</p>
+</li>
+<li>
+<p>Risolto il problema del programma di installazione YAML personalizzato con immagini diverse (problema GitHub 613).</p>
+</li>
+<li>
+<p>Corretto il calcolo delle dimensioni dello snapshot (problema di GitHub 611).</p>
+</li>
+<li>
+<p>Risolto il problema per cui tutti gli installatori di Astra Trident potevano identificare Kubernetes semplici come OpenShift (problema di GitHub 639).</p>
+</li>
+<li>
+<p>Risolto il problema dell'operatore Trident per interrompere la riconciliazione se il server API Kubernetes non è raggiungibile (problema di GitHub 599).</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="miglioramenti-10">Miglioramenti</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Supporto aggiunto per <code>unixPermissions</code> Opzione per volumi di performance GCP-CVS.</p>
+</li>
+<li>
+<p>Supporto aggiunto per volumi CVS ottimizzati per la scalabilità in GCP nell'intervallo da 600 GiB a 1 TIB.</p>
+</li>
+<li>
+<p>Miglioramenti relativi a Kubernetes:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Aggiunto supporto per Kubernetes 1.22.</p>
+</li>
+<li>
+<p>Ha consentito all'operatore Trident e al grafico Helm di lavorare con Kubernetes 1.22 (problema GitHub 628).</p>
+</li>
+<li>
+<p>Aggiunta immagine operatore a. <code>tridentctl</code> Comando Images (problema GitHub 570).</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="miglioramenti-sperimentali">Miglioramenti sperimentali</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Aggiunto supporto per la replica dei volumi in <code>ontap-san</code> driver.</p>
+</li>
+<li>
+<p>Aggiunto il supporto REST di <strong>TECH preview</strong> per <code>ontap-nas-flexgroup</code>, <code>ontap-san</code>, e. <code>ontap-nas-economy</code> driver.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="problemi-noti">Problemi noti</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I problemi noti identificano i problemi che potrebbero impedire l'utilizzo corretto del prodotto.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Quando si aggiorna un cluster Kubernetes dalla versione 1.24 alla 1.25 o successiva su cui è installato Astra Trident, è necessario aggiornare values.yaml per impostarlo <code>excludePodSecurityPolicy</code> a. <code>true</code> oppure aggiungi <code>--set excludePodSecurityPolicy=true</code> al <code>helm upgrade</code> prima di aggiornare il cluster.</p>
+</li>
+<li>
+<p>Astra Trident ora impone un vuoto <code>fsType</code> (<code>fsType=""</code>) per i volumi che non dispongono di <code>fsType</code> Specificato nella loro StorageClass. Quando si lavora con Kubernetes 1.17 o versioni successive, Trident supporta la fornitura di un vuoto <code>fsType</code> Per volumi NFS. Per i volumi iSCSI, è necessario impostare <code>fsType</code> Sulla StorageClass quando si applica un <code>fsGroup</code> Utilizzo di un contesto di protezione.</p>
+</li>
+<li>
+<p>Quando si utilizza un backend tra più istanze di Astra Trident, ciascun file di configurazione backend deve avere un file diverso <code>storagePrefix</code> Valore per backend ONTAP o utilizzare un altro <code>TenantName</code> Per backend SolidFire. Astra Trident non è in grado di rilevare i volumi creati da altre istanze di Astra Trident. Il tentativo di creare un volume esistente su backend ONTAP o SolidFire ha esito positivo, perché Astra Trident considera la creazione del volume come un'operazione di idempotent. Se <code>storagePrefix</code> oppure <code>TenantName</code> non differire, potrebbero esserci collisioni di nomi per i volumi creati sullo stesso backend.</p>
+</li>
+<li>
+<p>Durante l'installazione di Astra Trident (utilizzando <code>tridentctl</code> O l'operatore Trident) e utilizzando <code>tridentctl</code> Per gestire Astra Trident, è necessario assicurarsi di <code>KUBECONFIG</code> variabile di ambiente impostata. Questo è necessario per indicare il cluster Kubernetes che <code>tridentctl</code> dovrebbe lavorare contro. Quando si lavora con ambienti Kubernetes multipli, è necessario assicurarsi che il <code>KUBECONFIG</code> il file viene fornito in modo accurato.</p>
+</li>
+<li>
+<p>Per eseguire la rigenerazione dello spazio online per iSCSI PVS, il sistema operativo sottostante sul nodo di lavoro potrebbe richiedere il passaggio delle opzioni di montaggio al volume. Questo vale per le istanze RHEL/RedHat CoreOS, che richiedono <code>discard</code> <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems" target="_blank" rel="noopener">"opzione di montaggio"</a>; Assicurarsi che il modello Discard mountOption sia incluso nel[<code>StorageClass</code>^] per supportare lo scarto del blocco online.</p>
+</li>
+<li>
+<p>Se si dispone di più istanze di Astra Trident per cluster Kubernetes, Astra Trident non è in grado di comunicare con altre istanze e non è in grado di rilevare altri volumi creati, il che comporta un comportamento imprevisto e non corretto se più di un'istanza viene eseguita all'interno di un cluster. Dovrebbe essere presente una sola istanza di Astra Trident per cluster Kubernetes.</p>
+</li>
+<li>
+<p>Se basato su Astra Trident <code>StorageClass</code> Gli oggetti vengono cancellati da Kubernetes mentre Astra Trident è offline, Astra Trident non rimuove le classi di storage corrispondenti dal proprio database quando torna online. È necessario eliminare queste classi di storage utilizzando <code>tridentctl</code> O l'API REST.</p>
+</li>
+<li>
+<p>Se un utente elimina un PV fornito da Astra Trident prima di eliminare il PVC corrispondente, Astra Trident non elimina automaticamente il volume di backup. Rimuovere il volume tramite <code>tridentctl</code> O l'API REST.</p>
+</li>
+<li>
+<p>ONTAP non è in grado di eseguire contemporaneamente il provisioning di più FlexGroup alla volta, a meno che il set di aggregati non sia univoco per ogni richiesta di provisioning.</p>
+</li>
+<li>
+<p>Quando si utilizza Astra Trident su IPv6, è necessario specificare <code>managementLIF</code> e. <code>dataLIF</code> nella definizione di backend tra parentesi quadre. Ad esempio, <code>[fd20:8b1e:b258:2000:f816:3eff:feec:0]</code>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="Nota">
+</td>
+<td class="content">
+Impossibile specificare <code>dataLIF</code> Su un backend SAN ONTAP. Astra Trident rileva tutte le LIF iSCSI disponibili e le utilizza per stabilire la sessione multipath.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Se si utilizza <code>solidfire-san</code> Driver con OpenShift 4.5, assicurarsi che i nodi di lavoro sottostanti utilizzino MD5 come algoritmo di autenticazione CHAP. Gli algoritmi CHAP conformi a FIPS sicuri SHA1, SHA-256 e SHA3-256 sono disponibili con Element 12.7.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="trova-ulteriori-informazioni">Trova ulteriori informazioni</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/NetApp/trident" target="_blank" rel="noopener">"Astra Trident GitHub"</a></p>
+</li>
+<li>
+<p><a href="https://netapp.io/persistent-storage-provisioner-for-kubernetes/" target="_blank" rel="noopener">"Blog di Astra Trident"</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  
+  <!-- Start Page Toolbar -->
+<div id="ie-right-navbar-collapse" class="close">
+  <img id="navbar-expand" class="ie-searchbox-icon" src="/it-it/trident/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-right-navbar" class="open">
+  <div id="right-navbar-collapse">
+    <img src="/it-it/trident/images/double_arrow.svg" alt="" />
+  </div>
+  <div class="page-nav-container">
+    <nav class="page-nav-fixed">
+      <div class="page-nav-title">In questa pagina</div>
+      <div class="page-nav-links">
+        <ul class="page-nav-inner" id="page-menu"></ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<script>
+  resizeContent();
+  function setRightBarHeight() {
+    var h = 0;
+
+    // header 1
+    h += PXinViewport($('.n-footer'));
+    h += PXinViewport($('#ie-new-header'));
+
+    if ($('#ie-right-navbar').length) {
+      $('#ie-right-navbar').css({ height: `calc(100vh - ${h}px)` });
+    }
+    if ($('.page-nav-links').length) {
+      h += 98;
+      $('.page-nav-links').css({ height: `calc(100vh - ${h}px)` });
+    }
+  }
+
+  $(document).ready(function () {
+    // PAGE NAV - Click
+    const MASTHEAD_OFFSET = 65;
+    const SECTIONS = $("main h2, main h3");
+    let calculateActiveSection = false;
+    setTimeout(() => {
+      calculateActiveSection = true;
+    }, 100)
+
+    $(".page-nav__link").click(function (event) {
+      calculateActiveSection = false;
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      var target = $(event.target);
+      target.addClass('page-nav__link--active');
+      location.hash = event.target.hash;
+      setTimeout(() => {
+        calculateActiveSection = true;
+      }, 100)
+
+    });
+
+    // PAGE NAV - Scroll
+    $(window).on('resize scroll', function () {
+      if (calculateActiveSection) {
+        var activeSection = getActiveSection(SECTIONS, MASTHEAD_OFFSET);
+        if (activeSection) {
+          var activeHref = $(activeSection).attr('id');
+          $(".page-nav__link").removeClass('page-nav__link--active');
+          $("#page-menu a[href=#" + activeHref + "]").addClass('page-nav__link--active');
+          if (location.hash != "#" + activeHref) {
+            if (history.replaceState) {
+              history.replaceState(null, null, "#" + activeHref);
+            }
+          }
+        }
+      }
+    });
+
+    $(".n-pdf-button").click(function () {
+      $(this).toggleClass("active");
+    });
+
+    $.fn.isVisibleAndInViewport = function () {
+      var elementTop = $(this).offset().top;
+      var elementBottom = elementTop + $(this).outerHeight();
+
+      var viewportTop = $(window).scrollTop();
+      var viewportBottom = viewportTop + $(window).height();
+
+      return elementBottom > viewportTop && elementTop < viewportBottom && $(this).is(":visible");
+    };
+
+
+    $(window).on('resize scroll', function () {
+      setRightBarHeight();
+    });
+
+    $(window).trigger('resize');
+
+
+  });
+
+  $("#right-navbar-collapse").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 350, function () {
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+    });
+    $(".ie-content-pane").animate({ width: (width + rightNavbarWidth) }, 350, function () {
+      resizeContent()
+      setSidebarBottom();
+    })
+
+  });
+  $("#navbar-expand").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 250, function () {
+      $("#ie-right-navbar-collapse").removeClass("open")
+      $("#ie-right-navbar-collapse").addClass("close")
+      $("#ie-right-navbar").removeClass("close")
+      $("#ie-right-navbar").addClass("open")
+      setRightBarHeight();
+      setSidebarBottom();
+    });
+    $(".ie-content-pane").animate({ width: (width - rightNavbarWidth) }, 250, function () {
+      resizeContent()
+    })
+  });
+
+  function navbarResize() {
+    const rightNavbarResized = $("#ie-right-navbar-collapse").hasClass('resized');
+    if (window.innerWidth < 1024) {
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+      $("#ie-right-navbar").removeAttr("style")
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar-collapse").addClass("resized")
+    } else {
+      if (rightNavbarResized) {
+        $('#ie-right-navbar').removeClass('close');
+        $('#ie-right-navbar').addClass('open');
+        $("#ie-right-navbar-collapse").removeClass("resized")
+        $("#ie-right-navbar-collapse").removeClass("open")
+        $("#ie-right-navbar-collapse").addClass("close")
+      }
+    }
+    resizeContent()
+  }
+  navbarResize();
+  $(window).on('resize load', function () {
+    navbarResize()
+  });
+
+  function getActiveSection(sections, offset) {
+    var scrollPosition = $(window).scrollTop() + offset + 5;
+    var activeSection;
+    for (var i = 0; i < sections.length; i++) {
+      var el = $(sections[i]);
+      var activePosition = el.offset().top;
+      if (activePosition > scrollPosition) {
+        break;
+      }
+
+      activeSection = sections[i];
+    }
+
+    return activeSection;
+  }
+
+  $("a[href*=#]:not([href=#])").click(function () {
+    setTimeout(() => {
+      $(window).trigger('scroll');
+    }, 105)
+  })
+
+  const hashOnLoad = location.href.split("#")[1];
+  setTimeout(function () {
+    if (hashOnLoad) {
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      $("#page-menu a[href=#" + hashOnLoad + "]").addClass('page-nav__link--active');
+    }
+  }, 100)
+
+</script>
+
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+        <div class="n-footer__left">
+          <li class="n-footer__copyright-link">
+                    <a href="https://www.netapp.com/company/legal/copyright/">© 2024 NetApp, Inc.</a>
+          </li>
+        </div>
+        <div class="n-footer__center">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">Condizioni per l'utilizzo</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">Direttiva sulla privacy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Direttiva sui cookie</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Impostazioni cookie</a>
+            </li>
+          </ul>
+       </div>
+        <div class="n-footer__right">
+              <li class="n-footer__copyright-link">
+                <a target="_self" href="javascript:netapp_mailto()">Invia feedback su questa pagina</a>
+              </li>
+        </div>
+     </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/it-it/trident/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/it-it/trident/js/prism.js'></script>
+      <script type="text/javascript" src='/it-it/trident/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/it-it/trident/js/ie-tabbed-blocks.js'></script>
+    <script src='/it-it/trident/js/ie-sidebar.js'></script>
+  </body>
+
+</html>
