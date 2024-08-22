@@ -152,7 +152,7 @@ Questo valore non può essere modificato o omesso.
 
 
 | `limitVolumeSize`  a| 
-Dimensione massima del volume richiedente e dimensione massima del volume padre qtree. *Per `ontap-nas-economy` Driver, questa opzione limita inoltre le dimensioni dei FlexVol creati*.
+Dimensioni massime del volume richiudibile.
  a| 
 `300g`
 
@@ -170,6 +170,11 @@ Il numero massimo di qtree per FlexVol deve essere compreso nell'intervallo [50,
 | `sanType` | *Supportato per `ontap-san` solo conducente.*
 
 Utilizzare per selezionare `iscsi` Per iSCSI o. `nvme` Per NVMe/TCP. | `iscsi` se vuoto 
+
+
+| `limitVolumePoolSize` | *Supportato `ontap-san-economy` `ontap-san-economy` solo per i driver e.* Limita le dimensioni degli FlexVol in driver ONTAP ONTAP-nas-Economy e ONTAP-SAN-Economy.  a| 
+`300g`
+
 |===
 Sono disponibili opzioni predefinite per evitare di doverle specificare su ogni volume creato:
 

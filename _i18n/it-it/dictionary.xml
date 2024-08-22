@@ -318,7 +318,6 @@
   <block id="0ee19d4be17e297cfb39c398cb268b5e" category="paragraph">Questo valore non può essere modificato o omesso.</block>
   <block id="07d41595da50d0c332f22902db2f76d8" category="paragraph">*Disponibile solo per<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> driver*.</block>
   <block id="684a16b15a51568bcdd546607176bd57" category="paragraph"><block ref="e77a1bd34ff5793aca292b38d23bc2c9" prefix="" category="inline-code"></block></block>
-  <block id="5c5adadf8175fd69d4af9bfdb608c42c" category="paragraph">Dimensione massima del volume richiedente e dimensione massima del volume padre qtree. *Per<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> Driver, questa opzione limita inoltre le dimensioni dei FlexVol creati*.</block>
   <block id="98ce75f2128e52057c9dbf00a9eb2736" category="paragraph"><block ref="f07e606cfe25ac6fb07d9c4af941d9a2" prefix="" category="inline-code"></block></block>
   <block id="07f6b23cad3d6da54012935ff972affe" category="cell"><block ref="8b08152c170e621ffcc8bfac7c4d6785" prefix="" category="inline-code"></block></block>
   <block id="1ae6e291c93a6d5962af8004aecd9c4c" category="paragraph"><block ref="94f6d7e04a4d452035300f18b984988c" prefix="" category="inline-code"></block></block>
@@ -4325,4 +4324,11 @@ Fare riferimento a. <block ref="5cdb093a3afb814148505ae9813b18af" category="inli
   <block id="23fa813a6884f33dc0d2070ae5260e6a" category="section-title">Dettagli del driver di Google Cloud NetApp Volumes</block>
   <block id="5fb193ca50759ba375397b4085f1116f" category="paragraph">Astra Trident fornisce il<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> driver per comunicare con il cluster. Le modalità di accesso supportate sono: _ReadWriteOnce_ (RWO), _ReadOnlyMany_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).</block>
   <block id="5ab9649a1218ec1b35bfb38efbeaea76" category="cell"><block ref="94594b2ccbc8e0d220ad37504461650b" prefix="" category="inline-code"></block></block>
+  <block id="74d08e13aea757b8172499f067668443" category="paragraph">Dimensioni massime del volume richiudibile.</block>
+  <block id="f14a3ef36727dfbbea91c1d6b3fdbede" category="cell"><block ref="c8f83e727d4a4255a6485c24776e86bb" prefix="" category="inline-code"></block></block>
+  <block id="33fefa32caf35cd4691465f3592a0539" category="cell">*Supportato<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block><block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> solo per i driver e.* Limita le dimensioni degli FlexVol in driver ONTAP ONTAP-nas-Economy e ONTAP-SAN-Economy.</block>
+  <block id="1b75c146ff0568d5fc11072b08cfe580" category="section-title">Limitare le dimensioni massime dei FlexVol creati da Trident</block>
+  <block id="913d5950907a31c9d3ea6cd0a3b6a524" category="paragraph">Per configurare le dimensioni massime per i FlexVol utilizzati come pool per i driver ONTAP-san-Economy e ONTAP-nas-Economy, utilizzare il<block ref="c8f83e727d4a4255a6485c24776e86bb" prefix=" " category="inline-code"></block> parametro nella<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> definizione.</block>
+  <block id="ae7be78c2d3d933d426bc82820accfae" category="cell">Dimensioni FlexVol massime richiedibili quando si utilizzano qtree in backend ONTAP-nas-Economy.</block>
+  <block id="d981d675ba14b9478a2c2da5c7df780b" category="cell">Dimensioni massime degli FlexVol richiedibili quando si utilizzano le LUN di un backend ONTAP-san-economy.</block>
 </blocks>

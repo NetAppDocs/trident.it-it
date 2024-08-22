@@ -163,6 +163,9 @@ La crittografia LUKS non è supportata per NVMe/TCP. | ""
 
 
 | `nameTemplate` | Modello per creare nomi di volume personalizzati. | "" 
+
+
+| `limitVolumePoolSize` | Dimensioni massime degli FlexVol richiedibili quando si utilizzano le LUN di un backend ONTAP-san-economy. | "" (non applicato per impostazione predefinita) 
 |===
 
 
