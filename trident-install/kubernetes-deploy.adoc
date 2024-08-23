@@ -115,12 +115,6 @@ Quando la versione di Kubernetes del cluster viene aggiornata a una versione sup
 NOTE: Se il cluster viene aggiornato a una versione non supportata, l'operatore impedisce l'installazione di Astra Trident. Se Astra Trident è già stato installato con l'operatore, viene visualizzato un avviso per indicare che Astra Trident è installato su una versione di Kubernetes non supportata.
 
 ====
-.<strong> consente di gestire i cluster utilizzando BlueXP (in precedenza Cloud Manager) </strong>
-[%collapsible]
-====
-Con link:https://docs.netapp.com/us-en/cloud-manager-kubernetes/concept-kubernetes.html["Astra Trident con BlueXP"^], È possibile eseguire l'aggiornamento alla versione più recente di Astra Trident, aggiungere e gestire classi di storage e connetterle agli ambienti di lavoro, nonché eseguire il backup di volumi persistenti utilizzando Cloud Backup Service. BlueXP supporta l'implementazione di Astra Trident utilizzando l'operatore Trident, manualmente o utilizzando Helm.
-
-====
 
 
 === Utilizzo di `tridentctl`
