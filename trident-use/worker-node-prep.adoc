@@ -112,6 +112,13 @@ NOTE: Ad esempio, se i segreti CHAP sono stati ruotati sul controller di storage
 * LUN mancanti
 
 
+*Punti da considerare prima di aggiornare Trident*
+
+* Se sono in uso solo gli igroup per nodo (introdotti in 23,04+), la riparazione automatica iSCSI avvierà la riccansione SCSI per tutti i dispositivi nel bus SCSI.
+* Se sono in uso solo gli igroup con ambito backend (deprecati da 23,04), la riparazione automatica iSCSI avvierà la riccansione SCSI per gli ID LUN esatti nel bus SCSI.
+* Se si utilizza una combinazione di igroup per nodo e igroup con ambito backend, la riparazione automatica iSCSI avvierà la riccansione SCSI per gli ID LUN esatti nel bus SCSI.
+
+
 
 
 === Installare gli strumenti iSCSI
