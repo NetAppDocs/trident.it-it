@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/vol-expansion.html 
 keywords: volumes, on-demand volume snapshots, expand volumes, iscsci volumes, nfs volumes, expand, expansion 
-summary: Astra Trident offre agli utenti Kubernetes la possibilità di espandere i propri volumi dopo la loro creazione. Informazioni sulle configurazioni richieste per espandere i volumi iSCSI e NFS. 
+summary: Trident offre agli utenti Kubernetes la possibilità di espandere i propri volumi dopo che sono stati creati. Informazioni sulle configurazioni richieste per espandere i volumi iSCSI e NFS. 
 ---
 = Espandere i volumi
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Astra Trident offre agli utenti Kubernetes la possibilità di espandere
 
 
 [role="lead"]
-Astra Trident offre agli utenti Kubernetes la possibilità di espandere i propri volumi dopo la loro creazione. Informazioni sulle configurazioni richieste per espandere i volumi iSCSI e NFS.
+Trident offre agli utenti Kubernetes la possibilità di espandere i propri volumi dopo che sono stati creati. Informazioni sulle configurazioni richieste per espandere i volumi iSCSI e NFS.
 
 
 
@@ -65,7 +65,7 @@ spec:
       storage: 1Gi
   storageClassName: ontap-san
 ----
-Astra Trident crea un volume persistente (PV) e lo associa a questo PVC (Persistent Volume Claim).
+Trident crea un volume persistente (PV) e lo associa a questa dichiarazione di volume persistente (PVC).
 
 [listing]
 ----
@@ -83,8 +83,8 @@ pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            Delete     
 
 Collegare il PV a un pod affinché venga ridimensionato. Esistono due scenari quando si ridimensiona un PV iSCSI:
 
-* Se il PV è collegato a un pod, Astra Trident espande il volume sul backend dello storage, esegue di nuovo la scansione del dispositivo e ridimensiona il file system.
-* Quando si tenta di ridimensionare un PV non collegato, Astra Trident espande il volume sul backend dello storage. Dopo aver associato il PVC a un pod, Trident esegue nuovamente la scansione del dispositivo e ridimensiona il file system. Kubernetes aggiorna quindi le dimensioni del PVC dopo il completamento dell'operazione di espansione.
+* Se il PV è collegato a un pod, Trident espande il volume sul backend dello storage, esegue una nuova scansione del dispositivo e ridimensiona il file system.
+* Quando si tenta di ridimensionare un PV non collegato, Trident espande il volume sul backend dello storage. Dopo aver associato il PVC a un pod, Trident esegue nuovamente la scansione del dispositivo e ridimensiona il file system. Kubernetes aggiorna quindi le dimensioni del PVC dopo il completamento dell'operazione di espansione.
 
 
 In questo esempio, viene creato un pod che utilizza `san-pvc`.
@@ -151,7 +151,7 @@ spec:
 
 === Fase 5: Convalidare l'espansione
 
-È possibile verificare che l'espansione funzioni correttamente controllando le dimensioni del volume PVC, PV e Astra Trident:
+È possibile convalidare il corretto funzionamento dell'espansione controllando le dimensioni del PVC, del PV e del volume Trident:
 
 [listing]
 ----
@@ -172,7 +172,7 @@ tridentctl get volumes -n trident
 
 == Espandere un volume NFS
 
-Astra Trident supporta l'espansione dei volumi per NFS PVS su cui è stato eseguito il provisioning `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `gcp-cvs`, e. `azure-netapp-files` back-end.
+Trident supporta l'espansione del volume per i PVS NFS forniti su `ontap-nas`, , `ontap-nas-economy` `ontap-nas-flexgroup` , `gcp-cvs` e `azure-netapp-files` backend.
 
 
 
@@ -213,7 +213,7 @@ spec:
       storage: 20Mi
   storageClassName: ontapnas
 ----
-Astra Trident deve creare un PV NFS 20MiB per questo PVC:
+Trident dovrebbe creare un PV NFS 20MiB per questo PVC:
 
 [listing]
 ----
@@ -265,7 +265,7 @@ spec:
 
 === Fase 4: Convalidare l'espansione
 
-È possibile verificare che il ridimensionamento funzioni correttamente controllando le dimensioni del volume PVC, PV e Astra Trident:
+È possibile convalidare il ridimensionamento corretto controllando le dimensioni del PVC, PV e del volume Trident:
 
 [listing]
 ----

@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-concepts/virtual-storage-pool.html 
-keywords: virtual pools, astra trident, backends 
-summary: I pool virtuali forniscono un livello di astrazione tra i backend di storage di Astra Trident e le StorageClasses di Kubernetes. Consentono a un amministratore di definire aspetti quali posizione, performance e protezione per ciascun backend in modo comune, indipendente dal backend, senza che una StorageClass specifichi il tipo di backend fisico, pool di back-end o backend da utilizzare per soddisfare i criteri desiderati. 
+keywords: virtual pools, Trident, backends 
+summary: I pool virtuali forniscono un layer di astrazione tra i backend di storage di Trident e lo storage Classes di Kubernetes. Consentono a un amministratore di definire aspetti quali posizione, performance e protezione per ciascun backend in modo comune, indipendente dal backend, senza che una StorageClass specifichi il tipo di backend fisico, pool di back-end o backend da utilizzare per soddisfare i criteri desiderati. 
 ---
 = Pool virtuali
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: I pool virtuali forniscono un livello di astrazione tra i backend di st
 
 
 [role="lead"]
-I pool virtuali forniscono un livello di astrazione tra i backend di storage Astra Trident e Kubernetes `StorageClasses`. Consentono a un amministratore di definire aspetti quali posizione, performance e protezione per ciascun backend in modo comune e indipendente dal backend senza creare un `StorageClass` specificare il tipo di backend fisico, pool di backend o backend da utilizzare per soddisfare i criteri desiderati.
+I pool virtuali forniscono un layer di astrazione tra i backend dello storage Trident e Kubernetes `StorageClasses`. Essi consentono agli amministratori di definire aspetti, quali posizione, performance e protezione per ogni backend in modo comune e indipendente dal backend, senza specificare il tipo di backend `StorageClass` fisico, pool di backend o backend da utilizzare per soddisfare i criteri desiderati.
 
 
 
 == Informazioni sui pool virtuali
 
-L'amministratore dello storage può definire pool virtuali su qualsiasi backend Astra Trident in un file di definizione JSON o YAML.
+L'amministratore dello storage può definire pool virtuali su qualsiasi backend Trident in un file di definizione JSON o YAML.
 
 image::virtual_storage_pools.png[Mostra il diagramma concettuale dei pool virtuali.]
 

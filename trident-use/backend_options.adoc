@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/backend_options.html 
 keywords: backends, storage system, anf, cvs for aws, cvs for gcp, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, kubectl, tridentctl, backend management options 
-summary: Scopri i diversi modi di gestire i backend in Astra Trident. 
+summary: Scopri i diversi modi di gestire i backend in Trident. 
 ---
 = Passare da un'opzione di gestione back-end all'altra
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Scopri i diversi modi di gestire i backend in Astra Trident.
 
 
 [role="lead"]
-Scopri i diversi modi di gestire i backend in Astra Trident.
+Scopri i diversi modi di gestire i backend in Trident.
 
 
 
@@ -36,7 +36,7 @@ Questo si applica ai seguenti scenari:
 * Nuovi backend creati con `tridentctl`, mentre altri `TridentBackendConfig` esistono oggetti.
 
 
-In entrambi gli scenari, i backend continueranno a essere presenti, con Astra Trident che pianifica i volumi e li gestisce. Gli amministratori possono scegliere tra due opzioni:
+In entrambi gli scenari, i backend continueranno a essere presenti, con Trident che pianifica i volumi e li utilizza. Gli amministratori possono scegliere tra due opzioni:
 
 * Continuare a utilizzare `tridentctl` per gestire i back-end creati utilizzando l'it.
 * Collegare i backend creati con `tridentctl` a un nuovo `TridentBackendConfig` oggetto. In questo modo, i backend verranno gestiti utilizzando `kubectl` e non `tridentctl`.
@@ -44,7 +44,7 @@ In entrambi gli scenari, i backend continueranno a essere presenti, con Astra Tr
 
 Per gestire un backend preesistente utilizzando `kubectl`, sarà necessario creare un `TridentBackendConfig` che si collega al back-end esistente. Ecco una panoramica sul funzionamento di questo sistema:
 
-. Crea un Kubernetes Secret. Il segreto contiene le credenziali che Astra Trident deve comunicare con il cluster/servizio di storage.
+. Crea un Kubernetes Secret. Il segreto contiene le credenziali di cui Trident ha bisogno per comunicare con il cluster/servizio di archiviazione.
 . Creare un `TridentBackendConfig` oggetto. Contiene specifiche relative al cluster/servizio di storage e fa riferimento al segreto creato nel passaggio precedente. È necessario specificare parametri di configurazione identici (ad esempio `spec.backendName`, `spec.storagePrefix`, `spec.storageDriverName`e così via). `spec.backendName` deve essere impostato sul nome del backend esistente.
 
 
@@ -235,7 +235,7 @@ Dall'output, si vede che `TridentBackendConfig` È stato creato correttamente ed
 
 === Fase 1: Confermare `deletionPolicy` è impostato su `retain`
 
-Diamo un'occhiata al valore di `deletionPolicy`. Questo valore deve essere impostato su `retain`. In questo modo si garantisce che quando si verifica un `TridentBackendConfig` La CR viene eliminata, la definizione di back-end rimane presente e può essere gestita con `tridentctl`.
+Diamo un'occhiata al valore di `deletionPolicy`. Questo deve essere impostato su `retain`. In questo modo, quando si elimina un `TridentBackendConfig` CR, la definizione di backend sarà ancora presente e potrà essere gestita con `tridentctl`.
 
 [listing]
 ----
@@ -273,4 +273,4 @@ tridentctl get backend ontap-san-backend -n trident
 | ontap-san-backend | ontap-san      | 81abcb27-ea63-49bb-b606-0a5315ac5f82 | online |      33 |
 +-------------------+----------------+--------------------------------------+--------+---------+
 ----
-Al momento dell'eliminazione di `TridentBackendConfig` Astra Trident lo rimuove senza eliminare il backend stesso.
+All'eliminazione dell' `TridentBackendConfig`oggetto, Trident lo rimuove semplicemente senza eliminare effettivamente il backend stesso.

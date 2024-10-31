@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/multiple-instances-docker.html 
-keywords: deploy, astra trident, docker, trident for docker, managed plugin, trident instances, alias 
-summary: 'Sono necessarie più istanze di Astra Trident quando si desidera avere più configurazioni di storage disponibili contemporaneamente. La chiave per più istanze è assegnare loro nomi diversi utilizzando l"opzione --alias con il plug-in containerizzato o --volume-driver quando si crea un"istanza di Trident sull"host.' 
+keywords: deploy, Trident, docker, trident for docker, managed plugin, trident instances, alias 
+summary: 'Sono necessarie più istanze di Trident quando si desidera avere più configurazioni di storage disponibili contemporaneamente. La chiave per più istanze è assegnare loro nomi diversi utilizzando l"opzione --alias con il plug-in containerizzato o --volume-driver quando si crea un"istanza di Trident sull"host.' 
 ---
-= Gestire più istanze di Astra Trident
+= Gestione di più istanze di Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

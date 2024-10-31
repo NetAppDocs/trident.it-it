@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/collect-logs-docker.html 
-keywords: deploy, astra trident, trident for docker, docker, logs, binary, managed plugin 
+keywords: deploy, Trident, trident for docker, docker, logs, binary, managed plugin 
 summary: È possibile raccogliere i registri per ottenere assistenza nella risoluzione dei problemi. Il metodo utilizzato per raccogliere i log varia in base alla modalità di esecuzione del plug-in Docker. 
 ---
 = Raccogliere i log
@@ -19,7 +19,7 @@ summary: È possibile raccogliere i registri per ottenere assistenza nella risol
 == Raccogliere i registri per la risoluzione dei problemi
 
 .Fasi
-. Se si esegue Astra Trident utilizzando il metodo di plugin gestito consigliato (ad esempio, utilizzando `docker plugin` e visualizzarli come segue:
+. Se si esegue Trident utilizzando il metodo del plugin gestito consigliato (ad esempio, utilizzando `docker plugin` i comandi), visualizzarli come segue:
 +
 [listing]
 ----

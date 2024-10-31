@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-concepts/snapshots.html 
-keywords: provisioning, astra trident 
-summary: Scopri di più su come Astra Trident gestisce la creazione di snapshot di volumi per i suoi driver. 
+keywords: provisioning, Trident 
+summary: Scopri di più su come Trident gestisce la creazione di snapshot di volume per i driver. 
 ---
 = Snapshot dei volumi
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Scopri di più su come Astra Trident gestisce la creazione di snapshot 
 
 
 [role="lead"]
-Scopri di più su come Astra Trident gestisce la creazione di snapshot di volumi per i suoi driver.
+Scopri di più su come Trident gestisce la creazione di snapshot di volume per i driver.
 
 
 
@@ -22,7 +22,7 @@ Scopri di più su come Astra Trident gestisce la creazione di snapshot di volumi
 * Per `ontap-nas-flexgroup` Driver, ogni volume persistente (PV) viene mappato su un FlexGroup. Di conseguenza, le snapshot dei volumi vengono create come snapshot NetApp FlexGroup. La tecnologia NetApp Snapshot offre più stabilità, scalabilità, ripristinabilità e performance rispetto alle tecnologie Snapshot concorrenti. Queste copie Snapshot sono estremamente efficienti sia nel tempo necessario per crearle che nello spazio di storage.
 * Per `ontap-san-economy` Driver, PVS mappano le LUN create su FlexVol condivisi. VolumeSnapshots di PVS si ottengono eseguendo FlexClone del LUN associato. La tecnologia ONTAP FlexClone consente di creare copie anche dei set di dati più estesi in maniera quasi istantanea. Le copie condividono i blocchi di dati con i genitori, senza consumare storage ad eccezione di quanto richiesto per i metadati.
 * Per `solidfire-san` Driver, ogni PV viene mappato su un LUN creato nel software NetApp Element/cluster NetApp HCI. Le istantanee Volumesono rappresentate da snapshot degli elementi del LUN sottostante. Queste snapshot sono copie point-in-time e occupano solo una piccola quantità di risorse e spazio di sistema.
-* Quando si lavora con `ontap-nas` e. `ontap-san` Driver, le snapshot ONTAP sono copie point-in-time del FlexVol e occupano spazio sul FlexVol stesso. Ciò può comportare una riduzione dello spazio scrivibile nel volume durante la creazione/pianificazione delle istantanee. Un modo semplice per risolvere questo problema consiste nell'aumentare il volume ridimensionandolo tramite Kubernetes. Un'altra opzione consiste nell'eliminare gli snapshot non più necessari. Quando un'istantanea Volumecreata tramite Kubernetes viene eliminata, Astra Trident elimina l'istantanea ONTAP associata. È possibile eliminare anche gli snapshot ONTAP non creati tramite Kubernetes.
+* Quando si lavora con `ontap-nas` i driver e `ontap-san`, le snapshot ONTAP sono copie point-in-time della FlexVol e consumano spazio sulla FlexVol stessa. Ciò può comportare una riduzione dello spazio scrivibile nel volume durante la creazione/pianificazione delle istantanee. Un modo semplice per risolvere questo problema consiste nell'aumentare il volume ridimensionandolo tramite Kubernetes. Un'altra opzione consiste nell'eliminare gli snapshot non più necessari. Quando un VolumeSnapshot creato tramite Kubernetes viene eliminato, Trident eliminerà lo snapshot ONTAP associato. È possibile eliminare anche gli snapshot ONTAP non creati tramite Kubernetes.
 
 
-Con Astra Trident, puoi utilizzare VolumeSnapshots per creare nuovi PVS da essi. La creazione di PVS da queste snapshot viene eseguita utilizzando la tecnologia FlexClone per i backend ONTAP e CVS supportati. Quando si crea un PV da uno snapshot, il volume di backup è un FlexClone del volume principale dello snapshot. Il `solidfire-san` Il driver utilizza cloni di volumi software Element per creare PVS dalle snapshot. Qui viene creato un clone dallo snapshot degli elementi.
+Con Trident, puoi utilizzare VolumeSnapshot per creare nuovi PV da essi. La creazione di PVS da queste snapshot viene eseguita utilizzando la tecnologia FlexClone per i backend ONTAP e CVS supportati. Quando si crea un PV da uno snapshot, il volume di backup è un FlexClone del volume principale dello snapshot. Il `solidfire-san` driver utilizza i cloni dei volumi del software Element per creare PVR dalle snapshot. Qui viene creato un clone dallo snapshot degli elementi.

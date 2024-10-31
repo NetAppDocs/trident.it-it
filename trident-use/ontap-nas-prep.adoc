@@ -18,20 +18,20 @@ Comprendere i requisiti, le opzioni di autenticazione e le policy di esportazion
 
 == Requisiti
 
-* Per tutti i backend ONTAP, Astra Trident richiede almeno un aggregato assegnato alla SVM.
+* Per tutti i backend ONTAP, Trident richiede almeno un aggregato assegnato alla SVM.
 * È possibile eseguire più di un driver e creare classi di storage che puntano all'una o all'altra. Ad esempio, è possibile configurare una classe Gold che utilizza `ontap-nas` Driver e una classe Bronze che utilizza `ontap-nas-economy` uno.
 * Tutti i nodi di lavoro di Kubernetes devono avere installati gli strumenti NFS appropriati. Fare riferimento a. link:worker-node-prep.html["qui"] per ulteriori dettagli.
-* Astra Trident supporta volumi SMB montati su pod eseguiti solo su nodi Windows. Fare riferimento a. <<Preparatevi al provisioning dei volumi SMB>> per ulteriori informazioni.
+* Trident supporta volumi SMB montati su pod in esecuzione solo sui nodi Windows. Per ulteriori informazioni, fare riferimento alla <<Preparatevi al provisioning dei volumi SMB>> sezione.
 
 
 
 
 == Autenticare il backend ONTAP
 
-Astra Trident offre due modalità di autenticazione di un backend ONTAP.
+Trident offre due modalità di autenticazione di un backend ONTAP.
 
 * Basato sulle credenziali: Questa modalità richiede autorizzazioni sufficienti per il backend ONTAP. Si consiglia di utilizzare un account associato a un ruolo di accesso di sicurezza predefinito, ad esempio `admin` oppure `vsadmin` Per garantire la massima compatibilità con le versioni di ONTAP.
-* Basato su certificato: Questa modalità richiede un certificato installato sul backend affinché Astra Trident possa comunicare con un cluster ONTAP. In questo caso, la definizione di backend deve contenere i valori codificati in Base64 del certificato client, della chiave e del certificato CA attendibile, se utilizzato (consigliato).
+* Basato su certificato: Questa modalità richiede l'installazione di un certificato sul backend affinché Trident possa comunicare con un cluster ONTAP. In questo caso, la definizione di backend deve contenere i valori codificati in Base64 del certificato client, della chiave e del certificato CA attendibile, se utilizzato (consigliato).
 
 
 È possibile aggiornare i backend esistenti per passare da un metodo basato su credenziali a un metodo basato su certificato. Tuttavia, è supportato un solo metodo di autenticazione alla volta. Per passare a un metodo di autenticazione diverso, è necessario rimuovere il metodo esistente dalla configurazione di back-end.
@@ -43,7 +43,7 @@ WARNING: Se si tenta di fornire *credenziali e certificati*, la creazione del ba
 
 === Abilitare l'autenticazione basata su credenziali
 
-Astra Trident richiede le credenziali di un amministratore con ambito SVM/cluster per comunicare con il backend ONTAP. Si consiglia di utilizzare ruoli standard predefiniti, ad esempio `admin` oppure `vsadmin`. Ciò garantisce la compatibilità con le future release di ONTAP che potrebbero esporre le API delle funzionalità da utilizzare nelle future release di Astra Trident. È possibile creare e utilizzare un ruolo di accesso di sicurezza personalizzato con Astra Trident, ma non è consigliato.
+Trident richiede le credenziali di un amministratore con ambito SVM/cluster per comunicare con il back-end ONTAP. Si consiglia di utilizzare ruoli standard predefiniti come `admin` o `vsadmin`. Ciò garantisce la compatibilità con le future versioni di ONTAP che potrebbero esporre le API delle funzioni da utilizzare nelle future versioni di Trident. È possibile creare e utilizzare un ruolo di accesso di protezione personalizzato con Trident, ma non è consigliabile.
 
 Una definizione di back-end di esempio avrà un aspetto simile al seguente:
 
@@ -197,28 +197,90 @@ tridentctl update backend NasBackend -f cert-backend-updated.json -n trident
 
 NOTE: Quando si ruotano le password, l'amministratore dello storage deve prima aggiornare la password per l'utente su ONTAP. Seguito da un aggiornamento back-end. Durante la rotazione dei certificati, è possibile aggiungere più certificati all'utente. Il backend viene quindi aggiornato per utilizzare il nuovo certificato, dopodiché il vecchio certificato può essere cancellato dal cluster ONTAP.
 
-L'aggiornamento di un backend non interrompe l'accesso ai volumi già creati, né influisce sulle connessioni dei volumi effettuate successivamente. Un aggiornamento back-end corretto indica che Astra Trident può comunicare con il backend ONTAP e gestire le future operazioni sui volumi.
+L'aggiornamento di un backend non interrompe l'accesso ai volumi già creati, né influisce sulle connessioni dei volumi effettuate successivamente. Un aggiornamento backend corretto indica che Trident può comunicare con il back-end ONTAP e gestire operazioni future sui volumi.
+
+
+
+=== Creare un ruolo ONTAP personalizzato per Trident
+
+Puoi creare un ruolo cluster ONTAP con Minimum Privileges in modo da non dover utilizzare il ruolo di amministratore ONTAP per eseguire le operazioni in Trident. Quando si include il nome utente in una configurazione backend Trident, Trident utilizza il ruolo del cluster ONTAP creato per eseguire le operazioni.
+
+Per ulteriori informazioni sulla creazione di ruoli personalizzati di Trident, fare riferimento a.link:https://github.com/NetApp/trident/tree/master/contrib/ontap/trident_role["Generatore di ruoli personalizzati Trident"]
+
+[role="tabbed-block"]
+====
+.Utilizzo della CLI di ONTAP
+--
+. Creare un nuovo ruolo utilizzando il seguente comando:
++
+`security login role create <role_name\> -cmddirname "command" -access all –vserver <svm_name\>`
+
+. Creare un nome utente per l'utente Trident:
++
+`security login create -username <user_name\> -application ontapi -authmethod <password\> -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
+
+. Associare il ruolo all'utente:
++
+`security login modify username <user_name\> –vserver <svm_name\> -role <role_name\> -application ontapi -application console -authmethod <password\>`
+
+
+
+--
+.Utilizzo di System Manager
+--
+In Gestione sistema di ONTAP, eseguire le seguenti operazioni:
+
+. *Crea un ruolo personalizzato*:
++
+.. Per creare un ruolo personalizzato a livello di cluster, selezionare *Cluster > Impostazioni*.
++
+(Oppure) per creare un ruolo personalizzato a livello di SVM, selezionare *Storage > Storage VM `required SVM` > > Impostazioni > utenti e ruoli*.
+
+.. Selezionare l'icona a freccia (*->*) accanto a *utenti e ruoli*.
+.. Selezionare *+Aggiungi* in *ruoli*.
+.. Definire le regole per il ruolo e fare clic su *Salva*.
+
+
+. *Associare il ruolo all'utente Trident*: + eseguire i seguenti passaggi nella pagina *utenti e ruoli*:
++
+.. Selezionare icona Aggiungi *+* in *utenti*.
+.. Selezionare il nome utente richiesto e scegliere un ruolo nel menu a discesa *ruolo*.
+.. Fare clic su *Save* (Salva).
+
+
+
+
+--
+====
+Per ulteriori informazioni, fare riferimento alle pagine seguenti:
+
+* link:https://kb.netapp.com/on-prem/ontap/Ontap_OS/OS-KBs/FAQ__Custom_roles_for_administration_of_ONTAP["Ruoli personalizzati per l'amministrazione di ONTAP"^] o. link:https://docs.netapp.com/us-en/ontap/authentication/define-custom-roles-task.html["Definire ruoli personalizzati"^]
+* link:https://docs.netapp.com/us-en/ontap-automation/rest/rbac_roles_users.html#rest-api["Lavorare con ruoli e utenti"^]
+
 
 
 
 == Gestire le policy di esportazione NFS
 
-Astra Trident utilizza policy di esportazione NFS per controllare l'accesso ai volumi forniti dall'IT.
+Trident utilizza le policy di esportazione NFS per controllare l'accesso ai volumi forniti.
 
-Astra Trident offre due opzioni quando si lavora con le policy di esportazione:
+Trident fornisce due opzioni quando si utilizzano i criteri di esportazione:
 
-* Astra Trident è in grado di gestire dinamicamente la policy di esportazione; in questa modalità operativa, l'amministratore dello storage specifica un elenco di blocchi CIDR che rappresentano indirizzi IP consentiti. Astra Trident aggiunge automaticamente gli IP dei nodi che rientrano in questi intervalli ai criteri di esportazione. In alternativa, se non viene specificato alcun CIDR, qualsiasi IP unicast con ambito globale trovato nei nodi verrà aggiunto alla policy di esportazione.
-* Gli amministratori dello storage possono creare una policy di esportazione e aggiungere regole manualmente. Astra Trident utilizza il criterio di esportazione predefinito, a meno che nella configurazione non venga specificato un nome diverso del criterio di esportazione.
+* Trident è in grado di gestire in modo dinamico il criterio di esportazione; in questa modalità operativa, l'amministratore dello storage specifica un elenco di blocchi CIDR che rappresentano indirizzi IP consentiti. Trident aggiunge automaticamente al criterio di esportazione gli indirizzi IP dei nodi applicabili che rientrano in questi intervalli al momento della pubblicazione. In alternativa, quando non vengono specificate CIDR, tutti gli IP unicast con ambito globale trovati nel nodo in cui il volume pubblicato viene aggiunto al criterio di esportazione.
+* Gli amministratori dello storage possono creare una policy di esportazione e aggiungere regole manualmente. Trident utilizza il criterio di esportazione predefinito, a meno che non venga specificato un nome di criterio di esportazione diverso nella configurazione.
 
 
 
 
 === Gestione dinamica delle policy di esportazione
 
-Astra Trident permette di gestire in modo dinamico le policy di esportazione per i backend ONTAP. In questo modo, l'amministratore dello storage può specificare uno spazio di indirizzi consentito per gli IP dei nodi di lavoro, invece di definire manualmente regole esplicite. Semplifica notevolmente la gestione delle policy di esportazione; le modifiche alle policy di esportazione non richiedono più l'intervento manuale sul cluster di storage. Inoltre, questo consente di limitare l'accesso al cluster di storage solo ai nodi di lavoro che hanno IP nell'intervallo specificato, supportando una gestione dettagliata e automatica.
+Trident consente di gestire in modo dinamico le policy di esportazione per i backend ONTAP. In questo modo, l'amministratore dello storage può specificare uno spazio di indirizzi consentito per gli IP dei nodi di lavoro, invece di definire manualmente regole esplicite. Semplifica notevolmente la gestione delle policy di esportazione; le modifiche alle policy di esportazione non richiedono più l'intervento manuale sul cluster di storage. Inoltre, ciò consente di limitare l'accesso al cluster di storage solo ai nodi di lavoro che montano volumi e hanno IP nell'intervallo specificato, supportando una gestione dettagliata e automatizzata.
 
 
 NOTE: Non utilizzare NAT (Network Address Translation) quando si utilizzano criteri di esportazione dinamici. Con NAT, il controller di archiviazione rileva l'indirizzo NAT di frontend e non l'indirizzo host IP effettivo, pertanto l'accesso viene negato quando non viene trovata alcuna corrispondenza nelle regole di esportazione.
+
+
+NOTE: In Trident 24,10, `ontap-nas` il driver di archiviazione continuerà a funzionare come nelle versioni precedenti; non è stata apportata alcuna modifica al driver ONTAP-nas. Solo il `ontap-nas-economy` driver di storage disporrà di un controllo granulare dell'accesso basato sul volume in Trident 24,10.
 
 
 
@@ -230,7 +292,7 @@ NOTE: Non utilizzare NAT (Network Address Translation) quando si utilizzano crit
 ----
 ---
 version: 1
-storageDriverName: ontap-nas
+storageDriverName: ontap-nas-economy
 backendName: ontap_nas_auto_export
 managementLIF: 192.168.0.135
 svm: svm1
@@ -241,19 +303,32 @@ autoExportCIDRs:
 autoExportPolicy: true
 ----
 
-NOTE: Quando si utilizza questa funzione, è necessario assicurarsi che la giunzione root di SVM disponga di un criterio di esportazione creato in precedenza con una regola di esportazione che consenta il blocco CIDR del nodo (ad esempio il criterio di esportazione predefinito). Segui sempre le Best practice consigliate da NetApp per dedicare una SVM a Astra Trident.
+NOTE: Quando si utilizza questa funzione, è necessario assicurarsi che la giunzione root di SVM disponga di un criterio di esportazione creato in precedenza con una regola di esportazione che consenta il blocco CIDR del nodo (ad esempio il criterio di esportazione predefinito). Segui sempre le Best practice consigliate da NetApp per dedicare una SVM a Trident.
 
 Ecco una spiegazione del funzionamento di questa funzione utilizzando l'esempio precedente:
 
-*  `autoExportPolicy` è impostato su `true`. Questo indica che Astra Trident creerà un criterio di esportazione per `svm1` SVM e gestire l'aggiunta e l'eliminazione di regole utilizzando `autoExportCIDRs` blocchi di indirizzi. Ad esempio, un backend con UUID 403b5326-8482-40db-96d0-d83fb3f4daec e. `autoExportPolicy` impostare su `true` crea un criterio di esportazione denominato `trident-403b5326-8482-40db-96d0-d83fb3f4daec` Su SVM.
-* `autoExportCIDRs` contiene un elenco di blocchi di indirizzi. Questo campo è opzionale e per impostazione predefinita è ["0.0.0.0/0", "::/0"]. Se non definito, Astra Trident aggiunge tutti gli indirizzi unicast con ambito globale trovati nei nodi di lavoro.
+* `autoExportPolicy` è impostato su `true`. In questo modo, Trident crea una policy di esportazione per ogni volume sottoposto a provisioning con questo backend per la `svm1` SVM e gestisce l'aggiunta e l'eliminazione di regole utilizzando `autoexportCIDRs` i blocchi di indirizzi. Fino al collegamento di un volume a un nodo, il volume utilizza un criterio di esportazione vuoto senza regole per impedire l'accesso indesiderato a tale volume. Quando un volume viene pubblicato in un nodo, Trident crea una policy di esportazione con lo stesso nome del qtree sottostante contenente l'IP del nodo all'interno del blocco CIDR specificato. Questi IP verranno aggiunti anche al criterio di esportazione utilizzato dal FlexVol padre.
++
+** Ad esempio:
++
+*** Backend UUUID 403b5326-8482-40dB-96d0-d83fb3f4daec
+*** `autoExportPolicy` impostare su `true`
+*** prefisso di memorizzazione `trident`
+*** UUUID PVC a79bcf5f-7b6d-4a40-9876-e2551f159c1c
+*** Il qtree denominato Trident_pvc_a79bcf5f_7b6d_4a40_9876_e2551f159c1c crea una policy di esportazione per il FlexVol Named , una policy di esportazione per il qtree Named e `trident-403b5326-8482-40db96d0-d83fb3f4daec`una policy di esportazione vuota `trident_empty` denominata
+`trident_pvc_a79bcf5f_7b6d_4a40_9876_e2551f159c1c` nella SVM. Le regole per la policy di esportazione di FlexVol saranno un superset di regole contenute nelle policy di esportazione dei qtree. Il criterio di esportazione vuoto verrà riutilizzato da tutti i volumi non collegati.
 
 
-In questo esempio, il `192.168.0.0/24` viene fornito uno spazio per gli indirizzi. Ciò indica che gli IP dei nodi Kubernetes che rientrano in questo intervallo di indirizzi verranno aggiunti alla policy di esportazione creata da Astra Trident. Quando Astra Trident registra un nodo su cui viene eseguito, recupera gli indirizzi IP del nodo e li confronta con i blocchi di indirizzo forniti in `autoExportCIDRs`. Dopo aver filtrato gli IP, Astra Trident crea regole di policy di esportazione per gli IP client individuati, con una regola per ogni nodo identificato.
+
+
+* `autoExportCIDRs` contiene un elenco di blocchi di indirizzi. Questo campo è opzionale e per impostazione predefinita è ["0.0.0.0/0", "::/0"]. Se non definito, Trident aggiunge tutti gli indirizzi unicast con ambito globale trovati nei nodi di lavoro con pubblicazioni.
+
+
+In questo esempio, `192.168.0.0/24` viene fornito lo spazio degli indirizzi. Questo indica che gli IP dei nodi Kubernetes che rientrano in questo intervallo di indirizzi con pubblicazioni verranno aggiunti alla policy di esportazione creata da Trident. Quando Trident registra un nodo su cui viene eseguito, recupera gli indirizzi IP del nodo e li controlla in base ai blocchi di indirizzi forniti in. al momento della pubblicazione, dopo aver filtrato gli indirizzi `autoExportCIDRs` IP, Trident crea le regole dei criteri di esportazione per gli indirizzi IP del client per il nodo in cui viene pubblicato.
 
 È possibile eseguire l'aggiornamento `autoExportPolicy` e. `autoExportCIDRs` per i backend dopo la creazione. È possibile aggiungere nuovi CIDR a un backend gestito automaticamente o eliminare i CIDR esistenti. Prestare attenzione quando si eliminano i CIDR per assicurarsi che le connessioni esistenti non vengano interrotte. È anche possibile scegliere di disattivare `autoExportPolicy` per un backend e tornare a una policy di esportazione creata manualmente. Questa operazione richiede l'impostazione di `exportPolicy` nella configurazione del backend.
 
-Dopo che Astra Trident ha creato o aggiornato un backend, è possibile controllare il backend utilizzando `tridentctl` o il corrispondente `tridentbackend` CRD:
+Dopo che Trident crea o aggiorna un backend, è possibile controllare il backend utilizzando `tridentctl` o il CRD corrispondente `tridentbackend`:
 
 [listing]
 ----
@@ -278,16 +353,14 @@ items:
       exportPolicy: <automatic>
       fileSystemType: ext4
 ----
-Quando i nodi vengono aggiunti a un cluster Kubernetes e registrati con il controller Astra Trident, le policy di esportazione dei backend esistenti vengono aggiornate (a condizione che rientrino nell'intervallo di indirizzi specificato nella `autoExportCIDRs` per il back-end).
+Quando viene rimosso un nodo, Trident controlla tutte le policy di esportazione per rimuovere le regole di accesso corrispondenti al nodo. Rimuovendo questo IP nodo dalle policy di esportazione dei backend gestiti, Trident impedisce i montaggi non autorizzati, a meno che questo IP non venga riutilizzato da un nuovo nodo nel cluster.
 
-Quando un nodo viene rimosso, Astra Trident controlla tutti i backend in linea per rimuovere la regola di accesso per il nodo. Rimuovendo questo IP del nodo dalle policy di esportazione dei backend gestiti, Astra Trident impedisce i montaggi non autorizzati, a meno che questo IP non venga riutilizzato da un nuovo nodo nel cluster.
-
-Per i backend esistenti in precedenza, aggiornare il backend con `tridentctl update backend` Garantisce che Astra Trident gestisca automaticamente le policy di esportazione. In questo modo verrà creato un nuovo criterio di esportazione denominato dopo l'UUID del backend e i volumi presenti sul backend utilizzeranno il criterio di esportazione appena creato quando vengono nuovamente montati.
+Per i backend esistenti in precedenza, l'aggiornamento del backend con `tridentctl update backend` assicura che Trident gestisca automaticamente i criteri di esportazione. In questo modo, vengono create due nuove policy di esportazione denominate in base all'UUID e al nome del qtree del backend, quando necessario. I volumi presenti sul backend utilizzeranno i criteri di esportazione appena creati dopo essere stati smontati e montati nuovamente.
 
 
 NOTE: L'eliminazione di un backend con policy di esportazione gestite automaticamente elimina la policy di esportazione creata dinamicamente. Se il backend viene ricreato, viene trattato come un nuovo backend e si otterrà la creazione di una nuova policy di esportazione.
 
-Se l'indirizzo IP di un nodo live viene aggiornato, è necessario riavviare il pod Astra Trident sul nodo. Astra Trident aggiornerà quindi la policy di esportazione per i backend che riesce a riflettere questa modifica IP.
+Se l'indirizzo IP di un nodo attivo viene aggiornato, è necessario riavviare il pod Trident sul nodo. Trident aggiornerà quindi il criterio di esportazione per i backend che gestisce in modo da riflettere questa modifica dell'IP.
 
 
 
@@ -298,11 +371,14 @@ Con un po' di preparazione aggiuntiva, puoi eseguire il provisioning dei volumi 
 
 WARNING: Per creare un, è necessario configurare entrambi i protocolli NFS e SMB/CIFS su SVM `ontap-nas-economy` Volume SMB per ONTAP on-premise. La mancata configurazione di uno di questi protocolli causerà un errore nella creazione del volume SMB.
 
+
+NOTE: `autoExportPolicy` Non è supportato per i volumi SMB.
+
 .Prima di iniziare
 Prima di eseguire il provisioning di volumi SMB, è necessario disporre di quanto segue.
 
-* Un cluster Kubernetes con un nodo controller Linux e almeno un nodo di lavoro Windows che esegue Windows Server 2022. Astra Trident supporta volumi SMB montati su pod eseguiti solo su nodi Windows.
-* Almeno un segreto Astra Trident contenente le credenziali Active Directory. Per generare un segreto `smbcreds`:
+* Un cluster Kubernetes con un nodo controller Linux e almeno un nodo di lavoro Windows che esegue Windows Server 2022. Trident supporta volumi SMB montati su pod in esecuzione solo sui nodi Windows.
+* Almeno un segreto Trident contenente le credenziali di Active Directory. Per generare segreto `smbcreds`:
 +
 [listing]
 ----
@@ -312,7 +388,7 @@ kubectl create secret generic smbcreds --from-literal username=user --from-liter
 
 
 .Fasi
-. Per ONTAP on-premise, è possibile creare una condivisione SMB oppure Astra Trident ne può creare una per te.
+. Per ONTAP on-premise, puoi facoltativamente creare una condivisione SMB oppure Trident può crearne una.
 +
 
 NOTE: Le condivisioni SMB sono richieste per Amazon FSX per ONTAP.
@@ -350,11 +426,7 @@ NOTE: Fare riferimento a. link:https://docs.netapp.com/us-en/ontap/smb-config/cr
 | Parametro | Descrizione | Esempio 
 
 
-| `smbShare` | È possibile specificare una delle seguenti opzioni: Il nome di una condivisione SMB creata utilizzando la console di gestione Microsoft o l'interfaccia utente di ONTAP; un nome per consentire ad Astra Trident di creare la condivisione SMB; oppure è possibile lasciare vuoto il parametro per impedire l'accesso condiviso ai volumi.
-
-Questo parametro è facoltativo per ONTAP on-premise.
-
-Questo parametro è obbligatorio per i backend Amazon FSX per ONTAP e non può essere vuoto. | `smb-share` 
+| `smbShare` | È possibile specificare uno dei seguenti elementi: Il nome di una condivisione SMB creata utilizzando la console di gestione Microsoft o l'interfaccia CLI di ONTAP; un nome che consente a Trident di creare la condivisione SMB; oppure è possibile lasciare vuoto il parametro per impedire l'accesso condiviso ai volumi. Questo parametro è facoltativo per ONTAP on-premise. Questo parametro è obbligatorio per i backend Amazon FSX per ONTAP e non può essere vuoto. | `smb-share` 
 
 
 | `nasType` | *Deve essere impostato su `smb`.* se null, il valore predefinito è `nfs`. | `smb` 

@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-customize-deploy-tridentctl.html 
-keywords: deploy, astra trident, methods, operator, tridentctl, helm, attributes, customize 
-summary: È possibile utilizzare il programma di installazione di Astra Trident per personalizzare la distribuzione. 
+keywords: deploy, Trident, methods, operator, tridentctl, helm, attributes, customize 
+summary: È possibile utilizzare il programma di installazione di Trident per personalizzare la distribuzione. 
 ---
 = Personalizzare l'installazione di tridentctl
 :hardbreaks:
@@ -12,13 +12,16 @@ summary: È possibile utilizzare il programma di installazione di Astra Trident 
 
 
 [role="lead"]
-È possibile utilizzare il programma di installazione di Astra Trident per personalizzare l'installazione.
+È possibile utilizzare il programma di installazione di Trident per personalizzare l'installazione.
 
 
 
 == Informazioni sul programma di installazione
 
-Il programma di installazione di Astra Trident consente di personalizzare gli attributi. Ad esempio, se l'immagine Trident è stata copiata in un repository privato, è possibile specificare il nome dell'immagine utilizzando `--trident-image`. Se l'immagine Trident e le immagini sidecar CSI necessarie sono state copiate in un repository privato, potrebbe essere preferibile specificare la posizione di tale repository utilizzando `--image-registry` switch, che assume la forma `<registry FQDN>[:port]`.
+Il programma di installazione di Trident consente di personalizzare gli attributi. Ad esempio, se l'immagine Trident è stata copiata in un repository privato, è possibile specificare il nome dell'immagine utilizzando `--trident-image`. Se l'immagine Trident e le immagini sidecar CSI necessarie sono state copiate in un repository privato, potrebbe essere preferibile specificare la posizione di tale repository utilizzando `--image-registry` lo switch, che assume il formato `<registry FQDN>[:port]`.
+
+
+IMPORTANT: Quando si installa Trident in un repository privato, se si utilizza `--image-registry` lo switch per specificare la posizione del repository, non utilizzare `/netapp/` nel percorso del repository. Ad esempio: `./tridentctl install --image-registry <image-registry> -n <namespace>`
 
 Se stai usando una distribuzione di Kubernetes, dove `kubelet` mantiene i dati su un percorso diverso dal solito `/var/lib/kubelet`, è possibile specificare il percorso alternativo utilizzando `--kubelet-dir`.
 

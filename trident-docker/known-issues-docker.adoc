@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-docker/known-issues-docker.html 
 keywords: known issues, trident, trident for docker, docker 
-summary: 'Informazioni su problemi noti durante l"utilizzo di Astra Trident con Docker.' 
+summary: Trova informazioni sui problemi noti quando utilizzi Trident con Docker. 
 ---
 = Problemi noti e limitazioni
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 'Informazioni su problemi noti durante l"utilizzo di Astra Trident con 
 
 
 [role="lead"]
-Informazioni su problemi e limitazioni noti durante l'utilizzo di Astra Trident con Docker.
+Trova informazioni su problemi e limitazioni noti quando utilizzi Trident con Docker.
 
 
 
@@ -48,11 +48,11 @@ NOTE: Si tratta di una limitazione del client Docker. Il client interpreta un no
 
 
 
-== Docker Swarm ha alcuni comportamenti che impediscono ad Astra Trident di supportarlo con ogni combinazione di storage e driver.
+== Docker Swarm presenta comportamenti che impediscono a Trident di supportarlo con ogni combinazione di storage e driver.
 
 * Docker Swarm utilizza attualmente il nome del volume anziché l'ID del volume come identificatore univoco del volume.
 * Le richieste di volume vengono inviate simultaneamente a ciascun nodo di un cluster Swarm.
-* I plug-in dei volumi (incluso Astra Trident) devono essere eseguiti in modo indipendente su ciascun nodo di un cluster Swarm. Grazie al funzionamento di ONTAP e al modo in cui funziona `ontap-nas` e. `ontap-san` i driver funzionano, sono gli unici ad essere in grado di funzionare entro questi limiti.
+* I plug-in di volumi (incluso Trident) devono essere eseguiti in maniera indipendente su ogni nodo di un cluster Swarm. A causa del funzionamento di ONTAP e del `ontap-nas` funzionamento di e `ontap-san` driver, questi sono gli unici ad essere in grado di operare entro queste limitazioni.
 
 
 Il resto dei piloti è soggetto a problemi come le condizioni di gara che possono comportare la creazione di un gran numero di volumi per una singola richiesta senza un "vincitore" chiaro; ad esempio, Element ha una funzione che consente ai volumi di avere lo stesso nome ma ID diversi.

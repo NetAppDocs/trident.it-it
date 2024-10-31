@@ -25,7 +25,7 @@ Prima di configurare il back-end di Google Cloud NetApp Volumes, assicurati di d
 * Un account Google Cloud configurato con il servizio Google Cloud NetApp Volumes. Fare riferimento alla link:https://cloud.google.com/netapp-volumes["Google Cloud NetApp Volumes"^].
 * Numero di progetto dell'account Google Cloud. Fare riferimento alla link:https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects["Identificazione dei progetti"^].
 * Un account di servizio Google Cloud con il ruolo NetApp Volumes Admin (`netappcloudvolumes.admin`). Fare riferimento alla link:https://cloud.google.com/netapp/volumes/docs/get-started/configure-access/iam#roles_and_permissions["Ruoli e autorizzazioni di Identity and Access Management"^].
-* File chiave API per il tuo account GCNV. Fare riferimento alla link:https://cloud.google.com/docs/authentication/api-keys["Eseguire l'autenticazione utilizzando le chiavi API"^]
+* File chiave API per il tuo account GCNV. Fare riferimento alla link:https://cloud.google.com/iam/docs/keys-create-delete#creating["Creare una chiave dell'account del servizio"^]
 * Un pool di storage. Fare riferimento alla link:https://cloud.google.com/netapp/volumes/docs/configure-and-use/storage-pools/overview["Panoramica dei pool di storage"^].
 
 

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reference/trident-cl.html 
 keywords: command-line, options, logging, kubernetes, docker, ports 
-summary: Astra Trident espone diverse opzioni della riga di comando per Trident orchestrator e comunica su determinate porte. 
+summary: Trident espone diverse opzioni della riga di comando per Trident orchestrator e comunica su determinate porte. 
 ---
 = Opzioni della riga di comando
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Astra Trident espone diverse opzioni della riga di comando per Trident 
 
 
 [role="lead"]
-Astra Trident espone diverse opzioni della riga di comando per Trident orchestrator. È possibile utilizzare queste opzioni per modificare la distribuzione.
+Trident espone diverse opzioni della riga di comando per Trident orchestrator. È possibile utilizzare queste opzioni per modificare la distribuzione.
 
 
 
@@ -27,7 +27,7 @@ Astra Trident espone diverse opzioni della riga di comando per Trident orchestra
 == Kubernetes
 
 `-k8s_pod`:: Utilizzare questa opzione o. `-k8s_api_server` Per abilitare il supporto Kubernetes. Questa impostazione fa in modo che Trident utilizzi le credenziali dell'account del servizio Kubernetes del pod che lo contiene per contattare il server API. Questo funziona solo quando Trident viene eseguito come pod in un cluster Kubernetes con account di servizio abilitati.
-`-k8s_api_server <insecure-address:insecure-port>`:: Utilizzare questa opzione o. `-k8s_pod` Per abilitare il supporto Kubernetes. Quando specificato, Trident si connette al server API Kubernetes utilizzando l'indirizzo e la porta non sicuri forniti. Ciò consente a Trident di essere implementato all'esterno di un pod; tuttavia, supporta solo connessioni non sicure al server API. Per una connessione sicura, implementare Trident in un pod con `-k8s_pod` opzione.
+`-k8s_api_server <insecure-address:insecure-port>`:: Utilizza questa opzione o `-k8s_pod` per attivare il supporto Kubernetes. Quando specificato, Trident si connette al server API Kubernetes utilizzando l'indirizzo e la porta non sicuri forniti. In questo modo Trident può essere distribuito al di fuori di un pod; tuttavia, supporta solo connessioni non sicure al server API. Per connettersi in modo sicuro, implementa Trident in un pod con l' `-k8s_pod`opzione.
 
 
 

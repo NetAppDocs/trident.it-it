@@ -45,4 +45,4 @@ link:https://www.netapp.com/company/legal/privacy-policy/["https://www.netapp.co
 
 == Open source
 
-È possibile consultare il copyright e le licenze di terze parti utilizzate nel software NetApp per Astra Trident nel file degli avvisi per ciascuna release all'indirizzo https://github.com/NetApp/trident/[].
+È possibile consultare il copyright di terze parti e le licenze utilizzate nel software NetApp per Trident nel file degli avvisi per ciascuna versione all'indirizzo https://github.com/NetApp/trident/[].

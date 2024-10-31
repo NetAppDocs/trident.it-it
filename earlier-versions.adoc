@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: earlier-versions.html 
-keywords: earlier versions, astra trident versions 
+keywords: earlier versions, Trident versions 
 summary: È possibile utilizzare il selettore della versione per passare dalla versione più recente alle quattro versioni precedenti o utilizzare i collegamenti riportati di seguito. 
 ---
 = Versioni precedenti della documentazione
@@ -12,16 +12,16 @@ summary: È possibile utilizzare il selettore della versione per passare dalla v
 
 
 [role="lead"]
-Se non si utilizza Astra Trident 24,06, la documentazione per le versioni precedenti è disponibile in base a link:get-help.html["Ciclo di vita del supporto di Astra Trident"].
+Se non si utilizza Trident 24,10, la documentazione per le versioni precedenti è disponibile in base a link:get-help.html["Ciclo di vita del supporto Trident"].
 
-* https://docs.netapp.com/us-en/trident-2402/index.html["Astra Trident 24,02"^]
-* https://docs.netapp.com/us-en/trident-2310/index.html["Astra Trident 23,10"^]
-* https://docs.netapp.com/us-en/trident-2307/index.html["Astra Trident 23,07"^]
-* https://docs.netapp.com/us-en/trident-2304/index.html["Astra Trident 23,04"^]
-* https://docs.netapp.com/us-en/trident-2301/index.html["Astra Trident 23.01"^]
-* https://docs.netapp.com/us-en/trident-2210/index.html["Astra Trident 22.10"^]
-* https://docs.netapp.com/us-en/trident-2207/index.html["Astra Trident 22.07"^]
-* https://docs.netapp.com/us-en/trident-2204/index.html["Astra Trident 22.04"^]
-* https://docs.netapp.com/us-en/trident-2201/index.html["Astra Trident 22.01"^]
-* https://docs.netapp.com/us-en/trident-2110/index.html["Astra Trident 21.10"^]
+* https://docs.netapp.com/us-en/trident-2406/index.html["Trident 24,06"^]
+* https://docs.netapp.com/us-en/trident-2402/index.html["Trident 24,02"^]
+* https://docs.netapp.com/us-en/trident-2310/index.html["Trident 23,10"^]
+* https://docs.netapp.com/us-en/trident-2307/index.html["Trident 23,07"^]
+* https://docs.netapp.com/us-en/trident-2304/index.html["Trident 23,04"^]
+* https://docs.netapp.com/us-en/trident-2301/index.html["Trident 23,01"^]
+* https://docs.netapp.com/us-en/trident-2210/index.html["Trident 22,10"^]
+* https://docs.netapp.com/us-en/trident-2207/index.html["Trident 22,07"^]
+* https://docs.netapp.com/us-en/trident-2204/index.html["Trident 22,04"^]
+* https://docs.netapp.com/us-en/trident-2201/index.html["Trident 22,01"^]
 

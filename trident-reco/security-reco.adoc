@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reco/security-reco.html 
 keywords: security, chap, trident, namespace, nve, nae, encryption, volume encryption, aggregate encryption 
-summary: 'Utilizzare i consigli elencati di seguito per assicurarsi che l"installazione di Astra Trident sia sicura.' 
+summary: 'Utilizzare i consigli elencati di seguito per assicurarsi che l"installazione di Trident sia protetta.' 
 ---
 = Sicurezza
 :hardbreaks:
@@ -12,54 +12,53 @@ summary: 'Utilizzare i consigli elencati di seguito per assicurarsi che l"instal
 
 
 [role="lead"]
-Utilizza i consigli elencati di seguito per assicurarti che l'installazione di Astra Trident sia sicura.
+Utilizzare i consigli elencati di seguito per assicurarsi che l'installazione di Trident sia sicura.
 
 
 
-== Eseguire Astra Trident nel proprio namespace
+== Eseguire Trident nel proprio namespace
 
-È importante impedire ad applicazioni, amministratori di applicazioni, utenti e applicazioni di gestione di accedere alle definizioni degli oggetti di Astra Trident o ai pod per garantire uno storage affidabile e bloccare potenziali attività dannose.
+È importante impedire ad applicazioni, amministratori dell'applicazione, utenti e applicazioni di gestione di accedere alle definizioni di oggetti Trident o ai pod, per garantire uno storage affidabile e bloccare le potenziali attività pericolose.
 
-Per separare le altre applicazioni e gli utenti da Astra Trident, installare sempre Astra Trident nel proprio spazio dei nomi Kubernetes (`trident`). L'inserimento di Astra Trident nel proprio spazio dei nomi garantisce che solo il personale amministrativo di Kubernetes abbia accesso al pod Astra Trident e agli artefatti (come i segreti di backend e CHAP, se applicabili) memorizzati negli oggetti CRD con spazio dei nomi. È necessario garantire che solo gli amministratori possano accedere allo spazio dei nomi Astra Trident e quindi a. `tridentctl` applicazione.
+Per separare le altre applicazioni e gli utenti da Trident, installare sempre Trident nel proprio spazio dei nomi Kubernetes (`trident`). Inserendo Trident nel proprio namespace, solo il personale amministrativo di Kubernetes potrà accedere al pod Trident e agli artefatti (come ad esempio backend e CHAP secrets, se applicabili) memorizzati negli oggetti CRD con nome. È necessario assicurarsi che solo gli amministratori possano accedere allo spazio dei nomi Trident e quindi all' `tridentctl`applicazione.
 
 
 
 == Utilizza l'autenticazione CHAP con i backend SAN ONTAP
 
-Astra Trident supporta l'autenticazione basata su CHAP per i carichi di lavoro SAN ONTAP (utilizzando il `ontap-san` e. `ontap-san-economy` driver). NetApp consiglia di utilizzare CHAP bidirezionale con Astra Trident per l'autenticazione tra un host e il backend dello storage.
+Trident supporta l'autenticazione basata su CHAP per i carichi di lavoro SAN ONTAP (mediante `ontap-san` e `ontap-san-economy` driver). NetApp consiglia di utilizzare il protocollo CHAP bidirezionale con Trident per l'autenticazione tra un host e il backend dello storage.
 
-Per i backend ONTAP che utilizzano i driver di storage SAN, Astra Trident può configurare CHAP bidirezionale e gestire i nomi utente e i segreti CHAP attraverso `tridentctl`.
-Fare riferimento a. link:../trident-use/ontap-san-prep.html[""^] Per capire come Astra Trident configura CHAP sui backend ONTAP.
+Per i backend ONTAP che utilizzano i driver di archiviazione SAN, Trident può impostare il CHAP bidirezionale e gestire i nomi utente e i segreti CHAP tramite `tridentctl`. Fare riferimento a link:../trident-use/ontap-san-prep.html[""^] per informazioni sulla configurazione del protocollo CHAP in Trident sui backend ONTAP.
 
 
 
 == Utilizza l'autenticazione CHAP con backend NetApp HCI e SolidFire
 
-NetApp consiglia di implementare CHAP bidirezionale per garantire l'autenticazione tra un host e i backend NetApp HCI e SolidFire. Astra Trident utilizza un oggetto segreto che include due password CHAP per tenant. Una volta installato Astra Trident, gestisce i segreti CHAP e li memorizza in un `tridentvolume` Oggetto CR per il rispettivo PV. Quando si crea un PV, Astra Trident utilizza i segreti CHAP per avviare una sessione iSCSI e comunicare con il sistema NetApp HCI e SolidFire tramite CHAP.
+NetApp consiglia di implementare CHAP bidirezionale per garantire l'autenticazione tra un host e i backend NetApp HCI e SolidFire. Trident utilizza un oggetto segreto che include due password CHAP per tenant. Quando Trident viene installato, gestisce i segreti CHAP e li memorizza in un `tridentvolume` oggetto CR per il PV corrispondente. Quando si crea un PV, Trident utilizza i segreti CHAP per avviare una sessione iSCSI e comunicare con il sistema NetApp HCI e SolidFire tramite CHAP.
 
 
-NOTE: I volumi creati da Astra Trident non sono associati ad alcun Gruppo di accesso ai volumi.
+NOTE: I volumi creati da Trident non sono associati ad alcun gruppo di accesso ai volumi.
 
 
 
-== Utilizzare Astra Trident con NVE e NAE
+== USA Trident con NVE e NAE
 
 NetApp ONTAP offre la crittografia dei dati inattivi per proteggere i dati sensibili in caso di furto, restituzione o riordinamento di un disco. Per ulteriori informazioni, fare riferimento a. link:https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html["Panoramica sulla configurazione di NetApp Volume Encryption"^].
 
-* Se NAE è attivato sul backend, qualsiasi volume fornito in Astra Trident sarà abilitato per NAE.
-* Se NAE non è attivato sul backend, qualsiasi volume fornito in Astra Trident sarà abilitato per NVE, a meno che non si imposta il flag di crittografia NVE su `false` nella configurazione back-end.
+* Se NAE è abilitato sul backend, qualsiasi volume sottoposto a provisioning in Trident sarà abilitato NAE.
+* Se NAE non è abilitato sul back-end, qualsiasi volume con provisioning in Trident sarà abilitato NVE a meno che non imposti il flag di crittografia NVE su `false` nella configurazione di back-end.
 
 
 [NOTE]
 ====
-I volumi creati in Astra Trident su un backend abilitato NAE devono essere crittografati con NVE o NAE.
+I volumi creati in Trident su un back-end abilitato per NAE devono essere crittografati NVE o NAE.
 
 * È possibile impostare il flag di crittografia NVE su `true` Nella configurazione backend Trident per eseguire l'override della crittografia NAE e utilizzare una chiave di crittografia specifica per volume.
-* Impostazione del flag di crittografia NVE su `false` Su un backend abilitato NAE verrà creato un volume abilitato NAE. Non è possibile disattivare la crittografia NAE impostando il flag di crittografia NVE su `false`.
+* L'impostazione del flag di crittografia NVE su `false` un backend abilitato per NAE crea un volume abilitato per NAE. Non è possibile disattivare la crittografia NAE impostando il flag di crittografia NVE su `false`.
 
 
 ====
-* È possibile creare manualmente un volume NVE in Astra Trident impostando esplicitamente il flag di crittografia NVE su `true`.
+* Puoi creare manualmente un volume NVE in Trident impostando esplicitamente il flag di crittografia NVE su `true`.
 
 
 Per ulteriori informazioni sulle opzioni di configurazione del backend, fare riferimento a:

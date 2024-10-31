@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/upgrade-uninstall-docker.html 
-keywords: uninstall, astra trident, trident for docker, docker, upgrade trident for docker 
-summary: 'Puoi aggiornare Astra Trident per Docker senza alcun impatto sui volumi in uso. Durante il processo di aggiornamento, ci sarà un breve periodo in cui `docker volume` i comandi diretti al plugin non avranno successo e le applicazioni non potranno montare i volumi fino a quando il plugin non verrà eseguito di nuovo. Nella maggior parte dei casi, si tratta di pochi secondi.' 
+keywords: uninstall, Trident, trident for docker, docker, upgrade trident for docker 
+summary: 'Puoi eseguire l"upgrade sicuro di Trident per Docker senza alcun impatto sui volumi in uso. Durante il processo di aggiornamento ci sarà un breve periodo in cui `docker volume` i comandi diretti al plugin non avranno successo, e le applicazioni non saranno in grado di montare i volumi fino a quando il plugin non sarà nuovamente in esecuzione. Nella maggior parte dei casi, si tratta di pochi secondi.' 
 ---
-= Aggiornare o disinstallare Astra Trident
+= Aggiornare o disinstallare Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,13 +12,13 @@ summary: 'Puoi aggiornare Astra Trident per Docker senza alcun impatto sui volum
 
 
 [role="lead"]
-Puoi aggiornare Astra Trident per Docker senza alcun impatto sui volumi in uso. Durante il processo di aggiornamento, ci sarà un breve periodo in cui `docker volume` i comandi diretti al plugin non avranno successo e le applicazioni non potranno montare i volumi fino a quando il plugin non verrà eseguito di nuovo. Nella maggior parte dei casi, si tratta di pochi secondi.
+Puoi eseguire l'upgrade sicuro di Trident per Docker senza alcun impatto sui volumi in uso. Durante il processo di aggiornamento ci sarà un breve periodo in cui `docker volume` i comandi diretti al plugin non avranno successo, e le applicazioni non saranno in grado di montare i volumi fino a quando il plugin non sarà nuovamente in esecuzione. Nella maggior parte dei casi, si tratta di pochi secondi.
 
 
 
 == Eseguire l'upgrade
 
-Per aggiornare Astra Trident per Docker, attenersi alla procedura riportata di seguito.
+Eseguire i passaggi riportati di seguito per eseguire l'upgrade di Trident per Docker.
 
 .Fasi
 . Elencare i volumi esistenti:
@@ -46,7 +46,7 @@ docker plugin upgrade --skip-remote-check --grant-all-permissions netapp:latest 
 ----
 +
 
-NOTE: La release 18.01 di Astra Trident sostituisce l'nDVP. È necessario eseguire l'aggiornamento direttamente da `netapp/ndvp-plugin` al `netapp/trident-plugin` immagine.
+NOTE: La versione 18,01 di Trident sostituisce il nDVP. È necessario eseguire l'aggiornamento direttamente dall' `netapp/ndvp-plugin`immagine all' `netapp/trident-plugin`immagine.
 
 . Attivare il plug-in:
 +
@@ -73,13 +73,13 @@ netapp:latest       my_volume
 
 
 
-IMPORTANT: Se si esegue l'aggiornamento da una versione precedente di Astra Trident (precedente alla 20.10) ad Astra Trident 20.10 o successiva, potrebbe verificarsi un errore. Per ulteriori informazioni, fare riferimento a. link:known-issues-docker.html["Problemi noti"^]. Se si verifica l'errore, disattivare il plug-in, quindi rimuovere il plug-in e installare la versione richiesta di Astra Trident passando un parametro di configurazione aggiuntivo: `docker plugin install netapp/trident-plugin:20.10 --alias netapp --grant-all-permissions config=config.json`
+IMPORTANT: Se si sta eseguendo l'aggiornamento da una vecchia versione di Trident (precedente alla 20,10) a Trident 20,10 o versione successiva, potrebbe verificarsi un errore. Per ulteriori informazioni, fare riferimento a link:known-issues-docker.html["Problemi noti"^]. Se si verifica l'errore, si dovrebbe prima disabilitare il plugin, quindi rimuovere il plugin, e quindi installare la versione Trident richiesta passando un parametro di configurazione extra: `docker plugin install netapp/trident-plugin:20.10 --alias netapp --grant-all-permissions config=config.json`
 
 
 
 == Disinstallare
 
-Per disinstallare Astra Trident per Docker, procedere come segue.
+Per disinstallare Trident per Docker, procedere come segue.
 
 .Fasi
 . Rimuovere tutti i volumi creati dal plug-in.

@@ -18,7 +18,7 @@ Comprendere i requisiti e le opzioni di autenticazione per la configurazione di 
 
 == Requisiti
 
-Per tutti i backend ONTAP, Astra Trident richiede almeno un aggregato assegnato alla SVM.
+Per tutti i backend ONTAP, Trident richiede almeno un aggregato assegnato alla SVM.
 
 È inoltre possibile eseguire più di un driver e creare classi di storage che puntino all'una o all'altra. Ad esempio, è possibile configurare un `san-dev` classe che utilizza `ontap-san` driver e a. `san-default` classe che utilizza `ontap-san-economy` uno.
 
@@ -28,10 +28,10 @@ Tutti i nodi di lavoro di Kubernetes devono disporre dei tool iSCSI appropriati.
 
 == Autenticare il backend ONTAP
 
-Astra Trident offre due modalità di autenticazione di un backend ONTAP.
+Trident offre due modalità di autenticazione di un backend ONTAP.
 
 * Basato sulle credenziali: Nome utente e password di un utente ONTAP con le autorizzazioni richieste. Si consiglia di utilizzare un ruolo di accesso di sicurezza predefinito, ad esempio `admin` oppure `vsadmin` Per garantire la massima compatibilità con le versioni di ONTAP.
-* Basato su certificato: Astra Trident può anche comunicare con un cluster ONTAP utilizzando un certificato installato sul backend. In questo caso, la definizione di backend deve contenere i valori codificati in Base64 del certificato client, della chiave e del certificato CA attendibile, se utilizzato (consigliato).
+* Basato su certificato: Trident può anche comunicare con un cluster ONTAP utilizzando un certificato installato sul backend. In questo caso, la definizione di backend deve contenere i valori codificati in Base64 del certificato client, della chiave e del certificato CA attendibile, se utilizzato (consigliato).
 
 
 È possibile aggiornare i backend esistenti per passare da un metodo basato su credenziali a un metodo basato su certificato. Tuttavia, è supportato un solo metodo di autenticazione alla volta. Per passare a un metodo di autenticazione diverso, è necessario rimuovere il metodo esistente dalla configurazione di back-end.
@@ -43,7 +43,7 @@ WARNING: Se si tenta di fornire *credenziali e certificati*, la creazione del ba
 
 === Abilitare l'autenticazione basata su credenziali
 
-Astra Trident richiede le credenziali di un amministratore con ambito SVM/cluster per comunicare con il backend ONTAP. Si consiglia di utilizzare ruoli standard predefiniti, ad esempio `admin` oppure `vsadmin`. Ciò garantisce la compatibilità con le future release di ONTAP che potrebbero esporre le API delle funzionalità da utilizzare nelle future release di Astra Trident. È possibile creare e utilizzare un ruolo di accesso di sicurezza personalizzato con Astra Trident, ma non è consigliato.
+Trident richiede le credenziali di un amministratore con ambito SVM/cluster per comunicare con il back-end ONTAP. Si consiglia di utilizzare ruoli standard predefiniti come `admin` o `vsadmin`. Ciò garantisce la compatibilità con le future versioni di ONTAP che potrebbero esporre le API delle funzioni da utilizzare nelle future versioni di Trident. È possibile creare e utilizzare un ruolo di accesso di protezione personalizzato con Trident, ma non è consigliabile.
 
 Una definizione di back-end di esempio avrà un aspetto simile al seguente:
 
@@ -194,13 +194,72 @@ tridentctl update backend SanBackend -f cert-backend-updated.json -n trident
 
 NOTE: Quando si ruotano le password, l'amministratore dello storage deve prima aggiornare la password per l'utente su ONTAP. Seguito da un aggiornamento back-end. Durante la rotazione dei certificati, è possibile aggiungere più certificati all'utente. Il backend viene quindi aggiornato per utilizzare il nuovo certificato, dopodiché il vecchio certificato può essere cancellato dal cluster ONTAP.
 
-L'aggiornamento di un backend non interrompe l'accesso ai volumi già creati, né influisce sulle connessioni dei volumi effettuate successivamente. Un aggiornamento back-end corretto indica che Astra Trident può comunicare con il backend ONTAP e gestire le future operazioni sui volumi.
+L'aggiornamento di un backend non interrompe l'accesso ai volumi già creati, né influisce sulle connessioni dei volumi effettuate successivamente. Un aggiornamento backend corretto indica che Trident può comunicare con il back-end ONTAP e gestire operazioni future sui volumi.
+
+
+
+=== Creare un ruolo ONTAP personalizzato per Trident
+
+Puoi creare un ruolo cluster ONTAP con Minimum Privileges in modo da non dover utilizzare il ruolo di amministratore ONTAP per eseguire le operazioni in Trident. Quando si include il nome utente in una configurazione backend Trident, Trident utilizza il ruolo del cluster ONTAP creato per eseguire le operazioni.
+
+Per ulteriori informazioni sulla creazione di ruoli personalizzati di Trident, fare riferimento a.link:https://github.com/NetApp/trident/tree/master/contrib/ontap/trident_role["Generatore di ruoli personalizzati Trident"]
+
+[role="tabbed-block"]
+====
+.Utilizzo della CLI di ONTAP
+--
+. Creare un nuovo ruolo utilizzando il seguente comando:
++
+`security login role create <role_name\> -cmddirname "command" -access all –vserver <svm_name\>`
+
+. Creare un nome utente per l'utente Trident:
++
+`security login create -username <user_name\> -application ontapi -authmethod <password\> -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
+
+. Associare il ruolo all'utente:
++
+`security login modify username <user_name\> –vserver <svm_name\> -role <role_name\> -application ontapi -application console -authmethod <password\>`
+
+
+
+--
+.Utilizzo di System Manager
+--
+In Gestione sistema di ONTAP, eseguire le seguenti operazioni:
+
+. *Crea un ruolo personalizzato*:
++
+.. Per creare un ruolo personalizzato a livello di cluster, selezionare *Cluster > Impostazioni*.
++
+(Oppure) per creare un ruolo personalizzato a livello di SVM, selezionare *Storage > Storage VM `required SVM` > > Impostazioni > utenti e ruoli*.
+
+.. Selezionare l'icona a freccia (*->*) accanto a *utenti e ruoli*.
+.. Selezionare *+Aggiungi* in *ruoli*.
+.. Definire le regole per il ruolo e fare clic su *Salva*.
+
+
+. *Associare il ruolo all'utente Trident*: + eseguire i seguenti passaggi nella pagina *utenti e ruoli*:
++
+.. Selezionare icona Aggiungi *+* in *utenti*.
+.. Selezionare il nome utente richiesto e scegliere un ruolo nel menu a discesa *ruolo*.
+.. Fare clic su *Save* (Salva).
+
+
+
+
+--
+====
+Per ulteriori informazioni, fare riferimento alle pagine seguenti:
+
+* link:https://kb.netapp.com/on-prem/ontap/Ontap_OS/OS-KBs/FAQ__Custom_roles_for_administration_of_ONTAP["Ruoli personalizzati per l'amministrazione di ONTAP"^] o. link:https://docs.netapp.com/us-en/ontap/authentication/define-custom-roles-task.html["Definire ruoli personalizzati"^]
+* link:https://docs.netapp.com/us-en/ontap-automation/rest/rbac_roles_users.html#rest-api["Lavorare con ruoli e utenti"^]
+
 
 
 
 == Autenticare le connessioni con CHAP bidirezionale
 
-Astra Trident può autenticare le sessioni iSCSI con CHAP bidirezionale per `ontap-san` e. `ontap-san-economy` driver. Per eseguire questa operazione, è necessario attivare `useCHAP` nella definizione del backend. Quando è impostato su `true`, Astra Trident configura la sicurezza dell'iniziatore predefinito della SVM su CHAP bidirezionale e imposta il nome utente e i segreti dal file backend. NetApp consiglia di utilizzare CHAP bidirezionale per autenticare le connessioni. Vedere la seguente configurazione di esempio:
+Trident può autenticare le sessioni iSCSI con CHAP bidirezionale per i `ontap-san` driver e. `ontap-san-economy` Ciò richiede l'attivazione dell' `useCHAP`opzione nella definizione di backend. Quando è impostato su `true`, Trident configura la protezione dell'iniziatore predefinito della SVM su CHAP bidirezionale e imposta il nome utente e i segreti dal file backend. NetApp consiglia di utilizzare CHAP bidirezionale per autenticare le connessioni. Vedere la seguente configurazione di esempio:
 
 [listing]
 ----
@@ -227,18 +286,18 @@ Oltre a `useCHAP=true`, il `chapInitiatorSecret`, `chapTargetInitiatorSecret`, `
 
 === Come funziona
 
-Per impostazione `useCHAP` A vero, l'amministratore dello storage istruisce Astra Trident a configurare CHAP sul backend dello storage. Ciò include quanto segue:
+Impostando `useCHAP` su true, l'amministratore dello storage richiede a Trident di configurare CHAP sul backend dello storage. Ciò include quanto segue:
 
 * Impostazione di CHAP su SVM:
 +
-** Se il tipo di protezione iniziatore predefinito della SVM è nessuno (impostato per impostazione predefinita) *e* nel volume non sono già presenti LUN preesistenti, Astra Trident imposterà il tipo di protezione predefinito su `CHAP` E procedere alla configurazione dell'iniziatore CHAP e del nome utente e dei segreti di destinazione.
-** Se la SVM contiene LUN, Astra Trident non attiverà CHAP sulla SVM. In questo modo, l'accesso ai LUN già presenti nella SVM non è limitato.
+** Se il tipo di protezione iniziatore predefinito della SVM è nessuno (impostato per impostazione predefinita) *e* non sono già presenti LUN preesistenti nel volume, Trident imposterà il tipo di protezione predefinito su `CHAP` e procederà alla configurazione dell'iniziatore CHAP e del nome utente e dei segreti di destinazione.
+** Se la SVM contiene LUN, Trident non attiva il protocollo CHAP nella SVM. In questo modo, l'accesso ai LUN già presenti nella SVM non è limitato.
 
 
 * Configurazione dell'iniziatore CHAP e del nome utente e dei segreti di destinazione; queste opzioni devono essere specificate nella configurazione del backend (come mostrato sopra).
 
 
-Una volta creato il backend, Astra Trident crea un corrispondente `tridentbackend` CRD e memorizza i segreti CHAP e i nomi utente come segreti Kubernetes. Tutti i PVS creati da Astra Trident su questo backend verranno montati e fissati su CHAP.
+Una volta creato il backend, Trident crea un CRD corrispondente `tridentbackend` e memorizza i segreti CHAP e i nomi utente come segreti Kubernetes. Tutti i PVS creati da Trident su questo backend verranno montati e collegati tramite CHAP.
 
 
 
@@ -247,7 +306,7 @@ Una volta creato il backend, Astra Trident crea un corrispondente `tridentbacken
 È possibile aggiornare le credenziali CHAP aggiornando i parametri CHAP in `backend.json` file. Per eseguire questa operazione, è necessario aggiornare i segreti CHAP e utilizzare `tridentctl update` per riflettere queste modifiche.
 
 
-WARNING: Quando si aggiornano i segreti CHAP per un backend, è necessario utilizzare `tridentctl` per aggiornare il backend. Non aggiornare le credenziali sul cluster di storage attraverso l'interfaccia utente CLI/ONTAP, in quanto Astra Trident non sarà in grado di rilevare queste modifiche.
+WARNING: Quando si aggiornano i segreti CHAP per un backend, è necessario utilizzare `tridentctl` per aggiornare il backend. Non aggiornare le credenziali sul cluster di storage tramite l'interfaccia utente CLI/ONTAP poiché Trident non sarà in grado di accettare queste modifiche.
 
 [listing]
 ----
@@ -274,4 +333,4 @@ cat backend-san.json
 | ontap_san_chap | ontap-san      | aa458f3b-ad2d-4378-8a33-1a472ffbeb5c | online |       7 |
 +----------------+----------------+--------------------------------------+--------+---------+
 ----
-Le connessioni esistenti rimarranno inalterate; continueranno a rimanere attive se le credenziali vengono aggiornate da Astra Trident sulla SVM. Le nuove connessioni utilizzeranno le credenziali aggiornate e le connessioni esistenti continueranno a rimanere attive. Disconnettendo e riconnettendo il vecchio PVS, verranno utilizzate le credenziali aggiornate.
+Le connessioni esistenti non subiranno alcun problema e continueranno a rimanere attive se le credenziali vengono aggiornate da Trident sulla SVM. Le nuove connessioni utilizzano le credenziali aggiornate e le connessioni esistenti continuano a rimanere attive. Disconnettendo e riconnettendo il vecchio PVS, verranno utilizzate le credenziali aggiornate.

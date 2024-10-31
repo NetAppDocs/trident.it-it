@@ -18,10 +18,10 @@ Scopri le opzioni di configurazione di back-end NFS e SMB per Azure NetApp Files
 
 == Opzioni di configurazione back-end
 
-Astra Trident utilizza la configurazione backend (subnet, rete virtuale, livello di servizio e posizione) per creare volumi Azure NetApp Files su pool di capacità disponibili nel percorso richiesto e corrispondere al livello di servizio e alla subnet richiesti.
+Trident utilizza la tua configurazione back-end (subnet, rete virtuale, livello di servizio e posizione) per creare volumi Azure NetApp Files su pool di capacità disponibili nel percorso richiesto e corrispondenti al livello di servizio e alla subnet richiesti.
 
 
-NOTE: Astra Trident non supporta i pool di capacità QoS manuali.
+NOTE: Trident non supporta i pool di capacità QoS manuali.
 
 I backend Azure NetApp Files forniscono queste opzioni di configurazione.
 
@@ -106,7 +106,7 @@ NOTE: Per ulteriori informazioni sulle funzioni di rete, fare riferimento a. lin
 
 === Autorizzazioni e risorse richieste
 
-Se viene visualizzato l'errore "Nessun pool di capacità trovato" durante la creazione di un PVC, è probabile che la registrazione dell'applicazione non disponga delle autorizzazioni e delle risorse necessarie (subnet, rete virtuale, pool di capacità) associate. Se il debug è attivato, Astra Trident registra le risorse Azure rilevate al momento della creazione del backend. Verificare che venga utilizzato un ruolo appropriato.
+Se viene visualizzato l'errore "Nessun pool di capacità trovato" durante la creazione di un PVC, è probabile che la registrazione dell'applicazione non disponga delle autorizzazioni e delle risorse necessarie (subnet, rete virtuale, pool di capacità) associate. Se il debug è attivato, Trident registrerà le risorse di Azure rilevate al momento della creazione del backend. Verificare che venga utilizzato un ruolo appropriato.
 
 I valori per `resourceGroups`, `netappAccounts`, `capacityPools`, `virtualNetwork`, e. `subnet` può essere specificato utilizzando nomi brevi o completi. Nella maggior parte dei casi, si consiglia di utilizzare nomi completi, in quanto i nomi brevi possono corrispondere a più risorse con lo stesso nome.
 
@@ -146,7 +146,7 @@ Il `resourceGroups`, `netappAccounts`, e. `capacityPools` i valori sono filtri c
 `exportRule` Deve essere un elenco separato da virgole di qualsiasi combinazione di indirizzi IPv4 o subnet IPv4 nella notazione CIDR. Ignorato per i volumi SMB. | "0.0.0.0/0" 
 
 
-| `snapshotDir` | Controlla la visibilità della directory .snapshot | "falso" 
+| `snapshotDir` | Controlla la visibilità della directory .snapshot | "True" per NFSv4 "false" per NFSv3 
 
 
 | `size` | La dimensione predefinita dei nuovi volumi | "100 G" 
@@ -163,7 +163,7 @@ Gli esempi seguenti mostrano le configurazioni di base che lasciano la maggior p
 .Configurazione minima
 [%collapsible]
 ====
-Questa è la configurazione backend minima assoluta. Con questa configurazione, Astra Trident scopre tutti gli account NetApp, i pool di capacità e le subnet delegate a Azure NetApp Files nel percorso configurato, e posiziona nuovi volumi in uno di tali pool e subnet in modo casuale. Perché `nasType` viene omesso, il `nfs` Viene applicato il valore predefinito e il backend eseguirà il provisioning dei volumi NFS.
+Questa è la configurazione backend minima assoluta. Con questa configurazione, Trident rileva tutti gli account NetApp, i pool di capacità e le subnet delegate a Azure NetApp Files nella posizione configurata e posiziona i nuovi volumi in uno di tali pool e subnet in modo casuale. Poiché `nasType` viene omesso, viene applicato il `nfs` valore predefinito e il backend esegue il provisioning dei volumi NFS.
 
 Questa configurazione è l'ideale se stai iniziando a utilizzare Azure NetApp Files e provando qualcosa, ma in pratica vorresti fornire un ulteriore ambito per i volumi da te forniti.
 
@@ -234,7 +234,7 @@ spec:
 .Configurazione specifica del livello di servizio con filtri pool di capacità
 [%collapsible]
 ====
-Questa configurazione di back-end consente di posizionare i volumi in Azure `eastus` posizione in un `Ultra` pool di capacità. Astra Trident scopre automaticamente tutte le subnet delegate a Azure NetApp Files in tale posizione e posiziona un nuovo volume su una di esse in modo casuale.
+Questa configurazione backend colloca i volumi nella posizione di Azure `eastus` in un `Ultra` pool di capacità. Trident rileva automaticamente tutte le subnet delegate a Azure NetApp Files in tale posizione e posiziona un nuovo volume su una di esse in modo casuale.
 
 [listing]
 ----
@@ -330,7 +330,7 @@ storage:
 .Configurazione delle topologie supportate
 [%collapsible]
 ====
-Astra Trident facilita il provisioning di volumi per i workload in base a regioni e zone di disponibilità. Il `supportedTopologies` blocco in questa configurazione backend viene utilizzato per fornire un elenco di aree e zone per backend. I valori di regione e zona specificati qui devono corrispondere ai valori di regione e zona dalle etichette su ogni nodo del cluster Kubernetes. Queste regioni e zone rappresentano l'elenco dei valori consentiti che possono essere forniti in una classe di archiviazione. Per le classi di storage che contengono un sottoinsieme delle regioni e zone fornite in un backend, Astra Trident creerà volumi nell'area e nella zona menzionate. Per ulteriori informazioni, fare riferimento a link:../trident-use/csi-topology.html["Utilizzare la topologia CSI"].
+Trident facilita il provisioning dei volumi per i workload in base a regioni e zone di disponibilità. Il `supportedTopologies` blocco in questa configurazione backend viene utilizzato per fornire un elenco di aree e zone per backend. I valori di regione e zona specificati qui devono corrispondere ai valori di regione e zona dalle etichette su ogni nodo del cluster Kubernetes. Queste regioni e zone rappresentano l'elenco dei valori consentiti che possono essere forniti in una classe di archiviazione. Per le classi di archiviazione che contengono un sottoinsieme delle aree e delle zone fornite in un backend, Trident crea volumi nell'area e nella zona menzionate. Per ulteriori informazioni, fare riferimento a link:../trident-use/csi-topology.html["Utilizzare la topologia CSI"].
 
 [listing]
 ----

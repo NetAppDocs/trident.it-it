@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-customize-deploy.html 
 keywords: deploy, trident, methods, operator, tridentctl, helm, attributes, customize, tridentorchestrator, smb, windows 
-summary: 'L"operatore Trident consente di personalizzare il modo in cui Astra Trident viene installato utilizzando gli attributi in `TridentOrchestrator` spec.' 
+summary: 'L"operatore Trident consente di personalizzare il modo in cui Trident viene installato utilizzando gli attributi nella `TridentOrchestrator` specifica.' 
 ---
 = Personalizzare l'installazione dell'operatore Trident
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 'L"operatore Trident consente di personalizzare il modo in cui Astra Tr
 
 
 [role="lead"]
-L'operatore Trident consente di personalizzare l'installazione di Astra Trident utilizzando gli attributi in `TridentOrchestrator` spec. Se si desidera personalizzare l'installazione oltre ciò che si desidera `TridentOrchestrator` gli argomenti lo consentono, valutare l'utilizzo `tridentctl` Per generare manifesti YAML personalizzati da modificare in base alle necessità.
+L'operatore Trident consente di personalizzare l'installazione di Trident utilizzando gli attributi della `TridentOrchestrator` specifica. Se si desidera personalizzare l'installazione oltre gli `TridentOrchestrator` argomenti consentiti, utilizzare `tridentctl` per generare manifesti YAML personalizzati da modificare in base alle necessità.
 
 
 
 == Comprensione dei pod controller e dei pod di nodi
 
-Astra Trident viene eseguito come singolo pod controller, più un pod di nodi su ciascun nodo di lavoro nel cluster. Il pod nodo deve essere in esecuzione su qualsiasi host in cui si desidera montare un volume Astra Trident.
+Trident funziona come un singolo pod controller, più un pod di nodo su ciascun nodo di lavoro nel cluster. Il pod di nodo deve essere in esecuzione su qualsiasi host in cui si desidera montare potenzialmente un volume Trident.
 
 Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["selettori di nodi"^] e. link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["tollerazioni e contamini"^] vengono utilizzati per vincolare l'esecuzione di un pod su un nodo specifico o preferito. Utilizzo di`ControllerPlugin` e. `NodePlugin`, è possibile specificare vincoli e override.
 
@@ -31,7 +31,7 @@ Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-p
 == Opzioni di configurazione
 
 
-WARNING: `spec.namespace` è specificato in `TridentOrchestrator` Per indicare lo spazio dei nomi in cui è installato Astra Trident. Questo parametro *non può essere aggiornato dopo l'installazione di Astra Trident*. Il tentativo di eseguire questa operazione causa il `TridentOrchestrator` stato in cui passare `Failed`. Astra Trident non deve essere migrato tra spazi dei nomi.
+WARNING: `spec.namespace` Viene specificato in per indicare lo spazio dei nomi in `TridentOrchestrator` cui è installato Trident. Questo parametro *non può essere aggiornato dopo l'installazione di Trident*. Se si tenta di eseguire questa operazione, `TridentOrchestrator` lo stato viene modificato in `Failed`. Trident non deve essere migrato tra namespace.
 
 Questa tabella è dettagliata `TridentOrchestrator` attributi.
 
@@ -40,15 +40,13 @@ Questa tabella è dettagliata `TridentOrchestrator` attributi.
 | Parametro | Descrizione | Predefinito 
 
 
-| `namespace` | Spazio dei nomi in cui installare Astra Trident | `"default"` 
+| `namespace` | Spazio dei nomi in cui installare Trident | `"default"` 
 
 
-| `debug` | Attiva il debug per Astra Trident | `false` 
+| `debug` | Attivare il debug per Trident | `false` 
 
 
-| `enableForceDetach` | `ontap-san` e. `ontap-san-economy` solo.
-
-Funziona con Kubernetes non-Graged Node Shutdown (NGNS) per consentire agli amministratori del cluster di migrare in sicurezza i carichi di lavoro con volumi montati su nuovi nodi in caso di problemi di integrità di un nodo. | `false` 
+| `enableForceDetach` | `ontap-san`, , `ontap-san-economy` e `ontap-nas-economy` solo. Funziona con Kubernetes non-Graged Node Shutdown (NGNS) per consentire agli amministratori del cluster di migrare in sicurezza i carichi di lavoro con volumi montati su nuovi nodi in caso di problemi di integrità di un nodo. | `false` 
 
 
 | `windows` | Impostazione su `true` Attiva l'installazione su nodi di lavoro Windows. | `false` 
@@ -57,10 +55,10 @@ Funziona con Kubernetes non-Graged Node Shutdown (NGNS) per consentire agli ammi
 | `cloudProvider` | Impostare su `"Azure"` Quando si utilizzano identità gestite o un'identità cloud su un cluster AKS. Impostato su "AWS" quando si utilizza un'identità cloud su un cluster EKS. | `""` 
 
 
-| `cloudIdentity` | Impostare sull'identità del workload ("Azure.workload.Identity/client-id: Xxxxxxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx") quando si utilizza l'identità cloud su un cluster AKS. Impostato sul ruolo AWS IAM ("'eks.amazonaws.com/role-arn: arn:AWS:iam::123456:role/astrattadent-role") quando si utilizza l'identità cloud su un cluster EKS. | `""` 
+| `cloudIdentity` | Impostare sull'identità del workload ("Azure.workload.Identity/client-id: Xxxxxxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx") quando si utilizza l'identità cloud su un cluster AKS. Impostato sul ruolo AWS IAM ("'eks.amazonaws.com/role-arn: arn:AWS:iam::123456:role/Trident-role") quando si utilizza l'identità cloud su un cluster EKS. | `""` 
 
 
-| `IPv6` | Installare Astra Trident su IPv6 | falso 
+| `IPv6` | Installare Trident su IPv6 | falso 
 
 
 | `k8sTimeout` | Timeout per le operazioni Kubernetes | `30sec` 
@@ -70,32 +68,30 @@ Funziona con Kubernetes non-Graged Node Shutdown (NGNS) per consentire agli ammi
 in maniera automatica | `false` 
 
 
-| `autosupportImage` | L'immagine del contenitore per la telemetria AutoSupport | `"netapp/trident-autosupport:24.06"` 
+| `autosupportImage` | L'immagine del contenitore per la telemetria AutoSupport | `"netapp/trident-autosupport:24.10"` 
 
 
 | `autosupportProxy` | Indirizzo/porta di un proxy per l'invio della AutoSupport
 Telemetria | `"http://proxy.example.com:8888"` 
 
 
-| `uninstall` | Flag utilizzato per disinstallare Astra Trident | `false` 
+| `uninstall` | Un flag utilizzato per disinstallare Trident | `false` 
 
 
-| `logFormat` | Formato di registrazione Astra Trident da utilizzare [text,json] | `"text"` 
+| `logFormat` | Formato di registrazione Trident da utilizzare [text,json] | `"text"` 
 
 
-| `tridentImage` | Immagine Astra Trident da installare | `"netapp/trident:24.06"` 
+| `tridentImage` | Immagine Trident da installare | `"netapp/trident:24.10"` 
 
 
 | `imageRegistry` | Percorso al registro interno, del formato
-`<registry FQDN>[:port][/subpath]` | `"k8s.gcr.io/sig-storage"` (Kubernetes 1,19+)
-oppure `"quay.io/k8scsi"` 
+`<registry FQDN>[:port][/subpath]` | `"k8s.gcr.io"` (Kubernetes 1,19+) o. `"quay.io/k8scsi"` 
 
 
 | `kubeletDir` | Percorso della directory del kubelet sull'host | `"/var/lib/kubelet"` 
 
 
-| `wipeout` | Un elenco di risorse da eliminare per eseguire una rimozione completa di
-Astra Trident |  
+| `wipeout` | Un elenco di risorse da eliminare per eseguire la rimozione completa di Trident |  
 
 
 | `imagePullSecrets` | Secrets (segreti) per estrarre immagini da un registro interno |  
@@ -117,6 +113,9 @@ Astra Trident |
 
 
 | `nodePluginTolerations` | Ignora le tolleranze Kubernetes per i pod. Segue lo stesso formato di `pod.spec.Tolerations`. | Nessuna impostazione predefinita; opzionale 
+
+
+| `nodePrep` | Permette a Trident di preparare i nodi del cluster Kubernetes per gestire i volumi utilizzando il protocollo storage specificato. *Attualmente, `iscsi` è l'unico valore supportato.* |  
 |===
 
 NOTE: Per ulteriori informazioni sulla formattazione dei parametri del pod, fare riferimento a. link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Assegnazione di pod ai nodi"^].
@@ -125,25 +124,28 @@ NOTE: Per ulteriori informazioni sulla formattazione dei parametri del pod, fare
 
 === Dettagli sulla forza di distacco
 
-Forza distacco disponibile per `ontap-san` e. `ontap-san-economy` solo. Prima di attivare la funzione di force stach, è necessario attivare la funzione NGNS (non-aggraziate node shutdown) sul cluster Kubernetes. Per ulteriori informazioni, fare riferimento a. link:https://kubernetes.io/docs/concepts/architecture/nodes/#non-graceful-node-shutdown["Kubernetes: Shutdown del nodo non aggraziato"^].
+Lo stacco forzato è disponibile solo per `ontap-san`, `ontap-san-economy` e. `onatp-nas-economy` Prima di attivare la funzione di force stach, è necessario attivare la funzione NGNS (non-aggraziate node shutdown) sul cluster Kubernetes. Per ulteriori informazioni, fare riferimento a link:https://kubernetes.io/docs/concepts/architecture/nodes/#non-graceful-node-shutdown["Kubernetes: Shutdown del nodo non aggraziato"^].
 
 
-WARNING: Poiché Astra Trident si affida a Kubernetes NGNS, non rimuovere `out-of-service` esegue il tinding da un nodo non integro fino a quando tutti i carichi di lavoro non tollerabili non vengono ripianificati. L'applicazione o la rimozione sconsiderata della contaminazione può compromettere la protezione dei dati back-end.
+NOTE: Quando si utilizza il `ontap-nas-economy` driver, è necessario impostare il `autoExportPolicy` parametro nella configurazione backend su in `true` modo che Trident possa limitare l'accesso dal nodo Kubernetes con il tag applicato utilizzando policy di esportazione gestite.
 
-Quando l'amministratore del cluster Kubernetes ha applicato il `node.kubernetes.io/out-of-service=nodeshutdown:NoExecute` al nodo e. `enableForceDetach` è impostato su `true`, Astra Trident determinerà lo stato del nodo e:
+
+WARNING: Poiché Trident fa affidamento su Kubernetes NGNS, non rimuovere i `out-of-service` tag da un nodo non integro fino a quando tutti i carichi di lavoro non tollerabili non vengono ripianificati. L'applicazione o la rimozione sconsiderata della contaminazione può compromettere la protezione dei dati back-end.
+
+Quando l'amministratore del cluster Kubernetes ha applicato il `node.kubernetes.io/out-of-service=nodeshutdown:NoExecute` tag al nodo ed `enableForceDetach` è impostato su `true`, Trident determinerà lo stato del nodo e:
 
 . Interrompere l'accesso i/o back-end per i volumi montati su quel nodo.
-. Contrassegna l'oggetto nodo Astra Trident come `dirty` (non sicuro per le nuove pubblicazioni).
+. Contrassegnare l'oggetto nodo Trident come `dirty` (non sicuro per le nuove pubblicazioni).
 +
 
-NOTE: Il controller Trident rifiuterà le nuove richieste di volumi di pubblicazione fino a quando il nodo non viene riqualificato (dopo essere stato contrassegnato come) `dirty`) Dal pod di nodi Trident. Tutti i carichi di lavoro pianificati con un PVC montato (anche dopo che il nodo del cluster è integro e pronto) non saranno accettati fino a quando Astra Trident non sarà in grado di verificare il nodo `clean` (sicuro per le nuove pubblicazioni).
+NOTE: Il controller Trident rifiuterà le nuove richieste di volume di pubblicazione finché il nodo non viene riqualificato (dopo essere stato contrassegnato come `dirty`) dal pod di nodo Trident. Tutti i carichi di lavoro pianificati con un PVC montato (anche dopo che il nodo del cluster è integro e pronto) non saranno accettati fino a quando Trident non sarà in grado di verificare il nodo `clean` (sicuro per le nuove pubblicazioni).
 
 
 
-Quando lo stato del nodo viene ripristinato e la contaminazione viene rimossa, Astra Trident:
+Quando l'integrità del nodo viene ripristinata e il tag viene rimosso, Trident:
 
 . Identificare e pulire i percorsi pubblicati obsoleti sul nodo.
-. Se il nodo si trova in una `cleanable` stato (la manutenzione fuori servizio è stata rimossa e il nodo si trova in `Ready` state) e tutti i percorsi pubblicati e obsoleti sono puliti, Astra Trident riporterà il nodo come `clean` e consentire nuovi volumi pubblicati al nodo.
+. Se il nodo si trova in uno `cleanable` stato (il tag out-of-service è stato rimosso e il nodo è nello `Ready` stato) e tutti i percorsi obsoleti e pubblicati sono puliti, Trident riammetterà il nodo come `clean` e consentirà ai nuovi volumi pubblicati di accedere al nodo.
 
 
 
@@ -174,7 +176,7 @@ spec:
 .Selettori di nodo
 [%collapsible]
 ====
-Questo esempio installa Astra Trident con selettori di nodo.
+In questo esempio viene installato Trident con i selettori di nodo.
 
 [listing]
 ----
@@ -194,7 +196,7 @@ spec:
 .Nodi di lavoro Windows
 [%collapsible]
 ====
-In questo esempio viene installato Astra Trident su un nodo di lavoro Windows.
+In questo esempio viene installato Trident su un nodo di lavoro Windows.
 
 [listing]
 ----
@@ -212,7 +214,7 @@ spec:
 .Identità gestite su un cluster AKS
 [%collapsible]
 ====
-Questo esempio installa Astra Trident per abilitare le identità gestite su un cluster AKS.
+In questo esempio viene installato Trident per abilitare le identità gestite su un cluster AKS.
 
 [listing]
 ----
@@ -229,7 +231,7 @@ spec:
 .Identità cloud su un cluster AKS
 [%collapsible]
 ====
-Questo esempio installa Astra Trident per l'utilizzo con un'identità cloud su un cluster AKS.
+Questo esempio installa Trident per l'utilizzo con un'identità cloud su un cluster AKS.
 
 [listing]
 ----
@@ -248,7 +250,7 @@ spec:
 .Identità cloud su un cluster EKS
 [%collapsible]
 ====
-Questo esempio installa Astra Trident per l'utilizzo con un'identità cloud su un cluster AKS.
+Questo esempio installa Trident per l'utilizzo con un'identità cloud su un cluster AKS.
 
 [listing]
 ----
@@ -260,6 +262,27 @@ spec:
   debug: true
   namespace: trident
   cloudProvider: "AWS"
-  cloudIdentity: "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role'"
+  cloudIdentity: "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/trident-role'"
+----
+====
+.Identità cloud per GKE
+[%collapsible]
+====
+Questo esempio installa Astra Trident per l'utilizzo con un'identità cloud su un cluster GKE.
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-gcp-gcnv
+spec:
+  version: 1
+  storageDriverName: google-cloud-netapp-volumes
+  projectNumber: '012345678901'
+  network: gcnv-network
+  location: us-west2
+  serviceLevel: Premium
+  storagePool: pool-premium1
 ----
 ====

@@ -32,14 +32,14 @@ kubectl get storageclass
 ----
 kubectl get storageclass <storage-class> -o json
 ----
-* Per visualizzare le classi di storage sincronizzate di Astra Trident, eseguire il seguente comando:
+* Per visualizzare le classi di archiviazione sincronizzata di Trident, eseguire il comando seguente:
 
 
 [listing]
 ----
 tridentctl get storageclass
 ----
-* Per visualizzare i dettagli della classe di storage sincronizzata di Astra Trident, eseguire il seguente comando:
+* Per visualizzare i dettagli della classe di archiviazione sincronizzata di Trident, eseguire il comando seguente:
 
 
 [listing]
@@ -76,7 +76,7 @@ NOTE: Nel cluster deve essere presente una sola classe di archiviazione predefin
 
 == Identificare il backend per una classe di storage
 
-Questo è un esempio del tipo di domande a cui puoi rispondere con il JSON che `tridentctl` Output per gli oggetti backend Astra Trident. Viene utilizzato il `jq` che potrebbe essere necessario installare per prima.
+Questo è un esempio del tipo di domande a cui è possibile rispondere con il JSON che `tridentctl` emette per gli oggetti back-end Trident. In questo modo viene utilizzata l' `jq`utilità, che potrebbe essere necessario installare per prima.
 
 [listing]
 ----
@@ -94,7 +94,7 @@ kubectl delete storageclass <storage-class>
 ----
 `<storage-class>` deve essere sostituito con la classe di storage.
 
-Tutti i volumi persistenti creati attraverso questa classe di storage resteranno inalterati e Astra Trident continuerà a gestirli.
+Tutti i volumi persistenti creati tramite questa classe di storage non verranno toccati e Trident continuerà a gestirli.
 
 
-NOTE: Astra Trident impone un vuoto `fsType` per i volumi creati. Per i backend iSCSI, si consiglia di applicare `parameters.fsType` In StorageClass. È necessario eliminare le StorageClasses esistenti e ricrearle con `parameters.fsType` specificato.
+NOTE: Trident applica uno spazio vuoto `fsType` ai volumi che crea. Per i backend iSCSI, si consiglia di applicare `parameters.fsType` in StorageClass. È necessario eliminare gli StorageClasses esistenti e ricrearli con `parameters.fsType` specificato.

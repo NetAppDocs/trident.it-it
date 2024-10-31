@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/trident-fsx-storageclass-pvc.html 
 keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident 
-summary: 'Utilizzando Astra Trident con Amazon FSX per NetApp ONTAP, puoi garantire che i cluster Kubernetes in esecuzione in Amazon Elastic Kubernetes Service (EKS) possano eseguire il provisioning di volumi persistenti di blocchi e file supportati da ONTAP.' 
+summary: 'Utilizzando Trident con Amazon FSX per NetApp ONTAP, puoi assicurarti che i tuoi cluster Kubernetes in esecuzione in Amazon Elastic Kubernetes Service (EKS) possano effettuare il provisioning di volumi persistenti di file e blocchi supportati da ONTAP.' 
 ---
 = Configurare una classe di storage e PVC
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 'Utilizzando Astra Trident con Amazon FSX per NetApp ONTAP, puoi garant
 
 
 [role="lead"]
-Configurare un oggetto Kubernetes StorageClass e creare una classe storage per istruire Astra Trident su come eseguire il provisioning dei volumi. Creare un PersistentVolume (PV) e un PersistentVolumeClaim (PVC) che utilizza Kubernetes StorageClass configurato per richiedere l'accesso al PV. È quindi possibile montare il PV su un pod.
+Configurare un oggetto Kubernetes StorageClass e creare la classe storage per istruire Trident su come eseguire il provisioning dei volumi. Creare un PersistentVolume (PV) e un PersistentVolumeClaim (PVC) che utilizza Kubernetes StorageClass configurato per richiedere l'accesso al PV. È quindi possibile montare il PV su un pod.
 
 
 
@@ -22,7 +22,7 @@ Configurare un oggetto Kubernetes StorageClass e creare una classe storage per i
 
 === Configurare un oggetto Kubernetes StorageClass
 
- https://kubernetes.io/docs/concepts/storage/storage-classes/["Oggetto Kubernetes StorageClass"^]Identifica Astra Trident come provisioner utilizzato per quella classe istruisce Astra Trident su come eseguire il provisioning di un volume. Ad esempio:
+ https://kubernetes.io/docs/concepts/storage/storage-classes/["Oggetto Kubernetes StorageClass"^]Identifica Trident come provisioner utilizzato per la classe specifica a Trident come eseguire il provisioning di un volume. Ad esempio:
 
 [listing]
 ----
@@ -37,7 +37,7 @@ parameters:
   provisioningType: "thin"
   snapshots: "true"
 ----
-Fare riferimento a. link:../trident-reference/objects.html["Kubernetes e Trident Objects"] per informazioni sulle modalità di interazione delle classi di storage con `PersistentVolumeClaim` E parametri per controllare come Astra Trident esegue il provisioning dei volumi.
+Per ulteriori informazioni sull'interazione delle classi di archiviazione con i `PersistentVolumeClaim` parametri e per il controllo del provisioning dei volumi da parte di Trident, fare riferimento link:../trident-reference/objects.html["Kubernetes e Trident Objects"]a.
 
 
 
@@ -50,7 +50,7 @@ Fare riferimento a. link:../trident-reference/objects.html["Kubernetes e Trident
 ----
 kubectl create -f storage-class-ontapnas.yaml
 ----
-. Ora dovrebbe essere visualizzata una classe di storage *Basic-csi* in Kubernetes e Astra Trident, mentre Astra Trident avrebbe scoperto i pool sul backend.
+. Ora dovresti vedere una classe storage *Basic-csi* in Kubernetes e Trident, e Trident dovrebbe aver scoperto i pool nel back-end.
 +
 [listing]
 ----
@@ -174,13 +174,13 @@ pvc-storage Bound  pv-name 2Gi      RWO                       5m
 ----
 
 
-Fare riferimento a. link:../trident-reference/objects.html["Kubernetes e Trident Objects"] per informazioni sulle modalità di interazione delle classi di storage con `PersistentVolumeClaim` E parametri per controllare come Astra Trident esegue il provisioning dei volumi.
+Per ulteriori informazioni sull'interazione delle classi di archiviazione con i `PersistentVolumeClaim` parametri e per il controllo del provisioning dei volumi da parte di Trident, fare riferimento link:../trident-reference/objects.html["Kubernetes e Trident Objects"]a.
 
 
 
-== Attributi Astra Trident
+== Attributi Trident
 
-Questi parametri determinano quali pool di storage gestiti da Astra Trident devono essere utilizzati per il provisioning di volumi di un determinato tipo.
+Questi parametri determinano quali pool di storage gestiti da Trident devono essere utilizzati per eseguire il provisioning di volumi di un determinato tipo.
 
 [cols=",,,,,"]
 |===

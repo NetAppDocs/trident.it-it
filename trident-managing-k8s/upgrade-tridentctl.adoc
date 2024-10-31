@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-managing-k8s/upgrade-tridentctl.html 
 keywords: upgrade, trident, methods, operator, tridentctl, helm 
-summary: 'È possibile aggiornare facilmente un"installazione Astra Trident utilizzando `tridentctl`.' 
+summary: 'È possibile aggiornare facilmente un"installazione Trident esistente utilizzando `tridentctl`.' 
 ---
 = Upgrade con tridentctl
 :hardbreaks:
@@ -12,22 +12,22 @@ summary: 'È possibile aggiornare facilmente un"installazione Astra Trident util
 
 
 [role="lead"]
-È possibile aggiornare facilmente un'installazione Astra Trident utilizzando `tridentctl`.
+È possibile aggiornare facilmente un'installazione Trident esistente utilizzando `tridentctl`.
 
 .A proposito di questa attività
-La disinstallazione e la reinstallazione di Astra Trident funge da aggiornamento. Quando si disinstalla Trident, i PVC (Persistent Volume Claim) e PV (Persistent Volume) utilizzati dall'implementazione di Astra Trident non vengono cancellati. I PVS già forniti resteranno disponibili mentre Astra Trident è offline e Astra Trident effettuerà il provisioning dei volumi per i PVC creati nel frattempo una volta tornati online.
+La disinstallazione e la reinstallazione di Trident funge da aggiornamento. Quando si disinstalla Trident, il PVC (Persistent Volume Claim) e il PV (Persistent Volume Claim) utilizzati dall'implementazione Trident non vengono eliminati. I PVC che sono già stati sottoposti a provisioning rimarranno disponibili mentre Trident è offline, e Trident eseguirà il provisioning dei volumi per qualsiasi PVC creato nel frattempo dopo il ritorno online.
 
 .Prima di iniziare
 Revisione link:upgrade-trident.html#select-an-upgrade-method["Selezionare un metodo di aggiornamento"] prima di eseguire l'aggiornamento con `tridentctl`.
 
 .Fasi
-. Eseguire il comando di disinstallazione in `tridentctl` Rimuovere tutte le risorse associate ad Astra Trident, ad eccezione dei CRD e degli oggetti correlati.
+. Eseguire il comando di disinstallazione in `tridentctl` per rimuovere tutte le risorse associate a Trident, ad eccezione dei CRD e degli oggetti correlati.
 +
 [listing]
 ----
 ./tridentctl uninstall -n <namespace>
 ----
-. Reinstallare Astra Trident. Fare riferimento a. link:../trident-get-started/kubernetes-deploy-tridentctl.html["Installare Astra Trident usando tridentctl"].
+. Reinstallare Trident. Fare riferimento alla link:../trident-get-started/kubernetes-deploy-tridentctl.html["Installare Trident usando tridentctl"].
 
 
 

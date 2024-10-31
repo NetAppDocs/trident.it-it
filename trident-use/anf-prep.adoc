@@ -35,7 +35,7 @@ Per configurare e utilizzare un https://azure.microsoft.com/en-us/services/netap
 * `tenantID`, `clientID`, e. `clientSecret` da un link:https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal["Registrazione dell'app"^] In Azure Active Directory con autorizzazioni sufficienti per il servizio Azure NetApp Files. La registrazione dell'applicazione deve utilizzare:
 +
 ** Il ruolo di Proprietario o collaboratore link:https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles["Predefinito da Azure"^].
-** R link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["Ruolo di collaboratore personalizzato"] a livello di abbonamento (`assignableScopes`) Con le seguenti autorizzazioni limitate solo a quanto richiesto da Astra Trident. Dopo aver creato il ruolo personalizzato, link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["Assegnare il ruolo utilizzando il portale Azure"^].
+** A link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["Ruolo di collaboratore personalizzato"] al livello di sottoscrizione (`assignableScopes`) con le seguenti autorizzazioni che sono limitate solo a ciò che Trident richiede. Dopo aver creato il ruolo personalizzato, link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["Assegnare il ruolo utilizzando il portale Azure"^].
 +
 .Ruolo collaboratore personalizzato
 [%collapsible]
@@ -96,8 +96,8 @@ Per configurare e utilizzare un https://azure.microsoft.com/en-us/services/netap
 Per creare un volume SMB, è necessario disporre di:
 
 * Active Directory configurato e connesso a Azure NetApp Files. Fare riferimento a. link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/create-active-directory-connections["Microsoft: Creazione e gestione delle connessioni Active Directory per Azure NetApp Files"^].
-* Un cluster Kubernetes con un nodo controller Linux e almeno un nodo di lavoro Windows che esegue Windows Server 2022. Astra Trident supporta volumi SMB montati su pod eseguiti solo su nodi Windows.
-* Almeno un segreto di Astra Trident contenente le credenziali di Active Directory in modo che Azure NetApp Files possa autenticarsi in Active Directory. Per generare un segreto `smbcreds`:
+* Un cluster Kubernetes con un nodo controller Linux e almeno un nodo di lavoro Windows che esegue Windows Server 2022. Trident supporta volumi SMB montati su pod in esecuzione solo sui nodi Windows.
+* Almeno un segreto Trident contenente le credenziali di Active Directory in modo che Azure NetApp Files possa autenticarsi ad Active Directory. Per generare segreto `smbcreds`:
 +
 [listing]
 ----

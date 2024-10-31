@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-managing-k8s/uninstall-trident.html 
-keywords: uninstall, astra trident, methods, operator, tridentctl, helm, downgrade, obliviate, crds, wipeout, downgrade 
-summary: Devi utilizzare lo stesso metodo per disinstallare Astra Trident che hai utilizzato per installare Astra Trident. Se hai bisogno di una correzione per i bug osservati dopo un aggiornamento, problemi di dipendenza o un aggiornamento non riuscito o incompleto, devi disinstallare Astra Trident e reinstallare la versione precedente utilizzando le istruzioni specifiche per quella versione. 
+keywords: uninstall, Trident, methods, operator, tridentctl, helm, downgrade, obliviate, crds, wipeout, downgrade 
+summary: Utilizzare lo stesso metodo per disinstallare Trident utilizzato per installare Trident. Se è necessaria una correzione per i bug osservati dopo un aggiornamento, problemi di dipendenza o un aggiornamento non riuscito o incompleto, è necessario disinstallare Trident e reinstallare la versione precedente utilizzando le istruzioni specifiche per quella versione. 
 ---
-= Disinstallare Astra Trident
+= Disinstallare Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,32 +12,32 @@ summary: Devi utilizzare lo stesso metodo per disinstallare Astra Trident che ha
 
 
 [role="lead"]
-Devi utilizzare lo stesso metodo per disinstallare Astra Trident che hai utilizzato per installare Astra Trident.
+Utilizzare lo stesso metodo per disinstallare Trident utilizzato per installare Trident.
 
 .A proposito di questa attività
-* Se hai bisogno di una correzione per i bug osservati dopo un aggiornamento, problemi di dipendenza o un aggiornamento non riuscito o incompleto, devi disinstallare Astra Trident e reinstallare la versione precedente utilizzando le istruzioni specifiche per questo link:../earlier-versions.html["versione"]. Questo è l'unico modo consigliato per _eseguire il downgrade_ a una versione precedente.
-* Per semplificare l'aggiornamento e la reinstallazione, la disinstallazione di Astra Trident non rimuove i CRD o gli oggetti correlati creati da Astra Trident. Se devi rimuovere completamente Astra Trident e tutti i suoi dati, fai riferimento a. link:../troubleshooting.html#completely-remove-astra-trident-and-crds["Rimuovere completamente Astra Trident e i CRD"].
+* Se è necessaria una correzione per i bug osservati dopo un aggiornamento, problemi di dipendenza o un aggiornamento non riuscito o incompleto, è necessario disinstallare Trident e reinstallare la versione precedente utilizzando le istruzioni specifiche per tale aggiornamentolink:../earlier-versions.html["versione"]. Questo è l'unico modo consigliato per _eseguire il downgrade_ a una versione precedente.
+* Per semplificare l'aggiornamento e la reinstallazione, la disinstallazione di Trident non rimuove i CRD o gli oggetti correlati creati da Trident. Se è necessario rimuovere completamente Trident e tutti i relativi dati, fare riferimento alla sezione link:../troubleshooting.html#completely-remove-trident-and-crds["Rimuovere completamente Trident e CRD"].
 
 
 .Prima di iniziare
-Se stai decommissionando i cluster Kubernetes, devi eliminare tutte le applicazioni che utilizzano volumi creati da Astra Trident prima della disinstallazione. In questo modo, si garantisce che i PVC non siano pubblicati sui nodi Kubernetes prima di essere eliminati.
+Se stai decommissionando i cluster Kubernetes, devi eliminare tutte le applicazioni che utilizzano i volumi creati da Trident prima della disinstallazione. In questo modo, si garantisce che i PVC non siano pubblicati sui nodi Kubernetes prima di essere eliminati.
 
 
 
 == Determinare il metodo di installazione originale
 
-Utilizzare lo stesso metodo per disinstallare Astra Trident che è stato utilizzato per installarlo. Prima di disinstallare, verificare quale versione è stata utilizzata per installare originariamente Astra Trident.
+Utilizzare lo stesso metodo per disinstallare Trident utilizzato per installarlo. Prima di disinstallare, verificare quale versione è stata utilizzata per installare Trident in origine.
 
 . Utilizzare `kubectl get pods -n trident` esaminare i pod.
 +
-** Se non è disponibile un pod per l'operatore, Astra Trident è stato installato utilizzando `tridentctl`.
-** Se è presente un pod operatore, Astra Trident è stato installato utilizzando l'operatore Trident manualmente o utilizzando Helm.
+** Se non è presente alcun pannello operatore, Trident è stato installato utilizzando `tridentctl`.
+** Se è presente un quadro di comando, Trident è stato installato utilizzando l'operatore Trident manualmente o utilizzando Helm.
 
 
-. Se è presente un pod per l'operatore, utilizzare `kubectl describe tproc trident` Per determinare se Astra Trident è stato installato utilizzando Helm.
+. Se è presente un pannello operatore, utilizzare `kubectl describe tproc trident` per determinare se Trident è stato installato utilizzando Helm.
 +
-** Se è presente un'etichetta Helm, Astra Trident è stato installato utilizzando Helm.
-** Se non è presente alcuna etichetta Helm, Astra Trident è stato installato manualmente utilizzando l'operatore Trident.
+** Se è presente un'etichetta Helm, Trident è stato installato utilizzando Helm.
+** Se non è presente alcuna etichetta Helm, Trident è stato installato manualmente utilizzando l'operatore Trident.
 
 
 
@@ -52,7 +52,7 @@ Utilizzare lo stesso metodo per disinstallare Astra Trident che è stato utilizz
 
 === Disinstallare l'installazione manuale
 
-Se Astra Trident è stato installato utilizzando l'operatore, è possibile disinstallarlo effettuando una delle seguenti operazioni:
+Se Trident è stato installato utilizzando l'operatore, è possibile disinstallarlo effettuando una delle seguenti operazioni:
 
 . **Modifica `TridentOrchestrator` CR e impostare il flag di disinstallazione**:
 +
@@ -63,7 +63,7 @@ kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"uninst
 +
 Quando il `uninstall` flag è impostato su `true`, L'operatore Trident disinstalla Trident, ma non rimuove il TridentOrchestrator stesso. Se si desidera installare di nuovo Trident, è necessario ripulire TridentOrchestrator e crearne uno nuovo.
 
-. **Elimina `TridentOrchestrator`**: Rimuovendo `TridentOrchestrator` CR utilizzato per implementare Astra Trident, si richiede all'operatore di disinstallare Trident. L'operatore elabora la rimozione di `TridentOrchestrator` E procede alla rimozione dell'implementazione e del demonset di Astra Trident, eliminando i pod Trident creati come parte dell'installazione.
+. **Elimina `TridentOrchestrator`**: Rimuovendo il `TridentOrchestrator` CR utilizzato per distribuire Trident, si istruisce l'operatore a disinstallare Trident. L'operatore elabora la rimozione `TridentOrchestrator` e procede alla rimozione della distribuzione Trident e del daemonset, eliminando i pod Trident creati durante l'installazione.
 +
 [listing]
 ----
@@ -75,11 +75,11 @@ kubectl delete -f deploy/<bundle.yaml> -n <namespace>
 
 === Disinstallare l'installazione di Helm
 
-Se Astra Trident è stato installato utilizzando Helm, è possibile disinstallarlo utilizzando `helm uninstall`.
+Se Trident è stato installato utilizzando Helm, è possibile disinstallarlo utilizzando `helm uninstall`.
 
 [listing]
 ----
-#List the Helm release corresponding to the Astra Trident install.
+#List the Helm release corresponding to the Trident install.
 helm ls -n trident
 NAME          NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
 trident       trident         1               2021-04-20 00:26:42.417764794 +0000 UTC deployed        trident-operator-21.07.1        21.07.1
@@ -92,7 +92,7 @@ release "trident" uninstalled
 
 == Disinstallare un `tridentctl` installazione
 
-Utilizzare `uninstall` ingresso comando `tridentctl` Per rimuovere tutte le risorse associate a Astra Trident, ad eccezione dei CRD e degli oggetti correlati:
+Utilizzare il `uninstall` comando in `tridentctl` per rimuovere tutte le risorse associate a Trident, ad eccezione dei CRD e degli oggetti correlati:
 
 [listing]
 ----

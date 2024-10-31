@@ -6,7 +6,7 @@ entries:
   url: "/trident-reco/deploy-reco.html"
 - title: Configurazione dello storage
   url: "/trident-reco/storage-config-best-practices.html"
-- title: Integrazione di Astra Trident
+- title: Integrazione Trident
   url: "/trident-reco/integrate-trident.html"
 - title: Protezione dei dati e disaster recovery
   url: "/trident-reco/backup.html"

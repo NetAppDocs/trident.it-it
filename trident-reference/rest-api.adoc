@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-reference/rest-api.html 
 keywords: rest api, get, post, json, object, backends 
-summary: 'È possibile utilizzare l"endpoint REST direttamente se si preferisce interagire con l"API REST di Astra Trident.' 
+summary: 'È possibile utilizzare direttamente l"endpoint REST se si preferisce interagire con l"API REST di Trident.' 
 ---
-= API REST di Astra Trident
+= API REST Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,21 +12,21 @@ summary: 'È possibile utilizzare l"endpoint REST direttamente se si preferisce 
 
 
 [role="lead"]
-Mentre link:tridentctl.html["comandi e opzioni tridentctl"] Sono il modo più semplice per interagire con l'API REST di Astra Trident, puoi utilizzare l'endpoint REST direttamente se preferisci.
+Anche se link:tridentctl.html["comandi e opzioni tridentctl"] rappresentano il modo più semplice per interagire con l'API REST di Trident, se preferisci puoi utilizzare direttamente l'endpoint REST.
 
 
 
 == Quando utilizzare l'API REST
 
-REST API è utile per le installazioni avanzate che utilizzano Astra Trident come binario standalone nelle implementazioni non Kubernetes.
+Le API REST sono utili per installazioni avanzate che utilizzano Trident come binario standalone in implementazioni non-Kubernetes.
 
-Per una maggiore sicurezza, Astra Trident `REST API` è limitato all'host locale per impostazione predefinita quando viene eseguito all'interno di un pod. Per modificare questo comportamento, devi impostare Astra Trident's. `-address` argomento nella configurazione del pod.
+Per una maggiore sicurezza, Trident `REST API` è limitato al localhost per impostazione predefinita quando viene eseguito all'interno di un pod. Per modificare questo comportamento, è necessario impostare l'argomento di Trident `-address` nella relativa configurazione pod.
 
 
 
 == Utilizzo dell'API REST
 
-Per esempi di come vengono chiamate queste API, passare il debug (`-d`). Per ulteriori informazioni, fare riferimento a. link:../trident-managing-k8s/tridentctl.html["Gestisci Astra Trident usando tridentctl"].
+Per esempi di come vengono chiamate queste API, passare il (`-d`flag debug ). Per ulteriori informazioni, fare riferimento a link:../trident-managing-k8s/tridentctl.html["Gestisci Trident usando tridentctl"].
 
 L'API funziona come segue:
 
@@ -45,7 +45,7 @@ L'API funziona come segue:
 `POST <trident-address>/trident/v1/<object-type>`:: Crea un oggetto del tipo specificato.
 +
 --
-* Richiede una configurazione JSON per la creazione dell'oggetto. Per le specifiche di ciascun tipo di oggetto, fare riferimento alla link:../trident-managing-k8s/tridentctl.html["Gestisci Astra Trident usando tridentctl"].
+* Richiede una configurazione JSON per la creazione dell'oggetto. Per le specifiche di ciascun tipo di oggetto, fare riferimento alla link:../trident-managing-k8s/tridentctl.html["Gestisci Trident usando tridentctl"].
 * Se l'oggetto esiste già, il comportamento varia: I backend aggiornano l'oggetto esistente, mentre tutti gli altri tipi di oggetto non riescono a eseguire l'operazione.
 
 
@@ -60,7 +60,7 @@ L'API funziona come segue:
 +
 --
 
-NOTE: I volumi associati ai backend o alle classi di storage continueranno ad esistere; questi devono essere cancellati separatamente. Per ulteriori informazioni, fare riferimento a. link:../trident-managing-k8s/tridentctl.html["Gestisci Astra Trident usando tridentctl"].
+NOTE: I volumi associati ai backend o alle classi di storage continueranno ad esistere; questi devono essere cancellati separatamente. Per ulteriori informazioni, fare riferimento a link:../trident-managing-k8s/tridentctl.html["Gestisci Trident usando tridentctl"].
 
 --
 

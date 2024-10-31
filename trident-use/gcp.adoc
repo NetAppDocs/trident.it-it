@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/gcp.html 
 keywords: trident backend, cloud volumes service for google cloud platform, google cloud platform, gcp, storage pool labels, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes, drivers, access modes, rwo, rwx, rwp, rwop, file system 
-summary: 'Scopri come configurare Cloud Volumes Service per Google Cloud come back-end per l"installazione di Astra Trident utilizzando le configurazioni di esempio fornite.' 
+summary: 'Scopri come configurare Cloud Volumes Service per Google Cloud come back-end per l"installazione di Trident utilizzando le configurazioni di esempio fornite.' 
 ---
 = Configurare un Cloud Volumes Service per il backend di Google Cloud
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 'Scopri come configurare Cloud Volumes Service per Google Cloud come ba
 
 
 [role="lead"]
-Scopri come configurare NetApp Cloud Volumes Service per Google Cloud come back-end per la tua installazione Astra Trident utilizzando le configurazioni di esempio fornite.
+Scopri come configurare NetApp Cloud Volumes Service per Google Cloud come back-end per l'installazione di Trident utilizzando le configurazioni di esempio fornite.
 
 
 
 == Dettagli del driver di Google Cloud
 
-Astra Trident offre a. `gcp-cvs` driver per comunicare con il quadro strumenti. Le modalità di accesso supportate sono: _ReadWriteOnce_ (RWO), _ReadOnlyMany_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).
+Trident fornisce al `gcp-cvs` driver la comunicazione con il cluster. Le modalità di accesso supportate sono: _ReadWriteOnce_ (RWO), _ReadOnlyMany_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).
 
 [cols="1, 1, 1, 2, 2"]
 |===
@@ -37,11 +37,11 @@ RWO, ROX, RWX, RWOP
 |===
 
 
-== Scopri di più sul supporto di Astra Trident per Cloud Volumes Service per Google Cloud
+== Scopri il supporto Trident per Cloud Volumes Service per Google Cloud
 
-Astra Trident può creare volumi Cloud Volumes Service in uno dei due link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["tipi di servizio"^]:
+Trident può creare volumi Cloud Volumes Service in uno dei due link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["tipi di servizio"^]:
 
-* *CVS-Performance*: Il tipo di servizio Astra Trident predefinito. Questo tipo di servizio ottimizzato per le performance è più adatto per i carichi di lavoro di produzione che apprezzano le performance. Il tipo di servizio CVS-Performance è un'opzione hardware che supporta volumi con una dimensione minima di 100 GiB. È possibile scegliere tra link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-levels#service_levels_for_the_cvs-performance_service_type["tre livelli di servizio"^]:
+* *CVS-Performance*: Il tipo di servizio Trident predefinito. Questo tipo di servizio ottimizzato per le performance è più adatto per i carichi di lavoro di produzione che apprezzano le performance. Il tipo di servizio CVS-Performance è un'opzione hardware che supporta volumi con una dimensione minima di 100 GiB. È possibile scegliere tralink:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-levels#service_levels_for_the_cvs-performance_service_type["tre livelli di servizio"^]:
 +
 ** `standard`
 ** `premium`
@@ -85,7 +85,7 @@ Ogni back-end esegue il provisioning dei volumi in una singola area di Google Cl
 | `backendName` | Nome personalizzato o backend dello storage | Nome del driver + "_" + parte della chiave API 
 
 
-| `storageClass` | Parametro facoltativo utilizzato per specificare il tipo di servizio CVS. Utilizzare `software` Per selezionare il tipo di servizio CVS. In caso contrario, Astra Trident presuppone il tipo di servizio CVS-Performance (`hardware`). |  
+| `storageClass` | Parametro facoltativo utilizzato per specificare il tipo di servizio CVS. Utilizzare `software` per selezionare il tipo di servizio CVS. In caso contrario, Trident assume il tipo di servizio CVS-Performance (`hardware`). |  
 
 
 | `storagePools` | Solo tipo di servizio CVS. Parametro facoltativo utilizzato per specificare i pool di storage per la creazione di volumi. |  
@@ -97,7 +97,7 @@ Ogni back-end esegue il provisioning dei volumi in una singola area di Google Cl
 | `hostProjectNumber` | Necessario se si utilizza una rete VPC condivisa. In questo scenario, `projectNumber` è il progetto di servizio, e. `hostProjectNumber` è il progetto host. |  
 
 
-| `apiRegion` | La regione di Google Cloud in cui Astra Trident crea volumi Cloud Volumes Service. Quando si creano cluster Kubernetes con più aree, i volumi creati in un `apiRegion` Può essere utilizzato nei carichi di lavoro pianificati su nodi in più aree di Google Cloud. Il traffico interregionale comporta un costo aggiuntivo. |  
+| `apiRegion` | La regione Google Cloud in cui Trident crea Cloud Volumes Service Volumes. Quando si creano cluster Kubernetes tra aree, i volumi creati in un `apiRegion` possono essere utilizzati nei carichi di lavoro pianificati sui nodi in più aree Google Cloud. Il traffico interregionale comporta un costo aggiuntivo. |  
 
 
 | `apiKey` | Chiave API per l'account del servizio Google Cloud con `netappcloudvolumes.admin` ruolo. Include il contenuto in formato JSON di un file di chiave privata dell'account di un servizio Google Cloud (copia integrale nel file di configurazione del backend). |  
@@ -354,7 +354,7 @@ allowVolumeExpansion: true
 ----
 ====
 * Il primo StorageClass (`cvs-extreme-extra-protection`) viene mappato al primo pool virtuale. Questo è l'unico pool che offre performance estreme con una riserva di snapshot del 10%.
-* L'ultima StorageClass (`cvs-extra-protection`) richiama qualsiasi pool di storage che fornisce una riserva di snapshot del 10%. Astra Trident decide quale pool virtuale è selezionato e garantisce che il requisito di riserva snapshot sia soddisfatto.
+* L'ultima StorageClass (`cvs-extra-protection`) richiama qualsiasi pool di archiviazione che fornisce una riserva snapshot del 10%. Trident decide quale pool virtuale è selezionato e garantisce che venga soddisfatto il requisito di riserva degli snapshot.
 
 
 
