@@ -172,6 +172,9 @@ Non utilizzare `debugTraceFlags` a meno che non si stia eseguendo la risoluzione
 
 
 | `nameTemplate` | Modello per creare nomi di volume personalizzati. | "" 
+
+
+| `denyNewVolumePools` | Limita `ontap-nas-economy` i backend dalla creazione di nuovi volumi FlexVol per contenere i propri Qtree. Per il provisioning di nuovi PVS vengono utilizzati solo i FlexVol preesistenti. |  
 |===
 
 NOTE: L'utilizzo di gruppi di criteri QoS con Trident richiede ONTAP 9.8 o versioni successive. È necessario utilizzare un gruppo di criteri QoS non condiviso e assicurarsi che il gruppo di criteri venga applicato singolarmente a ciascun componente. Un gruppo di policy QoS condiviso impone un limite massimo per il throughput totale di tutti i carichi di lavoro.
