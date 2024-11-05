@@ -28,7 +28,7 @@ Per separare le altre applicazioni e gli utenti da Trident, installare sempre Tr
 
 Trident supporta l'autenticazione basata su CHAP per i carichi di lavoro SAN ONTAP (mediante `ontap-san` e `ontap-san-economy` driver). NetApp consiglia di utilizzare il protocollo CHAP bidirezionale con Trident per l'autenticazione tra un host e il backend dello storage.
 
-Per i backend ONTAP che utilizzano i driver di archiviazione SAN, Trident può impostare il CHAP bidirezionale e gestire i nomi utente e i segreti CHAP tramite `tridentctl`. Fare riferimento a link:../trident-use/ontap-san-prep.html[""^] per informazioni sulla configurazione del protocollo CHAP in Trident sui backend ONTAP.
+Per i backend ONTAP che utilizzano i driver di archiviazione SAN, Trident può impostare il CHAP bidirezionale e gestire i nomi utente e i segreti CHAP tramite `tridentctl`. Fare riferimento a link:../trident-use/ontap-san-prep.html["Prepararsi a configurare il backend con i driver SAN ONTAP"^] per informazioni sulla configurazione del protocollo CHAP in Trident sui backend ONTAP.
 
 
 

@@ -106,7 +106,6 @@ Per assistenza con Trident, creare un pacchetto di supporto utilizzando `trident
 
 == Per ulteriori informazioni
 
-* link:https://netapp.io/persistent-storage-provisioner-for-kubernetes/["Blog Trident"^]
+* link:https://github.com/NetApp/trident["Risorse Trident"^]
 * link:https://cloud.netapp.com/kubernetes-hub["Hub Kubernetes"^]
-* link:https://netapp.io/["NetApp.io"^]
 
