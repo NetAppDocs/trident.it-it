@@ -1,0 +1,195 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-use-execution-hooks.html 
+keywords: trident, protect, execution hooks 
+summary: 'È possibile creare un gancio di esecuzione personalizzato per un"applicazione utilizzando Trident Protect. Per creare gli hook di esecuzione, è necessario disporre delle autorizzazioni Owner (Proprietario), Admin (Amministratore) o Member (membro).' 
+---
+= Gestire i hook di esecuzione
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Un gancio di esecuzione è un'azione personalizzata che è possibile configurare per l'esecuzione in combinazione con un'operazione di protezione dei dati di un'applicazione gestita. Ad esempio, se si dispone di un'applicazione di database, è possibile utilizzare un gancio di esecuzione per mettere in pausa tutte le transazioni del database prima di uno snapshot e riprendere le transazioni al termine dello snapshot. Ciò garantisce snapshot coerenti con l'applicazione.
+
+
+
+== Tipi di hook di esecuzione
+
+Trident Protect supporta i seguenti tipi di hook di esecuzione, a seconda del momento in cui possono essere eseguiti:
+
+* Pre-snapshot
+* Post-snapshot
+* Pre-backup
+* Post-backup
+* Post-ripristino
+* Post-failover
+
+
+
+
+=== Ordine di esecuzione
+
+Quando viene eseguita un'operazione di protezione dei dati, gli eventi hook di esecuzione hanno luogo nel seguente ordine:
+
+. Gli eventuali hook di esecuzione pre-operation personalizzati applicabili vengono eseguiti sui container appropriati. È possibile creare ed eseguire tutti gli hook pre-operation personalizzati necessari, ma l'ordine di esecuzione di questi hook prima dell'operazione non è garantito né configurabile.
+. Viene eseguita l'operazione di protezione dei dati.
+. Gli eventuali hook di esecuzione post-operation personalizzati applicabili vengono eseguiti sui container appropriati. È possibile creare ed eseguire tutti gli hook post-operation personalizzati necessari, ma l'ordine di esecuzione di questi hook dopo l'operazione non è garantito né configurabile.
+
+
+Se si creano più hook di esecuzione dello stesso tipo (ad esempio, pre-snapshot), l'ordine di esecuzione di tali hook non è garantito. Tuttavia, è garantito l'ordine di esecuzione di ganci di tipi diversi. Ad esempio, di seguito è riportato l'ordine di esecuzione di una configurazione che ha tutti i diversi tipi di ganci:
+
+. Hook pre-snapshot eseguiti
+. Esecuzione di hook post-snapshot
+. Hook pre-backup eseguiti
+. Hook post-backup eseguiti
+
+
+
+NOTE: L'esempio dell'ordine precedente si applica solo quando si esegue un backup che non utilizza uno snapshot esistente.
+
+
+NOTE: Prima di abilitarli in un ambiente di produzione, è necessario verificare sempre gli script hook di esecuzione. È possibile utilizzare il comando 'kubectl exec' per testare comodamente gli script. Dopo aver attivato gli hook di esecuzione in un ambiente di produzione, testare le snapshot e i backup risultanti per assicurarsi che siano coerenti. Per eseguire questa operazione, clonare l'applicazione in uno spazio dei nomi temporaneo, ripristinare lo snapshot o il backup e quindi testare l'applicazione.
+
+
+
+== Note importanti sugli hook di esecuzione personalizzati
+
+Quando si pianificano gli hook di esecuzione per le applicazioni, considerare quanto segue.
+
+* Un gancio di esecuzione deve utilizzare uno script per eseguire le azioni. Molti hook di esecuzione possono fare riferimento allo stesso script.
+* Trident Protect richiede che gli script utilizzati dagli hook di esecuzione siano scritti nel formato degli script di shell eseguibili.
+* La dimensione dello script è limitata a 96 KB.
+* Trident Protect utilizza le impostazioni di esecuzione hook e qualsiasi criterio corrispondente per determinare quali hook sono applicabili a un'operazione di snapshot, backup o ripristino.
+
+
+
+NOTE: Poiché gli hook di esecuzione spesso riducono o disattivano completamente le funzionalità dell'applicazione con cui vengono eseguiti, si consiglia di ridurre al minimo il tempo necessario per l'esecuzione degli hook di esecuzione personalizzati. Se si avvia un'operazione di backup o snapshot con gli hook di esecuzione associati, ma poi si annulla, gli hook possono ancora essere eseguiti se l'operazione di backup o snapshot è già iniziata. Ciò significa che la logica utilizzata in un gancio di esecuzione post-backup non può presumere che il backup sia stato completato.
+
+
+
+== Esecuzione dei filtri hook
+
+Quando si aggiunge o si modifica un gancio di esecuzione per un'applicazione, è possibile aggiungere filtri al gancio di esecuzione per gestire i contenitori corrispondenti. I filtri sono utili per le applicazioni che utilizzano la stessa immagine container su tutti i container, ma possono utilizzare ogni immagine per uno scopo diverso (ad esempio Elasticsearch). I filtri consentono di creare scenari in cui gli hook di esecuzione vengono eseguiti su alcuni container identici, ma non necessariamente su tutti. Se si creano più filtri per un singolo gancio di esecuzione, questi vengono combinati con un operatore AND logico. È possibile avere fino a 10 filtri attivi per gancio di esecuzione.
+
+Ogni filtro aggiunto a un gancio di esecuzione utilizza un'espressione regolare per far corrispondere i contenitori nel cluster. Quando un gancio corrisponde a un container, il gancio esegue lo script associato su quel container. Le espressioni regolari per i filtri utilizzano la sintassi RE2 (espressione regolare), che non supporta la creazione di un filtro che esclude i contenitori dall'elenco di corrispondenze. Per informazioni sulla sintassi supportata da Trident Protect per le espressioni regolari nei filtri di hook di esecuzione, vedere https://github.com/google/re2/wiki/Syntax["Supporto della sintassi RE2 (Regular Expression 2)"^].
+
+
+NOTE: Se si aggiunge un filtro dello spazio dei nomi a un gancio di esecuzione che viene eseguito dopo un'operazione di ripristino o clonazione e l'origine e la destinazione del ripristino o del clone si trovano in spazi dei nomi diversi, il filtro dello spazio dei nomi viene applicato solo allo spazio dei nomi di destinazione.
+
+
+
+== Esempi di gancio di esecuzione
+
+Visita il sito https://github.com/NetApp/Verda["Progetto NetApp Verda GitHub"] per scaricare i veri hook di esecuzione per le app più diffuse, come Apache Cassandra ed Elasticsearch. Puoi anche vedere esempi e trovare idee per strutturare i tuoi hook di esecuzione personalizzati.
+
+
+
+== Creare un gancio di esecuzione
+
+È possibile creare un gancio di esecuzione personalizzato per un'applicazione utilizzando Trident Protect. Per creare gli hook di esecuzione, è necessario disporre delle autorizzazioni Owner (Proprietario), Admin (Amministratore) o Member (membro).
+
+[role="tabbed-block"]
+====
+.Utilizzare un CR
+--
+. Creare il file di risorse personalizzate (CR) e assegnargli un nome `trident-protect-hook.yaml`.
+. Configura i seguenti attributi per soddisfare la tua configurazione del cluster e dell'ambiente Trident Protect:
++
+** *metadata.name*: (_required_) il nome di questa risorsa personalizzata; scegliere un nome univoco e sensibile per il proprio ambiente.
+** *Spec.applicationRef*: (_required_) il nome Kubernetes dell'applicazione per la quale eseguire l'hook di esecuzione.
+** *Spec.stage*: (_required_) stringa che indica quale fase durante l'azione deve essere eseguita l'hook di esecuzione. Valori possibili:
++
+*** Pre
+*** Post
+
+
+** *Spec.action*: (_required_) stringa che indica l'azione che verrà eseguita dall'hook di esecuzione, presupponendo che tutti i filtri di hook di esecuzione specificati siano corrispondenti. Valori possibili:
++
+*** Snapshot
+*** Backup
+*** Ripristinare
+*** Failover
+
+
+** *Spec.Enabled*: (_Optional_) indica se questo gancio di esecuzione è abilitato o disabilitato. Se non specificato, il valore predefinito è true.
+** *Spec.hookSource*: (_required_) stringa contenente lo script hook codificato in base64.
+** *Spec.timeout*: (_Optional_) Un numero che definisce il tempo in minuti per il quale il gancio di esecuzione può essere eseguito. Il valore minimo è 1 minuto e, se non specificato, il valore predefinito è 25 minuti.
+** *Spec.arguments*: (_Optional_) elenco YAML di argomenti che è possibile specificare per l'hook di esecuzione.
+** *Spec.matchingCriteria*: (_Optional_) un elenco facoltativo di coppie di valori chiave di criteri, ciascuna coppia costituendo un filtro di hook di esecuzione. È possibile aggiungere fino a 10 filtri per ogni collegamento di esecuzione.
+** *Spec.matchingCriteria.type*: (_Optional_) Una stringa che identifica il tipo di filtro del gancio di esecuzione. Valori possibili:
++
+*** Immagine containerImage
+*** ContainerName
+*** PodName
+*** PodLabel
+*** NamespaceName
+
+
+** *Spec.matchingCriteria.value*: (_Optional_) Una stringa o Un'espressione regolare che identifica il valore del filtro dell'hook di esecuzione.
++
+Esempio YAML:
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: ExecHook
+metadata:
+  name: example-hook-cr
+  namespace: my-app-namespace
+  annotations:
+    astra.netapp.io/astra-control-hook-source-id: /account/test/hookSource/id
+spec:
+  applicationRef: my-app-name
+  stage: Pre
+  action: Snapshot
+  enabled: true
+  hookSource: IyEvYmluL2Jhc2gKZWNobyAiZXhhbXBsZSBzY3JpcHQiCg==
+  timeout: 10
+  arguments:
+    - FirstExampleArg
+    - SecondExampleArg
+  matchingCriteria:
+    - type: containerName
+      value: mysql
+    - type: containerImage
+      value: bitnami/mysql
+    - type: podName
+      value: mysql
+    - type: namespaceName
+      value: mysql-a
+    - type: podLabel
+      value: app.kubernetes.io/component=primary
+    - type: podLabel
+      value: helm.sh/chart=mysql-10.1.0
+    - type: podLabel
+      value: deployment-type=production
+----
+
+
+. Dopo aver popolato il file CR con i valori corretti, applicare la CR:
++
+[source, console]
+----
+kubectl apply -f trident-protect-hook.yaml
+----
+
+
+--
+.Utilizzare la CLI
+--
+. Creare il gancio di esecuzione, sostituendo i valori tra parentesi con le informazioni dell'ambiente. Ad esempio:
++
+[source, console]
+----
+tridentctl protect create exechook <my_exec_hook_name> --action <action_type> --app <app_to_use_hook> --stage <pre_or_post_stage> --source-file <script-file>
+----
+
+
+--
+====

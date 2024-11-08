@@ -1,0 +1,38 @@
+---
+section: trident-protect
+title: Proteggi le applicazioni con Trident Protect
+entries:
+- title: Informazioni su Trident Protect
+  url: "/trident-protect/learn-about-trident-protect.html"
+- title: Installare Trident Protect
+  entries:
+  - title: Requisiti di Trident Protect
+    url: "/trident-protect/trident-protect-requirements.html"
+  - title: Installare Trident Protect
+    url: "/trident-protect/trident-protect-installation.html"
+  - title: Installare il plugin Trident Protect CLI
+    url: "/trident-protect/trident-protect-cli.html"
+- title: Gestire Trident Protect
+  entries:
+  - title: Gestire le autorizzazioni e il controllo degli accessi
+    url: "/trident-protect/manage-authorization-access-control.html"
+  - title: Generare un bundle di supporto Trident Protect
+    url: "/trident-protect/trident-protect-generate-support-bundle.html"
+- title: Gestisci e proteggi le applicazioni
+  entries:
+  - title: Utilizzare gli oggetti AppVault per gestire i bucket
+    url: "/trident-protect/trident-protect-appvault-custom-resources.html"
+  - title: Definire un'applicazione per la gestione
+    url: "/trident-protect/trident-protect-manage-applications.html"
+  - title: Proteggere le applicazioni
+    url: "/trident-protect/trident-protect-protect-apps.html"
+  - title: Ripristino delle applicazioni
+    url: "/trident-protect/trident-protect-restore-apps.html"
+  - title: Replica delle applicazioni con NetApp SnapMirror
+    url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
+  - title: Migrazione delle applicazioni
+    url: "/trident-protect/trident-protect-migrate-apps.html"
+  - title: Gestisci i hook di esecuzione con Trident Protect
+    url: "/trident-protect/trident-protect-use-execution-hooks.html"
+- title: Disinstallare Trident Protect
+  url: "/trident-protect/trident-protect-uninstall.html"
