@@ -48,7 +48,7 @@ WARNING: Il `tridentctl` Il file binario per Linux fornito nel file zip del prog
 ** Disaster recovery
 ** Mobilità delle applicazioni
 +
-link:/trident-protect/learn-about-trident-protect.html["Ulteriori informazioni su Trident Protect"].
+link:./trident-protect/learn-about-trident-protect.html["Ulteriori informazioni su Trident Protect"].
 
 
 
