@@ -16,6 +16,9 @@ summary: 'Se l"ambiente in uso soddisfa i requisiti, è possibile seguire questi
 [role="lead"]
 Se l'ambiente in uso soddisfa i requisiti di Trident Protect, è possibile seguire questa procedura per installare Trident Protect sul cluster. È possibile ottenere Trident Protect da NetApp o installarlo dal proprio registro privato. L'installazione da un registro privato è utile se il cluster non riesce ad accedere a Internet.
 
+
+NOTE: Per impostazione predefinita, Trident Protect raccoglie le informazioni di supporto utili per qualsiasi caso di supporto NetApp che potrebbe essere aperto, inclusi log, metriche e informazioni sulla topologia di cluster e applicazioni gestite. Trident Protect invia questi bundle di supporto a NetApp secondo una pianificazione giornaliera. Se lo si desidera, è possibile disattivare questa raccolta bundle di supporto quando si installa Trident Protect. È possibile eseguire manualmente link:trident-protect-generate-support-bundle.html["generare un bundle di supporto"]in qualsiasi momento.
+
 [role="tabbed-block"]
 ====
 .Installare Trident Protect di NetApp
@@ -26,17 +29,28 @@ Se l'ambiente in uso soddisfa i requisiti di Trident Protect, è possibile segui
 ----
 helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart
 ----
-. Utilizzare Helm per installare Trident Protect. Sostituisci `<name_of_cluster>` con un nome cluster, che verrà assegnato al cluster e utilizzato per identificare backup e snapshot da questo cluster:
+. Installare i CRD Trident Protect:
 +
 [source, console]
 ----
 helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0
 ----
+. Utilizzare Helm per installare Trident Protect utilizzando uno dei seguenti comandi. Sostituire `<name_of_cluster>` con un nome cluster, che verrà assegnato al cluster e utilizzato per identificare i backup e gli snapshot del cluster:
++
+** Installare Trident Protect normalmente:
 +
 [source, console]
 ----
 helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect
 ----
+** Installare Trident Protect e disattivare i caricamenti giornalieri programmati del pacchetto di supporto Trident Protect AutoSupport:
++
+[source, console]
+----
+helm install trident-protect netapp-trident-protect/trident-protect --set autoSupport.enabled=false --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect
+----
+
+
 . Facoltativamente, bloccare le macchine virtuali. Se utilizzi il supporto KubeVirt per SnapMirror, il congelamento delle macchine virtuali ti aiuta a gestirle in modo efficace:
 +
 [source, console]
@@ -132,17 +146,28 @@ webhooksCleanup:
   imagePullSecrets:
   - name: regcred
 ----
-. Utilizzare Helm per installare Trident Protect:
+. Installare i CRD Trident Protect:
 +
 [source, console]
 ----
 helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0
 ----
+. Utilizzare Helm per installare Trident Protect utilizzando uno dei seguenti comandi. Sostituire `<name_of_cluster>` con un nome cluster, che verrà assegnato al cluster e utilizzato per identificare i backup e gli snapshot del cluster:
++
+** Installare Trident Protect normalmente:
 +
 [source, console]
 ----
 helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect -f protectValues.yaml
 ----
+** Installare Trident Protect e disattivare i caricamenti giornalieri programmati del pacchetto di supporto Trident Protect AutoSupport:
++
+[source, console]
+----
+helm install trident-protect netapp-trident-protect/trident-protect --set autoSupport.enabled=false --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect -f protectValues.yaml
+----
+
+
 . Facoltativamente, bloccare le macchine virtuali. Se utilizzi il supporto KubeVirt per SnapMirror, il congelamento delle macchine virtuali ti aiuta a gestirle in modo efficace:
 +
 [source, console]

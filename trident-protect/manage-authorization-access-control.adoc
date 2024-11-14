@@ -189,3 +189,128 @@ kubectl auth can-i --as=system:serviceaccount:engineering-ns:eng-user get applic
 kubectl auth can-i --as=system:serviceaccount:engineering-ns:eng-user get applications.protect.trident.netapp.io -n marketing-ns
 ----
 
+
+
+
+=== Passaggio 6: Concedere l'accesso agli oggetti AppVault
+
+Per eseguire attività di gestione dei dati come backup e snapshot, l'amministratore del cluster deve garantire l'accesso agli oggetti AppVault ai singoli utenti.
+
+.Fasi
+. Creare e applicare un file YAML di combinazione di AppVault e segreto che consenta a un utente di accedere a un AppVault. Ad esempio, la seguente CR concede l'accesso ad AppVault all'utente `eng-user`:
++
+[source, yaml]
+----
+apiVersion: v1
+data:
+  accessKeyID: <ID_value>
+  secretAccessKey: <key_value>
+kind: Secret
+metadata:
+  name: appvault-for-eng-user-only-secret
+  namespace: trident-protect
+type: Opaque
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: appvault-for-eng-user-only
+  namespace: trident-protect # Trident protect system namespace
+spec:
+  providerConfig:
+    azure:
+      accountName: ""
+      bucketName: ""
+      endpoint: ""
+    gcp:
+      bucketName: ""
+      projectID: ""
+    s3:
+      bucketName: testbucket
+      endpoint: 192.168.0.1:30000
+      secure: "false"
+      skipCertValidation: "true"
+  providerCredentials:
+    accessKeyID:
+      valueFromSecret:
+        key: accessKeyID
+        name: appvault-for-eng-user-only-secret
+    secretAccessKey:
+      valueFromSecret:
+        key: secretAccessKey
+        name: appvault-for-eng-user-only-secret
+  providerType: GenericS3
+----
+. Creare e applicare un ruolo CR per consentire agli amministratori del cluster di concedere l'accesso a risorse specifiche in uno spazio dei nomi. Ad esempio:
++
+[source, yaml]
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: eng-user-appvault-reader
+  namespace: trident-protect
+rules:
+- apiGroups:
+  - protect.trident.netapp.io
+  resourceNames:
+  - appvault-for-enguser-only
+  resources:
+  - appvaults
+  verbs:
+  - get
+----
+. Creare e applicare un RoleBinding CR per associare le autorizzazioni all'utente eng-user. Ad esempio:
++
+[source, yaml]
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: eng-user-read-appvault-binding
+  namespace: trident-protect
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: eng-user-appvault-reader
+subjects:
+- kind: ServiceAccount
+  name: eng-user
+  namespace: engineering-ns
+----
+. Verificare che le autorizzazioni siano corrette.
++
+.. Tentativo di recuperare le informazioni sull'oggetto AppVault per tutti gli spazi dei nomi:
++
+[source, console]
+----
+kubectl get appvaults -n trident-protect --as=system:serviceaccount:engineering-ns:eng-user
+----
++
+L'output dovrebbe essere simile a quanto segue:
+
++
+[listing]
+----
+Error from server (Forbidden): appvaults.protect.trident.netapp.io is forbidden: User "system:serviceaccount:engineering-ns:eng-user" cannot list resource "appvaults" in API group "protect.trident.netapp.io" in the namespace "trident-protect"
+----
+.. Verificare se l'utente può ottenere le informazioni AppVault a cui ora dispone dell'autorizzazione per accedere:
++
+[source, console]
+----
+kubectl auth can-i --as=system:serviceaccount:engineering-ns:eng-user get appvaults.protect.trident.netapp.io/appvault-for-eng-user-only -n trident-protect
+----
++
+L'output dovrebbe essere simile a quanto segue:
+
++
+[listing]
+----
+yes
+----
+
+
+
+
+.Risultato
+Gli utenti a cui sono state concesse le autorizzazioni AppVault dovrebbero essere in grado di utilizzare gli oggetti AppVault autorizzati per le operazioni di gestione dei dati delle applicazioni e non dovrebbero essere in grado di accedere a risorse esterne agli spazi dei nomi assegnati o creare nuove risorse a cui non hanno accesso.
