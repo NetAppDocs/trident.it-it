@@ -4952,7 +4952,6 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="3ffb7f02782ced1dbec181c6524bea0b" category="doc">Supporto Fibre Channel (FC)</block>
   <block id="51d8fa0a5eb3f269bad2a2a47a660a2d" category="paragraph">Da oggi è possibile utilizzare il protocollo Fibre Channel (FC) con Trident per il provisioning e la gestione delle risorse di storage sul sistema ONTAP.</block>
   <block id="5084aac4393e5aff5539dc0265ab2e37" category="paragraph">Il protocollo Fibre Channel è ampiamente adottato in ambienti di storage Enterprise grazie alle sue elevate prestazioni, affidabilità e scalabilità. Fornisce un canale di comunicazione solido ed efficiente per i dispositivi di storage, consentendo trasferimenti di dati veloci e sicuri. Utilizzando SCSI su Fibre Channel, è possibile sfruttare l'infrastruttura di storage basata su SCSI esistente e sfruttare al contempo le prestazioni elevate e le capacità a lunga distanza offerte da Fibre Channel. Consente il consolidamento delle risorse di storage e la creazione di reti SAN (Storage Area Network) scalabili ed efficienti, in grado di gestire grandi quantità di dati con bassa latenza.</block>
-  <block id="87ef5e348a9702ee84419ab313442e62" category="paragraph">Utilizzando la funzionalità FC con Trident, è possibile: * Eseguire il provisioning dinamico di PVC utilizzando una specifica di implementazione. * Acquisire snapshot di volume e creare un nuovo volume dallo snapshot. * Clona un FC-PVC esistente. * Ridimensionare un volume già distribuito.</block>
   <block id="822b1839c387749c78601eebc94c8d7d" category="paragraph">Configurare le impostazioni di rete e del nodo richieste per FC.</block>
   <block id="f508b22c8fc4486b19fee39d5ded3841" category="section-title">Impostazioni di rete</block>
   <block id="16fdd92def5a71313d6535c74ef67b81" category="inline-link-macro">visualizzazione dell'interfaccia di rete</block>
@@ -4982,4 +4981,9 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="64467ac9530ff26c4e6495117175346d" category="admonition">Quando si utilizza ONTAP-nas-Economy e un prefisso di archiviazione di 24 o più caratteri, i qtree non avranno il prefisso di archiviazione incorporato, anche se sarà nel nome del volume.</block>
   <block id="0d28255dc96cb23d422741096c09ce8e" category="paragraph"><block ref="256d12880dee7515c7ed6253fd0a228a" prefix="" category="inline-code"></block><block ref="bd5ed83ae12ddcfe924a6af54a0be554" prefix=" " category="inline-code"></block></block>
   <block id="8643539c7696bee604cfc39337280ef3" category="list-text">Aggiunta dell'anteprima tecnica per il supporto Fibre Channel su driver ONTAP-SAN. Fare riferimento alla <block ref="5aa030ef89b8f38b2fa353dc2fa17e8d" category="inline-link-macro-rx"></block>.</block>
+  <block id="1803781f7c004f51be9b62cbcd506ed2" category="paragraph">Utilizzando la funzione FC con Trident, puoi effettuare le seguenti operazioni:</block>
+  <block id="7294f3b61be368d5929dcdabac5431cf" category="list-text">Eseguire il provisioning dinamico di PVC utilizzando una specifica di implementazione.</block>
+  <block id="aedb73fd0ccffbcf4bb3a5bc721b9603" category="list-text">Acquisire snapshot di volume e creare un nuovo volume dallo snapshot.</block>
+  <block id="aa2fd96b8dfdeb6aaaf2bb11da1413aa" category="list-text">Clonazione di un FC-PVC esistente.</block>
+  <block id="de35bb06ba09c90d091b31450c61efd7" category="list-text">Ridimensionare un volume già distribuito.</block>
 </blocks>
