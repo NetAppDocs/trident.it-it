@@ -4,6 +4,9 @@ title: USA Trident
 entries:
 - title: Preparare il nodo di lavoro
   url: "/trident-use/worker-node-prep.html"
+  entries:
+  - title: SCSI su Fibre Channel (FC)
+    url: "/trident-use/fcp.html"
 - title: Configurare e gestire i backend
   entries:
   - title: Panoramica
