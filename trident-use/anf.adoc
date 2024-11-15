@@ -133,7 +133,7 @@ spec:
 Impostare i valori per i flag *cloud-provider (CP)* e *cloud-Identity (ci)* utilizzando le seguenti variabili di ambiente:
 
 `export CP="Azure"`
-`export CI="azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"`
+`export CI="'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx'"`
 
 Nell'esempio seguente viene installato Trident e impostato `cloudProvider` su Azure utilizzando la variabile di ambiente `$CP` e viene impostata la `cloudIdentity` variabile di ambiente Using the `$CI` :
 
