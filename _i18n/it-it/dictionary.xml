@@ -4417,8 +4417,6 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="d58e744bd40cf0f8373ee5b2c7d11387" category="open-title">Scarica il plugin per le CPU Mac AMD64</block>
   <block id="fd3e558ef6c1af851bddabf0eb1945d7" category="open-title">Scarica il plugin per le CPU Mac ARM64</block>
   <block id="412a5def83fe5329b38679035cfea675" category="list-text">Abilitare le autorizzazioni di esecuzione per il binario:</block>
-  <block id="9bd9e61654b5ae02837f94c50605b5e3" category="list-text">Copiare il file binario del plugin nel percorso di propria scelta:</block>
-  <block id="42be0effe300120c50a16b27b8feac25" category="list-text">Facoltativamente, per installare il file binario globalmente, copiare il file binario del plugin in un percorso globale. Ad esempio:<block ref="7512824c50c61ea8d89d0f193a4f72d1" prefix=" " category="inline-code"></block> O<block ref="ad2e864ce1a99daa836c3449f3ba705d" prefix=" " category="inline-code"></block> (potrebbe essere necessario un Privileges elevato):</block>
   <block id="b23c395acc963a69b0a5f06a20bb4887" category="section-title">Visualizza la guida del plugin CLI di Trident</block>
   <block id="305f79cb740685921820521a57e525e5" category="paragraph">È possibile utilizzare le funzioni della guida del plugin incorporato per ottenere una guida dettagliata sulle funzionalità del plugin:</block>
   <block id="09b4818c610e8f967a9f5257455a3a2a" category="list-text">Utilizzare la funzione di guida per visualizzare le indicazioni sull'utilizzo:</block>
@@ -4986,4 +4984,6 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="aedb73fd0ccffbcf4bb3a5bc721b9603" category="list-text">Acquisire snapshot di volume e creare un nuovo volume dallo snapshot.</block>
   <block id="aa2fd96b8dfdeb6aaaf2bb11da1413aa" category="list-text">Clonazione di un FC-PVC esistente.</block>
   <block id="de35bb06ba09c90d091b31450c61efd7" category="list-text">Ridimensionare un volume già distribuito.</block>
+  <block id="15286900a0d0667ffc4d515aeec6a1d2" category="list-text">Copiare il file binario del plugin in una posizione definita nella variabile PATH. Ad esempio,<block ref="7512824c50c61ea8d89d0f193a4f72d1" prefix=" " category="inline-code"></block> o<block ref="ad2e864ce1a99daa836c3449f3ba705d" prefix=" " category="inline-code"></block> (potrebbe essere necessario un Privileges elevato):</block>
+  <block id="b3062a04e26d499596575c6767c02c16" category="list-text">Se lo si desidera, è possibile copiare il file binario in una posizione nella directory principale. In questo caso, potrebbe essere necessario aggiungere la posizione alla variabile PATH:</block>
 </blocks>

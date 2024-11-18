@@ -75,17 +75,17 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 ----
 chmod +x tridentctl-protect
 ----
-. Copiare il file binario del plugin nel percorso di propria scelta:
-+
-[source, console]
-----
-cp ./tridentctl-protect ~/bin/
-----
-. Facoltativamente, per installare il file binario globalmente, copiare il file binario del plugin in un percorso globale. Ad esempio: `/usr/bin` O `/usr/local/bin` (potrebbe essere necessario un Privileges elevato):
+. Copiare il file binario del plugin in una posizione definita nella variabile PATH. Ad esempio, `/usr/bin` o `/usr/local/bin` (potrebbe essere necessario un Privileges elevato):
 +
 [source, console]
 ----
 cp ./tridentctl-protect /usr/local/bin/
+----
+. Se lo si desidera, è possibile copiare il file binario in una posizione nella directory principale. In questo caso, potrebbe essere necessario aggiungere la posizione alla variabile PATH:
++
+[source, console]
+----
+cp ./tridentctl-protect ~/bin/
 ----
 
 
