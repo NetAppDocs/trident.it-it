@@ -25,6 +25,9 @@ NOTE: Quando si ripristina un'applicazione, tutti i collegamenti di esecuzione c
 
 Quando si ripristina un backup su uno spazio dei nomi diverso utilizzando un BackupRestore CR, Trident Protect ripristina l'applicazione in un nuovo spazio dei nomi, ma l'applicazione ripristinata non viene protetta automaticamente da Trident Protect. Per proteggere l'applicazione ripristinata, è necessario creare una CR dell'applicazione per l'applicazione ripristinata in modo che sia protetta da Trident Protect.
 
+
+NOTE: Il ripristino di un backup in uno spazio dei nomi diverso con le risorse esistenti non altererà le risorse che condividono i nomi con quelli del backup. Per ripristinare tutte le risorse del backup, eliminare e ricreare lo spazio dei nomi di destinazione o ripristinare il backup in un nuovo spazio dei nomi.
+
 [role="tabbed-block"]
 ====
 .Utilizzare un CR
@@ -121,9 +124,6 @@ tridentctl protect create backuprestore <my_restore_name> --backup <backup_names
 == Eseguire il ripristino da un backup nello spazio dei nomi originale
 
 È possibile ripristinare un backup nello spazio dei nomi originale in qualsiasi momento.
-
-
-NOTE: Il ripristino di un backup in uno spazio dei nomi con le risorse esistenti non altererà le risorse che condividono i nomi con quelli del backup. Per ripristinare tutte le risorse in un backup, eliminare e ricreare lo spazio dei nomi di destinazione o ripristinare il backup in un nuovo spazio dei nomi.
 
 [role="tabbed-block"]
 ====
