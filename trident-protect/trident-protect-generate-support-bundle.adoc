@@ -20,6 +20,7 @@ Trident Protect consente agli amministratori di generare bundle che includono in
 ====
 .Creare un pacchetto di supporto utilizzando una CR
 --
+.Fasi
 . Creare il file di risorsa personalizzata (CR) e assegnargli un nome (ad esempio, `trident-protect-support-bundle.yaml`).
 . Configurare i seguenti attributi:
 +
@@ -65,6 +66,7 @@ kubectl apply -f trident-protect-support-bundle.yaml
 --
 .Creare un bundle di supporto utilizzando la CLI
 --
+.Fasi
 . Creare il pacchetto di supporto, sostituendo i valori tra parentesi con le informazioni dell'ambiente.  `trigger-type`Determina se il bundle viene creato immediatamente o se l'ora di creazione è dettata dalla pianificazione e può essere `Manual` o `Scheduled`. L'impostazione predefinita è `Manual`.
 +
 Ad esempio:

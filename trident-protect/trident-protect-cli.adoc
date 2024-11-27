@@ -26,6 +26,7 @@ Prima di utilizzare l'utilità della riga di comando, è necessario installarla 
 ====
 .Scarica il plugin per CPU Linux AMD64
 --
+.Fasi
 . Scarica il plugin Trident Protect CLI:
 +
 [source, console]
@@ -37,6 +38,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 --
 .Scarica il plugin per CPU Linux ARM64
 --
+.Fasi
 . Scarica il plugin Trident Protect CLI:
 +
 [source, console]
@@ -48,6 +50,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 --
 .Scarica il plugin per le CPU Mac AMD64
 --
+.Fasi
 . Scarica il plugin Trident Protect CLI:
 +
 [source, console]
@@ -59,6 +62,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 --
 .Scarica il plugin per le CPU Mac ARM64
 --
+.Fasi
 . Scarica il plugin Trident Protect CLI:
 +
 [source, console]
@@ -114,6 +118,7 @@ Dopo aver installato il plugin Trident Protect CLI, è possibile abilitare il co
 ====
 .Attivare il completamento automatico per la shell Bash
 --
+.Fasi
 . Scaricare lo script di completamento:
 +
 [source, console]
@@ -143,6 +148,7 @@ source ~/.bash/completions/tridentctl-completion.bash
 --
 .Attivare il completamento automatico per la shell Z
 --
+.Fasi
 . Scaricare lo script di completamento:
 +
 [source, console]

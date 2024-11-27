@@ -97,6 +97,7 @@ Visita il sito https://github.com/NetApp/Verda["Progetto NetApp Verda GitHub"] p
 ====
 .Utilizzare un CR
 --
+.Fasi
 . Creare il file di risorse personalizzate (CR) e assegnargli un nome `trident-protect-hook.yaml`.
 . Configura i seguenti attributi per soddisfare la tua configurazione del cluster e dell'ambiente Trident Protect:
 +
@@ -183,6 +184,7 @@ kubectl apply -f trident-protect-hook.yaml
 --
 .Utilizzare la CLI
 --
+.Fasi
 . Creare il gancio di esecuzione, sostituendo i valori tra parentesi con le informazioni dell'ambiente. Ad esempio:
 +
 [source, console]

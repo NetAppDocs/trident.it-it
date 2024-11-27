@@ -32,6 +32,7 @@ NOTE: Il ripristino di un backup in uno spazio dei nomi diverso con le risorse e
 ====
 .Utilizzare un CR
 --
+.Fasi
 . Creare il file di risorse personalizzate (CR) e assegnargli un nome `trident-protect-backup-restore-cr.yaml`.
 . Nel file creato, configurare i seguenti attributi:
 +
@@ -109,6 +110,7 @@ kubectl apply -f trident-protect-backup-restore-cr.yaml
 --
 .Utilizzare la CLI
 --
+.Fasi
 . Ripristinare il backup su uno spazio dei nomi diverso, sostituendo i valori tra parentesi con le informazioni provenienti dall'ambiente. L' `namespace-mapping`argomento utilizza spazi dei nomi separati da due punti per mappare gli spazi dei nomi di origine agli spazi dei nomi di destinazione corretti nel formato `source1:dest1,source2:dest2`. Ad esempio:
 +
 [source, console]
@@ -129,6 +131,7 @@ tridentctl protect create backuprestore <my_restore_name> --backup <backup_names
 ====
 .Utilizzare un CR
 --
+.Fasi
 . Creare il file di risorse personalizzate (CR) e assegnargli un nome `trident-protect-backup-ipr-cr.yaml`.
 . Nel file creato, configurare i seguenti attributi:
 +
@@ -203,6 +206,7 @@ kubectl apply -f trident-protect-backup-ipr-cr.yaml
 --
 .Utilizzare la CLI
 --
+.Fasi
 . Ripristinare il backup nello spazio dei nomi originale, sostituendo i valori tra parentesi con le informazioni provenienti dall'ambiente. L' `backup`argomento utilizza uno spazio dei nomi e un nome di backup nel formato `<namespace>/<name>`. Ad esempio:
 +
 [source, console]
@@ -223,6 +227,7 @@ tridentctl protect create backupinplacerestore <my_restore_name> --backup <names
 ====
 .Utilizzare un CR
 --
+.Fasi
 . Creare il file di risorse personalizzate (CR) e assegnargli un nome `trident-protect-snapshot-restore-cr.yaml`.
 . Nel file creato, configurare i seguenti attributi:
 +
@@ -300,6 +305,7 @@ kubectl apply -f trident-protect-snapshot-restore-cr.yaml
 --
 .Utilizzare la CLI
 --
+.Fasi
 . Ripristinare lo snapshot in uno spazio dei nomi diverso, sostituendo i valori tra parentesi con le informazioni provenienti dall'ambiente.
 +
 ** L' `snapshot`argomento utilizza uno spazio dei nomi e un nome snapshot nel formato `<namespace>/<name>`.
@@ -328,6 +334,7 @@ tridentctl protect create snapshotrestore <my_restore_name> --snapshot <namespac
 ====
 .Utilizzare un CR
 --
+.Fasi
 . Creare il file di risorse personalizzate (CR) e assegnargli un nome `trident-protect-snapshot-ipr-cr.yaml`.
 . Nel file creato, configurare i seguenti attributi:
 +
@@ -399,6 +406,7 @@ kubectl apply -f trident-protect-snapshot-ipr-cr.yaml
 --
 .Utilizzare la CLI
 --
+.Fasi
 . Ripristinare lo snapshot nello spazio dei nomi originale, sostituendo i valori tra parentesi con le informazioni provenienti dall'ambiente. Ad esempio:
 +
 [source, console]

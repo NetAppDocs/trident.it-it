@@ -32,6 +32,7 @@ summary: 'È possibile rendere Trident Protect consapevole di un"applicazione ch
 ====
 .Aggiungere un'applicazione utilizzando una CR
 --
+.Fasi
 . Creare il file CR dell'applicazione di destinazione:
 +
 .. Creare il file di risorsa personalizzata (CR) e assegnargli un nome (ad esempio, `maria-app.yaml`).
@@ -64,6 +65,7 @@ spec:
 --
 .Aggiungere un'applicazione utilizzando l'interfaccia CLI
 --
+.Fasi
 . Creare e applicare la definizione dell'applicazione, sostituendo i valori tra parentesi con le informazioni dell'ambiente. È possibile includere spazi dei nomi e risorse nella definizione dell'applicazione utilizzando elenchi separati da virgole con gli argomenti illustrati nell'esempio seguente:
 +
 [source, console]

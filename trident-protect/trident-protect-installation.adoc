@@ -23,6 +23,7 @@ NOTE: Per impostazione predefinita, Trident Protect raccoglie le informazioni di
 ====
 .Installare Trident Protect di NetApp
 --
+.Fasi
 . Aggiungere il repository Trident Helm:
 +
 [source, console]
@@ -68,6 +69,7 @@ NOTE: È necessario impostare la virtualizzazione per il funzionamento della fun
 --
 È possibile installare Trident Protect da un registro di immagine privata se il cluster Kubernetes non è in grado di accedere a Internet. In questi esempi, sostituire i valori tra parentesi con le informazioni dell'ambiente:
 
+.Fasi
 . Estrarre le seguenti immagini sul computer locale, aggiornare i tag e quindi inviarle al registro privato:
 +
 [source, console]

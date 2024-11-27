@@ -64,7 +64,7 @@ Tutti i nodi di lavoro nel cluster Kubernetes devono essere in grado di montare 
 .Installare gli strumenti FC
 Installa gli strumenti FC utilizzando i comandi del tuo sistema operativo.
 
-* Quando si utilizzano nodi di lavoro che eseguono RHEL/RedHat CoreOS con iSCSI PVS, specificare `discard` MountOption in StorageClass per eseguire la rigenerazione dello spazio inline. Fare riferimento a. https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentazione RedHat"^].
+* Quando si utilizzano nodi di lavoro che eseguono RHEL/RedHat CoreOS con FC PVS, specificare il `discard` mount Option in StorageClass per eseguire il recupero dello spazio in linea. Fare riferimento alla https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentazione RedHat"^].
 
 
 [role="tabbed-block"]
@@ -75,13 +75,7 @@ Installa gli strumenti FC utilizzando i comandi del tuo sistema operativo.
 +
 [listing]
 ----
-sudo yum install -y lsscsi iscsi-initiator-utils device-mapper-multipath
-----
-. Verificare che la versione di iscsi-initiator-utils sia 6.2.0.874-2.el7 o successiva:
-+
-[listing]
-----
-rpm -q iscsi-initiator-utils
+sudo yum install -y lsscsi device-mapper-multipath
 ----
 . Abilitare il multipathing:
 +
@@ -93,17 +87,11 @@ sudo mpathconf --enable --with_multipathd y --find_multipaths n
 
 NOTE: Assicurarsi `etc/multipath.conf` contiene `find_multipaths no` sotto `defaults`.
 
-. Assicurarsi che `iscsid` e. `multipathd` sono in esecuzione:
+. Assicurarsi che `multipathd` sia in esecuzione:
 +
 [listing]
 ----
-sudo systemctl enable --now iscsid multipathd
-----
-. Attivare e avviare `iscsi`:
-+
-[listing]
-----
-sudo systemctl enable --now iscsi
+sudo systemctl enable --now multipathd
 ----
 
 
@@ -114,19 +102,7 @@ sudo systemctl enable --now iscsi
 +
 [listing]
 ----
-sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools
-----
-. Verificare che la versione Open-iscsi sia 2.0.874-5ubuntu2.10 o successiva (per il bionico) o 2.0.874-7.1ubuntu6.1 o successiva (per il focale):
-+
-[listing]
-----
-dpkg -l open-iscsi
-----
-. Impostare la scansione su manuale:
-+
-[listing]
-----
-sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+sudo apt-get install -y lsscsi sg3-utils multipath-tools scsitools
 ----
 . Abilitare il multipathing:
 +
@@ -145,18 +121,12 @@ sudo service multipath-tools restart
 
 NOTE: Assicurarsi `etc/multipath.conf` contiene `find_multipaths no` sotto `defaults`.
 
-. Assicurarsi che `open-iscsi` e. `multipath-tools` sono abilitati e in esecuzione:
+. Assicurarsi che `multipath-tools` sia attivato e in esecuzione:
 +
 [listing]
 ----
 sudo systemctl status multipath-tools
-sudo systemctl enable --now open-iscsi.service
-sudo systemctl status open-iscsi
 ----
-+
-
-NOTE: Per Ubuntu 18.04, è necessario rilevare le porte di destinazione con `iscsiadm` prima di iniziare `open-iscsi` Per avviare il daemon iSCSI. In alternativa, è possibile modificare `iscsi` servizio da avviare `iscsid` automaticamente.
-
 
 
 --

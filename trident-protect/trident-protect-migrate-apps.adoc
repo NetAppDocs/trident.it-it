@@ -101,6 +101,7 @@ spec:
 ====
 .Ripristinare l'istantanea utilizzando una CR
 --
+.Fasi
 . Creare il file di risorse personalizzate (CR) e assegnargli un nome `trident-protect-snapshot-restore-cr.yaml`.
 . Nel file creato, configurare i seguenti attributi:
 +
@@ -167,6 +168,7 @@ kubectl apply -f trident-protect-snapshot-restore-cr.yaml
 --
 .Ripristinare la snapshot utilizzando la CLI
 --
+.Fasi
 . Ripristinare lo snapshot in uno spazio dei nomi diverso, sostituendo i valori tra parentesi con le informazioni provenienti dall'ambiente.
 +
 ** L' `snapshot`argomento utilizza uno spazio dei nomi e un nome snapshot nel formato `<namespace>/<name>`.
