@@ -4432,7 +4432,6 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="8eea62084ca7e541d918e823422bd82e" category="paragraph-title">Risultato</block>
   <block id="a2290b3f31cfd85a3e9ff7885be716a7" category="paragraph">Al prossimo login della shell, potete usare il comando auto-completation con il plugin tridentctl Protect.</block>
   <block id="7b6672be7a52979b1357ccc3d2a45f8a" category="summary">Trident Protect consente agli amministratori di generare bundle che includono informazioni utili al supporto di NetApp, tra cui log, metriche e informazioni sulla topologia dei cluster e delle applicazioni gestiti. Se si è connessi a Internet, è possibile caricare pacchetti di supporto nel sito di supporto NetApp (NSS) utilizzando un file di risorse personalizzato (CR).</block>
-  <block id="c06b3814928e21adcd4d633f11293a23" category="doc">Generare un bundle di supporto</block>
   <block id="e984343e441956b7136d09919877b5ab" category="open-title">Creare un pacchetto di supporto utilizzando una CR</block>
   <block id="dd942fa25b8e28c96c8d05e37b0f157e" category="list-text">Creare il file di risorsa personalizzata (CR) e assegnargli un nome (ad esempio,<block ref="699c503b46d4ca3ec78905dff3704cac" prefix=" " category="inline-code"></block>).</block>
   <block id="18924d9e76d2dc9a88bddb772904461d" category="list-text">Configurare i seguenti attributi:</block>
@@ -4683,7 +4682,6 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="aec02c2a1b714f40a949aa18d1f2d588" category="list-text">Rimozione di Trident Protect:</block>
   <block id="20c06650be80c297c0e4dc5ae977d44f" category="list-text">Rimuovere lo spazio dei nomi Trident Protect:</block>
   <block id="a8c1fc9f09b8338dd9f8badd5c3d30c0" category="summary">È possibile creare un gancio di esecuzione personalizzato per un'applicazione utilizzando Trident Protect. Per creare gli hook di esecuzione, è necessario disporre delle autorizzazioni Owner (Proprietario), Admin (Amministratore) o Member (membro).</block>
-  <block id="cbb269e08085ebb437449cc744357ee6" category="doc">Gestire i hook di esecuzione</block>
   <block id="ccd62d676165e34c2e9c6d088c06e70f" category="paragraph">Un gancio di esecuzione è un'azione personalizzata che è possibile configurare per l'esecuzione in combinazione con un'operazione di protezione dei dati di un'applicazione gestita. Ad esempio, se si dispone di un'applicazione di database, è possibile utilizzare un gancio di esecuzione per mettere in pausa tutte le transazioni del database prima di uno snapshot e riprendere le transazioni al termine dello snapshot. Ciò garantisce snapshot coerenti con l'applicazione.</block>
   <block id="83fbf1604bedff410ea11872b40ab9f0" category="section-title">Tipi di hook di esecuzione</block>
   <block id="d702711249a4d54c15ce81c80152b8e7" category="paragraph">Trident Protect supporta i seguenti tipi di hook di esecuzione, a seconda del momento in cui possono essere eseguiti:</block>
@@ -4989,4 +4987,12 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="0ac202e458490a734271522fcedf4876" category="list-text">Assicurarsi che<block ref="8732863da72605a20ed96b4eee87a5fb" prefix=" " category="inline-code"></block> sia in esecuzione:</block>
   <block id="69eeaf73fccab6d6abcba46bd6a3a3bf" category="list-text">Assicurarsi che<block ref="452b142235e718663e27bc4f162c14ca" prefix=" " category="inline-code"></block> sia attivato e in esecuzione:</block>
   <block id="00ea3f7016d7b9a4ad023b106cc1e6d3" category="paragraph"><block ref="7e7b7908484dc2cebc13ec93d8042bd0" category="inline-link-macro-rx"></block> Se si utilizza<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> con sanType<block ref="0f64d0456878c73cbec1ccea842a6f14" prefix=" " category="inline-code"></block> (SCSI su FC).</block>
+  <block id="0cc310db20eaee9161e8ef937010b536" category="doc">Gestire le autorizzazioni e il controllo degli accessi Trident Protect</block>
+  <block id="97f3fa7a4bb86197f0db69aa160c73e9" category="doc">Utilizzare gli oggetti Trident Protect AppVault per gestire i bucket</block>
+  <block id="bf4313699bccd15d73aa8653cfdfd754" category="doc">Definire un'applicazione da gestire con Trident Protect</block>
+  <block id="b6a8ee5a5280d899b4ea1be0f8697335" category="doc">Migrazione delle applicazioni con Trident Protect</block>
+  <block id="8686ed080978191a10848ee52cd0c87a" category="doc">Proteggi le applicazioni con Trident Protect</block>
+  <block id="0539043b2ec0bd1bfae64dc58173dec7" category="doc">Ripristina le applicazioni utilizzando Trident Protect</block>
+  <block id="873e2eae9a82cbe9c291ade077f017d2" category="doc">Gestire i hook di esecuzione Trident Protect</block>
+  <block id="6f8f09e1a22390ac35a40283a4dc713f" category="doc">Replica le applicazioni utilizzando NetApp SnapMirror e Trident Protect</block>
 </blocks>

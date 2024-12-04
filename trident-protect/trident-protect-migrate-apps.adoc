@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-migrate-apps.html
 keywords: trident, protect, migrate, storage, restore, backup 
 summary: Puoi ripristinare i dati di backup o Snapshot su un cluster o una classe di storage differenti 
 ---
-= Migrazione delle applicazioni
+= Migrazione delle applicazioni con Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

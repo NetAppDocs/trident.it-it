@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-restore-apps.html
 keywords: trident, protect, restore, data, backup 
 summary: 'Puoi utilizzare Trident Protect per ripristinare l"applicazione da uno snapshot o da un backup. Il ripristino da uno snapshot esistente sarà più rapido quando si ripristina l"applicazione nello stesso cluster.' 
 ---
-= Ripristino delle applicazioni
+= Ripristina le applicazioni utilizzando Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

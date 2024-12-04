@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-use-execution-hooks.html
 keywords: trident, protect, execution hooks 
 summary: 'È possibile creare un gancio di esecuzione personalizzato per un"applicazione utilizzando Trident Protect. Per creare gli hook di esecuzione, è necessario disporre delle autorizzazioni Owner (Proprietario), Admin (Amministratore) o Member (membro).' 
 ---
-= Gestire i hook di esecuzione
+= Gestire i hook di esecuzione Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

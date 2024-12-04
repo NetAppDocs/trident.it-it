@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-protect-apps.html
 keywords: protect, snapshots, demand, configuration, cluster, appvault 
 summary: Proteggi tutte le app eseguendo snapshot e backup utilizzando una policy di protezione automatica o ad-hoc. 
 ---
-= Proteggere le applicazioni
+= Proteggi le applicazioni con Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
