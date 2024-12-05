@@ -540,8 +540,6 @@
   <block id="702fa57eedc6ee8490a7294016f8b14f" category="list-text"><block ref="1a368feb8bb72ef66bb194b43d0a15b3" prefix="" category="inline-code"></block></block>
   <block id="385d099ed91e83dbe20ea05fbed68e22" category="paragraph">Dopo aver generato questi file, è possibile modificarli in base alle proprie esigenze e utilizzarli<block ref="8026926641b283123174e50f80da83de" prefix=" " category="inline-code"></block> per installare l'implementazione personalizzata.</block>
   <block id="a60c2f57df655a9ac5fcaa0750886195" category="summary">Se state iniziando a utilizzare Kubernetes, utilizzate le istruzioni per installare Kubernetes e provatelo. Queste istruzioni forniscono un cluster bare-bone a nodo singolo con cui Trident può integrarsi a scopo dimostrativo.</block>
-  <block id="e8dadc588901af436e2c6036acf23973" category="inline-link-macro">Test drive di NetApp</block>
-  <block id="8685ac2061f9dca7ab48f41e0871f7af" category="inline-link-macro">Guida all'installazione di kubeadm</block>
   <block id="a739aa7f082abebdf65f4b114dd3ad7d" category="paragraph">Questa tabella è dettagliata<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> attributi.</block>
   <block id="83f499a540b1323009c200d6f8cc9396" category="cell">Parametro</block>
   <block id="2bccac20e55391730a985f9819e1cc41" category="cell"><block ref="7ecc687ea7566f05fd13fde7be607bfc" prefix="" category="inline-code"></block></block>
@@ -2551,8 +2549,6 @@ PMI</block>
   <block id="8f29ef239c0926132689374fc142a732" category="image-alt">Diagramma del nodo Trident Pod che esegue il plug-in nodo CSI con sidecar CSI applicabile.</block>
   <block id="58095fffdb6c13585af5e47e876f7afe" category="inline-link-macro">Concetti e strumenti di Kubernetes</block>
   <block id="1bc6462cd59612636c72620a6a67410b" category="admonition">Se è la prima volta che utilizzi Kubernetes, dovresti familiarizzare con il <block ref="41eecc10f74d492dbf2a2c207d5acb1b" category="inline-link-macro-rx"></block>.</block>
-  <block id="3ff64d30b8ccd0f89740b2ba54cf8bf3" category="paragraph">Un'altra opzione è la <block ref="c7dbb75618a5e106a360075f923cb87f" category="inline-link-macro-rx"></block> Fornito da Kubernetes.</block>
-  <block id="80f4cfbe493e12651c3514c9481ce1ee" category="admonition">Non usare un cluster Kubernetes creato usando queste istruzioni in un ambiente di produzione. Utilizza le guide all'implementazione in produzione fornite dalla tua distribuzione per i cluster pronti per la produzione.</block>
   <block id="2d15dd50ddfe5e28746975645a5652ca" category="paragraph-title"><block ref="54f425ce8d89f4ed6b8a546561af5d60" category="inline-image-macro-rx" type="image"></block> Preparare il nodo di lavoro</block>
   <block id="aba4bc9d3bde7d18b07c23d5c7d0f495" category="paragraph">Tutti i nodi di lavoro nel cluster Kubernetes devono essere in grado di montare i volumi forniti per i pod.</block>
   <block id="f3b066024fd8e2699d194d41d5e46a5d" category="paragraph-title"><block ref="05b2444faffd66d76e88602ea7dd353f" category="inline-image-macro-rx" type="image"></block> Creare un backend</block>
@@ -3582,8 +3578,6 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="b1779edf31deaecac634566a2a377f62" category="paragraph">Trident è un orchestrator di storage dinamico conforme a Container Storage Interface (CSI) che si integra in modo nativo con <block ref="c4f47b2d4c7b6c009c3ed9bc1f952dce" category="inline-link-macro-rx"></block>. Trident funziona come un singolo pod controller e un pod nodo su ciascun nodo di lavoro nel cluster. Per ulteriori informazioni, fare riferimento alla <block ref="9f6208219ae600271f6632db354451ed" category="inline-link-macro-rx"></block> sezione.</block>
   <block id="d613d80a6fcacbbceeb665fc5b0846f0" category="inline-link-macro">Implementa Trident per Docker</block>
   <block id="5b6cbf8e3be454064a322ad7f9c47cc2" category="paragraph">Trident fornisce anche un'integrazione diretta con l'ecosistema Docker per le piattaforme storage NetApp. Il plug-in volume Docker (nDVP) di NetApp supporta il provisioning e la gestione delle risorse storage dalla piattaforma storage agli host Docker. Per ulteriori informazioni, fare riferimento alla <block ref="168e02b8c5756e29b56aa79aa4a1b715" category="inline-link-macro-rx"></block> sezione.</block>
-  <block id="3c22b34ac3f55b89b9b011bed80160de" category="section-title">Fai il test di Trident</block>
-  <block id="f8bae4faf187691bac6dbbda926fb426" category="paragraph">Per effettuare un test di guida, Richiedi l'accesso al tool "Easy Implementation and Clone Persistent Storage per i workload containerizzati" <block ref="eb9c34df0ed196dd801ef85207c8bf2c" category="inline-link-macro-rx"></block> utilizzando un'immagine di laboratorio pronta all'uso. Il test drive fornisce un ambiente sandbox con un cluster Kubernetes a tre nodi e Trident installato e configurato. Questo è un ottimo modo per familiarizzare con Trident ed esplorarne le caratteristiche.</block>
   <block id="ad82bf93e4b28ad012a8be09e30d3d59" category="paragraph">Trident è in grado di eseguire il provisioning e la gestione dei dispositivi di storage per le applicazioni containerizzate direttamente sulla piattaforma di storage NetApp HCI sottostante.</block>
   <block id="2c1264786e66608f1b91c735d79624ad" category="paragraph">I sistemi ONTAP sono dotati di configurazioni all-flash, ibride o all-HDD e offrono diversi modelli di implementazione, tra cui hardware progettato (FAS e AFF), white-box (ONTAP Select) e solo cloud (Cloud Volumes ONTAP). Trident supporta questi modelli di implementazione ONTAP.</block>
   <block id="10f0fa4079121b371145e16713fdbb44" category="section-title">Trident</block>
@@ -4995,4 +4989,5 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="0539043b2ec0bd1bfae64dc58173dec7" category="doc">Ripristina le applicazioni utilizzando Trident Protect</block>
   <block id="873e2eae9a82cbe9c291ade077f017d2" category="doc">Gestire i hook di esecuzione Trident Protect</block>
   <block id="6f8f09e1a22390ac35a40283a4dc713f" category="doc">Replica le applicazioni utilizzando NetApp SnapMirror e Trident Protect</block>
+  <block id="2fc23e09b483dc4495beb473646c0273" category="list-text"><block ref="2fc23e09b483dc4495beb473646c0273" category="inline-link-macro-rx"></block></block>
 </blocks>

@@ -17,6 +17,7 @@ Un backend definisce la relazione tra Trident e un sistema di storage. Spiega a 
 Trident offre automaticamente i pool di storage dai backend che soddisfano i requisiti definiti da una classe storage. Scopri come configurare il back-end per il tuo sistema storage.
 
 * link:anf.html["Configurare un backend Azure NetApp Files"^]
+* link:gcnv.html["Configurare un backend Google Cloud NetApp Volumes"^]
 * link:gcp.html["Configurare un Cloud Volumes Service per il backend della piattaforma cloud Google"^]
 * link:element.html["Configurare un backend NetApp HCI o SolidFire"^]
 * link:ontap-nas.html["Configurare un backend con driver NAS ONTAP o Cloud Volumes ONTAP"^]
