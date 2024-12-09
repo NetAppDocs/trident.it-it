@@ -24,9 +24,9 @@ summary: 'È possibile rendere Trident Protect consapevole di un"applicazione ch
 
 
 
-== Creare un'applicazione CR
+== Definire un'applicazione
 
-È necessario creare una CR per ogni applicazione che si desidera gestire con Trident Protect. È possibile aggiungere un'applicazione per la gestione creando manualmente un'applicazione CR o utilizzando l'interfaccia CLI Trident Protect per creare il CR.
+È necessario definire ogni applicazione che si desidera gestire con Trident Protect. È possibile definire un'applicazione da gestire creando manualmente un CR di applicazione o utilizzando l'interfaccia CLI Trident Protect.
 
 [role="tabbed-block"]
 ====
@@ -53,13 +53,18 @@ metadata:
   namespace: my-app-namespace
 spec:
   includedNamespaces:
-    labelSelector: {}
-    namespace: my-app-namespace
+    - namespace: my-app-namespace
 ----
 
 
 
 
+. Dopo aver creato l'applicazione CR per adattarla all'ambiente in uso, applicare il CR. Ad esempio:
++
+[source, console]
+----
+kubectl apply -f maria-app.yaml
+----
 
 
 --
