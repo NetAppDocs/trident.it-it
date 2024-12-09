@@ -36,7 +36,7 @@ Configurare le impostazioni di rete e del nodo richieste per FC.
 
 === Impostazioni di rete
 
-. Ottenere il WWPN delle interfacce di destinazione. Per ulteriori informazioni, fare riferimento link:..https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["visualizzazione dell'interfaccia di rete"^] a.
+. Ottenere il WWPN delle interfacce di destinazione. Per ulteriori informazioni, fare riferimento https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["visualizzazione dell'interfaccia di rete"^] a.
 . Ottenere il WWPN per le interfacce su iniziatore (host).
 +
 Fare riferimento alle utility del sistema operativo host corrispondenti.

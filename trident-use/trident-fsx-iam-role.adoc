@@ -23,7 +23,7 @@ NOTE: Per eseguire l'autenticazione usando un ruolo AWS IAM, devi disporre di un
 
 Questo esempio crea un segreto per il manager segreto AWS per memorizzare le credenziali Trident CSI:
 
-`aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials" --secret-string "{"user":"vsadmin","password":"<svmpassword>"}"`
+`aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials" --secret-string "{"username":"vsadmin","password":"<svmpassword>"}"`
 
 
 
