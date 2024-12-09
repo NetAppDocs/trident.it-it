@@ -17,19 +17,19 @@ summary: Se state iniziando a utilizzare Kubernetes, utilizzate le istruzioni pe
 
 NOTE: Per Docker, fare riferimento alla sezione link:../trident-docker/deploy-docker.html["Trident per Docker"].
 
-.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Uno"] Installare Trident
-[role="quick-margin-para"]
-Trident offre diversi metodi e modalità di installazione ottimizzati per una varietà di ambienti e organizzazioni.
-
-[role="quick-margin-para"]
-link:../trident-get-started/kubernetes-deploy.html["Installare Trident"]
-
-.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Due"] Preparare il nodo di lavoro
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Uno"] Preparare il nodo di lavoro
 [role="quick-margin-para"]
 Tutti i nodi di lavoro nel cluster Kubernetes devono essere in grado di montare i volumi forniti per i pod.
 
 [role="quick-margin-para"]
 link:../trident-use/worker-node-prep.html["Preparare il nodo di lavoro"]
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Due"] Installare Trident
+[role="quick-margin-para"]
+Trident offre diversi metodi e modalità di installazione ottimizzati per una varietà di ambienti e organizzazioni.
+
+[role="quick-margin-para"]
+link:../trident-get-started/kubernetes-deploy.html["Installare Trident"]
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Tre"] Creare un backend
 [role="quick-margin-para"]

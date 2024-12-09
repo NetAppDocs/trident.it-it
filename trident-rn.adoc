@@ -144,13 +144,6 @@ A partire dalla release 24,10, Astra Trident viene rinominato Trident (NetApp Tr
 
 
 
-=== Dipendenze
-
-* Rimosso il supporto per Windows Server 2019 EOL.
-
-
-
-
 == Modifiche nel 24,02
 
 
