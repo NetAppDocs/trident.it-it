@@ -1,0 +1,83 @@
+= Annotazioni ed etichette del namespace durante le operazioni di ripristino e failover
+:allow-uri-read: 
+
+
+
+
+== Annotazioni ed etichette del namespace durante le operazioni di ripristino e failover
+
+Durante le operazioni di ripristino e failover, vengono applicate etichette e annotazioni nel namespace di destinazione in modo che corrispondano alle etichette e alle annotazioni nel namespace di origine. Vengono aggiunte etichette o annotazioni dallo spazio dei nomi di origine che non esistono nello spazio dei nomi di destinazione e le etichette o annotazioni già esistenti vengono sovrascritte per corrispondere al valore dello spazio dei nomi di origine. Le etichette o le annotazioni presenti solo nello spazio dei nomi di destinazione rimangono invariate.
+
+
+NOTE: Se si utilizza RedHat OpenShift, è importante notare il ruolo critico delle annotazioni dello spazio dei nomi negli ambienti OpenShift. Le annotazioni dello spazio dei nomi assicurano che i pod ripristinati aderiscano alle autorizzazioni e alle configurazioni di sicurezza appropriate definite dai vincoli del contesto di protezione OpenShift (SCC) e possano accedere ai volumi senza problemi di autorizzazione. Per ulteriori informazioni, fare riferimento alla https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/authentication_and_authorization/managing-pod-security-policies["Documentazione dei vincoli del contesto di protezione OpenShift"^] .
+
+Puoi impedire la sovrascrittura delle annotazioni specifiche nel namespace di destinazione impostando la variabile dell'ambiente Kubernetes `RESTORE_SKIP_NAMESPACE_ANNOTATIONS` prima di eseguire l'operazione di ripristino o failover. Ad esempio:
+
+[source, console]
+----
+kubectl set env -n trident-protect deploy/trident-protect-controller-manager RESTORE_SKIP_NAMESPACE_ANNOTATIONS=<annotation_key_to_skip_1>,<annotation_key_to_skip_2>
+----
+Se l'applicazione di origine è stata installata utilizzando Helm con il `--create-namespace` flag, viene assegnato un trattamento speciale al `name` tasto etichetta. Durante il processo di ripristino o failover, Trident Protect copia questa etichetta nello spazio dei nomi di destinazione, ma aggiorna il valore allo spazio dei nomi di destinazione se il valore di origine corrisponde allo spazio dei nomi di origine. Se questo valore non corrisponde allo spazio dei nomi di origine, viene copiato nello spazio dei nomi di destinazione senza modifiche.
+
+
+
+=== Esempio
+
+Nell'esempio seguente viene presentato uno spazio dei nomi di origine e destinazione, ciascuno con annotazioni ed etichette diverse. È possibile visualizzare lo stato dello spazio dei nomi di destinazione prima e dopo l'operazione e il modo in cui le annotazioni e le etichette vengono combinate o sovrascritte nello spazio dei nomi di destinazione.
+
+
+
+==== Prima dell'operazione di ripristino o failover
+
+La tabella seguente illustra lo stato degli spazi dei nomi di origine e di destinazione di esempio prima dell'operazione di ripristino o failover:
+
+[cols="1,2a,2a"]
+|===
+| Namespace | Annotazioni | Etichette 
+
+
+| Namespace ns-1 (origine)  a| 
+* annotation.one/key: "updatedvalue"
+* annotation.two/key: "true"
+
+ a| 
+* ambiente=produzione
+* conformità=hipaa
+* name=ns-1
+
+
+
+
+| Namespace ns-2 (destinazione)  a| 
+* annotation.one/key: "true"
+* annotation.three/key: "false"
+
+ a| 
+* ruolo=database
+
+
+|===
+
+
+==== Dopo l'operazione di ripristino
+
+La tabella seguente illustra lo stato dello spazio dei nomi di destinazione di esempio dopo l'operazione di ripristino o failover. Alcune chiavi sono state aggiunte, altre sono state sovrascritte e l' `name`etichetta è stata aggiornata per corrispondere allo spazio dei nomi di destinazione:
+
+[cols="1,2a,2a"]
+|===
+| Namespace | Annotazioni | Etichette 
+
+
+| Namespace ns-2 (destinazione)  a| 
+* annotation.one/key: "updatedvalue"
+* annotation.two/key: "true"
+* annotation.three/key: "false"
+
+ a| 
+* name=ns-2
+* conformità=hipaa
+* ambiente=produzione
+* ruolo=database
+
+
+|===

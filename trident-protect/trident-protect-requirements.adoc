@@ -83,6 +83,37 @@ NOTE: Per impostazione predefinita, è possibile abilitare le directory snapshot
 
 
 
+== Protezione dei dati con le macchine virtuali KubeVirt
+
+Trident Protect 24,10 e 24.10.1 e versioni successive garantiscono comportamenti diversi per la protezione delle applicazioni in esecuzione sulle macchine virtuali KubeVirt. Per entrambe le versioni, è possibile attivare o disattivare il blocco e lo sblocco del file system durante le operazioni di protezione dei dati.
+
+[NOTE]
+====
+Per tutte le versioni di Trident Protect, per abilitare o disabilitare la funzionalità di blocco automatico negli ambienti OpenShift, potrebbe essere necessario concedere autorizzazioni privilegiate allo spazio dei nomi delle applicazioni. Ad esempio:
+
+[source, console]
+----
+oc adm policy add-scc-to-user privileged -z default -n <application-namespace>
+----
+====
+.Trident Protect 24,10
+Trident Protect 24,10 non garantisce automaticamente uno stato coerente dei file system delle macchine virtuali KubeVirt durante le operazioni di protezione dei dati. Per proteggere i dati delle macchine virtuali KubeVirt utilizzando Trident Protect 24,10, è necessario abilitare manualmente la funzionalità di blocco/sblocco dei file system prima dell'operazione di protezione dei dati. Ciò garantisce che i filesystem siano in uno stato coerente.
+
+È possibile configurare Trident Protect 24,10 per gestire il blocco e lo sblocco del file system della VM durante le operazioni di protezione dei dati link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["configurazione della virtualizzazione"^]utilizzando il seguente comando:
+
+[source, console]
+----
+kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=true -n trident-protect
+----
+.Trident Protect 24.10.1 e versioni successive
+A partire da Trident Protect 24.10.1, Trident Protect blocca e sblocca automaticamente i file system KubeVirt durante le operazioni di data Protection. Facoltativamente, è possibile disattivare questo comportamento automatico utilizzando il seguente comando:
+
+[source, console]
+----
+kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=false -n trident-protect
+----
+
+
 == Requisiti per la replica SnapMirror
 
 NetApp SnapMirror è disponibile per l'uso con Trident Protect per le seguenti soluzioni ONTAP:
@@ -131,9 +162,3 @@ NOTE: Assicurati che i nomi delle SVM utilizzati nella relazione di replica tra 
 === Configurazione Trident / ONTAP per la replica SnapMirror
 
 Trident Protect richiede la configurazione di almeno un backend di storage che supporti la replica per i cluster di origine e di destinazione. Se i cluster di origine e di destinazione sono gli stessi, l'applicazione di destinazione deve utilizzare un backend di storage diverso da quello dell'applicazione di origine per ottenere la migliore resilienza.
-
-
-
-=== Considerazioni sull'utilizzo di KubeVirt
-
-Se si intende utilizzare https://kubevirt.io/["KubeVirt"^] macchine virtuali con replica SnapMirror, è necessario configurare una virtualizzazione in modo da poter bloccare e sbloccare le SVM. Dopo aver configurato la virtualizzazione, le SVM implementate includeranno i tool necessari per il congelamento e lo sblocco. Per ulteriori informazioni sull'impostazione della virtualizzazione, fare riferimento a https://docs.openshift.com/container-platform/4.17/virt/install/installing-virt.html["Installazione di OpenShift Virtualization"^].

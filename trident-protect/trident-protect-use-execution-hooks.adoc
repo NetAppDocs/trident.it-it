@@ -37,7 +37,9 @@ Trident Protect supporta i seguenti tipi di hook di esecuzione, a seconda del mo
 Quando viene eseguita un'operazione di protezione dei dati, gli eventi hook di esecuzione hanno luogo nel seguente ordine:
 
 . Gli eventuali hook di esecuzione pre-operation personalizzati applicabili vengono eseguiti sui container appropriati. È possibile creare ed eseguire tutti gli hook pre-operation personalizzati necessari, ma l'ordine di esecuzione di questi hook prima dell'operazione non è garantito né configurabile.
+. Se applicabile, si verificano blocchi del filesystem. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Ulteriori informazioni sulla configurazione del blocco del filesystem con Trident Protect"].
 . Viene eseguita l'operazione di protezione dei dati.
+. I filesystem congelati vengono scongelati, se applicabile.
 . Gli eventuali hook di esecuzione post-operation personalizzati applicabili vengono eseguiti sui container appropriati. È possibile creare ed eseguire tutti gli hook post-operation personalizzati necessari, ma l'ordine di esecuzione di questi hook dopo l'operazione non è garantito né configurabile.
 
 

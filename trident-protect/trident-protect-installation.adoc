@@ -52,16 +52,6 @@ helm install trident-protect netapp-trident-protect/trident-protect --set autoSu
 ----
 
 
-. Facoltativamente, bloccare le macchine virtuali. Se utilizzi il supporto KubeVirt per SnapMirror, il congelamento delle macchine virtuali ti aiuta a gestirle in modo efficace:
-+
-[source, console]
-----
-kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=true -n trident-protect
-----
-+
-
-NOTE: È necessario impostare la virtualizzazione per il funzionamento della funzionalità di blocco. Le macchine virtuali distribuite dopo questa configurazione includono i file binari necessari per il blocco e lo sblocco. Per ulteriori informazioni sull'impostazione della virtualizzazione, fare riferimento a link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["Installazione di OpenShift Virtualization"^].
-
 
 
 --
@@ -169,16 +159,6 @@ helm install trident-protect netapp-trident-protect/trident-protect --set cluste
 helm install trident-protect netapp-trident-protect/trident-protect --set autoSupport.enabled=false --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect -f protectValues.yaml
 ----
 
-
-. Facoltativamente, bloccare le macchine virtuali. Se utilizzi il supporto KubeVirt per SnapMirror, il congelamento delle macchine virtuali ti aiuta a gestirle in modo efficace:
-+
-[source, console]
-----
-kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=true -n trident-protect
-----
-+
-
-NOTE: È necessario impostare la virtualizzazione per il funzionamento della funzionalità di blocco. Le macchine virtuali distribuite dopo questa configurazione includono i file binari necessari per il blocco e lo sblocco. Per ulteriori informazioni sull'impostazione della virtualizzazione, fare riferimento a link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["Installazione di OpenShift Virtualization"^].
 
 
 

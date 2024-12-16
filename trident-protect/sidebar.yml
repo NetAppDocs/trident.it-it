@@ -18,6 +18,8 @@ entries:
     url: "/trident-protect/manage-authorization-access-control.html"
   - title: Generare un bundle di supporto Trident Protect
     url: "/trident-protect/trident-protect-generate-support-bundle.html"
+  - title: Aggiornare Trident Protect
+    url: "/trident-protect/trident-protect-upgrade.html"
 - title: Gestisci e proteggi le applicazioni
   entries:
   - title: Utilizzare gli oggetti AppVault per gestire i bucket
