@@ -147,7 +147,7 @@ spec:
 +
 ** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `include or exclude` per includere o escludere una risorsa definita in resourceMatcher. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
 +
-*** *ResourceFilter.resourceMatchers*: Matrice di oggetti resourceMatcher.
+*** *ResourceFilter.resourceMatchers*: Una matrice di oggetti resourceMatcher. Se si definiscono più elementi in questa matrice, questi corrispondono come un'operazione OR e i campi all'interno di ogni elemento (gruppo, tipo, versione) corrispondono come un'operazione AND.
 +
 **** *ResourceMatchers[].group*: (_Optional_) Gruppo della risorsa da filtrare.
 **** *ResourceMatchers[].Kind*: (_Optional_) tipo di risorsa da filtrare.
@@ -165,12 +165,18 @@ spec:
   resourceFilter:
     resourceSelectionCriteria: "include"
     resourceMatchers:
-      group: my-resource-group
-      kind: my-resource-kind
-      version: my-resource-version
-      names: ["my-resource-names"]
-      namespaces: ["my-resource-namespaces"]
-      labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-1
+        kind: my-resource-kind-1
+        version: my-resource-version-1
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-2
+        kind: my-resource-kind-2
+        version: my-resource-version-2
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
 ----
 
 
@@ -243,7 +249,7 @@ spec:
 +
 ** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `include or exclude` per includere o escludere una risorsa definita in resourceMatcher. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
 +
-*** *ResourceFilter.resourceMatchers*: Matrice di oggetti resourceMatcher.
+*** *ResourceFilter.resourceMatchers*: Una matrice di oggetti resourceMatcher. Se si definiscono più elementi in questa matrice, questi corrispondono come un'operazione OR e i campi all'interno di ogni elemento (gruppo, tipo, versione) corrispondono come un'operazione AND.
 +
 **** *ResourceMatchers[].group*: (_Optional_) Gruppo della risorsa da filtrare.
 **** *ResourceMatchers[].Kind*: (_Optional_) tipo di risorsa da filtrare.
@@ -261,12 +267,18 @@ spec:
   resourceFilter:
     resourceSelectionCriteria: "include"
     resourceMatchers:
-      group: my-resource-group
-      kind: my-resource-kind
-      version: my-resource-version
-      names: ["my-resource-names"]
-      namespaces: ["my-resource-namespaces"]
-      labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-1
+        kind: my-resource-kind-1
+        version: my-resource-version-1
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-2
+        kind: my-resource-kind-2
+        version: my-resource-version-2
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
 ----
 
 
@@ -342,7 +354,7 @@ spec:
 +
 ** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `include or exclude` per includere o escludere una risorsa definita in resourceMatcher. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
 +
-*** *ResourceFilter.resourceMatchers*: Matrice di oggetti resourceMatcher.
+*** *ResourceFilter.resourceMatchers*: Una matrice di oggetti resourceMatcher. Se si definiscono più elementi in questa matrice, questi corrispondono come un'operazione OR e i campi all'interno di ogni elemento (gruppo, tipo, versione) corrispondono come un'operazione AND.
 +
 **** *ResourceMatchers[].group*: (_Optional_) Gruppo della risorsa da filtrare.
 **** *ResourceMatchers[].Kind*: (_Optional_) tipo di risorsa da filtrare.
@@ -360,12 +372,18 @@ spec:
   resourceFilter:
     resourceSelectionCriteria: "include"
     resourceMatchers:
-      group: my-resource-group
-      kind: my-resource-kind
-      version: my-resource-version
-      names: ["my-resource-names"]
-      namespaces: ["my-resource-namespaces"]
-      labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-1
+        kind: my-resource-kind-1
+        version: my-resource-version-1
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-2
+        kind: my-resource-kind-2
+        version: my-resource-version-2
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
 ----
 
 
@@ -443,7 +461,7 @@ spec:
 +
 ** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `include or exclude` per includere o escludere una risorsa definita in resourceMatcher. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
 +
-*** *ResourceFilter.resourceMatchers*: Matrice di oggetti resourceMatcher.
+*** *ResourceFilter.resourceMatchers*: Una matrice di oggetti resourceMatcher. Se si definiscono più elementi in questa matrice, questi corrispondono come un'operazione OR e i campi all'interno di ogni elemento (gruppo, tipo, versione) corrispondono come un'operazione AND.
 +
 **** *ResourceMatchers[].group*: (_Optional_) Gruppo della risorsa da filtrare.
 **** *ResourceMatchers[].Kind*: (_Optional_) tipo di risorsa da filtrare.
@@ -461,12 +479,18 @@ spec:
   resourceFilter:
     resourceSelectionCriteria: "include"
     resourceMatchers:
-      group: my-resource-group
-      kind: my-resource-kind
-      version: my-resource-version
-      names: ["my-resource-names"]
-      namespaces: ["my-resource-namespaces"]
-      labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-1
+        kind: my-resource-kind-1
+        version: my-resource-version-1
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-2
+        kind: my-resource-kind-2
+        version: my-resource-version-2
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
 ----
 
 

@@ -132,12 +132,15 @@ spec:
 . Se si desidera, è necessario selezionare solo determinate risorse dell'applicazione da ripristinare, aggiungere un filtro che includa o escluda le risorse contrassegnate con determinate etichette:
 +
 ** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `include or exclude` per includere o escludere una risorsa definita in resourceMatcher. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
-** *resourceMatchers.group*: (_Optional_) Gruppo della risorsa da filtrare.
-** *ResourceMatchers.Kind*: (_Optional_) tipo della risorsa da filtrare.
-** *ResourceMatchers.version*: (_Optional_) versione della risorsa da filtrare.
-** *resourceMatchers.names*: (_Optional_) nomi nel campo Kubernetes metadata.name della risorsa da filtrare.
-** *resourceMatchers.namespaces*: (_Optional_) Namespaces nel campo Kubernetes metadata.name della risorsa da filtrare.
-** *ResourceMatchers.labelSelectors*: (_Optional_) stringa del selettore di etichette nel campo Kubernetes metadata.name della risorsa come definito nella https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Documentazione Kubernetes"^] . Ad esempio: `"trident.netapp.io/os=linux"`.
++
+*** *ResourceFilter.resourceMatchers*: Una matrice di oggetti resourceMatcher. Se si definiscono più elementi in questa matrice, questi corrispondono come un'operazione OR e i campi all'interno di ogni elemento (gruppo, tipo, versione) corrispondono come un'operazione AND.
++
+**** *ResourceMatchers[].group*: (_Optional_) Gruppo della risorsa da filtrare.
+**** *ResourceMatchers[].Kind*: (_Optional_) tipo di risorsa da filtrare.
+**** *ResourceMatchers[].version*: (_Optional_) versione della risorsa da filtrare.
+**** *ResourceMatchers[].names*: (_Optional_) nomi nel campo Kubernetes metadata.name della risorsa da filtrare.
+**** *ResourceMatchers[].namespaces*: (_Optional_) Namespaces nel campo Kubernetes metadata.name della risorsa da filtrare.
+**** *ResourceMatchers[].labelSelectors*: (_Optional_) stringa del selettore di etichette nel campo Kubernetes metadata.name della risorsa come definito nella https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Documentazione Kubernetes"^] . Ad esempio: `"trident.netapp.io/os=linux"`.
 +
 Ad esempio:
 
@@ -148,13 +151,23 @@ spec:
   resourceFilter:
     resourceSelectionCriteria: "include"
     resourceMatchers:
-      group: my-resource-group
-      kind: my-resource-kind
-      version: my-resource-version
-      names: ["my-resource-names"]
-      namespaces: ["my-resource-namespaces"]
-      labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-1
+        kind: my-resource-kind-1
+        version: my-resource-version-1
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-2
+        kind: my-resource-kind-2
+        version: my-resource-version-2
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
 ----
+
+
+
+
 
 
 . Dopo aver popolato il `trident-protect-snapshot-restore-cr.yaml` file con i valori corretti, applicare la CR:
