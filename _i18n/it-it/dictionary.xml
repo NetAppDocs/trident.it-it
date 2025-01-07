@@ -5022,5 +5022,5 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="a16ec228f0e3336de76f224b11d860d9" category="list-text">Aggiornamento di Trident Protect:</block>
   <block id="08810911e9a818361e28207072354bd4" category="list-text">Se applicabile, si verificano blocchi del filesystem. <block ref="d0a15703ee89b8fa8b780fb2dbace2bd" category="inline-link-macro-rx"></block>.</block>
   <block id="caf47630bbafdc416f6b6ecdb585e83e" category="list-text">I filesystem congelati vengono scongelati, se applicabile.</block>
-  <block id="2d9c57bbe7c29718be24410f0c38688e" category="list-text">*ResourceFilter.resourceMatchers*: Una matrice di oggetti resourceMatcher. Se si definiscono più elementi in questa matrice, questi corrispondono come un'operazione OR e i campi all'interno di ogni elemento (gruppo, tipo, versione) corrispondono come un'operazione AND.</block>
+  <block id="1eb6c79d30a4cb086ad406cb25fec350" category="list-text">*ResourceFilter.resourceMatchers*: Una matrice di oggetti resourceMatcher. Se si definiscono più elementi in questa matrice, questi corrispondono come un'operazione OR e i campi all'interno di ogni elemento (gruppo, tipo, versione) corrispondono come un'operazione AND.</block>
 </blocks>
