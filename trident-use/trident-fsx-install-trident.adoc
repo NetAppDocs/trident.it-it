@@ -97,8 +97,8 @@ Prima di configurare il componente aggiuntivo Astra Trident per AWS EKS, assicur
 --
 I seguenti comandi di esempio installano il componente aggiuntivo Astra Trident EKS:
 
-`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.6.1-eksbuild`
-`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.6.1-eksbuild.1` (con una versione dedicata)
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.10.0-eksbuild`
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.10.0-eksbuild.1` (con una versione dedicata)
 
 --
 
@@ -110,9 +110,9 @@ NOTE: Quando si configura il parametro opzionale `cloudIdentity` , assicurarsi d
 . Nel riquadro di spostamento a sinistra, fare clic su *cluster*.
 . Fare clic sul nome del cluster per il quale si desidera configurare il componente aggiuntivo NetApp Trident CSI.
 . Fare clic su *componenti aggiuntivi*, quindi su *Ottieni altri componenti aggiuntivi*.
-. Nella pagina *S*elect add-on*, procedere come segue:
+. Nella pagina *Seleziona componenti aggiuntivi*, effettuare le seguenti operazioni:
 +
-.. Nella sezione AWS Marketplace EKS-addons, selezionare la casella di controllo *Astra Trident by NetApp*.
+.. Nella sezione AWS Marketplace EKS-addons, selezionare la casella di controllo *NetApp Trident*.
 .. Fare clic su *Avanti*.
 
 
@@ -121,10 +121,6 @@ NOTE: Quando si configura il parametro opzionale `cloudIdentity` , assicurarsi d
 .. Selezionare la *versione* che si desidera utilizzare.
 .. Per *Seleziona ruolo IAM*, lasciare il campo *non impostato*.
 .. Espandere le *Impostazioni di configurazione opzionali*, seguire lo schema di configurazione del componente aggiuntivo* e impostare il parametro configurationValues nella sezione *valori di configurazione* sul ruolo-arn creato nel passaggio precedente (il valore deve essere nel seguente formato: `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`). Se si seleziona Sovrascrivi per il metodo di risoluzione dei conflitti, una o più impostazioni per il componente aggiuntivo esistente possono essere sovrascritte con le impostazioni del componente aggiuntivo Amazon EKS. Se non si attiva questa opzione e si verifica un conflitto con le impostazioni esistenti, l'operazione non riesce. È possibile utilizzare il messaggio di errore risultante per risolvere il conflitto. Prima di selezionare questa opzione, assicurati che il componente aggiuntivo Amazon EKS non gestisca le impostazioni da gestire in autonomia.
-+
-
-NOTE: Quando si configura il parametro opzionale `cloudIdentity` , assicurarsi di specificare `cloudProvider` durante l'installazione di Trident utilizzando il componente aggiuntivo EKS.
-
 
 
 . Scegliere *Avanti*.
@@ -146,16 +142,12 @@ add-on.json
 
    "clusterName": "<eks-cluster>",
    "addonName": "netapp_trident-operator",
-   "addonVersion": "v24.6.1-eksbuild.1",
+   "addonVersion": "v24.10.0-eksbuild.1",
    "serviceAccountRoleArn": "arn:aws:iam::123456:role/astratrident-role",
    "configurationValues": "{"cloudIdentity": "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role'",
    "cloudProvider": "AWS"}"
 }
 ----
-+
-
-NOTE: Quando si configura il parametro opzionale `cloudIdentity` , assicurarsi di specificare `AWS` come `cloudProvider` durante l'installazione di Trident utilizzando il componente aggiuntivo EKS.
-
 . Installa il componente aggiuntivo Astra Trident EKS"
 +
 `aws eks create-addon --cli-input-json file://add-on.json`
@@ -182,10 +174,10 @@ NOTE: Quando si configura il parametro opzionale `cloudIdentity` , assicurarsi d
 [listing]
 ----
 NAME                        VERSION             STATUS    ISSUES    IAMROLE    UPDATE AVAILABLE    CONFIGURATION VALUES
-netapp_trident-operator    v24.6.1-eksbuild.1    ACTIVE    0       {"cloudIdentity":"'eks.amazonaws.com/role-arn: arn:aws:iam::139763910815:role/AmazonEKS_FSXN_CSI_DriverRole'"}
+netapp_trident-operator    v24.10.0-eksbuild.1    ACTIVE    0       {"cloudIdentity":"'eks.amazonaws.com/role-arn: arn:aws:iam::139763910815:role/AmazonEKS_FSXN_CSI_DriverRole'"}
 ----
 * Aggiornare il componente aggiuntivo alla versione restituita in AGGIORNAMENTO DISPONIBILE nell'output del passaggio precedente.
-`eksctl update addon --name netapp_trident-operator --version v24.6.1-eksbuild.1 --cluster my-cluster --force`
+`eksctl update addon --name netapp_trident-operator --version v24.10.0-eksbuild.1 --cluster my-cluster --force`
 +
 Se si rimuove l' `--force` opzione e una delle impostazioni del componente aggiuntivo Amazon EKS è in conflitto con le impostazioni esistenti, l'aggiornamento del componente aggiuntivo Amazon EKS non viene eseguito correttamente; viene visualizzato un messaggio di errore che aiuta a risolvere il conflitto. Prima di specificare questa opzione, assicurati che il componente aggiuntivo Amazon EKS non gestisca le impostazioni da gestire, perché queste impostazioni vengono sovrascritte con questa opzione. Per ulteriori informazioni sulle altre opzioni per questa impostazione, vedere link:https://eksctl.io/usage/addons/["Componenti aggiuntivi"]. Per ulteriori informazioni su Amazon EKS Kubernetes Field management, consulta link:https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-field-management.html["Gestione sul campo di Kubernetes"].
 
@@ -198,11 +190,11 @@ Se si rimuove l' `--force` opzione e una delle impostazioni del componente aggiu
 . Nel riquadro di spostamento a sinistra, fare clic su *cluster*.
 . Fare clic sul nome del cluster per il quale si desidera aggiornare il componente aggiuntivo NetApp Trident CSI.
 . Fare clic sulla scheda *componenti aggiuntivi*.
-. Fare clic su *Astra Trident by NetApp*, quindi su *Modifica*.
-. Nella pagina *Configura Astra Trident di NetApp*, procedere come segue:
+. Fare clic su *NetApp Trident*, quindi su *Modifica*.
+. Nella pagina *Configura impostazioni componenti aggiuntivi selezionati*, effettuare le seguenti operazioni:
 +
 .. Selezionare la *versione* che si desidera utilizzare.
-.. (Facoltativo) è possibile espandere le *impostazioni di configurazione opzionali* e modificarle secondo necessità.
+.. Espandere le *impostazioni di configurazione opzionali* e modificarle secondo necessità.
 .. Fare clic su *Save Changes* (Salva modifiche).
 
 
@@ -213,7 +205,7 @@ Se si rimuove l' `--force` opzione e una delle impostazioni del componente aggiu
 --
 Nell'esempio seguente viene aggiornato il componente aggiuntivo EKS:
 
-`aws eks update-addon --cluster-name my-cluster netapp_trident-operator vpc-cni --addon-version v24.6.1-eksbuild.1 \
+`aws eks update-addon --cluster-name my-cluster netapp_trident-operator vpc-cni --addon-version v24.10.0-eksbuild.1 \
     --service-account-role-arn arn:aws:iam::111122223333:role/role-name --configuration-values '{}' --resolve-conflicts --preserve`
 
 --
