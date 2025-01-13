@@ -5023,4 +5023,5 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="fe961357dbe4b6bf8b5503f4919ea35c" category="list-text">Verificare che AppVault CR per il bucket di storage a oggetti che contiene il backup sia stato configurato sul cluster di destinazione.</block>
   <block id="baafbccab17d07f9ba18e7becb7c76d2" category="inline-link-macro">ripristinare i dati dal backup</block>
   <block id="878bbf0662ed19ef900e4e06bfad92d2" category="list-text">Sul cluster di destinazione, <block ref="11860f9f3ec51316f8ebc9805806b6cd" category="inline-link-macro-rx"></block>.</block>
+  <block id="4a0207b6a74b63dcaaa4d58fe75ec431" category="list-text">*ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare<block ref="f4d72a64acd8929c0cc9ed96a7a336cc" prefix=" " category="inline-code"></block> o includere o<block ref="843f2812f595e7ec7c5036e89fde02d6" prefix=" " category="inline-code"></block> escludere una risorsa definita in resourceMatchers. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:</block>
 </blocks>

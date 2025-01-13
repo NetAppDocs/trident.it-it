@@ -145,7 +145,7 @@ spec:
 
 . (_Optional_) se è necessario selezionare solo determinate risorse dell'applicazione da ripristinare, aggiungere un filtro che includa o escluda risorse contrassegnate con determinate etichette:
 +
-** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `include or exclude` per includere o escludere una risorsa definita in resourceMatcher. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
+** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `Include` o includere o `Exclude` escludere una risorsa definita in resourceMatchers. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
 +
 *** *ResourceFilter.resourceMatchers*: Una matrice di oggetti resourceMatcher. Se si definiscono più elementi in questa matrice, questi corrispondono come un'operazione OR e i campi all'interno di ogni elemento (gruppo, tipo, versione) corrispondono come un'operazione AND.
 +
@@ -163,7 +163,7 @@ Ad esempio:
 ----
 spec:
   resourceFilter:
-    resourceSelectionCriteria: "include"
+    resourceSelectionCriteria: "Include"
     resourceMatchers:
       - group: my-resource-group-1
         kind: my-resource-kind-1
@@ -247,7 +247,7 @@ spec:
 
 . (_Optional_) se è necessario selezionare solo determinate risorse dell'applicazione da ripristinare, aggiungere un filtro che includa o escluda risorse contrassegnate con determinate etichette:
 +
-** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `include or exclude` per includere o escludere una risorsa definita in resourceMatcher. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
+** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `Include` o includere o `Exclude` escludere una risorsa definita in resourceMatchers. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
 +
 *** *ResourceFilter.resourceMatchers*: Una matrice di oggetti resourceMatcher. Se si definiscono più elementi in questa matrice, questi corrispondono come un'operazione OR e i campi all'interno di ogni elemento (gruppo, tipo, versione) corrispondono come un'operazione AND.
 +
@@ -265,7 +265,7 @@ Ad esempio:
 ----
 spec:
   resourceFilter:
-    resourceSelectionCriteria: "include"
+    resourceSelectionCriteria: "Include"
     resourceMatchers:
       - group: my-resource-group-1
         kind: my-resource-kind-1
@@ -352,7 +352,7 @@ spec:
 
 . (_Optional_) se è necessario selezionare solo determinate risorse dell'applicazione da ripristinare, aggiungere un filtro che includa o escluda risorse contrassegnate con determinate etichette:
 +
-** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `include or exclude` per includere o escludere una risorsa definita in resourceMatcher. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
+** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `Include` o includere o `Exclude` escludere una risorsa definita in resourceMatchers. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
 +
 *** *ResourceFilter.resourceMatchers*: Una matrice di oggetti resourceMatcher. Se si definiscono più elementi in questa matrice, questi corrispondono come un'operazione OR e i campi all'interno di ogni elemento (gruppo, tipo, versione) corrispondono come un'operazione AND.
 +
@@ -370,7 +370,7 @@ Ad esempio:
 ----
 spec:
   resourceFilter:
-    resourceSelectionCriteria: "include"
+    resourceSelectionCriteria: "Include"
     resourceMatchers:
       - group: my-resource-group-1
         kind: my-resource-kind-1
@@ -459,7 +459,7 @@ spec:
 
 . (_Optional_) se è necessario selezionare solo determinate risorse dell'applicazione da ripristinare, aggiungere un filtro che includa o escluda risorse contrassegnate con determinate etichette:
 +
-** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `include or exclude` per includere o escludere una risorsa definita in resourceMatcher. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
+** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `Include` o includere o `Exclude` escludere una risorsa definita in resourceMatchers. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
 +
 *** *ResourceFilter.resourceMatchers*: Una matrice di oggetti resourceMatcher. Se si definiscono più elementi in questa matrice, questi corrispondono come un'operazione OR e i campi all'interno di ogni elemento (gruppo, tipo, versione) corrispondono come un'operazione AND.
 +
@@ -477,7 +477,7 @@ Ad esempio:
 ----
 spec:
   resourceFilter:
-    resourceSelectionCriteria: "include"
+    resourceSelectionCriteria: "Include"
     resourceMatchers:
       - group: my-resource-group-1
         kind: my-resource-kind-1
