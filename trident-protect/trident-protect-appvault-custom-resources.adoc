@@ -24,19 +24,64 @@ Quando si definisce un CR AppVault, è necessario includere le credenziali per a
 
 
 
-=== Google Cloud
+=== Esempi di generazione delle chiavi
 
-Esempio di generazione delle chiavi:
-
-[source, console]
-----
-kubectl create secret generic gcp-creds --from-file=credentials=<mycreds-file.json> -n trident-protect
-----
-I seguenti esempi di definizione di AppVault sono forniti come CR che è possibile utilizzare e modificare, oppure come un esempio di comando CLI Trident Protect che genera automaticamente la CR di AppVault:
+Puoi utilizzare i seguenti esempi per creare chiavi per le credenziali di ciascun cloud provider.
 
 [role="tabbed-block"]
 ====
-.Esempio di AppVault CR
+.Google Cloud
+--
+[source, console]
+----
+kubectl create secret generic <secret-name> --from-file=credentials=<mycreds-file.json> -n trident-protect
+----
+--
+.Amazon S3 (AWS)
+--
+[source, console]
+----
+kubectl create secret generic <secret-name> --from-literal=accessKeyID=<objectstorage-accesskey> --from-literal=secretAccessKey=<generic-s3-trident-protect-src-bucket-secret> -n trident-protect
+----
+--
+.Microsoft Azure
+--
+[source, console]
+----
+kubectl create secret generic <secret-name> --from-literal=accountKey=<secret-name> -n trident-protect
+----
+--
+.Generico S3
+--
+[source, console]
+----
+kubectl create secret generic <secret-name> --from-literal=accessKeyID=<objectstorage-accesskey> --from-literal=secretAccessKey=<generic-s3-trident-protect-src-bucket-secret> -n trident-protect
+----
+--
+.ONTAP S3
+--
+[source, console]
+----
+kubectl create secret generic <secret-name> --from-literal=accessKeyID=<objectstorage-accesskey> --from-literal=secretAccessKey=<generic-s3-trident-protect-src-bucket-secret> -n trident-protect
+----
+--
+.StorageGRID S3
+--
+[source, console]
+----
+kubectl create secret generic  <secret-name> --from-literal=accessKeyID=<objectstorage-accesskey> --from-literal=secretAccessKey=<generic-s3-trident-protect-src-bucket-secret> -n trident-protect
+----
+--
+====
+
+
+=== Esempi di AppVault CR
+
+È possibile utilizzare i seguenti esempi CR per creare oggetti AppVault per ciascun provider cloud.
+
+[role="tabbed-block"]
+====
+.Google Cloud
 --
 [source, yaml]
 ----
@@ -58,29 +103,7 @@ spec:
         name: gcp-trident-protect-src-bucket-secret
 ----
 --
-.Esempio di creazione di AppVault CR utilizzando la CLI Trident Protect
---
-[source, console]
-----
-tridentctl protect create vault gcp my-new-vault --bucket mybucket --project my-gcp-project --secret <gcp-creds>/<credentials>
-----
---
-====
-
-
-=== Amazon S3
-
-Esempio di generazione delle chiavi:
-
-[source, console]
-----
-kubectl create secret generic -n trident-protect s3 --from-literal=accessKeyID=<secret-name> --from-literal=secretAccessKey=<generic-s3-trident-protect-src-bucket-secret>
-----
-I seguenti esempi di definizione di AppVault sono forniti come CR che è possibile utilizzare e modificare, oppure come un esempio di comando CLI Trident Protect che genera automaticamente la CR di AppVault:
-
-[role="tabbed-block"]
-====
-.Esempio di AppVault CR
+.Amazon S3 (AWS)
 --
 [source, yaml]
 ----
@@ -106,29 +129,7 @@ spec:
         name: s3
 ----
 --
-.Esempio di creazione di AppVault con CLI
---
-[source, console]
-----
-tridentctl protect create vault GenericS3 s3vault --bucket <bucket-name> --secret  <secret-name>  --endpoint <s3-endpoint>
-----
---
-====
-
-
-=== Microsoft Azure
-
-Esempio di generazione delle chiavi:
-
-[source, console]
-----
-kubectl create secret generic <secret-name> --from-literal=accountKey=<secret-name> -n trident-protect
-----
-I seguenti esempi di definizione di AppVault sono forniti come CR che è possibile utilizzare e modificare, oppure come un esempio di comando CLI Trident Protect che genera automaticamente la CR di AppVault:
-
-[role="tabbed-block"]
-====
-.Esempio di AppVault CR
+.Microsoft Azure
 --
 [source, yaml]
 ----
@@ -150,42 +151,136 @@ spec:
         name: azure-trident-protect-src-bucket-secret
 ----
 --
-.Esempio di creazione di AppVault con CLI
+.Generico S3
+--
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: generic-s3-trident-protect-src-bucket-b643cc50-0429-4ad5-971f-ac4a83621922
+  namespace: trident-protect
+spec:
+  providerType: GenericS3
+  providerConfig:
+    s3:
+      bucketName: trident-protect-src-bucket
+      endpoint: s3.example.com
+  providerCredentials:
+    accessKeyID:
+      valueFromSecret:
+        key: accessKeyID
+        name: s3
+    secretAccessKey:
+      valueFromSecret:
+        key: secretAccessKey
+        name: s3
+----
+--
+.ONTAP S3
+--
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: ontap-s3-trident-protect-src-bucket-b643cc50-0429-4ad5-971f-ac4a83621922
+  namespace: trident-protect
+spec:
+  providerType: OntapS3
+  providerConfig:
+    s3:
+      bucketName: trident-protect-src-bucket
+      endpoint: s3.example.com
+  providerCredentials:
+    accessKeyID:
+      valueFromSecret:
+        key: accessKeyID
+        name: s3
+    secretAccessKey:
+      valueFromSecret:
+        key: secretAccessKey
+        name: s3
+----
+--
+.StorageGRID S3
+--
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: storagegrid-s3-trident-protect-src-bucket-b643cc50-0429-4ad5-971f-ac4a83621922
+  namespace: trident-protect
+spec:
+  providerType: StorageGridS3
+  providerConfig:
+    s3:
+      bucketName: trident-protect-src-bucket
+      endpoint: s3.example.com
+  providerCredentials:
+    accessKeyID:
+      valueFromSecret:
+        key: accessKeyID
+        name: s3
+    secretAccessKey:
+      valueFromSecret:
+        key: secretAccessKey
+        name: s3
+----
+--
+====
+
+
+=== Esempi di creazione di AppVault utilizzando la CLI Trident Protect
+
+È possibile utilizzare i seguenti esempi di comandi CLI per creare CRS AppVault per ciascun provider.
+
+[role="tabbed-block"]
+====
+.Google Cloud
+--
+[source, console]
+----
+tridentctl protect create vault GCP my-new-vault --bucket mybucket --project my-gcp-project --secret <gcp-creds>/<credentials>
+----
+--
+.Amazon S3 (AWS)
+--
+[source, console]
+----
+tridentctl protect create vault AWS <vault-name> --bucket <bucket-name> --secret  <secret-name>  --endpoint <s3-endpoint>
+----
+--
+.Microsoft Azure
 --
 [source, console]
 ----
 tridentctl protect create vault Azure <vault-name> --account <account-name> --bucket <bucket-name> --secret <secret-name>
 ----
 --
+.Generico S3
+--
+[source, console]
+----
+tridentctl protect create vault GenericS3 <vault-name> --bucket <bucket-name> --secret  <secret-name>  --endpoint <s3-endpoint>
+----
+--
+.ONTAP S3
+--
+[source, console]
+----
+tridentctl protect create vault OntapS3 <vault-name> --bucket <bucket-name> --secret  <secret-name>  --endpoint <s3-endpoint>
+----
+--
+.StorageGRID S3
+--
+[source, console]
+----
+tridentctl protect create vault StorageGridS3 s3vault --bucket <bucket-name> --secret  <secret-name>  --endpoint <s3-endpoint>
+----
+--
 ====
-
-
-=== Valori supportati per ProviderType e ProviderConfig
-
-Le `providerType` chiavi e `providerConfig` in AppVault CR richiedono valori specifici. Nella tabella seguente sono elencati i valori supportati per la `providerType` chiave e la chiave associata `providerConfig` da utilizzare con ciascun `providerType` valore.
-
-[cols="2,2"]
-|===
-| Valore supportato `providerType` | Chiave associata `providerConfig` 
-
-
-| AWS | s3 
-
-
-| Azure | azure 
-
-
-| GCP | gcp 
-
-
-| GenericS3 | s3 
-
-
-| OntapS3 | s3 
-
-
-| StorageGridS3 | s3 
-|===
 
 
 == Utilizzare il browser AppVault per visualizzare le informazioni AppVault

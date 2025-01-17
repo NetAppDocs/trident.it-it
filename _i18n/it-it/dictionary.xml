@@ -4358,26 +4358,9 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="b0f47f6adf0e419b1f2eec1a0a995e8c" category="section-title">Esempi di generazione delle chiavi e di definizione di AppVault</block>
   <block id="e1acb82bf1e9f5db4a12c5a7eb653d47" category="paragraph">Quando si definisce un CR AppVault, è necessario includere le credenziali per accedere alle risorse ospitate dal provider. La modalità di generazione delle chiavi per le credenziali varia a seconda del provider. Di seguito sono riportati alcuni esempi di generazione delle chiavi della riga di comando per diversi provider, seguiti da esempi di definizioni AppVault per ciascun provider.</block>
   <block id="56ef2682280ac110060b881925a87b80" category="section-title">Google Cloud</block>
-  <block id="740ca32fc91467fd47fb71d2414cfef5" category="paragraph">Esempio di generazione delle chiavi:</block>
-  <block id="194398b8524e2cd4b7f246805e250ed0" category="paragraph">I seguenti esempi di definizione di AppVault sono forniti come CR che è possibile utilizzare e modificare, oppure come un esempio di comando CLI Trident Protect che genera automaticamente la CR di AppVault:</block>
-  <block id="717b55966fdf152c0b975d5025c190c0" category="open-title">Esempio di AppVault CR</block>
-  <block id="970235f2b49975fd398ad1272198687b" category="open-title">Esempio di creazione di AppVault CR utilizzando la CLI Trident Protect</block>
-  <block id="270fcb785810d0206945029bb05f4e97" category="section-title">Amazon S3</block>
-  <block id="cde0d86b75c5d9604be18e3bd522bf17" category="open-title">Esempio di creazione di AppVault con CLI</block>
   <block id="1668ca1bd914c1d847f23b491319ac91" category="section-title">Microsoft Azure</block>
-  <block id="017615c1142fadb040de32a937ba28a5" category="section-title">Valori supportati per ProviderType e ProviderConfig</block>
-  <block id="f6583553f122a79fc1cb33273af12b71" category="paragraph">Le<block ref="e70aba098da8c605b31dbf0e75f81dcb" prefix=" " category="inline-code"></block> chiavi e<block ref="93fc18ae6fe8f42e5ec9235d62051855" prefix=" " category="inline-code"></block> in AppVault CR richiedono valori specifici. Nella tabella seguente sono elencati i valori supportati per la<block ref="e70aba098da8c605b31dbf0e75f81dcb" prefix=" " category="inline-code"></block> chiave e la chiave associata<block ref="93fc18ae6fe8f42e5ec9235d62051855" prefix=" " category="inline-code"></block> da utilizzare con ciascun<block ref="e70aba098da8c605b31dbf0e75f81dcb" prefix=" " category="inline-code"></block> valore.</block>
-  <block id="465bce4ca7a51a41028b39e2638813e7" category="cell">Valore supportato<block ref="e70aba098da8c605b31dbf0e75f81dcb" prefix=" " category="inline-code"></block></block>
-  <block id="62047e0c7c39225e57ee4ea7021c2c03" category="cell">Chiave associata<block ref="93fc18ae6fe8f42e5ec9235d62051855" prefix=" " category="inline-code"></block></block>
-  <block id="4847e034bb0a55fcbc8a3380d6a3ab80" category="cell">AWS</block>
-  <block id="c0828e0381730befd1f7a025057c74fb" category="cell">s3</block>
-  <block id="3a580f142203677f1f0bc30898f63f53" category="cell">Azure</block>
   <block id="cf04a02e37b774fc311a48f605c3c597" category="cell">azure</block>
-  <block id="c731f72e1d22a7c5e01a7cb789a8885e" category="cell">GCP</block>
   <block id="50f66ecbc45488ee5826941bfbc50411" category="cell">gcp</block>
-  <block id="7f93d53700ceda931b2ea8335eef2b68" category="cell">GenericS3</block>
-  <block id="e65506feb09d12651a37ac31d3023758" category="cell">OntapS3</block>
-  <block id="339a160f314b213eaa0ef1a17608793b" category="cell">StorageGridS3</block>
   <block id="4ac6e7a03fe8abedfa131f8cf6680984" category="section-title">Utilizzare il browser AppVault per visualizzare le informazioni AppVault</block>
   <block id="ce8f41081c98b9eea8be01b08936dbb0" category="paragraph">È possibile utilizzare il plug-in Trident Protect CLI per visualizzare informazioni sugli oggetti AppVault creati nel cluster.</block>
   <block id="485573baf8bfa9487485deb07780d89f" category="list-text">Visualizzare il contenuto di un oggetto AppVault:</block>
@@ -5024,4 +5007,14 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="5e77ee724e7a9c6f34c1fd6a65b3f3b5" category="list-text">*Spec.storageClassName*: (_required_) scegliere il nome di una classe di archiviazione valida nel cluster. La classe di storage deve essere collegata a una macchina virtuale di storage ONTAP sottoposta a peering con l'ambiente di origine.</block>
   <block id="b22804421b3e5bca94f2a9979721eb60" category="cell">Chiave API per l'account del servizio Google Cloud con il<block ref="e50dbf86780cfad5e007e4a95a6aa71e" prefix=" " category="inline-code"></block> ruolo. Include il contenuto in formato JSON di un file di chiave privata dell'account di un servizio Google Cloud (copia integrale nel file di configurazione del backend). L'<block ref="c9ff119073ea2567730fb42e3a4fe805" prefix=" " category="inline-code"></block> deve includere coppie chiave-valore per le seguenti chiavi:<block ref="599dcce2998a6b40b1e38e8c6006cb0a" prefix=" " category="inline-code"></block>,<block ref="b098ad43c65e68f3d8ce27a3c7e6f6e2" prefix=" " category="inline-code"></block>, ,<block ref="a4a9fd77bfb3720e66b510bef7ffe71a" prefix=" " category="inline-code"></block>, ,<block ref="2bfe9d72a4aae8f06a31025b7536be80" prefix=" " category="inline-code"></block><block ref="478cc0e49bfbb9ded4ffc7ea662d3968" prefix=" " category="inline-code"></block><block ref="98b215082431c21156af94f3aa69f838" prefix=" " category="inline-code"></block><block ref="8201fe8e688f4f948a62370fd1b411d4" prefix=" " category="inline-code"></block>, , e<block ref="61426bc7fdd11e59a5c98e7ee37e3dbb" prefix=" " category="inline-code"></block>.</block>
   <block id="d0e48e9528072c6ff90b82adeab94dea" category="list-text">Un account di servizio Google Cloud con il ruolo NetApp Volumes Admin <block ref="04bf1a6a0250bc9d4cba09ee34106dfc" prefix="(" category="inline-code"></block>). Fare riferimento alla <block ref="4f506c30a158c85db714d53536a12770" category="inline-link-macro-rx"></block>.</block>
+  <block id="993632e3de5c928730b804a11727536f" category="section-title">Esempi di generazione delle chiavi</block>
+  <block id="92de772dd8341bb6222522a5591e1395" category="paragraph">Puoi utilizzare i seguenti esempi per creare chiavi per le credenziali di ciascun cloud provider.</block>
+  <block id="a13eeeef5ff2b7fe85692890fb5d28b3" category="open-title">Amazon S3 (AWS)</block>
+  <block id="b2aa71ee04e531f0b6d1f084ba45f52f" category="open-title">Generico S3</block>
+  <block id="1716834171e243de0f898a67621b6624" category="open-title">ONTAP S3</block>
+  <block id="79832d443dadeb6d3b0637941d6ac067" category="open-title">StorageGRID S3</block>
+  <block id="6b4d16571162a69eb03c99cb132a69ec" category="section-title">Esempi di AppVault CR</block>
+  <block id="d05c8b60cfd355fccac41017c33ca892" category="paragraph">È possibile utilizzare i seguenti esempi CR per creare oggetti AppVault per ciascun provider cloud.</block>
+  <block id="59264d37bdf7f6cbf4f94ad00dacdce1" category="section-title">Esempi di creazione di AppVault utilizzando la CLI Trident Protect</block>
+  <block id="4db09810b323e73b4041a65c99bb14f8" category="paragraph">È possibile utilizzare i seguenti esempi di comandi CLI per creare CRS AppVault per ciascun provider.</block>
 </blocks>
