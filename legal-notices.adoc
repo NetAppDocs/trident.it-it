@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: legal-notices.html 
-keywords:  
-summary:  
+keywords: copyrights, notice, trademarks, patents, privacy, open source 
+summary: 'Le note legali forniscono l"accesso a dichiarazioni di copyright, marchi, brevetti e altro ancora.' 
 ---
 = Note legali
 :allow-uri-read: 
