@@ -102,7 +102,7 @@ La tabella seguente illustra lo stato dello spazio dei nomi di destinazione di e
 
 == Ripristino da un backup a uno spazio dei nomi diverso
 
-Quando si ripristina un backup su uno spazio dei nomi diverso utilizzando un BackupRestore CR, Trident Protect ripristina l'applicazione in un nuovo spazio dei nomi, ma l'applicazione ripristinata non viene protetta automaticamente da Trident Protect. Per proteggere l'applicazione ripristinata, è necessario creare una CR dell'applicazione per l'applicazione ripristinata in modo che sia protetta da Trident Protect.
+Quando si ripristina un backup su uno spazio dei nomi diverso utilizzando una CR BackupRestore, Trident Protect ripristina l'applicazione in un nuovo spazio dei nomi e crea una CR dell'applicazione per l'applicazione ripristinata. Per proteggere l'applicazione ripristinata, creare backup o snapshot on-demand o stabilire una pianificazione della protezione.
 
 
 NOTE: Il ripristino di un backup in uno spazio dei nomi diverso con le risorse esistenti non altererà le risorse che condividono i nomi con quelli del backup. Per ripristinare tutte le risorse del backup, eliminare e ricreare lo spazio dei nomi di destinazione o ripristinare il backup in un nuovo spazio dei nomi.
@@ -314,7 +314,7 @@ tridentctl-protect create backupinplacerestore <my_restore_name> --backup <names
 
 == Ripristino da uno snapshot a uno spazio dei nomi diverso
 
-È possibile ripristinare i dati da uno snapshot utilizzando un file di risorse personalizzato (CR) in uno spazio dei nomi diverso o nello spazio dei nomi di origine originale. Quando si ripristina una snapshot in un namespace diverso utilizzando una CR SnapshotRestore, Trident Protect ripristina l'applicazione in un nuovo namespace, ma l'applicazione ripristinata non viene automaticamente protetta da Trident Protect. Per proteggere l'applicazione ripristinata, è necessario creare una CR dell'applicazione per l'applicazione ripristinata in modo che sia protetta da Trident Protect.
+È possibile ripristinare i dati da uno snapshot utilizzando un file di risorse personalizzato (CR) in uno spazio dei nomi diverso o nello spazio dei nomi di origine originale. Quando si ripristina uno snapshot in uno spazio dei nomi diverso utilizzando una CR SnapshotRestore, Trident Protect ripristina l'applicazione in un nuovo spazio dei nomi e crea una CR dell'applicazione per l'applicazione ripristinata. Per proteggere l'applicazione ripristinata, creare backup o snapshot on-demand o stabilire una pianificazione della protezione.
 
 [role="tabbed-block"]
 ====
