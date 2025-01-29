@@ -104,7 +104,7 @@ cp ./tridentctl-protect ~/bin/
 +
 [source, console]
 ----
-tridentctl protect help
+tridentctl-protect help
 ----
 
 
@@ -178,4 +178,4 @@ source ~/.zsh/completions/tridentctl-completion.zsh
 --
 ====
 .Risultato
-Al prossimo login della shell, potete usare il comando auto-completation con il plugin tridentctl Protect.
+Al prossimo login della shell, potete usare il comando auto-completation con il plugin tridentctl-Protect.

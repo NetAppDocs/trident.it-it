@@ -75,7 +75,7 @@ Ad esempio:
 +
 [source, console]
 ----
-tridentctl protect create autosupportbundle <my_bundle_name> --trigger-type <trigger_type>
+tridentctl-protect create autosupportbundle <my_bundle_name> --trigger-type <trigger_type>
 ----
 
 
