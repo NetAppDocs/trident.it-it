@@ -18,7 +18,7 @@ Inizia subito con la verifica della prontezza del tuo ambiente operativo, dei cl
 
 
 
-== Trident protegge la compatibilità di Kubernetes
+== Trident protegge la compatibilità del cluster Kubernetes
 
 Trident Protect è compatibile con un'ampia gamma di offerte Kubernetes completamente gestite e autogestite, tra cui:
 
@@ -30,6 +30,9 @@ Trident Protect è compatibile con un'ampia gamma di offerte Kubernetes completa
 * Portfolio VMware Tanzu
 * Kubernetes upstream
 
+
+
+NOTE: Assicurarsi che il cluster su cui si installa Trident Protect sia configurato con un controller snapshot in esecuzione e i CRD correlati. Per installare un'unità di controllo istantanee, fare riferimento alla https://docs.netapp.com/us-en/trident/trident-use/vol-snapshots.html#deploy-a-volume-snapshot-controller["queste istruzioni"].
 
 
 
