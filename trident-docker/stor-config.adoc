@@ -311,7 +311,8 @@ Per ulteriori informazioni sulla creazione di ruoli personalizzati di Trident, f
 
 . Creare un nome utente per l'utente Trident:
 +
-`security login create -username <user_name\> -application ontapi -authmethod <password\> -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
+`security login create -username <user_name\> -application ontapi -authmethod password -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
+`security login create -username <user_name\> -application http -authmethod password -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
 
 . Associare il ruolo all'utente:
 +
