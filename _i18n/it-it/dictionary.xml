@@ -5186,4 +5186,17 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="58830b43d96c301076f2636c9bb946d5" category="list-text">Kubernetes 1,25 - 1,32</block>
   <block id="2d95fd2a9f3bf1dcac56e3de82d288ad" category="paragraph">1,25 - 1,32</block>
   <block id="2ec43b8882dfc130c999d1ebfae88d87" category="cell">v1.25.0, v1.26.0, v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0</block>
+  <block id="d1548585dadda37a28905a23e22cf65d" category="section-title">Ripristino da un backup a un cluster diverso</block>
+  <block id="7fa8874b1f645ca2af9d81b51985b8fb" category="paragraph">In caso di problemi con il cluster originale, è possibile ripristinare un backup su un cluster diverso.</block>
+  <block id="17e2d63e3b45ecbfe13bcc32fec929d0" category="paragraph">*Prima di iniziare*</block>
+  <block id="dd4ee610bd1d035c73bc0cbcd80e46da" category="paragraph">Assicurarsi che siano soddisfatti i seguenti prerequisiti:</block>
+  <block id="1d6028c560c8f6dbee841737e60a3d9d" category="list-text">Nel cluster di destinazione è installato Trident Protect.</block>
+  <block id="b20f8883edb9068c67a2faeb3c083d38" category="list-text">Il cluster di destinazione ha accesso al percorso bucket dello stesso AppVault del cluster di origine, dove è memorizzato il backup.</block>
+  <block id="0425d0358a4cba7a7cce5ddd727ab6a2" category="list-text">Verificare la disponibilità di AppVault CR sul cluster di destinazione utilizzando il plug-in Trident Protect CLI:</block>
+  <block id="1ff83a5266e9e025c2984e0c10dea90e" category="admonition">Verificare che lo spazio dei nomi destinato al ripristino dell'applicazione esista nel cluster di destinazione.</block>
+  <block id="8d433ae9a21c49e9e5433ebd408605c0" category="list-text">Visualizzare il contenuto di backup dell'AppVault disponibile dal cluster di destinazione:</block>
+  <block id="378e6f0ba7080535a4462b5311befb40" category="paragraph">L'esecuzione di questo comando visualizza i backup disponibili in AppVault, inclusi i relativi cluster di origine, i nomi delle applicazioni corrispondenti, i timestamp e i percorsi di archivio.</block>
+  <block id="053aba80de03f3fdf626d1c858342330" category="list-text">Ripristinare l'applicazione nel cluster di destinazione utilizzando il nome AppVault e il percorso di archiviazione:</block>
+  <block id="fceebbe32c1f7b24c54d6a4e8a0fa776" category="admonition">Se BackupRestore CR non è disponibile, è possibile utilizzare il comando menzionato al passaggio 2 per visualizzare il contenuto del backup.</block>
+  <block id="4ef55c1fec2de9218af40d16cbc021a4" category="list-text">Utilizzare il seguente comando per ripristinare l'applicazione, sostituendo i valori tra parentesi con le informazioni dell'ambiente. L'argomento namespace-mapping utilizza spazi dei nomi separati da due punti per mappare gli spazi dei nomi di origine agli spazi dei nomi di destinazione corretti nel formato source1:dest1,source2:dest2. Ad esempio:</block>
 </blocks>
