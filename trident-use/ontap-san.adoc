@@ -26,7 +26,7 @@ Trident fornisce i seguenti driver di storage SAN per comunicare con il cluster 
 
 
 | `ontap-san`  a| 
-ISCSI
+ISCSI SCSI su FC (anteprima tecnica in Trident 24,10)
  a| 
 Blocco
  a| 
@@ -37,7 +37,7 @@ Nessun file system; dispositivo a blocchi raw
 
 
 | `ontap-san`  a| 
-ISCSI
+ISCSI SCSI su FC (anteprima tecnica in Trident 24,10)
  a| 
 Filesystem
  a| 
