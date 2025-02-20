@@ -16,7 +16,7 @@ Per garantire che Trident possa essere installato in un'ampia varietà di ambien
 
 
 
-== Informazioni critiche su Trident 24,06
+== Informazioni critiche su Trident 24,10
 
 *È necessario leggere le seguenti informazioni critiche su Trident.*
 
