@@ -12,6 +12,8 @@ entries:
     url: "/trident-protect/trident-protect-installation.html"
   - title: Installare il plugin Trident Protect CLI
     url: "/trident-protect/trident-protect-cli.html"
+  - title: Personalizzare l'installazione di Trident Protect
+    url: "/trident-protect/trident-protect-customize-installation.html"
 - title: Gestire Trident Protect
   entries:
   - title: Gestire le autorizzazioni e il controllo degli accessi

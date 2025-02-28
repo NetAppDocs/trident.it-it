@@ -21,7 +21,7 @@ WARNING: Il `tridentctl` Il file binario per Linux fornito nel file zip del prog
 
 == Novità del 25,02
 
-A partire da Trident 25,02, il riepilogo Novità fornisce dettagli sui miglioramenti, le correzioni e le deprecazioni per entrambe le versioni di Trident e Trident Protect.
+A partire da Trident 25,02, il riepilogo Novità fornisce dettagli su miglioramenti, correzioni e deprecazioni per entrambe le versioni di Trident e Trident Protect.
 
 
 

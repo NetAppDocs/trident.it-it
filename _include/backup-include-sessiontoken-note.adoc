@@ -1,0 +1,10 @@
+= 
+:allow-uri-read: 
+
+
+.Prima di iniziare
+Assicurati che la scadenza del token di sessione AWS sia sufficiente per eventuali operazioni di backup S3 a esecuzione prolungata. Se il token scade durante l'operazione di backup, l'operazione potrebbe non riuscire.
+
+* Per ulteriori informazioni sulla verifica della scadenza corrente del token di sessione, fare riferimento https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentazione di API AWS"^] al .
+* Per ulteriori informazioni sulle credenziali con le risorse AWS, fare riferimento al https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentazione di AWS IAM"^].
+

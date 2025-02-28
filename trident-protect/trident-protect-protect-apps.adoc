@@ -25,6 +25,9 @@ NOTE: È possibile configurare Trident Protect per bloccare e sbloccare i file s
 
 Puoi creare uno snapshot on-demand in qualsiasi momento.
 
+
+NOTE: Le risorse soggette a ambito cluster sono incluse in un backup, in uno snapshot o in un clone, se fanno riferimento esplicitamente nella definizione dell'applicazione o se hanno riferimenti a uno qualsiasi dei namespace delle applicazioni.
+
 [role="tabbed-block"]
 ====
 .Creare un'istantanea utilizzando una CR
@@ -86,6 +89,16 @@ tridentctl-protect create snapshot <my_snapshot_name> --appvault <my_appvault_na
 
 Puoi eseguire il backup di un'app in qualsiasi momento.
 
+
+NOTE: Le risorse soggette a ambito cluster sono incluse in un backup, in uno snapshot o in un clone, se fanno riferimento esplicitamente nella definizione dell'applicazione o se hanno riferimenti a uno qualsiasi dei namespace delle applicazioni.
+
+.Prima di iniziare
+Assicurati che la scadenza del token di sessione AWS sia sufficiente per eventuali operazioni di backup S3 a esecuzione prolungata. Se il token scade durante l'operazione di backup, l'operazione potrebbe non riuscire.
+
+* Per ulteriori informazioni sulla verifica della scadenza corrente del token di sessione, fare riferimento https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentazione di API AWS"^] al .
+* Per ulteriori informazioni sulle credenziali con le risorse AWS, fare riferimento al https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentazione di AWS IAM"^].
+
+
 [role="tabbed-block"]
 ====
 .Creare un backup utilizzando una CR
@@ -142,7 +155,7 @@ kubectl apply -f trident-protect-backup-cr.yaml
 +
 [source, console]
 ----
-tridentctl-protect create backup <my_backup_name> --appvault <my-vault-name> --app <name_of_app_to_back_up> -n <application_namespace>
+tridentctl-protect create backup <my_backup_name> --appvault <my-vault-name> --app <name_of_app_to_back_up> --data-mover <Kopia_or_Restic> -n <application_namespace>
 ----
 
 
@@ -153,6 +166,16 @@ tridentctl-protect create backup <my_backup_name> --appvault <my-vault-name> --a
 == Creare un piano di data Protection
 
 Una policy di protezione protegge un'applicazione creando snapshot, backup o entrambi in base a una pianificazione definita. È possibile scegliere di creare snapshot e backup ogni ora, ogni giorno, ogni settimana e ogni mese, nonché specificare il numero di copie da conservare.
+
+
+NOTE: Le risorse soggette a ambito cluster sono incluse in un backup, in uno snapshot o in un clone, se fanno riferimento esplicitamente nella definizione dell'applicazione o se hanno riferimenti a uno qualsiasi dei namespace delle applicazioni.
+
+.Prima di iniziare
+Assicurati che la scadenza del token di sessione AWS sia sufficiente per eventuali operazioni di backup S3 a esecuzione prolungata. Se il token scade durante l'operazione di backup, l'operazione potrebbe non riuscire.
+
+* Per ulteriori informazioni sulla verifica della scadenza corrente del token di sessione, fare riferimento https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentazione di API AWS"^] al .
+* Per ulteriori informazioni sulle credenziali con le risorse AWS, fare riferimento al https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentazione di AWS IAM"^].
+
 
 [role="tabbed-block"]
 ====
@@ -228,7 +251,7 @@ NOTE: È possibile utilizzare `tridentctl-protect create schedule --help` per vi
 +
 [source, console]
 ----
-tridentctl-protect create schedule <my_schedule_name> --appvault <my_appvault_name> --app <name_of_app_to_snapshot> --backup-retention <how_many_backups_to_retain> --data-mover <kopia_or_restic> --day-of-month <day_of_month_to_run_schedule> --day-of-week <day_of_month_to_run_schedule> --granularity <frequency_to_run> --hour <hour_of_day_to_run> --minute <minute_of_hour_to_run> --recurrence-rule <recurrence> --snapshot-retention <how_many_snapshots_to_retain> -n <application_namespace>
+tridentctl-protect create schedule <my_schedule_name> --appvault <my_appvault_name> --app <name_of_app_to_snapshot> --backup-retention <how_many_backups_to_retain> --data-mover <Kopia_or_Restic> --day-of-month <day_of_month_to_run_schedule> --day-of-week <day_of_month_to_run_schedule> --granularity <frequency_to_run> --hour <hour_of_day_to_run> --minute <minute_of_hour_to_run> --recurrence-rule <recurrence> --snapshot-retention <how_many_snapshots_to_retain> -n <application_namespace>
 ----
 
 

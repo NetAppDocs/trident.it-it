@@ -107,6 +107,13 @@ Quando si ripristina un backup su uno spazio dei nomi diverso utilizzando una CR
 
 NOTE: Il ripristino di un backup in uno spazio dei nomi diverso con le risorse esistenti non altererà le risorse che condividono i nomi con quelli del backup. Per ripristinare tutte le risorse del backup, eliminare e ricreare lo spazio dei nomi di destinazione o ripristinare il backup in un nuovo spazio dei nomi.
 
+.Prima di iniziare
+Assicurati che la scadenza del token di sessione AWS sia sufficiente per qualsiasi operazione di ripristino S3 con esecuzione prolungata. Se il token scade durante l'operazione di ripristino, l'operazione potrebbe non riuscire.
+
+* Per ulteriori informazioni sulla verifica della scadenza corrente del token di sessione, fare riferimento https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentazione di API AWS"^] al .
+* Per ulteriori informazioni sulle credenziali con le risorse AWS, fare riferimento al https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentazione di AWS IAM"^].
+
+
 [role="tabbed-block"]
 ====
 .Utilizzare un CR
@@ -213,6 +220,13 @@ tridentctl-protect create backuprestore <my_restore_name> --backup <backup_names
 
 È possibile ripristinare un backup nello spazio dei nomi originale in qualsiasi momento.
 
+.Prima di iniziare
+Assicurati che la scadenza del token di sessione AWS sia sufficiente per qualsiasi operazione di ripristino S3 con esecuzione prolungata. Se il token scade durante l'operazione di ripristino, l'operazione potrebbe non riuscire.
+
+* Per ulteriori informazioni sulla verifica della scadenza corrente del token di sessione, fare riferimento https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentazione di API AWS"^] al .
+* Per ulteriori informazioni sulle credenziali con le risorse AWS, fare riferimento al https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentazione di AWS IAM"^].
+
+
 [role="tabbed-block"]
 ====
 .Utilizzare un CR
@@ -316,12 +330,17 @@ tridentctl-protect create backupinplacerestore <my_restore_name> --backup <names
 
 In caso di problemi con il cluster originale, è possibile ripristinare un backup su un cluster diverso.
 
-*Prima di iniziare*
-
+.Prima di iniziare
 Assicurarsi che siano soddisfatti i seguenti prerequisiti:
 
 * Nel cluster di destinazione è installato Trident Protect.
 * Il cluster di destinazione ha accesso al percorso bucket dello stesso AppVault del cluster di origine, dove è memorizzato il backup.
+* Assicurati che la scadenza del token di sessione AWS sia sufficiente per qualsiasi operazione di ripristino con esecuzione prolungata. Se il token scade durante l'operazione di ripristino, l'operazione potrebbe non riuscire.
++
+** Per ulteriori informazioni sulla verifica della scadenza corrente del token di sessione, fare riferimento https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentazione di API AWS"^] al .
+** Per ulteriori informazioni sulle credenziali con le risorse AWS, fare riferimento al https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentazione AWS"^].
+
+
 
 
 .Fasi
@@ -356,7 +375,6 @@ L'esecuzione di questo comando visualizza i backup disponibili in AppVault, incl
 | production1 | wordpress | backup | wordpress-bkup-1| 2024-10-30 08:37:40 (UTC)| backuppath1 |
 | production1 | wordpress | backup | wordpress-bkup-2| 2024-10-30 08:37:40 (UTC)| backuppath2 |
 +-------------+-----------+--------+-----------------+--------------------------+-------------+
-
 ----
 . Ripristinare l'applicazione nel cluster di destinazione utilizzando il nome AppVault e il percorso di archiviazione:
 
@@ -425,6 +443,13 @@ tridentctl-protect create backuprestore <restore_name> --namespace-mapping <sour
 == Ripristino da uno snapshot a uno spazio dei nomi diverso
 
 È possibile ripristinare i dati da uno snapshot utilizzando un file di risorse personalizzato (CR) in uno spazio dei nomi diverso o nello spazio dei nomi di origine originale. Quando si ripristina uno snapshot in uno spazio dei nomi diverso utilizzando una CR SnapshotRestore, Trident Protect ripristina l'applicazione in un nuovo spazio dei nomi e crea una CR dell'applicazione per l'applicazione ripristinata. Per proteggere l'applicazione ripristinata, creare backup o snapshot on-demand o stabilire una pianificazione della protezione.
+
+.Prima di iniziare
+Assicurati che la scadenza del token di sessione AWS sia sufficiente per qualsiasi operazione di ripristino S3 con esecuzione prolungata. Se il token scade durante l'operazione di ripristino, l'operazione potrebbe non riuscire.
+
+* Per ulteriori informazioni sulla verifica della scadenza corrente del token di sessione, fare riferimento https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentazione di API AWS"^] al .
+* Per ulteriori informazioni sulle credenziali con le risorse AWS, fare riferimento al https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentazione di AWS IAM"^].
+
 
 [role="tabbed-block"]
 ====
@@ -539,6 +564,13 @@ tridentctl-protect create snapshotrestore <my_restore_name> --snapshot <namespac
 == Ripristinare da uno snapshot allo spazio dei nomi originale
 
 È possibile ripristinare uno snapshot nello spazio dei nomi originale in qualsiasi momento.
+
+.Prima di iniziare
+Assicurati che la scadenza del token di sessione AWS sia sufficiente per qualsiasi operazione di ripristino S3 con esecuzione prolungata. Se il token scade durante l'operazione di ripristino, l'operazione potrebbe non riuscire.
+
+* Per ulteriori informazioni sulla verifica della scadenza corrente del token di sessione, fare riferimento https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentazione di API AWS"^] al .
+* Per ulteriori informazioni sulle credenziali con le risorse AWS, fare riferimento al https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentazione di AWS IAM"^].
+
 
 [role="tabbed-block"]
 ====
