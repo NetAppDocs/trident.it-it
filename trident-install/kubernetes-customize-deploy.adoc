@@ -46,7 +46,7 @@ Questa tabella è dettagliata `TridentOrchestrator` attributi.
 | `debug` | Attivare il debug per Trident | `false` 
 
 
-| `enableForceDetach` | `ontap-san`, , `ontap-san-economy` e `ontap-nas-economy` solo. Funziona con Kubernetes non-Graged Node Shutdown (NGNS) per consentire agli amministratori del cluster di migrare in sicurezza i carichi di lavoro con volumi montati su nuovi nodi in caso di problemi di integrità di un nodo. | `false` 
+| `enableForceDetach` | `ontap-san`, , `ontap-san-economy`, `ontap-nas` e `ontap-nas-economy` solo. Funziona con Kubernetes non-Graged Node Shutdown (NGNS) per consentire agli amministratori del cluster di migrare in sicurezza i carichi di lavoro con volumi montati su nuovi nodi in caso di problemi di integrità di un nodo. | `false` 
 
 
 | `windows` | Impostazione su `true` Attiva l'installazione su nodi di lavoro Windows. | `false` 
@@ -68,7 +68,7 @@ Questa tabella è dettagliata `TridentOrchestrator` attributi.
 in maniera automatica | `false` 
 
 
-| `autosupportImage` | L'immagine del contenitore per la telemetria AutoSupport | `"netapp/trident-autosupport:24.10"` 
+| `autosupportImage` | L'immagine del contenitore per la telemetria AutoSupport | `"netapp/trident-autosupport:25.02"` 
 
 
 | `autosupportProxy` | Indirizzo/porta di un proxy per l'invio della AutoSupport
@@ -81,7 +81,7 @@ Telemetria | `"http://proxy.example.com:8888"`
 | `logFormat` | Formato di registrazione Trident da utilizzare [text,json] | `"text"` 
 
 
-| `tridentImage` | Immagine Trident da installare | `"netapp/trident:24.10"` 
+| `tridentImage` | Immagine Trident da installare | `"netapp/trident:25.02"` 
 
 
 | `imageRegistry` | Percorso al registro interno, del formato
@@ -116,6 +116,9 @@ Telemetria | `"http://proxy.example.com:8888"`
 
 
 | `nodePrep` | Permette a Trident di preparare i nodi del cluster Kubernetes per gestire i volumi utilizzando il protocollo storage specificato. *Attualmente, `iscsi` è l'unico valore supportato.* |  
+
+
+| `enableAutoBackendConfig` | Configurazione di backend automatica che crea perfettamente classi di backend e storage in base ai parametri di input. | Nessuna impostazione predefinita; opzionale 
 |===
 
 NOTE: Per ulteriori informazioni sulla formattazione dei parametri del pod, fare riferimento a. link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Assegnazione di pod ai nodi"^].
@@ -124,10 +127,10 @@ NOTE: Per ulteriori informazioni sulla formattazione dei parametri del pod, fare
 
 === Dettagli sulla forza di distacco
 
-Lo stacco forzato è disponibile solo per `ontap-san`, `ontap-san-economy` e. `onatp-nas-economy` Prima di attivare la funzione di force stach, è necessario attivare la funzione NGNS (non-aggraziate node shutdown) sul cluster Kubernetes. Per ulteriori informazioni, fare riferimento a link:https://kubernetes.io/docs/concepts/architecture/nodes/#non-graceful-node-shutdown["Kubernetes: Shutdown del nodo non aggraziato"^].
+Lo stacco forzato è disponibile solo per `ontap-san`, `ontap-san-economy`, `onatp-nas` e `onatp-nas-economy` . Prima di attivare la funzione di force stach, è necessario attivare la funzione NGNS (non-aggraziate node shutdown) sul cluster Kubernetes. NGNS è abilitato per impostazione predefinita per Kubernetes 1,28 e versioni successive. Per ulteriori informazioni, fare riferimento a link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes: Shutdown del nodo non aggraziato"^].
 
 
-NOTE: Quando si utilizza il `ontap-nas-economy` driver, è necessario impostare il `autoExportPolicy` parametro nella configurazione backend su in `true` modo che Trident possa limitare l'accesso dal nodo Kubernetes con il tag applicato utilizzando policy di esportazione gestite.
+NOTE: Quando si utilizza il `ontap-nas` driver OR `ontap-nas-economy`, è necessario impostare il `autoExportPolicy` parametro nella configurazione backend in `true` modo che Trident possa limitare l'accesso dal nodo Kubernetes con il tag applicato utilizzando policy di esportazione gestite.
 
 
 WARNING: Poiché Trident fa affidamento su Kubernetes NGNS, non rimuovere i `out-of-service` tag da un nodo non integro fino a quando tutti i carichi di lavoro non tollerabili non vengono ripianificati. L'applicazione o la rimozione sconsiderata della contaminazione può compromettere la protezione dei dati back-end.

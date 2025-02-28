@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-san-prep.html 
-keywords: trident backend, ontap san, ontap-san, ontap-san-economy 
+keywords: trident backend, ontap san, ontap-san, ontap-san-economy, asa r2 
 summary: Scopri come preparare la configurazione di un backend ONTAP con i driver SAN ONTAP. 
 ---
 = Prepararsi a configurare il backend con i driver SAN ONTAP
@@ -14,11 +14,16 @@ summary: Scopri come preparare la configurazione di un backend ONTAP con i drive
 [role="lead"]
 Comprendere i requisiti e le opzioni di autenticazione per la configurazione di un backend ONTAP con i driver SAN ONTAP.
 
+A partire dalla versione 25,02, Trident rileva automaticamente la personalità ASA R2 di ONTAP 9.16.1 o versione successiva e consente il provisioning e l'utilizzo dello storage su ASA R2 tramite il protocollo iSCSI.
+
 
 
 == Requisiti
 
 Per tutti i backend ONTAP, Trident richiede almeno un aggregato assegnato alla SVM.
+
+
+NOTE: Trident richiede l'assegnazione di uno o più aggregati alla SVM. Quando si utilizza ASA R2, questa azione è disponibile solo utilizzando l'interfaccia CLI di ONTAP in `diag` modalità.
 
 È inoltre possibile eseguire più di un driver e creare classi di storage che puntino all'una o all'altra. Ad esempio, è possibile configurare un `san-dev` classe che utilizza `ontap-san` driver e a. `san-default` classe che utilizza `ontap-san-economy` uno.
 
@@ -306,7 +311,7 @@ Una volta creato il backend, Trident crea un CRD corrispondente `tridentbackend`
 È possibile aggiornare le credenziali CHAP aggiornando i parametri CHAP in `backend.json` file. Per eseguire questa operazione, è necessario aggiornare i segreti CHAP e utilizzare `tridentctl update` per riflettere queste modifiche.
 
 
-WARNING: Quando si aggiornano i segreti CHAP per un backend, è necessario utilizzare `tridentctl` per aggiornare il backend. Non aggiornare le credenziali sul cluster di storage tramite l'interfaccia utente CLI/ONTAP poiché Trident non sarà in grado di accettare queste modifiche.
+WARNING: Quando si aggiornano i segreti CHAP per un backend, è necessario utilizzare `tridentctl` per aggiornare il backend. Non aggiornare le credenziali sul cluster di storage utilizzando l'interfaccia a riga di comando di ONTAP o ONTAP System Manager poiché Trident non sarà in grado di accettare queste modifiche.
 
 [listing]
 ----

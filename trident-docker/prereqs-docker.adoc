@@ -190,3 +190,76 @@ sudo modprobe nvme-tcp
 ----
 --
 ====
+
+
+== Strumenti FC
+
+Installa gli strumenti FC utilizzando i comandi del tuo sistema operativo.
+
+* Quando si utilizzano nodi di lavoro che eseguono RHEL/RedHat CoreOS con FC PVS, specificare il `discard` mount Option in StorageClass per eseguire il recupero dello spazio in linea. Fare riferimento alla https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentazione RedHat"^].
+
+
+[role="tabbed-block"]
+====
+.RHEL 8+
+--
+. Installare i seguenti pacchetti di sistema:
++
+[listing]
+----
+sudo yum install -y lsscsi device-mapper-multipath
+----
+. Abilitare il multipathing:
++
+[listing]
+----
+sudo mpathconf --enable --with_multipathd y --find_multipaths n
+----
++
+
+NOTE: Assicurarsi `etc/multipath.conf` contiene `find_multipaths no` sotto `defaults`.
+
+. Assicurarsi che `multipathd` sia in esecuzione:
++
+[listing]
+----
+sudo systemctl enable --now multipathd
+----
+
+
+--
+.Ubuntu
+--
+. Installare i seguenti pacchetti di sistema:
++
+[listing]
+----
+sudo apt-get install -y lsscsi sg3-utils multipath-tools scsitools
+----
+. Abilitare il multipathing:
++
+[listing]
+----
+sudo tee /etc/multipath.conf <<-EOF
+defaults {
+    user_friendly_names yes
+    find_multipaths no
+}
+EOF
+sudo systemctl enable --now multipath-tools.service
+sudo service multipath-tools restart
+----
++
+
+NOTE: Assicurarsi `etc/multipath.conf` contiene `find_multipaths no` sotto `defaults`.
+
+. Assicurarsi che `multipath-tools` sia attivato e in esecuzione:
++
+[listing]
+----
+sudo systemctl status multipath-tools
+----
+
+
+--
+====

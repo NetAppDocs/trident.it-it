@@ -1,0 +1,124 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-clone-cross-namespace.html 
+keywords: volref, volume reference, clone, pvc, pv, nfs, namespace, cvna, cross-namespace, sharing, volumesnapshots 
+summary: 'Con Trident, puoi creare nuovi volumi utilizzando volumi o volumi esistenti da un namespace diverso all"interno dello stesso cluster K8s.' 
+---
+= Clona i volumi tra namespace
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utilizzando Trident, puoi creare nuovi volumi utilizzando volumi esistenti o volumesnapshot da un namespace diverso all'interno dello stesso cluster Kubernetes.
+
+
+
+== Prerequisiti
+
+Prima di clonare i volumi, verificare che i backend di origine e di destinazione siano dello stesso tipo e abbiano la stessa classe di storage.
+
+
+
+== Avvio rapido
+
+Puoi configurare il cloning del volume NFS in pochi passaggi.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Uno"] Configurare il PVC di origine per clonare il volume
+[role="quick-margin-para"]
+Il proprietario dello spazio dei nomi di origine concede il permesso di accedere ai dati nel PVC di origine.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Due"] Concedere il permesso di creare una CR nello spazio dei nomi di destinazione
+[role="quick-margin-para"]
+L'amministratore del cluster concede l'autorizzazione al proprietario dello spazio dei nomi di destinazione per creare la CR di TridentVolumeReference.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Tre"] Creare TridentVolumeReference nello spazio dei nomi di destinazione
+[role="quick-margin-para"]
+Il proprietario dello spazio dei nomi di destinazione crea la CR di TridentVolumeReference per fare riferimento al PVC di origine.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["Quattro"] Creare il PVC clone nello spazio dei nomi di destinazione
+[role="quick-margin-para"]
+Il proprietario dello spazio dei nomi di destinazione crea PVC per clonare il PVC dallo spazio dei nomi di origine.
+
+
+
+== Configurare gli spazi dei nomi di origine e di destinazione
+
+Per garantire la sicurezza, il cloning dei volumi negli spazi dei nomi richiede collaborazione e azione da parte del proprietario dello spazio dei nomi di origine, dell'amministratore del cluster e del proprietario dello spazio dei nomi di destinazione. Il ruolo dell'utente viene designato in ogni fase.
+
+.Fasi
+. *Proprietario dello spazio dei nomi di origine:* creare il PVC (`pvc1`nello spazio dei (`namespace1`nomi di origine ) che concede il permesso di condividere con lo spazio dei nomi di destinazione (`namespace2`) utilizzando l' `cloneToNamespace`annotazione.
++
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc1
+  namespace: namespace1
+  annotations:
+    trident.netapp.io/cloneToNamespace: namespace2
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: trident-csi
+  resources:
+    requests:
+      storage: 100Gi
+----
++
+Trident crea il PV e il suo volume di storage NFS di back-end.
+
++
+[NOTE]
+====
+** È possibile condividere il PVC con più spazi dei nomi utilizzando un elenco delimitato da virgole. Ad esempio, `trident.netapp.io/cloneToNamespace: namespace2,namespace3,namespace4`.
+** È possibile condividere tutti gli spazi dei nomi utilizzando `*`. Ad esempio, `trident.netapp.io/cloneToNamespace: *`
+** È possibile aggiornare il PVC per includere l' `cloneToNamespace`annotazione in qualsiasi momento.
+
+
+====
+. *Cluster admin:* creare il ruolo personalizzato e kubeconfig per concedere l'autorizzazione al proprietario dello spazio dei nomi di destinazione per creare il TridentVolumeReference CR nello spazio dei nomi di destinazione(`namespace2` ).
+. *Destination namespace owner:* creare una CR di TridentVolumeReference nello spazio dei nomi di destinazione che si riferisce allo spazio dei nomi di origine `pvc1`.
++
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentVolumeReference
+metadata:
+  name: my-first-tvr
+  namespace: namespace2
+spec:
+  pvcName: pvc1
+  pvcNamespace: namespace1
+----
+. *Proprietario dello spazio dei nomi di destinazione:* creare un PVC (`namespace2`)(`pvc2` nello spazio dei nomi di destinazione utilizzando la `cloneFromPVC` o `cloneFromSnapshot`, e `cloneFromNamespace` le annotazioni per designare il PVC di origine.
++
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  annotations:
+    trident.netapp.io/cloneFromPVC: pvc1
+    trident.netapp.io/cloneFromNamespace: namespace1
+  name: pvc2
+  namespace: namespace2
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: trident-csi
+  resources:
+    requests:
+      storage: 100Gi
+----
++
+== limitazioni
+
++
+** Per i PVC forniti utilizzando driver ONTAP-nas-Economy, i cloni di sola lettura non sono supportati.
+
+
+

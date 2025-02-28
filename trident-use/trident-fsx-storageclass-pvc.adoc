@@ -22,7 +22,21 @@ Configurare un oggetto Kubernetes StorageClass e creare la classe storage per is
 
 === Configurare un oggetto Kubernetes StorageClass
 
- https://kubernetes.io/docs/concepts/storage/storage-classes/["Oggetto Kubernetes StorageClass"^]Identifica Trident come provisioner utilizzato per la classe specifica a Trident come eseguire il provisioning di un volume. Ad esempio:
+ https://kubernetes.io/docs/concepts/storage/storage-classes/["Oggetto Kubernetes StorageClass"^]Identifica Trident come provisioner utilizzato per quella classe e istruisce Trident su come effettuare il provisioning di un volume. Ad esempio:
+
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  provisioningType: "thin"
+  snapshots: "true"
+----
+Per eseguire il provisioning di volumi NFSv3 su AWS Bottlerocket, aggiungere i necessari `mountOptions` alla classe storage:
 
 [listing]
 ----
@@ -36,6 +50,9 @@ parameters:
   media: "ssd"
   provisioningType: "thin"
   snapshots: "true"
+mountOptions:
+  - nfsvers=3
+  - nolock
 ----
 Per ulteriori informazioni sull'interazione delle classi di archiviazione con i `PersistentVolumeClaim` parametri e per il controllo del provisioning dei volumi da parte di Trident, fare riferimento link:../trident-reference/objects.html["Kubernetes e Trident Objects"]a.
 
@@ -89,7 +106,7 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: basic-csi
+  storageClassName: ontap-gold
   capacity:
     storage: 10Gi
   accessModes:
@@ -103,7 +120,7 @@ spec:
 ====
 Questi esempi mostrano le opzioni di configurazione di base del PVC.
 
-.PVC con accesso RWO
+.PVC con accesso RWX
 Questo esempio mostra un PVC di base con accesso RWX associato a un StorageClass denominato `basic-csi`.
 
 [listing]
@@ -118,10 +135,10 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: basic-csi
+  storageClassName: ontap-gold
 ----
 .PVC con NVMe/TCP
-Questo esempio mostra un PVC di base per NVMe/TCP con accesso RWO associato a una StorageClass denominata `protection-gold`.
+Questo esempio mostra un PVC di base per NVMe/TCP con accesso RWX associato a una classe StorageClass denominata `protection-gold`.
 
 [listing]
 ----
@@ -132,7 +149,7 @@ metadata:
 name: pvc-san-nvme
 spec:
 accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
 resources:
   requests:
     storage: 300Mi

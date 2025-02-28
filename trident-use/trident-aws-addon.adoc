@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/trident-aws-addon.html 
-keywords: Trident add-on, Astra Trident EKS add-on, Trident AWS EKS add-on, integrate Trident, Trident 
-summary: Aggiungi il componente aggiuntivo Astra Trident EKS al cluster Kubernetes. 
+keywords: Trident add-on, Trident EKS add-on, Trident AWS EKS add-on, integrate Trident, Trident 
+summary: Aggiungi il componente aggiuntivo Trident EKS al cluster Kubernetes. 
 ---
-= Configurare il componente aggiuntivo Astra Trident EKS su un cluster EKS
+= Configurare il componente aggiuntivo Trident EKS su un cluster EKS
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,7 +12,7 @@ summary: Aggiungi il componente aggiuntivo Astra Trident EKS al cluster Kubernet
 
 
 [role="lead"]
-Trident ottimizza la gestione dello storage di Amazon FSX per NetApp ONTAP in Kubernetes per permettere a sviluppatori e amministratori di concentrarsi sull'implementazione dell'applicazione. Il componente aggiuntivo Trident EKS include le più recenti patch di sicurezza, correzioni di bug ed è convalidato da AWS per funzionare con Amazon EKS. Il componente aggiuntivo EKS ti consente di garantire in modo coerente che i tuoi cluster Amazon EKS siano sicuri e stabili e di ridurre la quantità di lavoro da svolgere per installare, configurare e aggiornare i componenti aggiuntivi.
+NetApp Trident ottimizza la gestione dello storage di Amazon FSX per NetApp ONTAP in Kubernetes per permettere a sviluppatori e amministratori di concentrarsi sull'implementazione dell'applicazione. Il componente aggiuntivo NetApp Trident EKS include le più recenti patch di sicurezza, correzioni di bug ed è convalidato da AWS per funzionare con Amazon EKS. Il componente aggiuntivo EKS ti consente di garantire in modo coerente che i tuoi cluster Amazon EKS siano sicuri e stabili e di ridurre la quantità di lavoro da svolgere per installare, configurare e aggiornare i componenti aggiuntivi.
 
 
 
@@ -20,7 +20,7 @@ Trident ottimizza la gestione dello storage di Amazon FSX per NetApp ONTAP in Ku
 
 Prima di configurare il componente aggiuntivo Trident per AWS EKS, assicurati di disporre di quanto segue:
 
-* Un account cluster Amazon EKS con abbonamento add-on
+* Un account cluster Amazon EKS con autorizzazioni per l'uso dei componenti aggiuntivi. Fare riferimento alla link:https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html["Componenti aggiuntivi Amazon EKS"^].
 * Autorizzazioni AWS nel marketplace AWS:
 `"aws-marketplace:ViewSubscriptions",
 "aws-marketplace:Subscribe",
@@ -34,6 +34,7 @@ Prima di configurare il componente aggiuntivo Trident per AWS EKS, assicurati di
 
 == Fasi
 
+. Assicurati di creare il ruolo IAM e il segreto AWS per abilitare i pod EKS per accedere alle risorse AWS. Per istruzioni, vedere link:../trident-use/trident-fsx-iam-role.html["Creare un ruolo IAM e un segreto AWS"^].
 . Sul tuo cluster EKS Kubernetes, accedi alla scheda *Add-on*.
 +
 image::../media/aws-eks-01.png[aws eks 01]
@@ -42,7 +43,7 @@ image::../media/aws-eks-01.png[aws eks 01]
 +
 image::../media/aws-eks-02.png[aws eks 02]
 
-. Individuare *NetApp Trident* e selezionare la casella di controllo per il componente aggiuntivo Trident.
+. Individuare *NetApp Trident* e selezionare la casella di controllo del componente aggiuntivo Trident, quindi fare clic su *Avanti*.
 . Scegliere la versione desiderata del componente aggiuntivo.
 +
 image::../media/aws-eks-03.png[aws eks 03]
@@ -51,26 +52,65 @@ image::../media/aws-eks-03.png[aws eks 03]
 +
 image::../media/aws-eks-04.png[aws eks 04]
 
-. Espandere le *Impostazioni di configurazione opzionali*, seguire lo schema di configurazione del componente aggiuntivo* e impostare il parametro configurationValues nella sezione *valori di configurazione* sul ruolo-arn creato nel passaggio precedente (il valore deve essere nel seguente formato: `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`). Se si seleziona Sovrascrivi per il metodo di risoluzione dei conflitti, una o più impostazioni per il componente aggiuntivo esistente possono essere sovrascritte con le impostazioni del componente aggiuntivo Amazon EKS. Se non si attiva questa opzione e si verifica un conflitto con le impostazioni esistenti, l'operazione non riesce. È possibile utilizzare il messaggio di errore risultante per risolvere il conflitto. Prima di selezionare questa opzione, assicurati che il componente aggiuntivo Amazon EKS non gestisca le impostazioni da gestire in autonomia.
+. Configurare eventuali impostazioni di configurazione opzionali come richiesto e selezionare *Avanti*.
++
+Seguire lo schema di configurazione *Add-on* e impostare il parametro Configuration Values nella sezione *Configuration Values* sul valore Role-arn creato nel passaggio precedente (passaggio 1) (il valore deve essere nel seguente formato: `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`). NOTA: Se si seleziona Sovrascrivi per il metodo di risoluzione dei conflitti, una o più impostazioni per il componente aggiuntivo esistente possono essere sovrascritte con le impostazioni del componente aggiuntivo Amazon EKS. Se non si attiva questa opzione e si verifica un conflitto con le impostazioni esistenti, l'operazione non riesce. È possibile utilizzare il messaggio di errore risultante per risolvere il conflitto. Prima di selezionare questa opzione, assicurati che il componente aggiuntivo Amazon EKS non gestisca le impostazioni da gestire in autonomia.
+
 +
 image::../media/aws-eks-06.png[aws eks 06]
+
++
+** A partire dalla versione 25,02, Trident supporta la configurazione backend automatica. Trident crea le classi di backend e storage senza problemi dopo l'installazione di Trident. Per attivare la configurazione backend automatica, aggiungere il `ontapConfigurator` parametro e specificare `authType`, `fsxnID`, e `protocols` nello schema di configurazione del componente aggiuntivo insieme a `cloudIdentity` durante l'installazione.
++
+[listing]
+----
+"ontapConfigurator": {
+        "enabled": true,
+        "svms": [
+          {
+            "authType": "awsarn",
+            "fsxnID": "fs-0dfeaa884a68b1cab",
+            "protocols": [
+              "nfs",
+              "iscsi"
+            ]
+          }
+        ]
+      }}"
+
+----
++
+
+NOTE: Per disattivare la configurazione automatica del backend, aggiornare la versione di Trident e impostare *ontapConfigurator* su *false*.
+
+
 
 . Selezionare *Crea*.
 . Verificare che lo stato del componente aggiuntivo sia _attivo_.
 +
 image::../media/aws-eks-05.png[aws eks 05]
 
+. Eseguire il seguente comando per verificare che Trident sia installato correttamente nel cluster:
++
+[listing]
+----
+kubectl get pods -n trident
+----
+. Continuare l'installazione e configurare il backend di archiviazione. Per informazioni, vedere link:../trident-use/trident-fsx-storage-backend.html["Configurare il backend di archiviazione"^].
 
 
 
 
 == Installare/disinstallare il componente aggiuntivo Trident EKS utilizzando la CLI
 
-.Installare il componente aggiuntivo Trident EKS utilizzando la CLI:
+.Installare il componente aggiuntivo NetApp Trident EKS utilizzando la CLI:
 Il seguente comando di esempio installa il componente aggiuntivo Trident EKS:
-`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.10.0-eksbuild`
 `eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.10.0-eksbuild.1` (Con una versione dedicata)
 
-.Disinstallare il componente aggiuntivo Trident EKS utilizzando CLI:
+.Disinstallare il componente aggiuntivo NetApp Trident EKS utilizzando CLI:
 Il seguente comando disinstalla il componente aggiuntivo Trident EKS:
-`eksctl delete addon --cluster K8s-arm --name netapp_trident-operator`
+
+[listing]
+----
+eksctl delete addon --cluster K8s-arm --name netapp_trident-operator
+----

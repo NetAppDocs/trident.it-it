@@ -49,10 +49,10 @@ Si noti che, nelle tabelle seguenti, non tutte le funzionalità sono esposte tra
 | `ontap-nas` | Sì | Sì | Yesfootnote:5[] | Sì | Yesfootnote:1[] | Sì | Yesfootnote:1[] 
 
 
-| `ontap-nas-economy` | Yesfootnote:3[] | Yesfootnote:3[] | Yesfootnote:5[] | Sì | Yesfootnote:3[] | Sì | Yesfootnote:3[] 
+| `ontap-nas-economy` | Nota a piè di pagina:3[] | Nota a piè di pagina:3[] | Yesfootnote:5[] | Sì | Nota a piè di pagina:3[] | Sì | Nota a piè di pagina:3[] 
 
 
-| `ontap-nas-flexgroup` | Yesfootnote:1[] | No | Yesfootnote:5[] | Sì | Yesfootnote:1[] | Sì | Yesfootnote:1[] 
+| `ontap-nas-flexgroup` | Yesfootnote:1[] | NO | Yesfootnote:5[] | Sì | Yesfootnote:1[] | Sì | Yesfootnote:1[] 
 |===
 Trident offre driver SAN 2 per ONTAP, le cui funzionalità sono mostrate di seguito.
 
@@ -64,10 +64,10 @@ Trident offre driver SAN 2 per ONTAP, le cui funzionalità sono mostrate di segu
 | `ontap-san` | Sì | Sì | Yesfootnote:4[] | Sì | Yesfootnote:1[] | Sì | Yesfootnote:1[] 
 
 
-| `ontap-san-economy` | Sì | Sì | Yesfootnote:4[] | Sì | Yesfootnote:3[] | Sì | Yesfootnote:3[] 
+| `ontap-san-economy` | Sì | Sì | Yesfootnote:4[] | Sì | Nota a piè di pagina:3[] | Sì | Nota a piè di pagina:3[] 
 |===
 [verse]
-Nota a piè di pagina: 1[]: Non gestito da Trident nota a piè di pagina:2[]: Gestito da Trident, ma non granulare PV nota a piè di pagina:3[]: Non gestito da Trident e non granulare PV nota a piè di pagina:4[]: Supportato per volumi a blocchi grezzi Nota a piè di pagina:5[]: Supportato da Trident
+Nota a piè di pagina per le tabelle di cui sopra: Nota a piè di pagina:1[]: Non gestito da Trident nota a piè di pagina:2[]: Gestito da Trident, ma non granulare PV nota a piè di pagina:3[]: Non gestito da Trident e non granulare PV nota a piè di pagina:4[]: Supportato per volumi a blocchi grezzi Nota a piè di pagina:5[]: Supportato da Trident
 
 Le funzionalità non granulari PV vengono applicate all'intero FlexVolume e tutti i PVS (ovvero qtree o LUN in FlexVol condivisi) condividono una pianificazione comune.
 
@@ -247,7 +247,7 @@ Una richiesta di ReadWriteMany PVC inviata a un'implementazione Trident senza un
 I volumi persistenti sono, con due eccezioni, oggetti immutabili in Kubernetes. Una volta creata, la policy di recupero e le dimensioni possono essere modificate. Tuttavia, ciò non impedisce che alcuni aspetti del volume vengano modificati al di fuori di Kubernetes. Ciò può essere utile per personalizzare il volume per applicazioni specifiche, per garantire che la capacità non venga accidentalmente consumata o semplicemente per spostare il volume in un controller di storage diverso per qualsiasi motivo.
 
 
-NOTE: Attualmente, i provisioning in-tree di Kubernetes non supportano le operazioni di ridimensionamento dei volumi per NFS o iSCSI PVS. Trident supporta l'espansione dei volumi NFS e iSCSI.
+NOTE: I provisioner in-tree Kubernetes non supportano in questo momento le operazioni di ridimensionamento del volume per NFS, iSCSI o FC PVS. Trident supporta l'espansione di volumi NFS, iSCSI e FC.
 
 I dettagli di connessione del PV non possono essere modificati dopo la creazione.
 
@@ -277,7 +277,7 @@ Se un volume viene copiato in un'altra posizione, è possibile utilizzare la fun
 
 === Espandere i volumi
 
-Trident supporta il ridimensionamento di PVS NFS e iSCSI. Ciò consente agli utenti di ridimensionare i propri volumi direttamente attraverso il livello Kubernetes. L'espansione dei volumi è possibile per tutte le principali piattaforme di storage NetApp, inclusi i backend ONTAP, SolidFire/NetApp HCI e Cloud Volumes Service. Per consentire una possibile espansione in un secondo momento, impostare `allowVolumeExpansion` su `true` in StorageClass associato al volume. Ogni volta che è necessario ridimensionare il volume persistente, modificare l' `spec.resources.requests.storage`annotazione nella rivendicazione volume persistente sulla dimensione del volume richiesta. Trident si occuperà automaticamente del ridimensionamento del volume sul cluster di storage.
+Trident supporta il ridimensionamento di NFS, iSCSI e FC PVS. Ciò consente agli utenti di ridimensionare i propri volumi direttamente attraverso il livello Kubernetes. L'espansione dei volumi è possibile per tutte le principali piattaforme di storage NetApp, inclusi i backend ONTAP, SolidFire/NetApp HCI e Cloud Volumes Service. Per consentire una possibile espansione in un secondo momento, impostare `allowVolumeExpansion` su `true` in StorageClass associato al volume. Ogni volta che è necessario ridimensionare il volume persistente, modificare l' `spec.resources.requests.storage`annotazione nella rivendicazione volume persistente sulla dimensione del volume richiesta. Trident si occuperà automaticamente del ridimensionamento del volume sul cluster di storage.
 
 
 
@@ -292,12 +292,6 @@ Se viene utilizzato il `azure-netapp-files` driver OR `gcp-cvs`, utilizzare il c
 Quando viene eseguito il comando sopra indicato, Trident trova il volume del backend e ne legge le dimensioni. Aggiungerà automaticamente (e sovrascriverà se necessario) le dimensioni del volume del PVC configurato. Trident crea quindi il nuovo PV e Kubernetes lega il PVC al PV.
 
 Se un container fosse stato implementato in modo da richiedere lo specifico PVC importato, rimarrebbe in sospeso fino a quando la coppia PVC/PV non sarà legata tramite il processo di importazione del volume. Una volta rilegata la coppia PVC/PV, il container dovrebbe salire, a condizione che non vi siano altri problemi.
-
-
-
-== Implementare i servizi OpenShift
-
-I servizi cluster OpenShift a valore aggiunto offrono funzionalità importanti agli amministratori dei cluster e alle applicazioni ospitate. Lo storage utilizzato da questi servizi può essere fornito utilizzando le risorse locali del nodo, tuttavia, questo spesso limita la capacità, le performance, la ripristinabilità e la sostenibilità del servizio. Sfruttando un array di storage Enterprise per fornire la capacità a questi servizi è possibile migliorare drasticamente il servizio, tuttavia, come per tutte le applicazioni, OpenShift e gli amministratori dello storage dovrebbero collaborare strettamente per determinare le opzioni migliori per ciascuno di essi. La documentazione di Red Hat deve essere sfruttata in maniera significativa per determinare i requisiti e garantire che le esigenze di dimensionamento e performance siano soddisfatte.
 
 
 

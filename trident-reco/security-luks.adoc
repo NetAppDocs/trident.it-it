@@ -18,7 +18,7 @@ In Trident, i volumi crittografati con LUKS utilizzano il Cypher e la modalità 
 
 .Prima di iniziare
 * Sui nodi di lavoro deve essere installata la crittografia 2.1 o superiore (ma inferiore a 3.0). Per ulteriori informazioni, visitare il sito link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab: Crittsetup"^].
-* Per motivi di performance, consigliamo ai nodi di lavoro di supportare Advanced Encryption Standard New Instructions (AES-NI). Per verificare il supporto AES-NI, eseguire il seguente comando:
+* Per motivi di prestazioni, NetApp consiglia ai nodi di lavoro di supportare le nuove istruzioni AES-NI (Advanced Encryption Standard New Instructions). Per verificare il supporto AES-NI, eseguire il seguente comando:
 +
 [listing]
 ----

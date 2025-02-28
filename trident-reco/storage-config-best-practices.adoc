@@ -68,7 +68,7 @@ Il valore per `max-volumes` varia in base a diversi criteri specifici per l'ambi
 
 Il `max-volumes` Il valore è il totale dei volumi forniti in tutti i nodi del cluster ONTAP e non in un singolo nodo ONTAP. Di conseguenza, potrebbero verificarsi alcune condizioni in cui un nodo del cluster ONTAP potrebbe avere volumi con provisioning Trident molto più o meno elevati rispetto a un altro nodo.
 
-Ad esempio, un cluster ONTAP a due nodi può ospitare un massimo di 2000 FlexVolumes. Il fatto che il numero massimo di volumi sia impostato su 1250 appare molto ragionevole. Tuttavia, se solo https://library.netapp.com/ecmdocs/ECMP1368859/html/GUID-3AC7685D-B150-4C1F-A408-5ECEB3FF0011.html["aggregati"^] Da un nodo vengono assegnati alla SVM oppure gli aggregati assegnati da un nodo non possono essere sottoposti a provisioning (ad esempio, a causa della capacità), quindi l'altro nodo diventa la destinazione di tutti i volumi con provisioning Trident. Ciò significa che il limite di volume potrebbe essere raggiunto per quel nodo prima di `max-volumes` Viene raggiunto il valore, con conseguente impatto sulle operazioni di Trident e di altri volumi che utilizzano tale nodo. *È possibile evitare questa situazione assicurandosi che gli aggregati di ciascun nodo del cluster siano assegnati alla SVM utilizzata da Trident in numeri uguali.*
+Ad esempio, un cluster ONTAP a due nodi può ospitare fino a 2000 FlexVol Volumes. Il fatto che il numero massimo di volumi sia impostato su 1250 appare molto ragionevole. Tuttavia, se alla SVM viene assegnato solo un nodo oppure se https://library.netapp.com/ecmdocs/ECMP1368859/html/GUID-3AC7685D-B150-4C1F-A408-5ECEB3FF0011.html["aggregati"^] gli aggregati assegnati da un nodo non sono compatibili con il provisioning (ad esempio a causa della capacità), l'altro nodo diventa la destinazione per tutti i volumi con provisioning Trident. Ciò significa che è possibile raggiungere il limite del volume per quel nodo prima che venga raggiunto il `max-volumes` valore, con conseguente impatto sulle operazioni Trident e sugli altri volumi che utilizzano tale nodo. *È possibile evitare questa situazione assicurandosi che gli aggregati di ciascun nodo del cluster siano assegnati alla SVM utilizzata da Trident in numeri uguali.*
 
 
 
@@ -159,13 +159,13 @@ storage:
 * È necessario applicare i gruppi di criteri per volume, in modo che ogni volume ottenga l'intero throughput come specificato dal gruppo di criteri. I gruppi di criteri condivisi non sono supportati.
 
 
-Per ulteriori informazioni sui gruppi di criteri QoS, fare riferimento a. https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-980/TOC__qos.html["Comandi QoS di ONTAP 9.8"^].
+Per ulteriori informazioni sui gruppi di criteri QoS, fare riferimento a https://docs.netapp.com/us-en/ontap/concepts/manual-pages.html["Riferimento comando ONTAP"^].
 
 
 
 === Limitare l'accesso alle risorse di storage ai membri del cluster Kubernetes
 
-Limitare l'accesso ai volumi NFS e alle LUN iSCSI create da Trident è un componente critico della posizione di sicurezza per l'implementazione di Kubernetes. In questo modo si impedisce agli host che non fanno parte del cluster Kubernetes di accedere ai volumi e di modificare i dati in modo imprevisto.
+Limitare l'accesso ai volumi NFS, alle LUN iSCSI e alle LUN FC creati da Trident è un componente critico della postura di sicurezza per l'implementazione di Kubernetes. In questo modo si impedisce agli host che non fanno parte del cluster Kubernetes di accedere ai volumi e di modificare i dati in modo imprevisto.
 
 È importante comprendere che gli spazi dei nomi sono il limite logico delle risorse in Kubernetes. L'ipotesi è che le risorse nello stesso namespace siano in grado di essere condivise, tuttavia, cosa importante, non esiste alcuna funzionalità di spazio dei nomi incrociato. Ciò significa che anche se i PVS sono oggetti globali, quando sono associati a un PVC sono accessibili solo da pod che si trovano nello stesso namespace. *È fondamentale assicurarsi che gli spazi dei nomi siano utilizzati per fornire la separazione quando appropriato.*
 
@@ -289,7 +289,7 @@ Di seguito sono elencate alcune delle Best practice. Eseguire una ricerca in htt
 *ONTAP*
 
 * https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["Guida alle Best practice e all'implementazione di NFS"^]
-* http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["GUIDA all'amministrazione SAN"^] (Per iSCSI)
+* http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["Amministrazione SAN"^] (Per iSCSI)
 * http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-iscsi-rhel-cg/home.html["Configurazione iSCSI Express per RHEL"^]
 
 

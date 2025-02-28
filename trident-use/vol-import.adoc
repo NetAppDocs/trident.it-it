@@ -42,7 +42,7 @@ WARNING: Ciò è particolarmente importante per i volumi a blocchi, in quanto Ku
 ** Se il criterio di recupero della classe di storage è `delete`, Il volume di storage viene cancellato quando il PV viene cancellato.
 
 
-* Per impostazione predefinita, Trident gestisce il PVC e rinomina FlexVol e LUN del backend. È possibile passare il `--no-manage` flag per importare un volume non gestito. Se si utilizza `--no-manage`, Trident non esegue alcuna operazione aggiuntiva sul PVC o sul PV per il ciclo di vita degli oggetti. Il volume di storage non viene cancellato quando il PV viene cancellato e vengono ignorate anche altre operazioni come il clone del volume e il ridimensionamento del volume.
+* Per impostazione predefinita, Trident gestisce il PVC e rinomina FlexVol volume e LUN del backend. È possibile passare il `--no-manage` flag per importare un volume non gestito. Se si utilizza `--no-manage`, Trident non esegue alcuna operazione aggiuntiva sul PVC o sul PV per il ciclo di vita degli oggetti. Il volume di storage non viene cancellato quando il PV viene cancellato e vengono ignorate anche altre operazioni come il clone del volume e il ridimensionamento del volume.
 +
 
 TIP: Questa opzione è utile se si desidera utilizzare Kubernetes per carichi di lavoro containerizzati, ma altrimenti si desidera gestire il ciclo di vita del volume di storage al di fuori di Kubernetes.
@@ -105,7 +105,7 @@ Trident supporta l'importazione dei volumi utilizzando `ontap-nas` driver e `ont
 
 
 ====
-Ogni volume creato con `ontap-nas` Driver è un FlexVol sul cluster ONTAP. Importazione di FlexVol con `ontap-nas` il driver funziona allo stesso modo. Un FlexVol già presente in un cluster ONTAP può essere importato come `ontap-nas` PVC. Allo stesso modo, è possibile importare i volumi FlexGroup come `ontap-nas-flexgroup` PVC.
+Ogni volume creato con il `ontap-nas` driver è un FlexVol volume nel cluster ONTAP. L'importazione dei volumi FlexVol con il `ontap-nas` driver funziona allo stesso modo. È possibile importare come PVC i volumi FlexVol già presenti in un cluster ONTAP `ontap-nas`. Analogamente, i FlexGroup vol possono essere importati come `ontap-nas-flexgroup` PVC.
 
 .Esempi di NAS ONTAP
 Di seguito viene illustrato un esempio di importazione di un volume gestito e di un volume non gestito.
@@ -151,7 +151,7 @@ tridentctl import volume nas_blog unmanaged_volume -f <path-to-pvc-file> --no-ma
 
 Trident supporta l'importazione dei volumi utilizzando `ontap-san` driver e `ontap-san-economy` .
 
-Trident può importare i FlexVol SAN di ONTAP che contengono un singolo LUN. Questa operazione è coerente con il `ontap-san` driver, che crea una FlexVol per ogni PVC e un LUN all'interno della FlexVol. Trident importa il FlexVol e lo associa alla definizione PVC.
+Trident può importare volumi FlexVol SAN di ONTAP che contengono una singola LUN. Questa operazione è coerente con il `ontap-san` driver, che crea una FlexVol volume per ogni PVC e un LUN all'interno della FlexVol volume. Trident importa il FlexVol volume e lo associa alla definizione PVC.
 
 .Esempi DI SAN ONTAP
 Di seguito viene illustrato un esempio di importazione di un volume gestito e di un volume non gestito.
@@ -160,9 +160,9 @@ Di seguito viene illustrato un esempio di importazione di un volume gestito e di
 ====
 .Volume gestito
 --
-Per i volumi gestiti, Trident rinomina FlexVol nel `pvc-<uuid>` formato e il LUN all'interno di FlexVol in `lun0`.
+Per i volumi gestiti, Trident rinomina FlexVol volume nel `pvc-<uuid>` formato e il LUN all'interno di FlexVol volume in `lun0`.
 
-Nell'esempio riportato di seguito viene importato il `ontap-san-managed` FlexVol presente su `ontap_san_default` back-end:
+Nell'esempio seguente viene importato il `ontap-san-managed` FlexVol volume presente sul `ontap_san_default` backend:
 
 [listing]
 ----
@@ -262,4 +262,35 @@ tridentctl import volume azurenetappfiles_40517 importvol1 -f <path-to-pvc-file>
 +------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
 | pvc-0ee95d60-fd5c-448d-b505-b72901b3a4ab | 100 GiB | anf-storage   | file     | 1c01274f-d94b-44a3-98a3-04c953c9a51e | online | true    |
 +------------------------------------------+---------+---------------+----------+--------------------------------------+--------+---------+
+----
+
+
+=== Google Cloud NetApp Volumes
+
+Trident supporta l'importazione di volumi utilizzando il `google-cloud-netapp-volumes` driver.
+
+.Esempio di Google Cloud NetApp Volumes
+Nell'esempio seguente viene importato un `google-cloud-netapp-volumes` volume sul backend `backend-tbc-gcnv1` con il volume `testvoleasiaeast1`.
+
+[listing]
+----
+tridentctl import volume backend-tbc-gcnv1 "testvoleasiaeast1" -f < path-to-pvc> -n trident
+
++------------------------------------------+---------+----------------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE   | STORAGE CLASS        | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+---------+----------------------+----------+--------------------------------------+--------+---------+
+| pvc-a69cda19-218c-4ca9-a941-aea05dd13dc0 |  10 GiB | gcnv-nfs-sc-identity | file     | 8c18cdf1-0770-4bc0-bcc5-c6295fe6d837 | online | true    |
++------------------------------------------+---------+----------------------+----------+--------------------------------------+--------+---------+
+----
+Nell'esempio seguente viene importato un `google-cloud-netapp-volumes` volume quando nella stessa regione sono presenti due volumi:
+
+[listing]
+----
+tridentctl import volume backend-tbc-gcnv1 "projects/123456789100/locations/asia-east1-a/volumes/testvoleasiaeast1" -f <path-to-pvc> -n trident
+
++------------------------------------------+---------+----------------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE   | STORAGE CLASS        | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+---------+----------------------+----------+--------------------------------------+--------+---------+
+| pvc-a69cda19-218c-4ca9-a941-aea05dd13dc0 |  10 GiB | gcnv-nfs-sc-identity | file     | 8c18cdf1-0770-4bc0-bcc5-c6295fe6d837 | online | true    |
++------------------------------------------+---------+----------------------+----------+--------------------------------------+--------+---------+
 ----

@@ -28,10 +28,10 @@ Trident utilizza i CRD Kubernetes per memorizzare e gestire il proprio stato, me
 
 .Fasi
 . Eseguire il backup del cluster Kubernetes etcd utilizzando  link:https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster["Kubernetes: Backup di un cluster etcd"^].
-. Posizionare gli artefatti di backup su un FlexVol.
+. Posizionare gli artefatti di backup su un FlexVol volume
 +
 
-NOTE: Si consiglia di proteggere la SVM in cui risiede FlexVol con una relazione SnapMirror con un'altra SVM.
+NOTE: NetApp consiglia di proteggere la SVM sul quale si trova FlexVol con una relazione di SnapMirror in un'altra SVM.
 
 
 

@@ -18,7 +18,7 @@ Trident è un progetto open source completamente supportato gestito da NetApp. �
 
 == Che cos'è Trident?
 
-NetApp Trident permette il consumo e la gestione delle risorse di storage in tutte le più diffuse piattaforme di storage NetApp, nel cloud pubblico o on-premise, tra cui ONTAP (AFF, FAS, Select, cloud, Amazon FSX per NetApp ONTAP), Element Software (NetApp HCI, SolidFire), Azure NetApp Files service e Cloud Volumes Service su Google Cloud.
+NetApp Trident permette il consumo e la gestione delle risorse di storage in tutte le più diffuse piattaforme di storage NetApp, nel cloud pubblico o on-premise, inclusi cluster ONTAP on-premise (AFF, FAS e ASA), ONTAP Select, Cloud Volumes ONTAP, Element Software (NetApp HCI, SolidFire), Azure NetApp Files, Amazon FSX per NetApp ONTAP e Cloud Volumes Service su Google Cloud.
 
 Trident è un orchestrator di storage dinamico conforme a Container Storage Interface (CSI) che si integra in modo nativo con link:https://kubernetes.io/["Kubernetes"^]. Trident funziona come un singolo pod controller e un pod nodo su ciascun nodo di lavoro nel cluster. Per ulteriori informazioni, fare riferimento alla link:../trident-get-started/architecture.html["Architettura Trident"] sezione.
 
@@ -76,6 +76,6 @@ Trident è in grado di eseguire il provisioning e la gestione dei dispositivi di
 ====
 link:https://docs.netapp.com/us-en/ontap/index.html["NetApp ONTAP"^] NetApp è un sistema operativo per lo storage unificato e multiprotocollo che offre funzionalità avanzate di gestione dei dati per qualsiasi applicazione.
 
-I sistemi ONTAP sono dotati di configurazioni all-flash, ibride o all-HDD e offrono diversi modelli di implementazione, tra cui hardware progettato (FAS e AFF), white-box (ONTAP Select) e solo cloud (Cloud Volumes ONTAP). Trident supporta questi modelli di implementazione ONTAP.
+I sistemi ONTAP dispongono di configurazioni all-flash, ibride o all-HDD e offrono diversi modelli di implementazione: Cluster FAS, AFA e ASA on-premise, ONTAP Select e Cloud Volumes ONTAP. Trident supporta questi modelli di implementazione ONTAP.
 
 ====
