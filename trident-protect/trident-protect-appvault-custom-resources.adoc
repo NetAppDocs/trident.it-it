@@ -26,7 +26,7 @@ Prima di creare un oggetto AppVault, è necessario assicurarsi che AppVault e il
 
 === Password del repository di spostamento dati
 
-Quando si creano oggetti AppVault utilizzando CRS o il plug-in Trident Protect CLI, è possibile richiedere a Trident Protect di utilizzare un segreto Kubernetes che contiene password personalizzate per la crittografia del repository Restic e Kopia. Se non si specifica un segreto, Trident Protect utilizza `password` per entrambe le password.
+Quando si creano oggetti AppVault utilizzando CRS o il plug-in Trident Protect CLI, è possibile richiedere a Trident Protect di utilizzare un segreto Kubernetes che contiene password personalizzate per la crittografia del repository Restic e Kopia. Se non si specifica un segreto, Trident Protect utilizza una password predefinita.
 
 * Quando si crea manualmente AppVault CRS, è possibile utilizzare il campo *spec.properties.dataMoverPasswordSecretRef* per specificare il segreto.
 * Quando si creano oggetti AppVault utilizzando l'interfaccia CLI Trident Protect, è possibile utilizzare l' `--data-mover-password-secret-ref`argomento per specificare il segreto.
