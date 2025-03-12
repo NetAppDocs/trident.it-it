@@ -18,6 +18,8 @@ entries:
   entries:
   - title: Gestire le autorizzazioni e il controllo degli accessi
     url: "/trident-protect/manage-authorization-access-control.html"
+  - title: Monitorare le risorse Trident Protect
+    url: "/trident-protect/monitor-trident-protect-resources.html"
   - title: Generare un bundle di supporto Trident Protect
     url: "/trident-protect/trident-protect-generate-support-bundle.html"
   - title: Aggiornare Trident Protect
