@@ -114,6 +114,9 @@ Assicurati che la scadenza del token di sessione AWS sia sufficiente per qualsia
 * Per ulteriori informazioni sulle credenziali con le risorse AWS, fare riferimento al https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentazione di AWS IAM"^].
 
 
+
+NOTE: Quando si ripristinano i backup utilizzando Kopia come strumento di spostamento dei dati, è possibile specificare le annotazioni nella CR o utilizzare la CLI per controllare il comportamento dello storage emphemeral utilizzato da Kopia. Per ulteriori informazioni sulle opzioni che è possibile configurare, consultare https://kopia.io/docs/getting-started/["Documentazione Kopia"^] la . Utilizzare il `tridentctl-protect create --help` comando per ulteriori informazioni sulla specifica delle annotazioni con l'interfaccia a riga di comando Trident Protect.
+
 [role="tabbed-block"]
 ====
 .Utilizzare un CR
@@ -141,6 +144,8 @@ kind: BackupRestore
 metadata:
   name: my-cr-name
   namespace: my-destination-namespace
+  annotations: # Optional annotations for Kopia data mover
+    protect.trident.netapp.io/kopia-content-cache-size-limit-mb: 1000
 spec:
   appArchivePath: my-backup-path
   appVaultRef: appvault-name
@@ -212,7 +217,10 @@ kubectl apply -f trident-protect-backup-restore-cr.yaml
 +
 [source, console]
 ----
-tridentctl-protect create backuprestore <my_restore_name> --backup <backup_namespace>/<backup_to_restore> --namespace-mapping <source_to_destination_namespace_mapping> -n <application_namespace>
+tridentctl-protect create backuprestore <my_restore_name> \
+--backup <backup_namespace>/<backup_to_restore> \
+--namespace-mapping <source_to_destination_namespace_mapping> \
+-n <application_namespace>
 ----
 
 
@@ -230,6 +238,9 @@ Assicurati che la scadenza del token di sessione AWS sia sufficiente per qualsia
 * Per ulteriori informazioni sulla verifica della scadenza corrente del token di sessione, fare riferimento https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentazione di API AWS"^] al .
 * Per ulteriori informazioni sulle credenziali con le risorse AWS, fare riferimento al https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentazione di AWS IAM"^].
 
+
+
+NOTE: Quando si ripristinano i backup utilizzando Kopia come strumento di spostamento dei dati, è possibile specificare le annotazioni nella CR o utilizzare la CLI per controllare il comportamento dello storage emphemeral utilizzato da Kopia. Per ulteriori informazioni sulle opzioni che è possibile configurare, consultare https://kopia.io/docs/getting-started/["Documentazione Kopia"^] la . Utilizzare il `tridentctl-protect create --help` comando per ulteriori informazioni sulla specifica delle annotazioni con l'interfaccia a riga di comando Trident Protect.
 
 [role="tabbed-block"]
 ====
@@ -259,6 +270,8 @@ kind: BackupInplaceRestore
 metadata:
   name: my-cr-name
   namespace: my-app-namespace
+  annotations: # Optional annotations for Kopia data mover
+    protect.trident.netapp.io/kopia-content-cache-size-limit-mb: 1000
 spec:
   appArchivePath: my-backup-path
   appVaultRef: appvault-name
@@ -326,7 +339,9 @@ kubectl apply -f trident-protect-backup-ipr-cr.yaml
 +
 [source, console]
 ----
-tridentctl-protect create backupinplacerestore <my_restore_name> --backup <namespace/backup_to_restore> -n <application_namespace>
+tridentctl-protect create backupinplacerestore <my_restore_name> \
+--backup <namespace/backup_to_restore> \
+-n <application_namespace>
 ----
 
 
@@ -337,6 +352,9 @@ tridentctl-protect create backupinplacerestore <my_restore_name> --backup <names
 == Ripristino da un backup a un cluster diverso
 
 In caso di problemi con il cluster originale, è possibile ripristinare un backup su un cluster diverso.
+
+
+NOTE: Quando si ripristinano i backup utilizzando Kopia come strumento di spostamento dei dati, è possibile specificare le annotazioni nella CR o utilizzare la CLI per controllare il comportamento dello storage emphemeral utilizzato da Kopia. Per ulteriori informazioni sulle opzioni che è possibile configurare, consultare https://kopia.io/docs/getting-started/["Documentazione Kopia"^] la . Utilizzare il `tridentctl-protect create --help` comando per ulteriori informazioni sulla specifica delle annotazioni con l'interfaccia a riga di comando Trident Protect.
 
 .Prima di iniziare
 Assicurarsi che siano soddisfatti i seguenti prerequisiti:
@@ -366,7 +384,10 @@ NOTE: Verificare che lo spazio dei nomi destinato al ripristino dell'applicazion
 +
 [source, console]
 ----
-tridentctl-protect get appvaultcontent <appvault_name> --show-resources backup --show-paths --context <destination_cluster_name>
+tridentctl-protect get appvaultcontent <appvault_name> \
+--show-resources backup \
+--show-paths \
+--context <destination_cluster_name>
 ----
 +
 L'esecuzione di questo comando visualizza i backup disponibili in AppVault, inclusi i relativi cluster di origine, i nomi delle applicazioni corrispondenti, i timestamp e i percorsi di archivio.
@@ -418,6 +439,8 @@ kind: BackupRestore
 metadata:
   name: my-cr-name
   namespace: my-destination-namespace
+  annotations: # Optional annotations for Kopia data mover
+    protect.trident.netapp.io/kopia-content-cache-size-limit-mb: 1000
 spec:
   appVaultRef: appvault-name
   appArchivePath: my-backup-path
@@ -440,7 +463,12 @@ kubectl apply -f trident-protect-backup-restore-cr.yaml
 +
 [source, console]
 ----
-tridentctl-protect create backuprestore <restore_name> --namespace-mapping <source_to_destination_namespace_mapping> --appvault <appvault_name> --path <backup_path> -n <application_namespace> --context <destination_cluster_name>
+tridentctl-protect create backuprestore <restore_name> \
+--namespace-mapping <source_to_destination_namespace_mapping> \
+--appvault <appvault_name> \
+--path <backup_path> \
+--context <destination_cluster_name> \
+-n <application_namespace>
 ----
 
 
@@ -563,7 +591,10 @@ Ad esempio:
 +
 [source, console]
 ----
-tridentctl-protect create snapshotrestore <my_restore_name> --snapshot <namespace/snapshot_to_restore> --namespace-mapping <source_to_destination_namespace_mapping> -n <application_namespace>
+tridentctl-protect create snapshotrestore <my_restore_name> \
+--snapshot <namespace/snapshot_to_restore> \
+--namespace-mapping <source_to_destination_namespace_mapping> \
+-n <application_namespace>
 ----
 
 
@@ -676,7 +707,9 @@ kubectl apply -f trident-protect-snapshot-ipr-cr.yaml
 +
 [source, console]
 ----
-tridentctl-protect create snapshotinplacerestore <my_restore_name> --snapshot <snapshot_to_restore> -n <application_namespace>
+tridentctl-protect create snapshotinplacerestore <my_restore_name> \
+--snapshot <snapshot_to_restore> \
+-n <application_namespace>
 ----
 
 
