@@ -52,10 +52,14 @@ Questa tabella è dettagliata `TridentOrchestrator` attributi.
 | `windows` | Impostazione su `true` Attiva l'installazione su nodi di lavoro Windows. | `false` 
 
 
-| `cloudProvider` | Impostare su `"Azure"` Quando si utilizzano identità gestite o un'identità cloud su un cluster AKS. Impostato su "AWS" quando si utilizza un'identità cloud su un cluster EKS. | `""` 
+| `cloudProvider`  a| 
+Impostato su `"Azure"` quando si utilizzano identità gestite o un'identità cloud su un cluster AKS. Impostato su `"AWS"` quando si utilizza un'identità cloud su un cluster EKS. Impostare su `"GCP"` quando si utilizza un'identità cloud su un cluster GKE.
+| `""` 
 
 
-| `cloudIdentity` | Impostare sull'identità del workload ("Azure.workload.Identity/client-id: Xxxxxxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx") quando si utilizza l'identità cloud su un cluster AKS. Impostato sul ruolo AWS IAM ("'eks.amazonaws.com/role-arn: arn:AWS:iam::123456:role/Trident-role") quando si utilizza l'identità cloud su un cluster EKS. | `""` 
+| `cloudIdentity`  a| 
+Impostare sull'identità del workload ("Azure.workload.Identity/client-id: Xxxxxxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx") quando si utilizza l'identità cloud su un cluster AKS. Impostato sul ruolo AWS IAM ("'eks.amazonaws.com/role-arn: arn:AWS:iam::123456:role/Trident-role'") quando si utilizza l'identità cloud su un cluster EKS. Impostare sull'identità cloud ("'iam.gke.io/gcp-service-account: xxxx@mygcpproject.iam.gserviceaccount.com'") quando si utilizza l'identità cloud su un cluster GKE.
+| `""` 
 
 
 | `IPv6` | Installare Trident su IPv6 | falso 

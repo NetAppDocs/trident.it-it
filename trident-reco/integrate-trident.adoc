@@ -331,7 +331,7 @@ Le variabili riportate nella tabella seguente determineranno la creazione di un 
 | `openshift_logging_storage_kind` | Impostare su `nfs` Per fare in modo che il programma di installazione crei un NFS PV per il servizio di registrazione. 
 
 
-| `openshift_logging_storage_host` | Il nome host o l'indirizzo IP dell'host NFS. Questa opzione deve essere impostata sul LIF dei dati per la macchina virtuale. 
+| `openshift_logging_storage_host` | Il nome host o l'indirizzo IP dell'host NFS. Tale impostazione deve essere impostata su dataLIF per la macchina virtuale. 
 
 
 | `openshift_logging_storage_nfs_directory` | Il percorso di montaggio per l'esportazione NFS. Ad esempio, se il volume è giuntato come `/openshift_logging`, utilizzare tale percorso per questa variabile. 
@@ -399,7 +399,7 @@ NOTE: Le tabelle seguenti contengono solo le variabili rilevanti per la configur
 | `openshift_metrics_storage_kind` | Impostare su `nfs` Per fare in modo che il programma di installazione crei un NFS PV per il servizio di registrazione. 
 
 
-| `openshift_metrics_storage_host` | Il nome host o l'indirizzo IP dell'host NFS. Questa opzione deve essere impostata sul valore LIF dei dati per SVM. 
+| `openshift_metrics_storage_host` | Il nome host o l'indirizzo IP dell'host NFS. Questo valore deve essere impostato su dataLIF per la tua SVM. 
 
 
 | `openshift_metrics_storage_nfs_directory` | Il percorso di montaggio per l'esportazione NFS. Ad esempio, se il volume è giuntato come `/openshift_metrics`, utilizzare tale percorso per questa variabile. 

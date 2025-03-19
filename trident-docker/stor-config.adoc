@@ -90,7 +90,7 @@ Indirizzo IP della LIF di gestione ONTAP. È possibile specificare un nome di do
 | `dataLIF`  a| 
 Indirizzo IP del protocollo LIF.
 
-*Driver NAS ONTAP*: NetApp consiglia di specificare `dataLIF`. Se non viene fornita, Trident recupera le LIF dati dalla SVM. È possibile specificare un FQDN (Fully-qualified domain name) da utilizzare per le operazioni di montaggio NFS, consentendo di creare un DNS round-robin per il bilanciamento del carico tra più LIF di dati.
+*Driver NAS ONTAP*: NetApp consiglia di specificare `dataLIF`. Se non viene fornita, Trident recupera le LIF dati dalla SVM. È possibile specificare un nome di dominio completo (FQDN) da utilizzare per le operazioni di montaggio NFS, consentendo di creare un DNS round-robin per bilanciare il carico su più LIF dati.
 
 *Driver SAN ONTAP*: Non specificare per iSCSI o FC. Trident utilizza link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["Mappa LUN selettiva ONTAP"^] per rilevare le LIF iSCSI o FC necessarie per stabilire una sessione multi-path. Viene generato un avviso se `dataLIF` è definito esplicitamente.
  a| 

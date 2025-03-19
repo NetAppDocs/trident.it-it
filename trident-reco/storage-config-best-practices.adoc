@@ -195,7 +195,7 @@ L'esecuzione di questi comandi consente di limitare i nodi Kubernetes che hanno 
 
 === Disattiva `showmount` Per l'applicazione SVM
 
-Il `showmount` Questa funzione consente a un client NFS di eseguire query su SVM per un elenco delle esportazioni NFS disponibili. Un pod implementato nel cluster Kubernetes può emettere `showmount -e` Eseguire il comando in base al LIF dei dati e ricevere un elenco di montaggi disponibili, inclusi quelli a cui non ha accesso. Sebbene questo, di per sé, non sia un compromesso in termini di sicurezza, fornisce informazioni non necessarie che potrebbero aiutare un utente non autorizzato a connettersi a un'esportazione NFS.
+Questa `showmount` funzionalità consente a un client NFS di richiedere all'SVM un elenco di esportazioni NFS disponibili. Un pod implementato nel cluster Kubernetes può emettere un `showmount -e` comando su e ricevere un elenco di mount disponibili, compresi quelli a cui non ha accesso. Sebbene questo, di per sé, non sia un compromesso in termini di sicurezza, fornisce informazioni non necessarie che potrebbero aiutare un utente non autorizzato a connettersi a un'esportazione NFS.
 
 Disattivare `showmount` Utilizzando il comando CLI ONTAP a livello di SVM:
 
