@@ -83,7 +83,7 @@ NetApp Trident Protect offre capacità avanzate di gestione dei dati delle appli
 
 ==== Miglioramenti
 
-* Aggiunto il supporto di backup e ripristino per KubeVirt / OpenShift Virtualization VM per entrambi volumeMode: File e volumeMode: Storage a blocchi (dispositivo raw) nella replica dello storage già disponibile tramite AppMirrorRelationship.
+* Aggiunto il supporto di backup e ripristino per KubeVirt / OpenShift Virtualization VM per entrambi volumeMode: File e volumeMode: Storage a blocchi (dispositivo raw). Questo supporto è compatibile con tutti i driver Trident e migliora le funzionalità di protezione esistenti durante la replica dello storage tramite NetApp SnapMirror con Trident Protect.
 * Aggiunta la capacità di controllare il comportamento di congelamento a livello di applicazione per gli ambienti Kubevirt.
 * Aggiunto supporto per la configurazione delle connessioni proxy AutoSupport.
 * Aggiunta la possibilità di definire un segreto per la crittografia del data mover (Kopia / Restic).
