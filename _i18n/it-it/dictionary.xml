@@ -5470,4 +5470,5 @@ Fare riferimento a. <block ref="e10af1024bf046058eef4c68dff3462a" category="inli
   <block id="e516fe45e3db545de8d5d292a67f4990" category="list-text">Aggiunto il supporto di backup e ripristino per KubeVirt / OpenShift Virtualization VM per entrambi volumeMode: File e volumeMode: Storage a blocchi (dispositivo raw). Questo supporto è compatibile con tutti i driver Trident e migliora le funzionalità di protezione esistenti durante la replica dello storage tramite NetApp SnapMirror con Trident Protect.</block>
   <block id="fc1d748db1b5b488ce7af7d17ea15d55" category="inline-link-macro">Supporto della versione software</block>
   <block id="ee19283e867cf4e5840d2811a74b89e5" category="list-text">Versioni del cluster on-premise FAS, AFF o ASA R2 con supporto limitato di NetApp. Vedere <block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block>.</block>
+  <block id="8456fc955091af12a31da6fc68123005" category="list-text">Puoi impostare la crittografia NVE su un valore flat<block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block> per creare volumi abilitati per NAE.</block>
 </blocks>
