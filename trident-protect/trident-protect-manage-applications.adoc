@@ -39,7 +39,13 @@ summary: 'È possibile rendere Trident Protect consapevole di un"applicazione ch
 .. Configurare i seguenti attributi:
 +
 *** *metadata.name*: (_required_) il nome della risorsa personalizzata dell'applicazione. Si noti il nome scelto perché altri file CR necessari per le operazioni di protezione fanno riferimento a questo valore.
-*** *spec.includedNamespaces*: (_required_) utilizzare le etichette dello spazio dei nomi o un nome dello spazio dei nomi per specificare gli spazi dei nomi in cui esistono le risorse dell'applicazione. Lo spazio dei nomi dell'applicazione deve essere parte di questo elenco.
+*** *spec.includedNamespaces*: (_required_) utilizzare lo spazio dei nomi e il selettore di etichette per specificare gli spazi dei nomi e le risorse utilizzate dall'applicazione. Lo spazio dei nomi dell'applicazione deve far parte di questo elenco. Il selettore delle etichette è opzionale e può essere utilizzato per filtrare le risorse all'interno di ogni spazio dei nomi specificato.
+*** *spec.includedClusterScopedResources*: (_Optional_) utilizzare questo attributo per specificare le risorse con ambito cluster da includere nella definizione dell'applicazione. Questo attributo consente di selezionare queste risorse in base al gruppo, alla versione, al tipo e alle etichette.
++
+**** *GroupVersionKind*: (_required_) specifica il gruppo API, la versione e il tipo di risorsa con ambito cluster.
+**** *LabelSelector*: (_Optional_) Filtra le risorse con ambito cluster in base alle loro etichette.
+
+
 *** *metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_Optional_) questa annotazione è applicabile solo alle applicazioni definite da macchine virtuali, come negli ambienti KubeVirt, dove il filesystem si blocca prima delle istantanee. Specificare se questa applicazione può scrivere nel filesystem durante uno snapshot. Se impostato su true, l'applicazione ignora l'impostazione globale e può scrivere nel file system durante uno snapshot. Se impostato su false, l'applicazione ignora l'impostazione globale e il file system viene bloccato durante uno snapshot. Se specificato ma l'applicazione non dispone di macchine virtuali nella definizione dell'applicazione, l'annotazione viene ignorata. Se non specificato, l'applicazione segue la link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Impostazione blocco di protezione Global Trident"].
 +
 [NOTE]
@@ -66,10 +72,23 @@ metadata:
   namespace: my-app-namespace
 spec:
   includedNamespaces:
-  - labelSelector: {}
-    namespace: namespace-1
-  - labelSelector: {}
-    namespace: namespace-2
+    - namespace: namespace-1
+      labelSelector:
+        matchLabels:
+          app: example-app
+    - namespace: namespace-2
+      labelSelector:
+        matchLabels:
+          app: another-example-app
+  includedClusterScopedResources:
+    - groupVersionKind:
+        group: rbac.authorization.k8s.io
+        kind: ClusterRole
+        version: v1
+      labelSelector:
+        matchLabels:
+          mylabel: test
+
 ----
 
 
