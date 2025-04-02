@@ -110,10 +110,7 @@ Per le opzioni di configurazione del backend, consultare la tabella seguente:
 `""` 
 
 
-| `credentials` | Specifica le credenziali della SVM di FSX da archiviare in AWS Secret Manager.
-- `name`: Amazon Resource Name (ARN) del segreto, che contiene le credenziali di SVM.
-- `type`: Impostare su `awsarn`.
-Fare riferimento a. link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["Creare un segreto AWS Secrets Manager"^] per ulteriori informazioni. |  
+| `credentials` | Specifica le credenziali di FSX SVM da memorizzare in AWS Secrets Manager. - `name`: Amazon Resource Name (ARN) del segreto, che contiene le credenziali di SVM. - `type`: Impostare su `awsarn`. Per ulteriori informazioni, fare riferimento link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["Creare un segreto AWS Secrets Manager"^] a. |  
 |===
 
 
@@ -121,7 +118,7 @@ Fare riferimento a. link:https://docs.aws.amazon.com/secretsmanager/latest/userg
 
 Puoi modificare la dataLIF dopo la configurazione iniziale eseguendo il seguente comando per fornire il nuovo file JSON di backend con i dati LIF aggiornati.
 
-[listing]
+[source, console]
 ----
 tridentctl update backend <backend-name> -f <path-to-backend-json-file-with-updated-dataLIF>
 ----
@@ -183,7 +180,7 @@ NOTE: Se sono collegati a uno o più pod, è necessario abbassare tutti i pod co
 ====
 Utilizzo di `nasType`, `node-stage-secret-name`, e. `node-stage-secret-namespace`, È possibile specificare un volume SMB e fornire le credenziali Active Directory richieste. I volumi SMB sono supportati utilizzando `ontap-nas` solo driver.
 
-[listing]
+[source, console]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -197,10 +194,10 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: "default"
 ----
 ====
-.Configurazione per AWS FSX per ONTAP con gestore segreto
+.Configurazione per AWS FSX per ONTAP con Secrets Manager
 [%collapsible]
 ====
-[listing]
+[source, console]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig

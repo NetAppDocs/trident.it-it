@@ -65,24 +65,6 @@ NAME                NAMESPACE   REVISION    UPDATED                             
 
 trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT    deployed     trident-operator-100.2502.0    25.02.0
 ----
-+
-** A partire dalla versione 25,02, Trident supporta la configurazione backend automatica. Trident crea le classi di backend e storage senza problemi dopo l'installazione di Trident. Per abilitare la configurazione automatica del backend, aggiungere il `ontapConfigurator` parametro e specificare `authType`, `fsxnID` `protocols` durante l'installazione.
-+
-[source, console]
-----
-helm install trident trident-operator-100.2502.0.tgz --set cloudProvider=$CP --set cloudIdentity=$CI --namespace trident \
---set ontapConfigurator.enabled=true \
---set ontapConfigurator.svms[0].fsxnID="fs-0dfeaa884a68b1cab" \
---set ontapConfigurator.svms[0].protocols[0]=iscsi \
---set ontapConfigurator.svms[0].protocols[1]=nfs \
---set ontapConfigurator.svms[0].authType="awsarn"
-----
-+
-
-NOTE: Per disattivare la configurazione automatica del backend, aggiornare la versione di Trident e impostare *ontapConfigurator* su *false*.
-
-
-
 
 
 
@@ -139,7 +121,7 @@ eksctl create addon --name netapp_trident-operator --cluster <cluster_name> \
 +
 .. Selezionare la *versione* che si desidera utilizzare.
 .. Per *Seleziona ruolo IAM*, lasciare il campo *non impostato*.
-.. Espandere le *Impostazioni di configurazione opzionali*, seguire lo schema di configurazione del componente aggiuntivo* e impostare il parametro configurationValues nella sezione *valori di configurazione* sul ruolo-arn creato nel passaggio precedente (il valore deve essere nel seguente formato: `'eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole'`). Se si seleziona Sovrascrivi per il metodo di risoluzione dei conflitti, una o più impostazioni per il componente aggiuntivo esistente possono essere sovrascritte con le impostazioni del componente aggiuntivo Amazon EKS. Se non si attiva questa opzione e si verifica un conflitto con le impostazioni esistenti, l'operazione non riesce. È possibile utilizzare il messaggio di errore risultante per risolvere il conflitto. Prima di selezionare questa opzione, assicurati che il componente aggiuntivo Amazon EKS non gestisca le impostazioni da gestire in autonomia.
+.. Seguire lo schema di configurazione *Add-on* e impostare il parametro configurationValues nella sezione *Configuration Values* sul valore Role-arn creato nel passaggio precedente (il valore deve essere nel seguente formato: `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`). Se si seleziona Sovrascrivi per il metodo di risoluzione dei conflitti, una o più impostazioni per il componente aggiuntivo esistente possono essere sovrascritte con le impostazioni del componente aggiuntivo Amazon EKS. Se non si attiva questa opzione e si verifica un conflitto con le impostazioni esistenti, l'operazione non riesce. È possibile utilizzare il messaggio di errore risultante per risolvere il conflitto. Prima di selezionare questa opzione, assicurati che il componente aggiuntivo Amazon EKS non gestisca le impostazioni da gestire in autonomia.
 
 
 . Scegliere *Avanti*.
@@ -154,52 +136,22 @@ Al termine dell'installazione del componente aggiuntivo, viene visualizzato il c
 --
 . Creare il `add-on.json` file:
 +
-[source, json]
+[source, JSON]
 ----
 {
   "clusterName": "<eks-cluster>",
   "addonName": "netapp_trident-operator",
   "addonVersion": "v24.10.0-eksbuild.1",
-  "serviceAccountRoleArn": "<arn:aws:iam::123456:role/astratrident-role>",
+  "serviceAccountRoleArn": "<role ARN>",
   "configurationValues": {
-    "cloudIdentity": "'eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole'",
+    "cloudIdentity": "'cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'",
     "cloudProvider": "AWS"
   }
 }
 ----
 +
-** A partire dalla versione 25,02, Trident supporta la configurazione backend automatica. Trident crea le classi di backend e storage senza problemi dopo l'installazione di Trident. Per abilitare la configurazione automatica del backend, aggiungere il `ontapConfigurator` parametro e specificare `authType`, `fsxnID` `protocols` durante l'installazione.
-+
-[source, json]
-----
-{
-  "clusterName": "<eks-cluster>",
-  "addonName": "netapp_trident-operator",
-  "addonVersion": "v24.10.0-eksbuild.1",
-  "serviceAccountRoleArn": "arn:aws:iam::123456:role/astratrident-role",
-  "configurationValues": {
-    "cloudIdentity": "'eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole'",
-    "ontapConfigurator": {
-      "enabled": true,
-      "svms": [
-        {
-          "authType": "awsarn",
-          "fsxnID": "fs-0dfeaa884a68b1cab",
-          "protocols": [
-            "nfs",
-            "iscsi"
-          ]
-        }
-      ]
-    }
-  }
-}
-----
-+
 
-NOTE: Per disattivare la configurazione automatica del backend, aggiornare la versione di Trident e impostare *ontapConfigurator* su *false*.
-
-
+NOTE: Sostituire `<role ARN>` con l'ARN del ruolo creato nel passaggio precedente.
 
 . Installare il componente aggiuntivo Trident EKS.
 +
@@ -220,7 +172,11 @@ aws eks create-addon --cli-input-json file://add-on.json
 .eksctl
 --
 * Controllare la versione corrente del componente aggiuntivo FSxN Trident CSI. Sostituire `my-cluster` con il nome del cluster.
-`eksctl get addon --name netapp_trident-operator --cluster my-cluster`
++
+[source, console]
+----
+eksctl get addon --name netapp_trident-operator --cluster my-cluster
+----
 +
 *Esempio di output:*
 
@@ -232,11 +188,14 @@ NAME                        VERSION             STATUS    ISSUES    IAMROLE    U
 netapp_trident-operator    v24.10.0-eksbuild.1    ACTIVE    0       {"cloudIdentity":"'eks.amazonaws.com/role-arn: arn:aws:iam::139763910815:role/AmazonEKS_FSXN_CSI_DriverRole'"}
 ----
 * Aggiornare il componente aggiuntivo alla versione restituita in AGGIORNAMENTO DISPONIBILE nell'output del passaggio precedente.
-`eksctl update addon --name netapp_trident-operator --version v24.10.0-eksbuild.1 --cluster my-cluster --force`
 +
+[source, console]
+----
+eksctl update addon --name netapp_trident-operator --version v24.10.0-eksbuild.1 --cluster my-cluster --force
+----
+
+
 Se si rimuove l' `--force` opzione e una delle impostazioni del componente aggiuntivo Amazon EKS è in conflitto con le impostazioni esistenti, l'aggiornamento del componente aggiuntivo Amazon EKS non viene eseguito correttamente; viene visualizzato un messaggio di errore che aiuta a risolvere il conflitto. Prima di specificare questa opzione, assicurati che il componente aggiuntivo Amazon EKS non gestisca le impostazioni da gestire, perché queste impostazioni vengono sovrascritte con questa opzione. Per ulteriori informazioni sulle altre opzioni per questa impostazione, vedere link:https://eksctl.io/usage/addons/["Componenti aggiuntivi"]. Per ulteriori informazioni su Amazon EKS Kubernetes Field management, consulta link:https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-field-management.html["Gestione sul campo di Kubernetes"].
-
-
 
 --
 .Console di gestione
@@ -262,8 +221,8 @@ Nell'esempio seguente viene aggiornato il componente aggiuntivo EKS:
 
 [source, console]
 ----
-aws eks update-addon --cluster-name my-cluster netapp_trident-operator vpc-cni --addon-version v24.6.1-eksbuild.1 \
---service-account-role-arn arn:aws:iam::111122223333:role/role-name --configuration-values '{}' --resolve-conflicts --preserve
+aws eks update-addon --cluster-name my-cluster netapp_trident-operator vpc-cni --addon-version v24.10.0-eksbuild.1 \
+    --service-account-role-arn <role-ARN> --configuration-values '{}' --resolve-conflicts --preserve
 ----
 --
 ====

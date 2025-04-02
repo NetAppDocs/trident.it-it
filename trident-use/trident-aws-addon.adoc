@@ -52,38 +52,16 @@ image::../media/aws-eks-03.png[aws eks 03]
 +
 image::../media/aws-eks-04.png[aws eks 04]
 
-. Configurare eventuali impostazioni di configurazione opzionali come richiesto e selezionare *Avanti*.
+. Seguire lo schema di configurazione del componente aggiuntivo* e impostare il parametro valori di configurazione nella sezione *valori di configurazione* sul valore arn del ruolo creato nel passaggio precedente (passaggio 1).
 +
-Seguire lo schema di configurazione *Add-on* e impostare il parametro Configuration Values nella sezione *Configuration Values* sul valore Role-arn creato nel passaggio precedente (passaggio 1) (il valore deve essere nel seguente formato: `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`). NOTA: Se si seleziona Sovrascrivi per il metodo di risoluzione dei conflitti, una o più impostazioni per il componente aggiuntivo esistente possono essere sovrascritte con le impostazioni del componente aggiuntivo Amazon EKS. Se non si attiva questa opzione e si verifica un conflitto con le impostazioni esistenti, l'operazione non riesce. È possibile utilizzare il messaggio di errore risultante per risolvere il conflitto. Prima di selezionare questa opzione, assicurati che il componente aggiuntivo Amazon EKS non gestisca le impostazioni da gestire in autonomia.
+Il valore deve essere nel seguente formato: `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`.
+
++
+
+NOTE: Se si seleziona Sovrascrivi per il metodo di risoluzione dei conflitti, una o più impostazioni per il componente aggiuntivo esistente possono essere sovrascritte con le impostazioni del componente aggiuntivo Amazon EKS. Se non si attiva questa opzione e si verifica un conflitto con le impostazioni esistenti, l'operazione non riesce. È possibile utilizzare il messaggio di errore risultante per risolvere il conflitto. Prima di selezionare questa opzione, assicurati che il componente aggiuntivo Amazon EKS non gestisca le impostazioni da gestire in autonomia.
 
 +
 image::../media/aws-eks-06.png[aws eks 06]
-
-+
-** A partire dalla versione 25,02, Trident supporta la configurazione backend automatica. Trident crea le classi di backend e storage senza problemi dopo l'installazione di Trident. Per attivare la configurazione backend automatica, aggiungere il `ontapConfigurator` parametro e specificare `authType`, `fsxnID`, e `protocols` nello schema di configurazione del componente aggiuntivo insieme a `cloudIdentity` durante l'installazione.
-+
-[listing]
-----
-"ontapConfigurator": {
-        "enabled": true,
-        "svms": [
-          {
-            "authType": "awsarn",
-            "fsxnID": "fs-0dfeaa884a68b1cab",
-            "protocols": [
-              "nfs",
-              "iscsi"
-            ]
-          }
-        ]
-      }}"
-
-----
-+
-
-NOTE: Per disattivare la configurazione automatica del backend, aggiornare la versione di Trident e impostare *ontapConfigurator* su *false*.
-
-
 
 . Selezionare *Crea*.
 . Verificare che lo stato del componente aggiuntivo sia _attivo_.
