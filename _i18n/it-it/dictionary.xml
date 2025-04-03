@@ -5483,4 +5483,5 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="fa1c8065dc4d2b862bfba881472c0aac" category="admonition">Sostituire<block ref="2befb7722283d545949c6220c6548fe4" prefix=" " category="inline-code"></block> con l'ARN del ruolo creato nel passaggio precedente.</block>
   <block id="44308ffe82692c268b99d3caefca907e" category="list-text">Controllare la versione corrente del componente aggiuntivo FSxN Trident CSI. Sostituire<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block> con il nome del cluster.</block>
   <block id="a1dc4a2136ed260b34021d64aaa6980a" category="list-text">Aggiornare il componente aggiuntivo alla versione restituita in AGGIORNAMENTO DISPONIBILE nell'output del passaggio precedente.</block>
+  <block id="0ca34892a0e67f37b07d196ec272007d" category="list-text">NetApp sconsiglia di utilizzare l'espansione automatica FlexVol in tutti i driver ONTAP, ad eccezione di ONTAP-san. Come soluzione alternativa, Trident supporta l'utilizzo di una riserva di snapshot e scala di conseguenza i volumi FlexVol.</block>
 </blocks>
