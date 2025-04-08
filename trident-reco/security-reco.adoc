@@ -47,7 +47,7 @@ NetApp ONTAP offre la crittografia dei dati inattivi per proteggere i dati sensi
 
 * Se NAE è abilitato sul backend, qualsiasi volume sottoposto a provisioning in Trident sarà abilitato NAE.
 +
-** Puoi impostare la crittografia NVE su un valore flat `""` per creare volumi abilitati per NAE.
+** Puoi impostare il flag di crittografia NVE su `""` per creare volumi abilitati per NAE.
 
 
 * Se NAE non è abilitato sul back-end, qualsiasi volume con provisioning in Trident sarà abilitato NVE a meno che non imposti il flag di crittografia NVE su `false` nella configurazione di back-end.
