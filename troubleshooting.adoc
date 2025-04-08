@@ -15,6 +15,9 @@ summary: 'Per la risoluzione dei problemi che si possono verificare durante l"in
 Per la risoluzione dei problemi che si possono verificare durante l'installazione e l'utilizzo di Trident, utilizzare i puntatori forniti di seguito.
 
 
+NOTE: Per ottenere assistenza con Trident, creare un bundle di supporto utilizzando `tridentctl logs -a -n trident` e inviarlo al supporto NetApp.
+
+
 
 == Risoluzione dei problemi generali
 
