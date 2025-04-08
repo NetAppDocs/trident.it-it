@@ -16,11 +16,13 @@ summary: 'La risorsa personalizzata bucket (CR) per Trident Protect è nota come
 [role="lead"]
 La risorsa personalizzata bucket (CR) per Trident Protect è nota come AppVault. Gli oggetti AppVault sono la rappresentazione dichiarativa del flusso di lavoro di Kubernetes di un bucket di storage. AppVault CR contiene le configurazioni necessarie per l'utilizzo di un bucket nelle operazioni di protezione, come backup, snapshot, operazioni di ripristino e replica SnapMirror. Solo gli amministratori possono creare AppVaults.
 
+È necessario creare un AppVault CR manualmente o utilizzando la riga di comando quando si eseguono operazioni di protezione dei dati su un'applicazione e AppVault CR deve risiedere nel cluster in cui è installato Trident Protect. AppVault CR è specifico del proprio ambiente; è possibile utilizzare gli esempi di questa pagina come guida per la creazione di CRS AppVault.
+
 
 
 == Configurare l'autenticazione e le password AppVault
 
-Prima di creare un oggetto AppVault, è necessario assicurarsi che AppVault e il data mover scelto possano autenticarsi con il provider e con qualsiasi risorsa correlata.
+Prima di creare una CR AppVault, è necessario assicurarsi che AppVault e il data mover scelto possano autenticarsi con il provider e con qualsiasi risorsa correlata.
 
 
 
