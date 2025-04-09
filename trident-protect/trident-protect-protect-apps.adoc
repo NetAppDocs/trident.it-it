@@ -123,6 +123,20 @@ Assicurati che la scadenza del token di sessione AWS sia sufficiente per eventua
 
 
 ** *Spec.snapshotRef*: (_Optional_): Nome dello snapshot da utilizzare come origine del backup. Se non viene fornito, verrà creato e eseguito il backup di uno snapshot temporaneo.
+** *metadata.annotations.protect.trident.netapp.io/full-backup-rule* : (_Optional_) questa annotazione viene utilizzata per specificare se un backup deve essere non incrementale. Per impostazione predefinita, tutti i backup sono incrementali. Tuttavia, se questa annotazione è impostata su `true`, il backup diventa non incrementale. Se non specificato, il backup segue l'impostazione di backup incrementale predefinita. È consigliabile eseguire periodicamente un backup completo, quindi eseguire backup incrementali tra un backup completo e l'altro, in modo da ridurre al minimo il rischio associato ai ripristini.
++
+[NOTE]
+====
+Se è necessario applicare questa annotazione dopo la creazione di un'applicazione, è possibile utilizzare il seguente comando:
+
+[source, console]
+----
+kubectl annotate backup -n <backup CR namespace> <backup CR name> protect.trident.netapp.io/full-backup-rule="true"
+----
+====
++
+Esempio YAML:
+
 +
 [source, yaml]
 ----
@@ -132,6 +146,8 @@ kind: Backup
 metadata:
   namespace: my-app-namespace
   name: my-cr-name
+  annotations:
+    protect.trident.netapp.io/full-backup-rule: "true"
 spec:
   applicationRef: my-application
   appVaultRef: appvault-name
@@ -157,6 +173,111 @@ kubectl apply -f trident-protect-backup-cr.yaml
 ----
 tridentctl-protect create backup <my_backup_name> --appvault <my-vault-name> --app <name_of_app_to_back_up> --data-mover <Kopia_or_Restic> -n <application_namespace>
 ----
++
+È possibile utilizzare il `--full-backup` flag per specificare se un backup deve essere non incrementale. Per impostazione predefinita, tutti i backup sono incrementali. Quando si utilizza questo indicatore, il backup diventa non incrementale. È consigliabile eseguire periodicamente un backup completo, quindi eseguire backup incrementali tra un backup completo e l'altro, in modo da ridurre al minimo il rischio associato ai ripristini.
+
+
+
+--
+====
+
+
+== Creare una pianificazione di backup
+
+È possibile pianificare un backup completo non incrementale. Per impostazione predefinita, tutti i backup sono incrementali. L'esecuzione periodica di un backup completo e di backup incrementali intermedi consentono di ridurre i rischi associati ai ripristini.
+
+
+NOTE: Le risorse soggette a ambito cluster sono incluse in un backup, in uno snapshot o in un clone, se fanno riferimento esplicitamente nella definizione dell'applicazione o se hanno riferimenti a uno qualsiasi dei namespace delle applicazioni.
+
+.Prima di iniziare
+Assicurati che la scadenza del token di sessione AWS sia sufficiente per eventuali operazioni di backup S3 a esecuzione prolungata. Se il token scade durante l'operazione di backup, l'operazione potrebbe non riuscire.
+
+* Per ulteriori informazioni sulla verifica della scadenza corrente del token di sessione, fare riferimento https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentazione di API AWS"^] al .
+* Per ulteriori informazioni sulle credenziali con le risorse AWS, fare riferimento al https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentazione di AWS IAM"^].
+
+
+[role="tabbed-block"]
+====
+.Creare una pianificazione utilizzando una CR
+--
+.Fasi
+. Creare il file di risorse personalizzate (CR) e assegnargli un nome `trident-backup-schedule-cr.yaml`.
+. Nel file creato, configurare i seguenti attributi:
++
+** *metadata.name*: (_required_) il nome di questa risorsa personalizzata; scegliere un nome univoco e sensibile per il proprio ambiente.
+** *Spec.dataMover*: (_Optional_) stringa che indica quale strumento di backup utilizzare per l'operazione di backup. Valori possibili (distinzione tra maiuscole e minuscole):
++
+*** `Restic`
+*** `Kopia` (impostazione predefinita)
+
+
+** *Spec.applicationRef*: Il nome Kubernetes dell'applicazione di cui eseguire il backup.
+** *Spec.appVaultRef*: (_required_) il nome dell'AppVault in cui devono essere memorizzati i contenuti di backup.
+** *Spec.backupRetention*: Il numero di backup da conservare. Zero indica che non è necessario creare backup.
+** *Spec.snapshotRetention*: Il numero di snapshot da conservare. Zero indica che non è necessario creare snapshot.
+** *spec.granularity*: frequenza di esecuzione della pianificazione. Valori possibili, insieme ai campi associati obbligatori:
++
+*** `hourly` (è necessario specificare `spec.minute`)
+*** `daily` (richiede di specificare `spec.minute` e `spec.hour`)
+*** `weekly` (è necessario specificare `spec.minute, spec.hour`, e `spec.dayOfWeek`)
+*** `monthly` (è necessario specificare `spec.minute, spec.hour`, e `spec.dayOfMonth`)
+
+
+** *Spec.dayOfMonth*: (_Optional_) il giorno del mese (1 - 31) in cui dovrebbe essere eseguito il programma. Questo campo è obbligatorio se la granularità è impostata su `monthly`.
+** *Spec.DayOfWeek*: (_Optional_) il giorno della settimana (0 - 7) in cui dovrebbe essere eseguito il programma. I valori di 0 o 7 indicano la domenica. Questo campo è obbligatorio se la granularità è impostata su `weekly`.
+** *Spec.hour*: (_Optional_) l'ora del giorno (0 - 23) in cui dovrebbe essere eseguito il programma. Questo campo è obbligatorio se la granularità è impostata su `daily`, , `weekly`o `monthly`.
+** *Spec.minute*: (_Optional_) il minuto dell'ora (0 - 59) che dovrebbe essere eseguito. Questo campo è obbligatorio se la granularità è impostata su `hourly`, , `daily` `weekly`o `monthly`.
+** *metadata.annotations.protect.trident.netapp.io/full-backup-rule*: (_Optional_) questa annotazione viene utilizzata per specificare la regola per la pianificazione del backup completo. Puoi impostarlo su `always` per un backup completo costante o personalizzarlo in base ai tuoi requisiti. Ad esempio, se si sceglie la granularità giornaliera, è possibile specificare i giorni feriali in cui deve essere eseguito il backup completo.
++
+[source, yaml]
+----
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: Schedule
+metadata:
+  namespace: my-app-namespace
+  name: my-cr-name
+  annotations:
+    protect.trident.netapp.io/full-backup-rule: "Monday,Thursday"
+spec:
+  dataMover: Kopia
+  applicationRef: my-application
+  appVaultRef: appvault-name
+  backupRetention: "15"
+  snapshotRetention: "15"
+  granularity: daily
+  dayOfMonth: "1"
+  dayOfWeek: "0"
+  hour: "0"
+  minute: "0"
+----
+
+
+. Dopo aver popolato il `trident-backup-schedule-cr.yaml` file con i valori corretti, applicare la CR:
++
+[source, console]
+----
+kubectl apply -f trident-backup-schedule-cr.yaml
+----
+
+
+--
+.Creare una pianificazione utilizzando l'interfaccia CLI
+--
+.Fasi
+. Creare la pianificazione del backup, sostituendo i valori tra parentesi con le informazioni provenienti dall'ambiente in uso. Ad esempio:
++
+
+NOTE: È possibile utilizzare `tridentctl-protect create schedule --help` per visualizzare informazioni dettagliate sulla guida per questo comando.
+
++
+[source, console]
+----
+tridentctl-protect create schedule <my_schedule_name> --appvault <my_appvault_name> --app <name_of_app_to_snapshot> --backup-retention <how_many_backups_to_retain> --data-mover <Kopia_or_Restic> --day-of-month <day_of_month_to_run_schedule> --day-of-week <day_of_month_to_run_schedule> --granularity <frequency_to_run> --hour <hour_of_day_to_run> --minute <minute_of_hour_to_run> --recurrence-rule <recurrence> --snapshot-retention <how_many_snapshots_to_retain> -n <application_namespace> --full-backup-rule <string>
+----
++
+Puoi impostare l' `--full-backup-rule`indicatore su `always` per un backup completo costante o personalizzarlo in base ai tuoi requisiti. Ad esempio, se si sceglie la granularità giornaliera, è possibile specificare i giorni feriali in cui deve essere eseguito il backup completo. Ad esempio, utilizzare `--full-backup-rule "Monday,Thursday"` per pianificare il backup completo il lunedì e il giovedì.
+
 
 
 --
