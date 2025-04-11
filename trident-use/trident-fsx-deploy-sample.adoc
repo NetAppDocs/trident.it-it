@@ -12,7 +12,7 @@ summary: Scopri le opzioni di configurazione back-end per Amazon FSX per ONTAP. 
 
 
 [role="lead"]
-Distribuire l'applicazione di esempio.
+Una volta creata la classe di archiviazione e il PVC, è possibile montare il PV su un pod. Questa sezione elenca il comando e la configurazione di esempio per collegare il PV a un pod.
 
 .Fasi
 . Montare il volume in un pod.
