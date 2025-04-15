@@ -21,7 +21,7 @@ summary: 'È necessario installare e configurare i prerequisiti del protocollo n
 * Verificare che l'implementazione soddisfi tutti i requisiti di link:../trident-get-started/requirements.html["requisiti"].
 * Verificare che sia installata una versione supportata di Docker. Se la versione di Docker non è aggiornata, https://docs.docker.com/engine/install/["installarlo o aggiornarlo"^].
 +
-[listing]
+[source, console]
 ----
 docker --version
 ----
@@ -38,14 +38,14 @@ Installa gli strumenti NFS utilizzando i comandi del tuo sistema operativo.
 ====
 .RHEL 8+
 --
-[listing]
+[source, console]
 ----
 sudo yum install -y nfs-utils
 ----
 --
 .Ubuntu
 --
-[listing]
+[source, console]
 ----
 sudo apt-get install -y nfs-common
 ----
@@ -66,25 +66,25 @@ Installare gli strumenti iSCSI utilizzando i comandi del sistema operativo.
 --
 . Installare i seguenti pacchetti di sistema:
 +
-[listing]
+[source, console]
 ----
 sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath
 ----
 . Verificare che la versione di iscsi-initiator-utils sia 6.2.0.874-2.el7 o successiva:
 +
-[listing]
+[source, console]
 ----
 rpm -q iscsi-initiator-utils
 ----
 . Impostare la scansione su manuale:
 +
-[listing]
+[source, console]
 ----
 sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
 ----
 . Abilitare il multipathing:
 +
-[listing]
+[source, console]
 ----
 sudo mpathconf --enable --with_multipathd y --find_multipaths n
 ----
@@ -94,13 +94,13 @@ NOTE: Assicurarsi `etc/multipath.conf` contiene `find_multipaths no` sotto `defa
 
 . Assicurarsi che `iscsid` e. `multipathd` sono in esecuzione:
 +
-[listing]
+[source, console]
 ----
 sudo systemctl enable --now iscsid multipathd
 ----
 . Attivare e avviare `iscsi`:
 +
-[listing]
+[source, console]
 ----
 sudo systemctl enable --now iscsi
 ----
@@ -111,25 +111,25 @@ sudo systemctl enable --now iscsi
 --
 . Installare i seguenti pacchetti di sistema:
 +
-[listing]
+[source, console]
 ----
 sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools
 ----
 . Verificare che la versione Open-iscsi sia 2.0.874-5ubuntu2.10 o successiva (per il bionico) o 2.0.874-7.1ubuntu6.1 o successiva (per il focale):
 +
-[listing]
+[source, console]
 ----
 dpkg -l open-iscsi
 ----
 . Impostare la scansione su manuale:
 +
-[listing]
+[source, console]
 ----
 sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
 ----
 . Abilitare il multipathing:
 +
-[listing]
+[source, console]
 ----
 sudo tee /etc/multipath.conf <<-EOF
 defaults {
@@ -146,7 +146,7 @@ NOTE: Assicurarsi `etc/multipath.conf` contiene `find_multipaths no` sotto `defa
 
 . Assicurarsi che `open-iscsi` e. `multipath-tools` sono abilitati e in esecuzione:
 +
-[listing]
+[source, console]
 ----
 sudo systemctl status multipath-tools
 sudo systemctl enable --now open-iscsi.service
@@ -173,7 +173,7 @@ Installa gli strumenti NVMe utilizzando i comandi del tuo sistema operativo.
 ====
 .RHEL 9
 --
-[listing]
+[source, console]
 ----
 sudo yum install nvme-cli
 sudo yum install linux-modules-extra-$(uname -r)
@@ -182,7 +182,7 @@ sudo modprobe nvme-tcp
 --
 .Ubuntu
 --
-[listing]
+[source, console]
 ----
 sudo apt install nvme-cli
 sudo apt -y install linux-modules-extra-$(uname -r)
@@ -205,13 +205,13 @@ Installa gli strumenti FC utilizzando i comandi del tuo sistema operativo.
 --
 . Installare i seguenti pacchetti di sistema:
 +
-[listing]
+[source, console]
 ----
 sudo yum install -y lsscsi device-mapper-multipath
 ----
 . Abilitare il multipathing:
 +
-[listing]
+[source, console]
 ----
 sudo mpathconf --enable --with_multipathd y --find_multipaths n
 ----
@@ -221,7 +221,7 @@ NOTE: Assicurarsi `etc/multipath.conf` contiene `find_multipaths no` sotto `defa
 
 . Assicurarsi che `multipathd` sia in esecuzione:
 +
-[listing]
+[source, console]
 ----
 sudo systemctl enable --now multipathd
 ----
@@ -232,13 +232,13 @@ sudo systemctl enable --now multipathd
 --
 . Installare i seguenti pacchetti di sistema:
 +
-[listing]
+[source, console]
 ----
 sudo apt-get install -y lsscsi sg3-utils multipath-tools scsitools
 ----
 . Abilitare il multipathing:
 +
-[listing]
+[source, console]
 ----
 sudo tee /etc/multipath.conf <<-EOF
 defaults {
@@ -255,7 +255,7 @@ NOTE: Assicurarsi `etc/multipath.conf` contiene `find_multipaths no` sotto `defa
 
 . Assicurarsi che `multipath-tools` sia attivato e in esecuzione:
 +
-[listing]
+[source, console]
 ----
 sudo systemctl status multipath-tools
 ----

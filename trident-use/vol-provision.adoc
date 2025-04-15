@@ -84,7 +84,7 @@ Questi esempi mostrano le opzioni di configurazione di base del PVC.
 .PVC con accesso RWO
 Questo esempio mostra un PVC di base con accesso RWO associato a un nome StorageClass `basic-csi`.
 
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -101,7 +101,7 @@ spec:
 .PVC con NVMe/TCP
 Questo esempio mostra un PVC di base per NVMe/TCP con accesso RWO associato a una StorageClass denominata `protection-gold`.
 
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -122,7 +122,7 @@ storageClassName: protection-gold
 Questi esempi mostrano le configurazioni di base per collegare il PVC a un pod.
 
 .Configurazione di base
-[listing]
+[source, yaml]
 ----
 kind: Pod
 apiVersion: v1
@@ -144,7 +144,7 @@ spec:
           name: storage
 ----
 .Configurazione NVMe/TCP di base
-[listing]
+[source, yaml]
 ----
 apiVersion: v1
 kind: Pod

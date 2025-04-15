@@ -62,7 +62,7 @@ TIP: Questa opzione è utile se si desidera utilizzare Kubernetes per carichi di
 Di seguito viene riportato un esempio di specifica minima:
 
 +
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1

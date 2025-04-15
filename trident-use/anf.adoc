@@ -60,7 +60,7 @@ Trident supporta link:https://learn.microsoft.com/en-us/azure/active-directory/m
 --
 Per installare Trident utilizzando l'operatore Trident, `tridentorchestrator_cr.yaml` impostare su `cloudProvider` `"Azure"` . Ad esempio:
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -114,7 +114,7 @@ Per installare Trident utilizzando l'operatore Trident, `tridentorchestrator_cr.
 
 Ad esempio:
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -125,7 +125,7 @@ spec:
   namespace: trident
   imagePullPolicy: IfNotPresent
   cloudProvider: "Azure"
-  *cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx'*
+  cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx' # Edit
 ----
 --
 .Timone

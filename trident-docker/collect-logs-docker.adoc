@@ -21,9 +21,13 @@ summary: È possibile raccogliere i registri per ottenere assistenza nella risol
 .Fasi
 . Se si esegue Trident utilizzando il metodo del plugin gestito consigliato (ad esempio, utilizzando `docker plugin` i comandi), visualizzarli come segue:
 +
-[listing]
+[source, console]
 ----
 docker plugin ls
+----
++
+[listing]
+----
 ID                  NAME                DESCRIPTION                          ENABLED
 4fb97d2b956b        netapp:latest       nDVP - NetApp Docker Volume Plugin   false
 journalctl -u docker | grep 4fb97d2b956b
@@ -33,7 +37,7 @@ Il livello di registrazione standard dovrebbe consentire di diagnosticare la mag
 
 . Per abilitare la registrazione del debug, installare il plug-in con la registrazione del debug attivata:
 +
-[listing]
+[source, console]
 ----
 docker plugin install netapp/trident-plugin:<version> --alias <alias> debug=true
 ----
@@ -41,10 +45,18 @@ docker plugin install netapp/trident-plugin:<version> --alias <alias> debug=true
 In alternativa, attivare la registrazione del debug quando il plug-in è già installato:
 
 +
-[listing]
+[source, console]
 ----
 docker plugin disable <plugin>
+----
++
+[source, console]
+----
 docker plugin set <plugin> debug=true
+----
++
+[source, console]
+----
 docker plugin enable <plugin>
 ----
 . Se si esegue il file binario stesso sull'host, i registri sono disponibili nell'host `/var/log/netappdvp` directory. Per attivare la registrazione di debug, specificare `-debug` quando si esegue il plug-in.

@@ -60,7 +60,7 @@ Per garantire la sicurezza, la condivisione di spazi dei nomi incrociati richied
 .Fasi
 . *Source namespace owner:* Crea il PVC (`pvc1`) nello spazio dei nomi di origine che concede l'autorizzazione per la condivisione con lo spazio dei nomi di destinazione (`namespace2`) utilizzando `shareToNamespace` annotazione.
 +
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -92,7 +92,7 @@ Trident crea il PV e il suo volume di storage NFS di back-end.
 . *Cluster admin:* creare il ruolo personalizzato e il kubeconfig per concedere l'autorizzazione al proprietario dello spazio dei nomi di destinazione per creare il CR di TridentVolumeReference nello spazio dei nomi di destinazione.
 . *Destination namespace owner:* creare una CR di TridentVolumeReference nello spazio dei nomi di destinazione che si riferisce allo spazio dei nomi di origine `pvc1`.
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentVolumeReference
@@ -105,7 +105,7 @@ spec:
 ----
 . *Proprietario dello spazio dei nomi di destinazione:* Crea un PVC (`pvc2`) nello spazio dei nomi di destinazione (`namespace2`) utilizzando `shareFromPVC` Annotazione per indicare il PVC di origine.
 +
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1

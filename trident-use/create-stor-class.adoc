@@ -20,7 +20,7 @@ Configurare un oggetto Kubernetes StorageClass e creare la classe storage per is
 
  https://kubernetes.io/docs/concepts/storage/storage-classes/["Oggetto Kubernetes StorageClass"^]Identifica Trident come provisioner utilizzato per quella classe e istruisce Trident su come effettuare il provisioning di un volume. Ad esempio:
 
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -50,13 +50,23 @@ kubectl create -f sample-input/storage-class-basic-csi.yaml
 ----
 . Ora dovresti vedere una classe storage *Basic-csi* in Kubernetes e Trident, e Trident dovrebbe aver scoperto i pool nel back-end.
 +
-[listing]
+[source, console]
 ----
 kubectl get sc basic-csi
+----
+
+
+[listing]
+----
 NAME         PROVISIONER             AGE
 basic-csi    csi.trident.netapp.io   15h
-
+----
+[source, console]
+----
 ./tridentctl -n trident get storageclass basic-csi -o json
+----
+[source, json]
+----
 {
   "items": [
     {
@@ -81,8 +91,6 @@ basic-csi    csi.trident.netapp.io   15h
   ]
 }
 ----
-
-
 
 
 === Campioni di classe di conservazione

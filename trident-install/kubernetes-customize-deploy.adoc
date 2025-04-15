@@ -164,11 +164,10 @@ Quando l'integrità del nodo viene ripristinata e il tag viene rimosso, Trident:
 .Configurazione personalizzata di base
 [%collapsible]
 ====
-Questo è un esempio per un'installazione personalizzata di base.
+Questo esempio, creato dopo aver eseguito il `cat deploy/crds/tridentorchestrator_cr_imagepullsecrets.yaml` comando, rappresenta un'installazione personalizzata di base:
 
-[listing]
+[source, yaml]
 ----
-cat deploy/crds/tridentorchestrator_cr_imagepullsecrets.yaml
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
 metadata:
@@ -185,7 +184,7 @@ spec:
 ====
 In questo esempio viene installato Trident con i selettori di nodo.
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -203,11 +202,10 @@ spec:
 .Nodi di lavoro Windows
 [%collapsible]
 ====
-In questo esempio viene installato Trident su un nodo di lavoro Windows.
+In questo esempio, creato dopo l'esecuzione del `cat deploy/crds/tridentorchestrator_cr.yaml` comando, Trident viene installato su un nodo di lavoro Windows.
 
-[listing]
+[source, yaml]
 ----
-cat deploy/crds/tridentorchestrator_cr.yaml
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
 metadata:
@@ -223,7 +221,7 @@ spec:
 ====
 In questo esempio viene installato Trident per abilitare le identità gestite su un cluster AKS.
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -240,7 +238,7 @@ spec:
 ====
 Questo esempio installa Trident per l'utilizzo con un'identità cloud su un cluster AKS.
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -259,7 +257,7 @@ spec:
 ====
 Questo esempio installa Trident per l'utilizzo con un'identità cloud su un cluster AKS.
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -277,7 +275,7 @@ spec:
 ====
 Questo esempio installa Trident per l'utilizzo con un'identità cloud su un cluster GKE.
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig

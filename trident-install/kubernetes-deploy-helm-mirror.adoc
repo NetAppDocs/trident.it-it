@@ -51,7 +51,7 @@ IMPORTANT: Quando si installa Trident in un repository privato, se si utilizza `
 .Fasi
 . Aggiungere il repository Trident Helm:
 +
-[listing]
+[source, console]
 ----
 helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident/trident-operator
 ----
@@ -61,14 +61,14 @@ helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident
 ====
 .Immagini in un registro
 --
-[listing]
+[source, console]
 ----
 helm install <name> netapp-trident/trident-operator --version 100.2502.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
 --
 .Immagini in diversi registri
 --
-[listing]
+[source, console]
 ----
 helm install <name> netapp-trident/trident-operator --version 100.2502.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:25.02.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:25.02 --set tridentImage=<your-registry>/trident:25.02.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
@@ -104,13 +104,13 @@ Specificare le sostituzioni sulla riga di comando.
 |===
 Ad esempio, per modificare il valore predefinito di `debug`, eseguire il comando seguente dove si trova `100.2502.0` la versione di Trident che si sta installando:
 
-[listing]
+[source, console]
 ----
 helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 Per aggiungere il valore nodePrep, eseguire il comando seguente:
 
-[listing]
+[source, console]
 ----
 helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set nodePrep={iscsi}
 ----

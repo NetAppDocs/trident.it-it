@@ -136,7 +136,7 @@ Quando si creano gruppi di criteri QoS, considerare quanto segue:
 
 [listing]
 ----
-  ---
+---
 version: 1
 storageDriverName: ontap-nas
 managementLIF: 0.0.0.0
@@ -147,14 +147,15 @@ password: pass
 defaults:
   qosPolicy: standard-pg
 storage:
-- labels:
-    performance: extreme
-  defaults:
-    adaptiveQosPolicy: extremely-adaptive-pg
-- labels:
-    performance: premium
-  defaults:
-    qosPolicy: premium-pg
+  - labels:
+      performance: extreme
+    defaults:
+      adaptiveQosPolicy: extremely-adaptive-pg
+  - labels:
+      performance: premium
+    defaults:
+      qosPolicy: premium-pg
+
 ----
 * È necessario applicare i gruppi di criteri per volume, in modo che ogni volume ottenga l'intero throughput come specificato dal gruppo di criteri. I gruppi di criteri condivisi non sono supportati.
 

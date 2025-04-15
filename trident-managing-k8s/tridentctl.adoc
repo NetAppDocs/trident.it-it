@@ -260,14 +260,14 @@ Per aggiornare utilizzando il file, procedere come segue `userState` `backend.js
 [listing]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-nas",
-    "managementLIF": "<redacted>",
-    "svm": "nas-svm",
-    "backendName": "customBackend",
-    "username": "<redacted>",
-    "password": "<redacted>",
-    "userState": "suspended",
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "managementLIF": "<redacted>",
+  "svm": "nas-svm",
+  "backendName": "customBackend",
+  "username": "<redacted>",
+  "password": "<redacted>",
+  "userState": "suspended"
 }
 
 ----
@@ -276,7 +276,7 @@ Per aggiornare utilizzando il file, procedere come segue `userState` `backend.js
 --
 È possibile modificare il tbc dopo averlo applicato utilizzando il `kubectl edit <tbc-name> -n <namespace>` comando . Nell'esempio riportato di seguito viene aggiornato lo stato backend per la sospensione mediante l' `userState: suspended` opzione:
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -288,7 +288,7 @@ spec:
   storageDriverName: ontap-nas
   managementLIF: <redacted>
   svm: nas-svm
-userState: suspended
+  userState: suspended
   credentials:
     name: backend-tbc-ontap-nas-secret
 ----

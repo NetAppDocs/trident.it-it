@@ -38,7 +38,7 @@ Thin provisioning o thick provisioning del volume, per impostazione predefinita 
 
 
 | `snapshotPolicy`  a| 
-In questo modo, il criterio di snapshot viene impostato sul valore desiderato. L'impostazione predefinita è `none`, ovvero non verranno create automaticamente snapshot per il volume. A meno che non venga modificato dall'amministratore dello storage, su tutti i sistemi ONTAP esiste una policy denominata "default" che crea e conserva sei snapshot ogni ora, due giornalieri e due settimanali. I dati conservati in uno snapshot possono essere ripristinati esplorando il `.snapshot` directory in qualsiasi directory del volume.
+In questo modo, il criterio di snapshot viene impostato sul valore desiderato. L'impostazione predefinita è `none`, ovvero non verranno creati automaticamente istantanee per il volume. A meno che non venga modificato dall'amministratore dello storage, su tutti i sistemi ONTAP esiste una policy denominata "default", che crea e conserva sei snapshot ogni ora, due al giorno e due snapshot settimanali. I dati conservati in uno snapshot possono essere recuperati navigando nella `.snapshot` directory di qualsiasi directory del volume.
 
 
 
@@ -189,36 +189,35 @@ Utilizzare 512 o 4096, il valore predefinito è 512 o la voce di configurazione 
 
 Vedere il seguente file di configurazione di esempio con le definizioni di QoS:
 
-[listing]
+[source, json]
 ----
 {
-    "...": "..."
-    "Types": [
-        {
-            "Type": "Bronze",
-            "Qos": {
-                "minIOPS": 1000,
-                "maxIOPS": 2000,
-                "burstIOPS": 4000
-            }
-        },
-        {
-            "Type": "Silver",
-            "Qos": {
-                "minIOPS": 4000,
-                "maxIOPS": 6000,
-                "burstIOPS": 8000
-            }
-        },
-        {
-            "Type": "Gold",
-            "Qos": {
-                "minIOPS": 6000,
-                "maxIOPS": 8000,
-                "burstIOPS": 10000
-            }
-        }
-    ]
+  "Types": [
+    {
+      "Type": "Bronze",
+      "Qos": {
+        "minIOPS": 1000,
+        "maxIOPS": 2000,
+        "burstIOPS": 4000
+      }
+    },
+    {
+      "Type": "Silver",
+      "Qos": {
+        "minIOPS": 4000,
+        "maxIOPS": 6000,
+        "burstIOPS": 8000
+      }
+    },
+    {
+      "Type": "Gold",
+      "Qos": {
+        "minIOPS": 6000,
+        "maxIOPS": 8000,
+        "burstIOPS": 10000
+      }
+    }
+  ]
 }
 ----
 Nella configurazione precedente, sono disponibili tre definizioni di policy: Bronze, Silver e Gold. Questi nomi sono arbitrari.

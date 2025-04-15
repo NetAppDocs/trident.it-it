@@ -46,7 +46,7 @@ NOTE: Per impostazione predefinita, le metriche di Trident sono esposte sulla po
 
 Per utilizzare le metriche Trident, è necessario creare un ServiceMonitor Prometheus che controlli `trident-csi` e ascolta su `metrics` porta. Un esempio di ServiceMonitor è simile al seguente:
 
-[listing]
+[source, yaml]
 ----
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -54,7 +54,7 @@ metadata:
   name: trident-sm
   namespace: monitoring
   labels:
-      release: prom-operator
+    release: prom-operator
 spec:
   jobLabel: trident
   selector:
@@ -62,10 +62,10 @@ spec:
       app: controller.csi.trident.netapp.io
   namespaceSelector:
     matchNames:
-    - trident
+      - trident
   endpoints:
-  - port: metrics
-    interval: 15s
+    - port: metrics
+      interval: 15s
 ----
 Questa definizione di ServiceMonitor recupera le metriche restituite dal `trident-csi` servizio e ricerca specificamente l' `metrics`endpoint del servizio. Di conseguenza, Prometheus è ora configurato per comprendere le metriche di Trident.
 
@@ -151,24 +151,23 @@ Per impostazione predefinita, Trident invia quotidianamente le metriche Promethe
 
 Un esempio di payload inviato da Trident è simile al seguente:
 
-[listing]
+[source, yaml]
 ----
 ---
 items:
-- backendUUID: ff3852e1-18a5-4df4-b2d3-f59f829627ed
-  protocol: file
-  config:
-    version: 1
-    storageDriverName: ontap-nas
-    debug: false
-    debugTraceFlags:
-    disableDelete: false
-    serialNumbers:
-    - nwkvzfanek_SN
-    limitVolumeSize: ''
-  state: online
-  online: true
-
+  - backendUUID: ff3852e1-18a5-4df4-b2d3-f59f829627ed
+    protocol: file
+    config:
+      version: 1
+      storageDriverName: ontap-nas
+      debug: false
+      debugTraceFlags: null
+      disableDelete: false
+      serialNumbers:
+        - nwkvzfanek_SN
+      limitVolumeSize: ""
+    state: online
+    online: true
 ----
 * I messaggi AutoSupport vengono inviati all'endpoint AutoSupport di NetApp. Se si utilizza un registro privato per memorizzare le immagini container, è possibile utilizzare `--image-registry` allarme.
 * È inoltre possibile configurare gli URL proxy generando i file YAML di installazione. Per eseguire questa operazione, utilizzare `tridentctl install --generate-custom-yaml` Per creare i file YAML e aggiungere `--proxy-url` argomento per `trident-autosupport` container in `trident-deployment.yaml`.

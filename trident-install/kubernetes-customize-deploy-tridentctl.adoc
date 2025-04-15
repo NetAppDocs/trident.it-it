@@ -40,7 +40,7 @@ Se è necessario personalizzare l'installazione oltre a quanto consentito dall'a
 
 Dopo aver generato questi file, è possibile modificarli in base alle proprie esigenze e utilizzarli `--use-custom-yaml` per installare l'implementazione personalizzata.
 
-[listing]
+[source, console]
 ----
 ./tridentctl install -n trident --use-custom-yaml
 ----
