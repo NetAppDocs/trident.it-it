@@ -52,10 +52,16 @@ image::../media/aws-eks-03.png[aws eks 03]
 +
 image::../media/aws-eks-04.png[aws eks 04]
 
-. Seguire lo schema di configurazione del componente aggiuntivo* e impostare il parametro valori di configurazione nella sezione *valori di configurazione* sul valore arn del ruolo creato nel passaggio precedente (passaggio 1).
+. Seguire lo schema di configurazione del componente aggiuntivo* e impostare il parametro valori di configurazione nella sezione *valori di configurazione* sul valore arn del ruolo creato nel passaggio precedente (passaggio 1). Il valore deve essere nel seguente formato:
 +
-Il valore deve essere nel seguente formato: `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`.
+[source, JSON]
+----
+{
 
+  "cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'"
+
+}
+----
 +
 
 NOTE: Se si seleziona Sovrascrivi per il metodo di risoluzione dei conflitti, una o più impostazioni per il componente aggiuntivo esistente possono essere sovrascritte con le impostazioni del componente aggiuntivo Amazon EKS. Se non si attiva questa opzione e si verifica un conflitto con le impostazioni esistenti, l'operazione non riesce. È possibile utilizzare il messaggio di errore risultante per risolvere il conflitto. Prima di selezionare questa opzione, assicurati che il componente aggiuntivo Amazon EKS non gestisca le impostazioni da gestire in autonomia.
@@ -83,7 +89,7 @@ kubectl get pods -n trident
 
 .Installare il componente aggiuntivo NetApp Trident EKS utilizzando la CLI:
 Il seguente comando di esempio installa il componente aggiuntivo Trident EKS:
-`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.10.0-eksbuild.1` (Con una versione dedicata)
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v25.02.1-eksbuild.1` (Con una versione dedicata)
 
 .Disinstallare il componente aggiuntivo NetApp Trident EKS utilizzando CLI:
 Il seguente comando disinstalla il componente aggiuntivo Trident EKS:
