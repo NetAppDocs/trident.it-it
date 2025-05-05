@@ -22,3 +22,10 @@ entries:
     url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
   - title: Personalizzare l'installazione di tridentctl
     url: "/trident-get-started/kubernetes-customize-deploy-tridentctl.html"
+- title: Installare utilizzando un operatore certificato OpenShift
+  entries:
+  - title: Installare Trident utilizzando OpenShift OperatorHub
+    url: "/trident-get-started/openshift-operator-deploy.html"
+  - title: Passare dall'operatore della comunità Trident all'operatore certificato
+      OpenShift
+    url: "/trident-get-started/openshift-certified-operator-deploy.html"
