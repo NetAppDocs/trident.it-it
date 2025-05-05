@@ -5147,7 +5147,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="fc61af20b92225aae2a169587940eb14" category="doc">Clona i volumi tra namespace</block>
   <block id="7d3b4ba16dd9908f0a9572976f62cb92" category="paragraph">Utilizzando Trident, puoi creare nuovi volumi utilizzando volumi esistenti o volumesnapshot da un namespace diverso all'interno dello stesso cluster Kubernetes.</block>
   <block id="12bf911acc3865647e24aa6cc61fad9d" category="paragraph">Prima di clonare i volumi, verificare che i backend di origine e di destinazione siano dello stesso tipo e abbiano la stessa classe di storage.</block>
-  <block id="0338234dde0d63169da560597ab080e5" category="paragraph">Puoi configurare il cloning del volume NFS in pochi passaggi.</block>
   <block id="9e556d1188a1d7d3f911546d9c8f70f1" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block> Configurare il PVC di origine per clonare il volume</block>
   <block id="4f371bbe8ba542b2ca00eb9f3a3a2716" category="paragraph-title"><block ref="beadfa85a2fdca06b91edc1131c603e6" category="inline-image-macro-rx" type="image"></block> Creare il PVC clone nello spazio dei nomi di destinazione</block>
   <block id="a77fe76c8980416f14767484ab56a324" category="paragraph">Il proprietario dello spazio dei nomi di destinazione crea PVC per clonare il PVC dallo spazio dei nomi di origine.</block>
@@ -5514,4 +5513,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="0e9e7400617f4a815b5ec92f2030b580" category="sidebar">Installare utilizzando un operatore certificato OpenShift</block>
   <block id="93e4eff1c01241084bfc9427074bacea" category="sidebar">Installare Trident utilizzando OpenShift OperatorHub</block>
   <block id="c9e3d6c8fc80db4773cf69e205f2b571" category="sidebar">Passare dall'operatore della comunità Trident all'operatore certificato OpenShift</block>
+  <block id="88f2acec92adfdf94ffec73a8fda60a6" category="paragraph">Il cloning dei volumi può essere configurato in pochi passaggi.</block>
+  <block id="e44a637a848aa60ef27cfc477d692412" category="paragraph">Trident crea il PV e il suo volume di storage di backend.</block>
 </blocks>
