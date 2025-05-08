@@ -19,7 +19,27 @@ WARNING: Il `tridentctl` Il file binario per Linux fornito nel file zip del prog
 
 
 
-== Novità del 25,02
+== Novità del 25.02.1
+
+
+
+=== Trident
+
+
+
+==== Correzioni
+
+* *Kubernetes*:
++
+** È stato risolto un problema nell'operatore Trident in cui i nomi e le versioni delle immagini sidecar erano compilati in modo errato quando si utilizzava un registro delle immagini non predefinito (link:https://github.com/NetApp/trident/issues/983["Problema n. 983"]).
+** Risolto il problema a causa del quale le sessioni multipath non riescono a recuperare durante un giveback di failover ONTAP (link:https://github.com/NetApp/trident/issues/961["Problema n. 961"]).
+
+
+
+
+
+
+== Modifiche nel 25,02
 
 A partire da Trident 25,02, il riepilogo Novità fornisce dettagli su miglioramenti, correzioni e deprecazioni per entrambe le versioni di Trident e Trident Protect.
 
@@ -103,6 +123,28 @@ NetApp Trident Protect offre capacità avanzate di gestione dei dati delle appli
 * Le annotazioni SCC vengono ora ripristinate ai valori originali.
 * Maggiore efficienza di ripristino con supporto per operazioni parallele.
 * Supporto avanzato per i timeout di esecuzione delle chiamate per applicazioni di grandi dimensioni.
+
+
+
+
+== Modifiche nel 24.10.1
+
+
+
+=== Miglioramenti
+
+* *Kubernetes*: Aggiunto il supporto per Kubernetes 1,32.
+* È stato aggiunto il rilevamento e la registrazione dello stato della connessione iSCSI quando le sessioni iSCSI devono essere collegate ma non sono (link:https://github.com/NetApp/trident/issues/961["Problema n. 961"]).
+
+
+
+
+=== Correzioni
+
+* Corretti gli indirizzi IP dei nodi mancanti dai criteri di esportazione automatica (link:https://github.com/NetApp/trident/issues/965["Problema n. 965"]).
+* È stato risolto il problema del passaggio prematuro delle policy di esportazione automatiche a policy per volume per ONTAP-NAS-Economy.
+* Dipendenze Trident e Trident-ASUP aggiornate per CVE-2024-45337 e CVE-2024-45310.
+* Sono state rimosse le disconnessioni per i portali non CHAP non integri in modo intermittente durante l'autoriparazione iSCSI (link:https://github.com/NetApp/trident/issues/961["Problema n. 961"]).
 
 
 
