@@ -196,7 +196,7 @@ sudo modprobe nvme-tcp
 
 Installa gli strumenti FC utilizzando i comandi del tuo sistema operativo.
 
-* Quando si utilizzano nodi di lavoro che eseguono RHEL/RedHat CoreOS con FC PVS, specificare il `discard` mount Option in StorageClass per eseguire il recupero dello spazio in linea. Fare riferimento alla https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentazione RedHat"^].
+* Quando si utilizzano nodi di lavoro che eseguono RHEL/Red Hat Enterprise Linux CoreOS (RHCOS) con FC PVS, specificare il `discard` mount Option in StorageClass per eseguire il recupero dello spazio in linea. Fare riferimento alla https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentazione di Red Hat"^].
 
 
 [role="tabbed-block"]

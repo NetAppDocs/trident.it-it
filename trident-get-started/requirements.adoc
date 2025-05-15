@@ -78,7 +78,7 @@ Per utilizzare Trident, è necessario uno o più dei seguenti backend supportati
 
 
 
-== Supporto Trident per la virtualizzazione KubeVirt e OpenShift
+== Supporto Trident per KubeVirt e OpenShift Virtualization
 
 .Driver di archiviazione supportati:
 Trident supporta i seguenti driver ONTAP per la virtualizzazione KubeVirt e OpenShift:
@@ -174,7 +174,7 @@ No
 
 Sebbene Trident non supporti ufficialmente sistemi operativi specifici, è noto che i seguenti sistemi funzionano:
 
-* Versioni di RedHat CoreOS (RHCOS) supportate da OpenShift Container Platform (AMD64 e ARM64)
+* Versioni di Red Hat Enterprise Linux CoreOS (RHCOS) supportate da OpenShift Container Platform (AMD64 e ARM64)
 * RHEL 8+ (AMD64 E ARM64)
 +
 
