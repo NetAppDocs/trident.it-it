@@ -418,7 +418,7 @@ Per ulteriori informazioni sulle classi di archiviazione, fare riferimento a lin
 
 === Definizioni di esempio per volumi SMB
 
-Utilizzo di `nasType`, `node-stage-secret-name`, e.  `node-stage-secret-namespace`, È possibile specificare un volume SMB e fornire le credenziali Active Directory richieste.
+Utilizzando `nasType`, , `node-stage-secret-name` e  `node-stage-secret-namespace`, è possibile specificare un volume SMB e fornire le credenziali di Active Directory richieste. Qualsiasi utente/password di Active Directory con autorizzazioni qualsiasi/nessuna può essere utilizzato per il segreto di fase del nodo.
 
 .Configurazione di base sullo spazio dei nomi predefinito
 [%collapsible]
