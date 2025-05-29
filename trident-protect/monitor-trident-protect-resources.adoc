@@ -66,7 +66,7 @@ customResourceState:
     spec:
       resources:
       - groupVersionKind:
-          group: astra.netapp.io
+          group: protect.trident.netapp.io
           kind: "Backup"
           version: "v1"
         labelsFromPath:
@@ -84,7 +84,7 @@ customResourceState:
                 appReference: ["spec", "applicationRef"]
 rbac:
   extraRules:
-  - apiGroups: ["backups.protect.trident.netapp.io"]
+  - apiGroups: ["protect.trident.netapp.io"]
     resources: ["backups"]
     verbs: ["list", "watch"]
 
@@ -124,9 +124,9 @@ helm install custom-resource -f metrics-config.yaml prometheus-community/kube-st
 Dopo aver installato gli strumenti di monitoraggio, è necessario configurarli per lavorare insieme.
 
 .Fasi
-. Integra metriche-stato-kube con Prometheus. Modificare il file di configurazione di Prometheus (`prometheus.yml`) e aggiungere le informazioni del servizio kube-state-metrics. Ad esempio:
+. Integra metriche-stato-kube con Prometheus. Modificare il file di configurazione di Prometheus (`prometheus.yaml`) e aggiungere le informazioni del servizio kube-state-metrics. Ad esempio:
 +
-.prometheus.yml: Integrazione del servizio kube-state-metrics con Prometheus
+.prometheus.yaml: integrazione del servizio kube-state-metrics con Prometheus
 [source, yaml]
 ----
 ---
@@ -134,26 +134,26 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: prometheus-config
-  namespace: astra-connector
+  namespace: trident-protect
 data:
-  prometheus.yml: |
+  prometheus.yaml: |
     global:
       scrape_interval: 15s
     scrape_configs:
       - job_name: 'kube-state-metrics'
         static_configs:
-          - targets: ['kube-state-metrics.astra-connector.svc:8080']
+          - targets: ['kube-state-metrics.trident-protect.svc:8080']
 ----
-. Configurare Prometheus per instradare gli avvisi ad Alertmanager. Modificare il file di configurazione di Prometheus (`prometheus.yml`) e aggiungere la seguente sezione:
+. Configurare Prometheus per instradare gli avvisi ad Alertmanager. Modificare il file di configurazione di Prometheus (`prometheus.yaml`) e aggiungere la seguente sezione:
 +
-.prometheus.yml: Invia avvisi ad Alertmanager
+.prometheus.yaml: Invia avvisi ad Alertmanager
 [source, yaml]
 ----
 alerting:
   alertmanagers:
     - static_configs:
         - targets:
-            - alertmanager.astra-connector.svc:9093
+            - alertmanager.trident-protect.svc:9093
 ----
 
 
@@ -170,12 +170,12 @@ Dopo aver configurato gli strumenti per lavorare insieme, è necessario configur
 
 === Esempio di avviso: Errore di backup
 
-Nell'esempio seguente viene definito un avviso critico che viene attivato quando lo stato della risorsa personalizzata di backup è impostato su `Error` per 5 secondi o più. È possibile personalizzare questo esempio in base all'ambiente in uso e includere questo frammento YAML nel `prometheus.yml` file di configurazione:
+Nell'esempio seguente viene definito un avviso critico che viene attivato quando lo stato della risorsa personalizzata di backup è impostato su `Error` per 5 secondi o più. È possibile personalizzare questo esempio in base all'ambiente in uso e includere questo frammento YAML nel `prometheus.yaml` file di configurazione:
 
-.Rules.yml: Definire un avviso Prometheus per i backup non riusciti
+.rules.yaml: Definisci un avviso Prometheus per i backup non riusciti
 [source, yaml]
 ----
-rules.yml: |
+rules.yaml: |
   groups:
     - name: fail-backup
         rules:
@@ -192,15 +192,15 @@ rules.yml: |
 
 === Configurare Alertmanager per inviare avvisi ad altri canali
 
-È possibile configurare Alertmanager in modo che invii notifiche ad altri canali, quali e-mail, PagerDuty, Microsoft Teams o altri servizi di notifica specificando la rispettiva configurazione nel `alertmanager.yml` file.
+È possibile configurare Alertmanager in modo che invii notifiche ad altri canali, quali e-mail, PagerDuty, Microsoft Teams o altri servizi di notifica specificando la rispettiva configurazione nel `alertmanager.yaml` file.
 
 Nell'esempio seguente, Alertmanager configura l'invio di notifiche a un canale Slack. Per personalizzare questo esempio in base all'ambiente in uso, sostituire il valore della `api_url` chiave con l'URL slack webhook utilizzato nell'ambiente in uso:
 
-.Alertmanager.yml: Invia avvisi a un canale Slack
+.alertmanager.yaml: invia avvisi a un canale Slack
 [source, yaml]
 ----
 data:
-  alertmanager.yml: |
+  alertmanager.yaml: |
     global:
       resolve_timeout: 5m
     route:

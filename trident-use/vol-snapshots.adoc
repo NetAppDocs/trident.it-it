@@ -18,7 +18,7 @@ Le snapshot del volume di Kubernetes dei volumi persistenti (PVS) consentono cop
 
 == Panoramica
 
-Lo snapshot del volume è supportato da `ontap-nas`, `ontap-nas-flexgroup`, `ontap-san`, `ontap-san-economy`, `solidfire-san`, `gcp-cvs`, e. `azure-netapp-files` driver.
+L'istantanea del volume è supportata da  `ontap-nas` ,  `ontap-nas-flexgroup` ,  `ontap-san` ,  `ontap-san-economy` ,  `solidfire-san` ,  `gcp-cvs` ,  `azure-netapp-files` , E  `google-cloud-netapp-volumes` conducenti.
 
 .Prima di iniziare
 Per utilizzare gli snapshot, è necessario disporre di un controller snapshot esterno e di CRD (Custom Resource Definitions). Questa è la responsabilità del Kubernetes orchestrator (ad esempio: Kubeadm, GKE, OpenShift).
