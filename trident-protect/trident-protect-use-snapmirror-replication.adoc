@@ -216,8 +216,6 @@ tridentctl-protect create app <my-app-name> --namespaces <namespaces-to-be-inclu
 
 --
 ====
-
-
 . In alternativa, nel cluster di origine, acquisire uno snapshot di arresto dell'applicazione di origine. Questo snapshot viene utilizzato come base per l'applicazione nel cluster di destinazione. Se si salta questo passaggio, è necessario attendere l'esecuzione dello snapshot pianificato successivo in modo da disporre di uno snapshot recente.
 +
 [role="tabbed-block"]
