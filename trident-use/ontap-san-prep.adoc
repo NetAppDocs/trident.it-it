@@ -14,16 +14,13 @@ summary: Scopri come preparare la configurazione di un backend ONTAP con i drive
 [role="lead"]
 Comprendere i requisiti e le opzioni di autenticazione per la configurazione di un backend ONTAP con i driver SAN ONTAP.
 
-A partire dalla versione 25,02, Trident rileva automaticamente la personalità ASA R2 di ONTAP 9.16.1 o versione successiva e consente il provisioning e l'utilizzo dello storage su ASA R2 tramite il protocollo iSCSI.
-
 
 
 == Requisiti
 
-Per tutti i backend ONTAP, Trident richiede almeno un aggregato assegnato alla SVM.
+Per tutti i backend ONTAP, Trident richiede che almeno un aggregato sia assegnato all'SVM.
 
-
-NOTE: Trident richiede l'assegnazione di uno o più aggregati alla SVM. Quando si utilizza ASA R2, questa azione è disponibile solo utilizzando l'interfaccia CLI di ONTAP in `diag` modalità.
+Fare riferimento a questo articolo della Knowledge Base su come assegnare aggregati a SVM nei sistemi ASA r2: link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["L'unità di archiviazione creata dall'amministratore SVM tramite CLI non riesce con l'errore "Nessun aggregato candidato disponibile per i servizi di archiviazione""^] .
 
 È inoltre possibile eseguire più di un driver e creare classi di storage che puntino all'una o all'altra. Ad esempio, è possibile configurare un `san-dev` classe che utilizza `ontap-san` driver e a. `san-default` classe che utilizza `ontap-san-economy` uno.
 
