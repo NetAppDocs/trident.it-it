@@ -96,3 +96,5 @@ entries:
     url: "/trident-use/csi-topology.html"
   - title: Utilizzare le snapshot
     url: "/trident-use/vol-snapshots.html"
+  - title: Creare snapshot del gruppo di volumi
+    url: "/trident-use/vol-group-snapshots.html"

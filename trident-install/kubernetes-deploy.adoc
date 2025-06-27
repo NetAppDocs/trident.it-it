@@ -16,7 +16,7 @@ Per garantire che Trident possa essere installato in un'ampia varietà di ambien
 
 
 
-== Informazioni critiche su Trident 25,02
+== Informazioni critiche su Trident 25,06
 
 *È necessario leggere le seguenti informazioni critiche su Trident.*
 
@@ -25,7 +25,7 @@ Per garantire che Trident possa essere installato in un'ampia varietà di ambien
 ====
 []
 =====
-* Kubernetes 1,32 è ora supportato in Trident. Aggiornare Trident prima di aggiornare Kubernetes.
+* Kubernetes 1,33 è ora supportato in Trident. Aggiornare Trident prima di aggiornare Kubernetes.
 * Trident impone rigorosamente l'uso della configurazione multipath negli ambienti SAN, con un valore consigliato di `find_multipaths: no` nel file multipath.conf.
 +
 Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes` oppure `find_multipaths: smart` il valore nel file multipath.conf causerà errori di montaggio. Trident ha raccomandato l'uso di `find_multipaths: no` dalla release 21.07.

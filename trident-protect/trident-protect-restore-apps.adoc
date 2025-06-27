@@ -16,9 +16,13 @@ summary: 'Puoi utilizzare Trident Protect per ripristinare l"applicazione da uno
 [role="lead"]
 Puoi utilizzare Trident Protect per ripristinare l'applicazione da uno snapshot o da un backup. Il ripristino da uno snapshot esistente sarà più rapido quando si ripristina l'applicazione nello stesso cluster.
 
+[NOTE]
+====
+* Quando si ripristina un'applicazione, tutti i collegamenti di esecuzione configurati per l'applicazione vengono ripristinati con l'applicazione. Se è presente un gancio di esecuzione post-ripristino, viene eseguito automaticamente come parte dell'operazione di ripristino.
+* Il ripristino da un backup a un namespace diverso o al namespace originale è supportato per i volumi qtree. Tuttavia, il ripristino da uno snapshot a un namespace diverso o al namespace originale non è supportato per i volumi qtree.
 
-NOTE: Quando si ripristina un'applicazione, tutti i collegamenti di esecuzione configurati per l'applicazione vengono ripristinati con l'applicazione. Se è presente un gancio di esecuzione post-ripristino, viene eseguito automaticamente come parte dell'operazione di ripristino.
 
+====
 
 
 == Annotazioni ed etichette del namespace durante le operazioni di ripristino e failover
@@ -97,6 +101,22 @@ La tabella seguente illustra lo stato dello spazio dei nomi di destinazione di e
 * ruolo=database
 
 
+|===
+
+
+== Annotazioni supportate
+
+Questa sezione elenca le annotazioni supportate per la configurazione di vari comportamenti nel sistema. Se un'annotazione non viene impostata esplicitamente dall'utente, il sistema utilizzerà il valore predefinito.
+
+[cols="1,1,3,1"]
+|===
+| Annotazione | Tipo | Descrizione | Valore predefinito 
+
+
+| proteggi.trident.netapp.io/data-mover-timeout-sec | stringa | Tempo massimo (in secondi) consentito per l'interruzione dell'operazione di spostamento dei dati. | 300 
+
+
+| protect.trident.netapp.io/kopia-content-cache-size-limit-mb | intero | Limite massimo di dimensione (in megabyte) per la cache dei contenuti di Kopia. | 1000 
 |===
 
 

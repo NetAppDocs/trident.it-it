@@ -16,6 +16,9 @@ Puoi abilitare Linux Unified Key Setup (LUKS) per crittografare i volumi ONTAP S
 
 In Trident, i volumi crittografati con LUKS utilizzano il Cypher e la modalità aes-xts-plain64, come consigliato da link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^].
 
+
+NOTE: La crittografia LUKS non è supportata per i sistemi ASA r2. Per informazioni sui sistemi ASA r2, vedere link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Informazioni sui sistemi di storage ASA R2"^] .
+
 .Prima di iniziare
 * Sui nodi di lavoro deve essere installata la crittografia 2.1 o superiore (ma inferiore a 3.0). Per ulteriori informazioni, visitare il sito link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab: Crittsetup"^].
 * Per motivi di prestazioni, NetApp consiglia ai nodi di lavoro di supportare le nuove istruzioni AES-NI (Advanced Encryption Standard New Instructions). Per verificare il supporto AES-NI, eseguire il seguente comando:

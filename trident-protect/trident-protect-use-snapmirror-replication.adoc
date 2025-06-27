@@ -100,6 +100,18 @@ NOTE: È possibile configurare Trident Protect per bloccare e sbloccare i file s
 
 
 
+== Hook di esecuzione durante le operazioni di failover e reverse
+
+Quando si utilizza la relazione AppMirror per proteggere l'applicazione, ci sono comportamenti specifici relativi agli hook di esecuzione di cui è necessario essere a conoscenza durante le operazioni di failover e reverse.
+
+* Durante il failover, gli hook di esecuzione vengono copiati automaticamente dal cluster di origine a quello di destinazione. Non è necessario ricrearli manualmente. Dopo il failover, gli hook di esecuzione sono presenti nell'applicazione e verranno eseguiti durante qualsiasi azione rilevante.
+* Durante l'inversione o la risincronizzazione inversa, tutti gli hook di esecuzione esistenti sull'applicazione vengono rimossi. Quando l'applicazione di origine diventa l'applicazione di destinazione, questi hook di esecuzione non sono più validi e vengono eliminati per impedirne l'esecuzione.
+
+
+Per saperne di più sugli hook di esecuzione, fare riferimento a link:../trident-protect/trident-protect-use-execution-hooks.html["Gestire i hook di esecuzione Trident Protect"] .
+
+
+
 == Impostare una relazione di replica
 
 L'impostazione di una relazione di replica comporta quanto segue:
@@ -216,11 +228,21 @@ tridentctl-protect create app <my-app-name> --namespaces <namespaces-to-be-inclu
 
 --
 ====
-. In alternativa, nel cluster di origine, acquisire uno snapshot di arresto dell'applicazione di origine. Questo snapshot viene utilizzato come base per l'applicazione nel cluster di destinazione. Se si salta questo passaggio, è necessario attendere l'esecuzione dello snapshot pianificato successivo in modo da disporre di uno snapshot recente.
+. Facoltativamente, sul cluster di origine, eseguire uno snapshot dell'applicazione di origine. Questo snapshot viene utilizzato come base per l'applicazione nel cluster di destinazione. Se si salta questo passaggio, è necessario attendere l'esecuzione dello snapshot pianificato successivo in modo da disporre di uno snapshot recente.
++
+[NOTE]
+====
+Oltre alla pianificazione fornita di seguito, si consiglia di creare una pianificazione separata per gli snapshot giornalieri con un periodo di conservazione di 7 giorni per mantenere uno snapshot comune tra i cluster ONTAP peer. Ciò garantisce che gli snapshot siano disponibili fino a 7 giorni, ma il periodo di conservazione può essere personalizzato in base alle esigenze dell'utente.
+
+In caso di failover, il sistema può utilizzare questi snapshot per un massimo di 7 giorni per le operazioni di reverse. Questo approccio rende il processo di reverse più rapido ed efficiente, poiché verranno trasferite solo le modifiche apportate dall'ultimo snapshot, non tutti i dati.
+
+Se una pianificazione esistente per l'applicazione soddisfa già i requisiti di conservazione desiderati, non sono necessarie pianificazioni aggiuntive.
+
+====
 +
 [role="tabbed-block"]
 ====
-.Acquisire un'istantanea di arresto utilizzando una CR
+.Acquisire un'istantanea utilizzando una CR
 --
 .. Creare una pianificazione di replica per l'applicazione di origine:
 +
@@ -271,7 +293,7 @@ kubectl apply -f trident-protect-schedule.yaml -n my-app-namespace
 
 
 --
-.Acquisire uno snapshot di arresto utilizzando l'interfaccia CLI
+.Scattare una snapshot utilizzando la CLI
 --
 .. Creare l'istantanea, sostituendo i valori tra parentesi con le informazioni dell'ambiente. Ad esempio:
 +

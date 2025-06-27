@@ -72,7 +72,7 @@ Impostare sull'identità del workload ("Azure.workload.Identity/client-id: Xxxxx
 in maniera automatica | `false` 
 
 
-| `autosupportImage` | L'immagine del contenitore per la telemetria AutoSupport | `"netapp/trident-autosupport:25.02"` 
+| `autosupportImage` | L'immagine del contenitore per la telemetria AutoSupport | `"netapp/trident-autosupport:25.06"` 
 
 
 | `autosupportProxy` | Indirizzo/porta di un proxy per l'invio della AutoSupport
@@ -85,7 +85,7 @@ Telemetria | `"http://proxy.example.com:8888"`
 | `logFormat` | Formato di registrazione Trident da utilizzare [text,json] | `"text"` 
 
 
-| `tridentImage` | Immagine Trident da installare | `"netapp/trident:25.02"` 
+| `tridentImage` | Immagine Trident da installare | `"netapp/trident:25.06"` 
 
 
 | `imageRegistry` | Percorso al registro interno, del formato

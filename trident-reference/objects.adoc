@@ -265,7 +265,7 @@ Quando arriva una richiesta di snapshot di un volume, Trident gestisce automatic
 `VolumeSnapshotContent` oggetto. È possibile creare snapshot da PVC esistenti e utilizzarle come DataSource durante la creazione di nuovi PVC.
 
 
-NOTE: Il ciclo di vita di una VolumeSnapshot è indipendente dal PVC di origine: Una snapshot persiste anche dopo la cancellazione del PVC di origine. Quando si elimina un PVC con snapshot associate, Trident contrassegna il volume di backup per questo PVC in uno stato di *eliminazione*, ma non lo rimuove completamente. Il volume viene rimosso quando vengono eliminate tutte le snapshot associate.
+NOTE: Il ciclo di vita di un VolumeSnapshot è indipendente dal PVC di origine: uno snapshot persiste anche dopo l'eliminazione del PVC di origine. Quando si elimina un PVC con snapshot associate, Trident contrassegna il volume di backup per questo PVC in uno stato di *eliminazione*, ma non lo rimuove completamente. Il volume viene rimosso quando vengono eliminate tutte le snapshot associate.
 
 
 
@@ -279,6 +279,48 @@ Quando arriva una richiesta di snapshot, Trident crea lo snapshot sul back-end. 
 
 
 NOTE: In genere, non è necessario gestire l' `VolumeSnapshotContent`oggetto. Un'eccezione è quando si desidera link:../trident-use/vol-snapshots.html#import-a-volume-snapshot["importare uno snapshot di volume"]creare al di fuori di Trident.
+
+
+
+== Oggetti Kubernetes `VolumeGroupSnapshotClass`
+
+Gli oggetti Kubernetes `VolumeGroupSnapshotClass` sono analoghi a `VolumeSnapshotClass`. Contribuiscono a definire più classi di storage e sono referenziati dagli snapshot dei gruppi di volumi per associare lo snapshot alla classe di snapshot richiesta. Ogni snapshot del gruppo di volumi è associato a una singola classe di snapshot del gruppo di volumi.
+
+UN  `VolumeGroupSnapshotClass` Deve essere definito da un amministratore per creare un gruppo di snapshot. Una classe di snapshot del gruppo di volumi viene creata con la seguente definizione:
+
+[source, yaml]
+----
+apiVersion: groupsnapshot.storage.k8s.io/v1beta1
+kind: VolumeGroupSnapshotClass
+metadata:
+  name: csi-group-snap-class
+  annotations:
+    kubernetes.io/description: "Trident group snapshot class"
+driver: csi.trident.netapp.io
+deletionPolicy: Delete
+----
+IL  `driver` specifica a Kubernetes che le richieste per gli snapshot del gruppo di volumi del  `csi-group-snap-class` la classe è gestita da Trident. La  `deletionPolicy` specifica l'azione da intraprendere quando uno snapshot di gruppo deve essere eliminato. Quando  `deletionPolicy` è impostato su  `Delete` , gli oggetti snapshot del gruppo di volumi e lo snapshot sottostante sul cluster di archiviazione vengono rimossi quando uno snapshot viene eliminato. In alternativa, impostarlo su `Retain` significa che `VolumeGroupSnapshotContent` e lo snapshot fisico vengono conservati.
+
+
+
+== Oggetti Kubernetes `VolumeGroupSnapshot`
+
+Un Kubernetes  `VolumeGroupSnapshot` Un oggetto è una richiesta di creazione di uno snapshot di più volumi. Proprio come un PVC rappresenta una richiesta effettuata da un utente per un volume, uno snapshot di un gruppo di volumi è una richiesta effettuata da un utente per creare uno snapshot di un PVC esistente.
+
+Quando arriva una richiesta di snapshot del gruppo di volumi, Trident gestisce automaticamente la creazione dello snapshot del gruppo per i volumi sul backend ed espone lo snapshot creando un'istanza univoca  `VolumeGroupSnapshotContent` oggetto. È possibile creare snapshot da PVC esistenti e utilizzarle come DataSource durante la creazione di nuovi PVC.
+
+
+NOTE: Il ciclo di vita di un VolumeGroupSnapshot è indipendente dal PVC di origine: uno snapshot persiste anche dopo l'eliminazione del PVC di origine. Quando si elimina un PVC con snapshot associate, Trident contrassegna il volume di backup per questo PVC in uno stato di *eliminazione*, ma non lo rimuove completamente. Lo snapshot del gruppo di volumi viene rimosso quando tutti gli snapshot associati vengono eliminati.
+
+
+
+== Oggetti Kubernetes `VolumeGroupSnapshotContent`
+
+Un Kubernetes  `VolumeGroupSnapshotContent` L'oggetto rappresenta uno snapshot di gruppo preso da un volume già provisionato. È analogo a e indica una `PersistentVolume` snapshot sottoposta a provisioning sul cluster di storage. Analogamente agli `PersistentVolumeClaim` oggetti e `PersistentVolume`, quando viene creato uno snapshot, l' `VolumeSnapshotContent`oggetto mantiene una mappatura uno a uno all' `VolumeSnapshot`oggetto, che aveva richiesto la creazione dello snapshot.
+
+IL  `VolumeGroupSnapshotContent` l'oggetto contiene dettagli che identificano il gruppo di snapshot, come ad esempio  `volumeGroupSnapshotHandle` e singoli volumiSnapshotHandles esistenti sul sistema di archiviazione.
+
+Quando arriva una richiesta di snapshot, Trident crea lo snapshot del gruppo di volumi sul backend. Dopo la creazione dello snapshot del gruppo di volumi, Trident configura un  `VolumeGroupSnapshotContent` oggetto e quindi espone lo snapshot all'API di Kubernetes.
 
 
 

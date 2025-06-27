@@ -18,6 +18,9 @@ Puoi trovare alcuni blog NetApp Trident e Trident Protect qui:
 
 == Blog Trident
 
+* 9 maggio 2925: link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Automatic-Trident-backend-configuration-for-FSx-for-ONTAP-with-the-Amazon-EKS/ba-p/460586["Configurazione automatica del backend Trident per FSx per ONTAP con il componente aggiuntivo Amazon EKS"^]
+* 15 aprile 2025: link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/NetApp-Trident-with-Google-Cloud-NetApp-Volumes-for-SMB-Protocol/ba-p/460118["NetApp Trident con Google Cloud NetApp Volumes per il protocollo SMB"^]
+* 14 aprile 2025: link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Unlocking-the-power-of-NetApp-ASA-r2-systems-for-Kubernetes-block-storage/ba-p/460113["Sfruttare la potenza dei sistemi NetApp ASA r2 per l'archiviazione a blocchi di Kubernetes"^]
 * 05 marzo 2025: link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Unlock-Seamless-iSCSI-Storage-Integration-A-Guide-to-FSxN-on-ROSA-Clusters-for/ba-p/459124["Sblocca la perfetta integrazione dello storage iSCSI: Guida a FSxN su cluster ROSA per AWS"^]
 * 12 dicembre 2024: link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Introducing-Fibre-Channel-support-in-Trident/ba-p/457427["Presentazione del supporto Fibre Channel in Trident"^]
 

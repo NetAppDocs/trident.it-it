@@ -16,7 +16,7 @@ summary: 'È possibile distribuire l"operatore Trident e installare Trident util
 
 
 
-== Informazioni critiche su Trident 25,02
+== Informazioni critiche su Trident 25,06
 
 *È necessario leggere le seguenti informazioni critiche su Trident.*
 
@@ -25,7 +25,7 @@ summary: 'È possibile distribuire l"operatore Trident e installare Trident util
 ====
 []
 =====
-* Kubernetes 1,32 è ora supportato in Trident. Aggiornare Trident prima di aggiornare Kubernetes.
+* Kubernetes 1,33 è ora supportato in Trident. Aggiornare Trident prima di aggiornare Kubernetes.
 * Trident impone rigorosamente l'uso della configurazione multipath negli ambienti SAN, con un valore consigliato di `find_multipaths: no` nel file multipath.conf.
 +
 Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes` oppure `find_multipaths: smart` il valore nel file multipath.conf causerà errori di montaggio. Trident ha raccomandato l'uso di `find_multipaths: no` dalla release 21.07.
@@ -52,11 +52,11 @@ Oltre a link:../trident-get-started/kubernetes-deploy.html#before-you-deploy["pr
 ----
 helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident/trident-operator
 ----
-. Utilizzare `helm install` e specificare un nome per la distribuzione come nell'esempio seguente dove si trova `100.2502.0` la versione di Trident che si sta installando.
+. Utilizzare `helm install` e specificare un nome per la distribuzione come nell'esempio seguente dove si trova `100.2506.0` la versione di Trident che si sta installando.
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2502.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2506.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -86,11 +86,11 @@ Specificare un file YAML con override. Questo valore può essere specificato pi�
 Specificare le sostituzioni sulla riga di comando.
 
 |===
-Ad esempio, per modificare il valore predefinito di `debug`, eseguire il comando seguente dove si trova `100.2502.0` la versione di Trident che si sta installando:
+Ad esempio, per modificare il valore predefinito di `debug`, eseguire il comando seguente dove si trova `100.2506.0` la versione di Trident che si sta installando:
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2506.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 

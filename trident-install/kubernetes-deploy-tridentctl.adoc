@@ -16,7 +16,7 @@ summary: 'È possibile installare Trident utilizzando `tridentctl`. Questo proce
 
 
 
-== Informazioni critiche su Trident 25,02
+== Informazioni critiche su Trident 25,06
 
 *È necessario leggere le seguenti informazioni critiche su Trident.*
 
@@ -75,8 +75,8 @@ Il pacchetto di installazione di Trident crea un pod Trident, configura gli ogge
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v25.02.0/trident-installer-25.02.0.tar.gz
-tar -xf trident-installer-25.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v25.06.0/trident-installer-25.06.0.tar.gz
+tar -xf trident-installer-25.06.0.tar.gz
 cd trident-installer
 ----
 
@@ -98,14 +98,14 @@ Installare Trident nello spazio dei nomi desiderato eseguendo il `tridentctl ins
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:25.02 --trident-image <your-registry>/trident:25.02.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:25.06 --trident-image <your-registry>/trident:25.06.0
 ----
 --
 .Immagini in diversi registri
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:25.02 --trident-image <your-registry>/trident:25.02.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:25.06 --trident-image <your-registry>/trident:25.06.0
 ----
 --
 ====
@@ -126,7 +126,7 @@ INFO Created Trident daemonset.
 INFO Waiting for Trident pod to start.
 INFO Trident pod started.                          namespace=trident pod=trident-controller-679648bd45-cv2mx
 INFO Waiting for Trident REST interface.
-INFO Trident REST interface is up.                 version=25.02.0
+INFO Trident REST interface is up.                 version=25.06.0
 INFO Trident installation succeeded.
 ....
 ----
@@ -166,7 +166,7 @@ NOTE: Se il programma di installazione non viene completato correttamente oppure
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 25.02.0        | 25.02.0        |
+| 25.06.0        | 25.06.0        |
 +----------------+----------------+
 ----
 

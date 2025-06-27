@@ -4,6 +4,9 @@
 
 Trident Protect 24,10 e 24.10.1 e versioni successive garantiscono comportamenti diversi per la protezione delle applicazioni in esecuzione sulle macchine virtuali KubeVirt. Per entrambe le versioni, è possibile attivare o disattivare il blocco e lo sblocco del file system durante le operazioni di protezione dei dati.
 
+
+NOTE: Durante le operazioni di ripristino, qualsiasi  `VirtualMachineSnapshots` creati per una macchina virtuale (VM) non vengono ripristinati.
+
 .Trident Protect 24,10
 Trident Protect 24,10 non garantisce automaticamente uno stato coerente dei file system delle macchine virtuali KubeVirt durante le operazioni di protezione dei dati. Per proteggere i dati delle macchine virtuali KubeVirt utilizzando Trident Protect 24,10, è necessario abilitare manualmente la funzionalità di blocco/sblocco dei file system prima dell'operazione di protezione dei dati. Ciò garantisce che i filesystem siano in uno stato coerente.
 
