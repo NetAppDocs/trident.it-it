@@ -3106,18 +3106,15 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="3f566b5ded6e7ac8c26dd3c07a2ea056" category="admonition">Per eseguire l'autenticazione usando un ruolo AWS IAM, devi disporre di un cluster Kubernetes implementato utilizzando EKS.</block>
   <block id="3926fdac6344d565c95f560468946335" category="section-title">Crea criterio IAM</block>
   <block id="78edc229f8df1c5e0840f6469bc28454" category="paragraph">I seguenti esempi creano una policy IAM utilizzando l'interfaccia a riga di comando di AWS:</block>
-  <block id="1cabe4f570d3f442a5def398488077df" category="paragraph">Nell'esempio seguente viene creato un ruolo IAM per l'account di servizio in EKS:</block>
   <block id="77f6e3db9b70538186091595d9c8c9e8" category="list-text">Componente aggiuntivo EKS</block>
   <block id="e477faed39be08642267684bb501d931" category="open-title">Console di gestione</block>
   <block id="e8d532dbf6904e2793dbda6fd0d03818" category="list-text">Aprire la console Amazon EKS all'indirizzo<block ref="c4765fcd1a0f97cf67c0365ddc45d563" category="inline-link-rx"></block>.</block>
   <block id="cacc1ddf612923b1c73b0a9a76659f42" category="list-text">Nella pagina Impostazioni *Configura componenti aggiuntivi selezionati*, effettuare le seguenti operazioni:</block>
   <block id="149e81257342cd05b0256d010b0b4a37" category="list-text">Selezionare la *versione* che si desidera utilizzare.</block>
-  <block id="1df543472a35a3acfd632037832987f6" category="list-text">Per *Seleziona ruolo IAM*, lasciare il campo *non impostato*.</block>
   <block id="dfe4bfc5bd8b8d180411468fbdbb4033" category="list-text">Scegliere *Avanti*.</block>
   <block id="fbadf292f84bef20d7678936dbe4c4ce" category="list-text">Nella pagina *Rivedi e Aggiungi*, scegliere *Crea*.</block>
   <block id="46bfc11fb8f185d278ea910b0052a317" category="paragraph">Al termine dell'installazione del componente aggiuntivo, viene visualizzato il componente aggiuntivo installato.</block>
   <block id="7820fdb5d8b3ebe0c69c86cf8bd2d0cf" category="open-title">CLI AWS</block>
-  <block id="375fe5880d846c5b389735de8ae80b0a" category="list-text">Creare il<block ref="feef18acfb11dc53b7100577c6d640c4" prefix=" " category="inline-code"></block> file:</block>
   <block id="52b5830420efb96c3a91beb52bac3b23" category="paragraph">*Esempio di output:*</block>
   <block id="b3f252777a69b110667756babe83a98f" category="inline-link-macro">Componenti aggiuntivi</block>
   <block id="25626757a73152ece7fdadb90ede4b7c" category="inline-link-macro">Gestione sul campo di Kubernetes</block>
@@ -4638,7 +4635,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="08810911e9a818361e28207072354bd4" category="list-text">Se applicabile, si verificano blocchi del filesystem. <block ref="d0a15703ee89b8fa8b780fb2dbace2bd" category="inline-link-macro-rx"></block>.</block>
   <block id="caf47630bbafdc416f6b6ecdb585e83e" category="list-text">I filesystem congelati vengono scongelati, se applicabile.</block>
   <block id="1eb6c79d30a4cb086ad406cb25fec350" category="list-text">*ResourceFilter.resourceMatchers*: Una matrice di oggetti resourceMatcher. Se si definiscono più elementi in questa matrice, questi corrispondono come un'operazione OR e i campi all'interno di ogni elemento (gruppo, tipo, versione) corrispondono come un'operazione AND.</block>
-  <block id="3a8f61f44f4f674928f31c4074b024b1" category="list-text">Nella pagina *Seleziona componenti aggiuntivi*, effettuare le seguenti operazioni:</block>
   <block id="effa92215c770083617150adc291c130" category="list-text">Espandere le *impostazioni di configurazione opzionali* e modificarle secondo necessità.</block>
   <block id="fd8585ec0c8ba7001713251f9ab9c69e" category="paragraph">Per clonare un'applicazione in un cluster diverso (eseguire un clone tra cluster), creare un backup nel cluster di origine, quindi ripristinare il backup in un cluster diverso. Assicurarsi che Trident Protect sia installato sul cluster di destinazione.</block>
   <block id="a1f41e52e9ddbd9f87ecd032c237b1c0" category="inline-link-macro">Replica SnapMirror</block>
@@ -4837,7 +4833,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="5c48b2cb013af0c5d292d6bc5659074c" category="section-title">Installare/disinstallare il componente aggiuntivo Trident EKS utilizzando la CLI</block>
   <block id="1095f7331744c1accf45762c2da50a60" category="paragraph">Trident ottimizza la gestione dello storage di Amazon FSX per NetApp ONTAP in Kubernetes per permettere a sviluppatori e amministratori di concentrarsi sull'implementazione dell'applicazione.</block>
   <block id="aa9c9ff1836c624104eb3a256a7b8b69" category="section-title">Installare Trident tramite helm</block>
-  <block id="b3dc88ff9246a994ccb2a892f1ad7486" category="list-text">Scaricare il pacchetto di installazione di Trident</block>
   <block id="b0e9da2f71a439472cddf0553ae43edc" category="section-title">Installare Trident tramite il componente aggiuntivo EKS</block>
   <block id="03023c37f6d85929cf0151fe858d3183" category="paragraph">Il componente aggiuntivo Trident EKS include le più recenti patch di sicurezza, correzioni di bug ed è convalidato da AWS per funzionare con Amazon EKS. Il componente aggiuntivo EKS ti consente di garantire in modo coerente che i tuoi cluster Amazon EKS siano sicuri e stabili e di ridurre la quantità di lavoro da svolgere per installare, configurare e aggiornare i componenti aggiuntivi.</block>
   <block id="16a9eb0d1ef7d37ab7459bc9a67a8102" category="section-title">Attiva il componente aggiuntivo Trident per AWS</block>
@@ -5004,7 +4999,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="aa8e98bf63904518342c90bd49a9ea9c" category="paragraph">Il seguente comando disinstalla il componente aggiuntivo Trident EKS:</block>
   <block id="e462cafda39f4eb6d1800486fc401348" category="cell">Fallire il provisioning se la dimensione del volume richiesta è superiore a questo valore. Limita anche le dimensioni massime dei volumi gestiti per qtree e LUN e l'<block ref="8b08152c170e621ffcc8bfac7c4d6785" prefix=" " category="inline-code"></block>opzione consente di personalizzare il numero massimo di qtree per FlexVol volume</block>
   <block id="e992eb9afeef39efec8f68b68ffade1d" category="paragraph">*Policy JSON esempio*:</block>
-  <block id="086999d9ccd62fcd6326d7d10667c7b0" category="section-title">Creare un ruolo IAM per l'account del servizio</block>
   <block id="54fe765490f6a1e88df34666a34bd7de" category="paragraph">*file trust-relation.json:*</block>
   <block id="383e53c41c71ed73661ac56b250f6ba3" category="paragraph">Aggiornare i seguenti valori nel<block ref="d19984a25b3e536a13a6bc3036325ffd" prefix=" " category="inline-code"></block> file:</block>
   <block id="e6fd9d7b1a119dcc259f2b06b2a2168c" category="list-text">*&lt;account_id&gt;* - il tuo ID account AWS</block>
@@ -5018,8 +5012,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="a01b2c45a64c7d0c2a2aa3ce418eaa04" category="inline-link-macro">Attiva la funzionalità snapshot per volumi CSI</block>
   <block id="9adc02aa546c3838bddb73a67ebaa4e2" category="paragraph">Se si desidera utilizzare la funzionalità snapshot, installare il componente aggiuntivo del controller snapshot CSI. Per ulteriori informazioni, fare riferimento <block ref="d2fce68a585fb4c517040885fb7393e9" category="inline-link-macro-rx"></block> a.</block>
   <block id="df5baf46554bffd06bf1e8e9ae5e6b52" category="paragraph">Il seguente comando di esempio installa il componente aggiuntivo Trident EKS:</block>
-  <block id="9149c64ca750a0bdd666354b3bbb7170" category="list-text">Nella sezione AWS Marketplace EKS-addons, selezionare la casella di controllo *Trident by NetApp*.</block>
-  <block id="9c41f50f85f97003fc3d5010449c3a08" category="list-text">Installare il componente aggiuntivo Trident EKS.</block>
   <block id="87d54c3153674640af4f36dd72f8953a" category="list-text">Nella pagina *Configure Trident by* (Configura server tramite NetApp*), procedere come segue:</block>
   <block id="7d91a8c58620fc2b878600d5ab834bda" category="list-text">*Rimozione del software aggiuntivo interamente dal cluster* – NetApp consiglia di rimuovere il componente aggiuntivo Amazon EKS dal cluster solo se non sono presenti risorse del cluster che dipendono da esso. Rimuovere l'<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> opzione dal<block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> comando per rimuovere il componente aggiuntivo.</block>
   <block id="996d0bc5ff30cfbcef97caeaf2c6b353" category="paragraph">Per creare un backend di archiviazione, è necessario creare un file di configurazione in formato JSON o YAML. Il file deve specificare il tipo di storage desiderato (NAS o SAN), il file system e la SVM per ottenerlo e come eseguirne l'autenticazione. Il seguente esempio illustra come definire lo storage basato su NAS e utilizzare un segreto AWS per memorizzare le credenziali nella SVM che desideri utilizzare:</block>
@@ -5036,7 +5028,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="808a149c66a46569dfd8eda4200e5b28" category="paragraph">Questo esempio mostra un PVC di base per NVMe/TCP con accesso RWX associato a una classe StorageClass denominata<block ref="63f9100803e1f67a5e33cbd5da9dbb33" prefix=" " category="inline-code"></block>.</block>
   <block id="627d563f4445675e960fd39150a292ba" category="paragraph">Un file system è la risorsa principale di Amazon FSX, simile a un cluster ONTAP on-premise. All'interno di ogni SVM è possibile creare uno o più volumi, ovvero contenitori di dati che memorizzano i file e le cartelle nel file system. Con Amazon FSX per NetApp ONTAP verrà fornito come file system gestito nel cloud. Il nuovo tipo di file system è denominato *NetApp ONTAP*.</block>
   <block id="e5fd3b07dfde2732fc5e3a9d4e7c5370" category="section-title">Immagini Amazon Machine testate (AMI)</block>
-  <block id="1e16b2657fc94402657c56e2ad407bef" category="paragraph">Il cluster EKS supporta vari sistemi operativi, ma AWS ha ottimizzato alcuni Amazon Machine Images (AMI) per container ed EKS. I seguenti AMI sono stati testati con Trident 24,10.</block>
   <block id="af2fcef81914e3ce8b2cbe1ab832c879" category="cell">AMI</block>
   <block id="c07ee5debf5f3a3fef16c1ee5e8e4942" category="cell">NAS</block>
   <block id="12b1f0215cde9ea0ca4aac0c3ade3a96" category="cell">Economia NAS</block>
@@ -5052,9 +5043,7 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="e3b9c2e4d8176e1074a9511b580d6396" category="cell">AL2_ARM_64</block>
   <block id="a28322bc0e8a38770a1af7cc1d4a9ad9" category="cell">BOTTLEROCKET_ARM_64</block>
   <block id="b5056db6cc95f0ceeb72bf7925b7409d" category="list-text">** Impossibile eliminare il PV senza riavviare il nodo</block>
-  <block id="18d12fdc9179515baab204055f5f25b5" category="admonition">Se il vostro AMI desiderato non è elencato qui, non significa che non è supportato; significa semplicemente che non è stato testato. Questa lista serve come guida per Amis noto per funzionare.</block>
   <block id="07e5351dce8b6c8e3f72745762bac773" category="paragraph">*Prove eseguite con*:</block>
-  <block id="d44ea6a7bf9b2d2849bc4ec05b8c3bf4" category="list-text">Versione EKS: 1,30</block>
   <block id="502ca2b9844982f6255585372ccd8f3e" category="list-text">Metodo di installazione: Helm e come componente aggiuntivo AWS</block>
   <block id="583a5d19bce672251a82cb390b576d1a" category="list-text">Per le NAS sono stati testati sia NFSv3 che NFSv4,1.</block>
   <block id="8dba245dcac3bf8acf6067e0d62d01cb" category="list-text">Per SAN è stato testato solo iSCSI, non NVMe-of.</block>
@@ -5295,7 +5284,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="a305c8fb2137d8a4a767905590079e89" category="section-title">Creare il PVC</block>
   <block id="06034bca671a3028021f1a722aac7b41" category="paragraph">Configurare un oggetto Kubernetes StorageClass e creare la classe storage per istruire Trident su come eseguire il provisioning dei volumi. Creare un PersistentVolumeClaim (PVC) che utilizzi Kubernetes StorageClass configurato per richiedere l'accesso al PV. È quindi possibile montare il PV su un pod.</block>
   <block id="5de805965faeb85a54098223ea3a3334" category="paragraph">Dopo aver creato il PVC, è possibile montare il volume in un pod.</block>
-  <block id="65fec8b0751214bea1821a56ae85cf6b" category="paragraph">Il pacchetto di installazione di Trident contiene tutto ciò che serve per distribuire l'operatore Trident e installare Trident. Scaricare ed estrarre la versione più recente del programma di installazione di Trident dalla sezione risorse su GitHub.</block>
   <block id="89fb75fa5ae260c326092b78970469ed" category="list-text">Nel riquadro di spostamento di sinistra, selezionare *Cluster*.</block>
   <block id="abdaa0762abc2037a71287c94bceae14" category="list-text">Selezionare il nome del cluster per il quale si desidera configurare il componente aggiuntivo NetApp Trident CSI.</block>
   <block id="691da62871e09bf9c944f36b9de07889" category="list-text">Selezionare *componenti aggiuntivi*, quindi selezionare *Ottieni altri componenti aggiuntivi*.</block>
@@ -5315,7 +5303,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="646ed389b399156cbfb4923c9d8fbf95" category="paragraph">Poiché Trident emetterà API su un vserver FSX per gestire lo storage in modo automatico, saranno necessarie le credenziali per farlo. Il modo sicuro per passare queste credenziali è tramite un segreto di AWS Secrets Manager. Pertanto, se non ne hai già uno, dovrai creare un segreto di AWS Secrets Manager che contenga le credenziali per l'account vsadmin.</block>
   <block id="360f6e9d45a33dadfdb2b47fa3a32110" category="paragraph">Questo esempio crea un segreto di Gestore segreti AWS per memorizzare le credenziali Trident CSI:</block>
   <block id="1cb68d4d58173447ddb7517b51d352a9" category="paragraph">Trident necessita anche delle autorizzazioni AWS per funzionare correttamente. Pertanto, è necessario creare un criterio che fornisca a Trident le autorizzazioni necessarie.</block>
-  <block id="556751886154904b0a38315567ccb7ca" category="paragraph">Una volta creato il criterio, utilizzarlo per creare il ruolo che verrà assegnato all'account del servizio in cui verrà eseguito Trident:</block>
   <block id="49512d524988e02360eaf4f4bb2ad8f3" category="paragraph">Se l'output è vuoto, utilizzare il seguente comando per associare IAM OIDC al cluster:</block>
   <block id="fa1c8065dc4d2b862bfba881472c0aac" category="admonition">Sostituire<block ref="2befb7722283d545949c6220c6548fe4" prefix=" " category="inline-code"></block> con l'ARN del ruolo creato nel passaggio precedente.</block>
   <block id="44308ffe82692c268b99d3caefca907e" category="list-text">Controllare la versione corrente del componente aggiuntivo FSxN Trident CSI. Sostituire<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block> con il nome del cluster.</block>
@@ -5357,7 +5344,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="470fa5f00d398bad1d1874a9b4d59d7b" category="cell">"["0,0.0,0/0", "::/0"]"</block>
   <block id="1e8d899088cef4cd1758075ac2b63721" category="cell">Percentuale di volume riservato agli snapshot "0"</block>
   <block id="d8d01124b8b3fe614b475ad96fca4635" category="cell">Se<block ref="0a236e7685e50a59df980d0a30929d6c" prefix=" " category="inline-code"></block> è<block ref="334c4a4c42fdb79d7ebc3e73b517e6f8" prefix=" " category="inline-code"></block>,<block ref="2954e92a9b4d0e998fe4893f8141649a" prefix=" " category="inline-code"></block> ""</block>
-  <block id="e04952b3b9a025e09aedd749dd2dc8f8" category="list-text">*Deve usare "nolock" nelle opzioni di montaggio.</block>
   <block id="5a71b77feca506fc8eba218b4e65048b" category="paragraph">Trident ripristina i dati dalla snapshot. È possibile verificare lo stato di ripristino dello snapshot:</block>
   <block id="9d577c00c4cbb5d99e7a8a6589113669" category="paragraph">Quando si elimina un volume persistente con gli snapshot associati, il volume Trident corrispondente viene aggiornato allo "stato di eliminazione". Rimuovere gli snapshot del volume per eliminare il volume Trident.</block>
   <block id="27e9bd9989c090489f69126b9910d7d8" category="list-text">È inoltre possibile ottenere registri di debug per ogni backend includendo<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block> nella definizione di backend. Ad esempio, includere<block ref="825a719baa5b5b7445c98535815fac39" prefix=" " category="inline-code"></block> per ottenere le chiamate API e i percorsi del metodo nei registri Trident. I backend esistenti possono essere<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="inline-code"></block> configurati con un<block ref="ad782b779edfd8199198bed41b3e3b6b" prefix=" " category="inline-code"></block>.</block>
@@ -5379,7 +5365,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="23b4dec181e41ab3962cf73b28ffe58c" category="list-text">Nel cluster di desinazione corrente, eliminare AppMirrorRelationship CR:</block>
   <block id="90abe2b6c39f51adea4c5aabff2df094" category="list-text">Seguire lo schema di configurazione del componente aggiuntivo* e impostare il parametro valori di configurazione nella sezione *valori di configurazione* sul valore arn del ruolo creato nel passaggio precedente (passaggio 1). Il valore deve essere nel seguente formato:</block>
   <block id="be88c7e0502cadac6eccdbb309610a77" category="paragraph">Il seguente comando di esempio installa il componente aggiuntivo Trident EKS:<block ref="a5b33d95c2beda5bdc154ff0b946fffe" prefix=" " category="inline-code"></block> (Con una versione dedicata)</block>
-  <block id="23773f4cc30b766e1a2846ff0e0ec8ba" category="list-text">Seguire lo schema di configurazione *Add-on* e impostare il parametro configurationValues nella sezione *Configuration Values* sul valore Role-arn creato nel passaggio precedente (il valore deve essere nel seguente formato:</block>
   <block id="6935ea1d99a0c26f0e4cddb80f444849" category="summary">Se usate Red Hat OpenShift, potete installare Trident usando un operatore.</block>
   <block id="c282cc9924716a0ecdcc1864c8821950" category="doc">Passare dall'operatore della comunità Trident all'operatore certificato OpenShift</block>
   <block id="92da9bfce4b6635fcf5d3f3725accbbc" category="paragraph">Per passare dall'operatore Trident della comunità di NetApp all'operatore Trident certificato di Red Hat OpenShift, è necessario disinstallare l'operatore della comunità e quindi installare l'operatore certificato utilizzando l'OperatorHub.</block>
@@ -5709,4 +5694,44 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="d075b47d76ffc95cce31e3ff1a3bf887" category="paragraph">Trident supporta le relazioni di mirroring tra un volume di origine su un cluster e il volume di destinazione sul cluster in peering per la replica dei dati per il disaster recovery.  È possibile utilizzare una definizione di risorsa personalizzata (CRD) con namespace, denominata Trident Mirror Relationship (TMR), per eseguire le seguenti operazioni:</block>
   <block id="2d78d4f2531b53f3a4980133900540f7" category="paragraph">NetApp Trident supporta la replicazione dei volumi con la tecnologia NetApp SnapMirror utilizzando classi di archiviazione supportate dai seguenti driver: ** <block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> : NFS ** <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> : iSCSI ** <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> : FC ** <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> : NVMe/TCP (richiede almeno la versione ONTAP 9.15.1)</block>
   <block id="a6d2a1b8501003e74309a1ac77e249d4" category="admonition">La replicazione dei volumi tramite SnapMirror non è supportata per i sistemi ASA r2. Per informazioni sui sistemi ASA r2, vedere <block ref="40f055dd42976ff294174231df35e37e" category="inline-link-macro-rx"></block> .</block>
+  <block id="5bc634e5febd2967f50c152731ebe0e0" category="admonition">Salta questo passaggio se utilizzi l'associazione Pod Identity.</block>
+  <block id="26b17225b626fb9238849fd60eabdf60" category="paragraph">+</block>
+  <block id="b2b0186a010875b0d453752a8aa06a4c" category="section-title">Crea l'identità del pod o il ruolo IAM per l'associazione dell'account di servizio (IRSA)</block>
+  <block id="152bceec6d4e34c053208d61763334bc" category="paragraph">È possibile configurare un account di servizio Kubernetes per assumere un ruolo AWS Identity and Access Management (IAM) con EKS Pod Identity o un ruolo IAM per l'associazione dell'account di servizio (IRSA). Tutti i Pod configurati per utilizzare l'account di servizio possono quindi accedere a qualsiasi servizio AWS per il quale il ruolo dispone delle autorizzazioni di accesso.</block>
+  <block id="0522426ad683048758e710700760f5a9" category="open-title">Identità del pod</block>
+  <block id="acbe8cfddfd64fba35512f543affb372" category="paragraph">Le associazioni di identità dei pod Amazon EKS offrono la possibilità di gestire le credenziali per le applicazioni, in modo simile a come i profili delle istanze Amazon EC2 forniscono le credenziali alle istanze Amazon EC2.</block>
+  <block id="870d5f69e46397da39e4d5bc6a55edc4" category="paragraph">*Installa Pod Identity sul tuo cluster EKS*:</block>
+  <block id="3a735289083f3ebf5b12bf1252f47e70" category="paragraph">Puoi creare l'identità del Pod tramite la console AWS o utilizzando il seguente comando AWS CLI:</block>
+  <block id="6b12dab36e102678866ee1a9295bf251" category="inline-link-macro">Configurare l'agente di identità del pod Amazon EKS</block>
+  <block id="f0e49b3188e2241a1fd992e7697df37f" category="paragraph">Per maggiori informazioni fare riferimento a <block ref="223f02a97a1894440d2727b156e834b6" category="inline-link-macro-rx"></block> .</block>
+  <block id="4fcddd38c3384849e906ff198dca9a35" category="paragraph">*Crea trust-relationship.json*:</block>
+  <block id="9eaa0d9301ed8e0e6ec8d359da513e09" category="paragraph">Crea trust-relationship.json per consentire al Service Principal EKS di assumere questo ruolo per l'identità del Pod. Quindi crea un ruolo con questa policy di attendibilità:</block>
+  <block id="c256d9b106d5b83ccc940e1c11d40213" category="paragraph">*file trust-relationship.json*:</block>
+  <block id="d5bcbf5d17aa3658058051153a3abb49" category="paragraph">*Associare la policy del ruolo al ruolo IAM*:</block>
+  <block id="5855de3e8f302cffda094dad3434d14d" category="paragraph">Associa il criterio di ruolo del passaggio precedente al ruolo IAM creato:</block>
+  <block id="ae33daeae7be898405819838f197197f" category="paragraph">*Crea un'associazione di identità pod*:</block>
+  <block id="bfb2fc1510ac240a94b2b84a57023dfd" category="paragraph">Crea un'associazione di identità pod tra il ruolo IAM e l'account del servizio Trident (trident-controller)</block>
+  <block id="37d9be75a57d7c290f4624befaf41cba" category="open-title">Ruolo IAM per l'associazione dell'account di servizio (IRSA)</block>
+  <block id="58b24f910cf7a97cc3ea8486155b2ee3" category="paragraph">*Utilizzando l'AWS CLI*:</block>
+  <block id="4411692a55eac3faa65c355f682424c8" category="paragraph">*Se si utilizza eksctl*, utilizzare il seguente esempio per creare un ruolo IAM per l'account di servizio in EKS:</block>
+  <block id="170c4b43aa699fd86dc97df5f091ff90" category="list-text">Aggiungere al repository NetApp Trident la configurazione helm:</block>
+  <block id="de756da101866f0bf66d3cfdb32b337b" category="list-text">Installa Trident utilizzando il seguente esempio:</block>
+  <block id="3840ce271260ab4b489b1664491a7ae0" category="open-title">Associazione dell'account di servizio (IRSA)</block>
+  <block id="682fae06c762bb51c348b65f07930993" category="list-text">Imposta i valori per *cloud provider* e *cloud identity*:</block>
+  <block id="eff2bb231132a96a28f9d538ef100a34" category="paragraph">Se prevedi di utilizzare iSCSI, assicurati che iSCSI sia abilitato sul computer client. Se utilizzi il sistema operativo AL2023 Worker node, puoi automatizzare l'installazione del client iSCSI aggiungendo il parametro node prep nell'installazione di helm:</block>
+  <block id="586ac0fdd530431245eb98eb3aa882f4" category="list-text">Per selezionare il componente aggiuntivo, segui questi passaggi:</block>
+  <block id="b2bd1d3671dec54e9318ab4475e27324" category="list-text">Scorri verso il basso fino alla sezione *Componenti aggiuntivi di AWS Marketplace* e digita *"Trident”* nella casella di ricerca.</block>
+  <block id="93883402b9e962f4416b72849cb667c9" category="list-text">Selezionare la casella di controllo nell'angolo in alto a destra della casella Trident by NetApp.</block>
+  <block id="77b0a7753de002b03ddc52594a9208ee" category="list-text">Se si utilizza l'autenticazione IRSA, assicurarsi di impostare i valori di configurazione disponibili nelle impostazioni di configurazione facoltative:</block>
+  <block id="4881bf2869ec064993ab03177d502022" category="list-text">Segui lo *schema di configurazione del componente aggiuntivo* e imposta il parametro *configurationValues* nella sezione *Valori di configurazione* sul role-arn creato nel passaggio precedente (il valore deve essere nel seguente formato):</block>
+  <block id="7347242fe06ebf43402a11cc7e289da8" category="paragraph">*1. Crea il <block ref="feef18acfb11dc53b7100577c6d640c4" prefix=" " category="inline-code"></block> file*:</block>
+  <block id="ac85dba04837be45d97d83025fa9bef9" category="paragraph">*Per l'identità del pod, utilizzare il seguente formato*:</block>
+  <block id="08ec33a477c6b216472cd10065483760" category="paragraph">*Per l'autenticazione IRSA, utilizzare il seguente formato*:</block>
+  <block id="895c408250687425783cbd96dd25276d" category="paragraph">*2. Installa il componente aggiuntivo Trident EKS.*</block>
+  <block id="3cec1ada82beb8b8e724d5114558490c" category="paragraph">Il cluster EKS supporta vari sistemi operativi, ma AWS ha ottimizzato alcuni Amazon Machine Images (AMI) per container ed EKS. Le seguenti AMI sono state testate con NetApp Trident 25.02.</block>
+  <block id="173a8cacadf475f14befd10f39624033" category="cell">SÌ***</block>
+  <block id="2e08317d3e70fb5ff3eda62f9abdd760" category="list-text">* Supporta nodePrep solo con iSCSI.</block>
+  <block id="7f38f183170855059fc5861d18334928" category="list-text">*** Non funziona con NFSv3 con Trident versione 25.02, ma funziona con la versione 24.10. Funziona con NFSv4.1 con entrambe le versioni.</block>
+  <block id="e5d0cb04635aeb2a6f06f54da8303683" category="admonition">Se il vostro AMI desiderato non è elencato qui, non significa che non è supportato; significa semplicemente che non è stato testato. Questo elenco serve da guida per le AMI di cui è noto il funzionamento.</block>
+  <block id="e30e4df15168b6dd1eefaa4f4590a961" category="list-text">Versione EKS: 1,31</block>
 </blocks>

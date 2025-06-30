@@ -77,7 +77,7 @@ Per ulteriori informazioni sull'attivazione dell'autenticazione, fare riferiment
 
 == Immagini Amazon Machine testate (AMI)
 
-Il cluster EKS supporta vari sistemi operativi, ma AWS ha ottimizzato alcuni Amazon Machine Images (AMI) per container ed EKS. I seguenti AMI sono stati testati con Trident 24,10.
+Il cluster EKS supporta vari sistemi operativi, ma AWS ha ottimizzato alcuni Amazon Machine Images (AMI) per container ed EKS. Le seguenti AMI sono state testate con NetApp Trident 25.02.
 
 |===
 
@@ -85,33 +85,34 @@ Il cluster EKS supporta vari sistemi operativi, ma AWS ha ottimizzato alcuni Ama
 | AMI | NAS | Economia NAS | SAN | Economia SAN 
 
 
-| AL2023_x86_64_STANDARD | Sì | Sì | Sì | Sì 
+| AL2023_x86_64_STANDARD | Sì | Sì | Sì* | Sì* 
 
 
 | AL2_x86_64 | Sì | Sì | Sì** | Sì** 
 
 
-| BOTTLEROCKET_x86_64 | Sì* | Sì | N/A. | N/A. 
+| BOTTLEROCKET_x86_64 | SÌ*** | Sì | N/A. | N/A. 
 
 
-| AL2023_ARM_64_STANDARD | Sì | Sì | Sì | Sì 
+| AL2023_ARM_64_STANDARD | Sì | Sì | Sì* | Sì* 
 
 
 | AL2_ARM_64 | Sì | Sì | Sì** | Sì** 
 
 
-| BOTTLEROCKET_ARM_64 | Sì* | Sì | N/A. | N/A. 
+| BOTTLEROCKET_ARM_64 | SÌ*** | Sì | N/A. | N/A. 
 |===
-* *Deve usare "nolock" nelle opzioni di montaggio.
+* * Supporta nodePrep solo con iSCSI.
 * ** Impossibile eliminare il PV senza riavviare il nodo
+* *** Non funziona con NFSv3 con Trident versione 25.02, ma funziona con la versione 24.10. Funziona con NFSv4.1 con entrambe le versioni.
 
 
 
-NOTE: Se il vostro AMI desiderato non è elencato qui, non significa che non è supportato; significa semplicemente che non è stato testato. Questa lista serve come guida per Amis noto per funzionare.
+NOTE: Se il vostro AMI desiderato non è elencato qui, non significa che non è supportato; significa semplicemente che non è stato testato. Questo elenco serve da guida per le AMI di cui è noto il funzionamento.
 
 *Prove eseguite con*:
 
-* Versione EKS: 1,30
+* Versione EKS: 1,31
 * Metodo di installazione: Helm e come componente aggiuntivo AWS
 * Per le NAS sono stati testati sia NFSv3 che NFSv4,1.
 * Per SAN è stato testato solo iSCSI, non NVMe-of.

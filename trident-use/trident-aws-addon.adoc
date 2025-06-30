@@ -69,6 +69,13 @@ NOTE: Se si seleziona Sovrascrivi per il metodo di risoluzione dei conflitti, un
 +
 image::../media/aws-eks-06.png[aws eks 06]
 
+
+
+
+NOTE: Salta questo passaggio se utilizzi l'associazione Pod Identity.
+
++
+
 . Selezionare *Crea*.
 . Verificare che lo stato del componente aggiuntivo sia _attivo_.
 +
