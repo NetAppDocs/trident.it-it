@@ -33,9 +33,9 @@ Il riepilogo delle novità fornisce dettagli sui miglioramenti, le correzioni e 
 
 * *Kubernetes*:
 +
-** Aggiunto supporto per snapshot di gruppi di volumi CSI con  `v1beta1` API Kubernetes per snapshot di gruppi di volumi per il driver iSCSI ONTAP-SAN. Vedere link:../trident-use/vol-group-snapshots.html["Lavorare con gli snapshot del gruppo di volumi"^].
-** Aggiunto supporto per ONTAP ASA r2 per NVMe/TCP oltre a iSCSI. Vedere link:../trident-use/ontap-san-examples.html["Opzioni ed esempi di configurazione DELLA SAN ONTAP"^].
-** Aggiunto il supporto SMB sicuro per i volumi ONTAP-NAS e ONTAP-NAS-Economy. Gli utenti e i gruppi di Active Directory possono ora essere utilizzati con volumi SMB per una maggiore sicurezza. Vedere link:../trident-use/ontap-nas-prep.html#enable-secure-smb["Abilita SMB sicuro"^].
+** Aggiunto supporto per snapshot di gruppi di volumi CSI con  `v1beta1` API Kubernetes per snapshot di gruppi di volumi per il driver iSCSI ONTAP-SAN. Vedere link:https://docs.netapp.com/us-en/trident/trident-use/vol-group-snapshots.html["Lavorare con gli snapshot del gruppo di volumi"^].
+** Aggiunto supporto per ONTAP ASA r2 per NVMe/TCP oltre a iSCSI. Vedere link:link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["Opzioni ed esempi di configurazione DELLA SAN ONTAP"^].
+** Aggiunto il supporto SMB sicuro per i volumi ONTAP-NAS e ONTAP-NAS-Economy. Gli utenti e i gruppi di Active Directory possono ora essere utilizzati con volumi SMB per una maggiore sicurezza. Vedere link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-prep.html#enable-secure-smb["Abilita SMB sicuro"^].
 ** Concorrenza dei nodi Trident migliorata per una maggiore scalabilità nelle operazioni dei nodi per volumi iSCSI.
 ** Aggiunto  `--allow-discards` quando si aprono volumi LUKS per consentire i comandi discard/TRIM per il recupero di spazio.
 ** Prestazioni migliorate durante la formattazione di volumi crittografati con LUKS.

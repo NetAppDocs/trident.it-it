@@ -5450,7 +5450,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="c49aaf233c16f1193a8d683c17866eea" category="admonition">Se il valore dell'annotazione è minore o uguale a 0, l'operazione fallirà immediatamente.</block>
   <block id="5ac5b84505fffb8149e9d0cb84ddedbe" category="admonition">Durante le operazioni di ripristino, qualsiasi <block ref="890b633d48ac6398f14ae722463da08b" prefix=" " category="inline-code"></block> creati per una macchina virtuale (VM) non vengono ripristinati.</block>
   <block id="4d1a32c0e466ff9011c60655b98dbf71" category="inline-link-macro">Configurazione automatica del backend Trident per FSx per ONTAP con il componente aggiuntivo Amazon EKS</block>
-  <block id="751ccca2e7c6e085455cc5d721ff8b39" category="list-text">9 maggio 2925: <block ref="86b6d8d044348a051fe7477baf34debb" category="inline-link-macro-rx"></block></block>
   <block id="607ed18429282657fb3f6b377df32f8c" category="inline-link-macro">NetApp Trident con Google Cloud NetApp Volumes per il protocollo SMB</block>
   <block id="9455e2bd0c8a4dfe041579b6feac6833" category="list-text">15 aprile 2025: <block ref="1d74efb61b1c97b9032a1222a24185b1" category="inline-link-macro-rx"></block></block>
   <block id="ee031d295c711ed3119e4ca1bf2829b1" category="inline-link-macro">Sfruttare la potenza dei sistemi NetApp ASA r2 per l'archiviazione a blocchi di Kubernetes</block>
@@ -5567,10 +5566,7 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="d8789e2b2a964b430285afd098847d7e" category="section-title">Novità del 25,06</block>
   <block id="08f1535b065719df5968364b00b95026" category="paragraph">Il riepilogo delle novità fornisce dettagli sui miglioramenti, le correzioni e le deprecazioni per le versioni Trident e Trident Protect.</block>
   <block id="b73e3aa94514d51e32ca4c9fa306ce1e" category="inline-link-macro">Lavorare con gli snapshot del gruppo di volumi</block>
-  <block id="80ac93976d2619f3f309ef5bc482d2c7" category="list-text">Aggiunto supporto per snapshot di gruppi di volumi CSI con <block ref="ee21100dace47d83bcefcb7dea09cdd3" prefix=" " category="inline-code"></block> API Kubernetes per snapshot di gruppi di volumi per il driver iSCSI ONTAP-SAN. Vedere <block ref="fd476c7303c38c20a34c94b791c3665b" category="inline-link-macro-rx"></block>.</block>
-  <block id="f4d7441ee86cf8ef89cc31b8d13be595" category="list-text">Aggiunto supporto per ONTAP ASA r2 per NVMe/TCP oltre a iSCSI. Vedere <block ref="a13549ce70a240751f16cafbcac6ef24" category="inline-link-macro-rx"></block>.</block>
   <block id="d5bb517310bc551b239857e32401ac1f" category="inline-link-macro">Abilita SMB sicuro</block>
-  <block id="54c4f7fee9982c2ea03f1e81bbea3182" category="list-text">Aggiunto il supporto SMB sicuro per i volumi ONTAP-NAS e ONTAP-NAS-Economy. Gli utenti e i gruppi di Active Directory possono ora essere utilizzati con volumi SMB per una maggiore sicurezza. Vedere <block ref="85df2556237eff5f1420974cc8e4c414" category="inline-link-macro-rx"></block>.</block>
   <block id="6bcdf917188bd0a976b410952a796d4b" category="list-text">Concorrenza dei nodi Trident migliorata per una maggiore scalabilità nelle operazioni dei nodi per volumi iSCSI.</block>
   <block id="03384ffa27aceef186890eaae584f3c4" category="list-text">Aggiunto <block ref="b5073479eb6368548b299ea4d08aa8b7" prefix=" " category="inline-code"></block> quando si aprono volumi LUKS per consentire i comandi discard/TRIM per il recupero di spazio.</block>
   <block id="f216940dceac21552e55089b0f450059" category="list-text">Prestazioni migliorate durante la formattazione di volumi crittografati con LUKS.</block>
@@ -5734,4 +5730,8 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="7f38f183170855059fc5861d18334928" category="list-text">*** Non funziona con NFSv3 con Trident versione 25.02, ma funziona con la versione 24.10. Funziona con NFSv4.1 con entrambe le versioni.</block>
   <block id="e5d0cb04635aeb2a6f06f54da8303683" category="admonition">Se il vostro AMI desiderato non è elencato qui, non significa che non è supportato; significa semplicemente che non è stato testato. Questo elenco serve da guida per le AMI di cui è noto il funzionamento.</block>
   <block id="e30e4df15168b6dd1eefaa4f4590a961" category="list-text">Versione EKS: 1,31</block>
+  <block id="324844cd8fa64fd82920fe6f11dc588d" category="list-text">9 maggio 2025: <block ref="86b6d8d044348a051fe7477baf34debb" category="inline-link-macro-rx"></block></block>
+  <block id="cbe74dc7c890979d924675df2fa27a35" category="list-text">Aggiunto supporto per snapshot di gruppi di volumi CSI con <block ref="ee21100dace47d83bcefcb7dea09cdd3" prefix=" " category="inline-code"></block> API Kubernetes per snapshot di gruppi di volumi per il driver iSCSI ONTAP-SAN. Vedere <block ref="b136941d5c2c98d5e9ff86fd07e97048" category="inline-link-macro-rx"></block>.</block>
+  <block id="5e93028f6e11493fcce0c15271413cc3" category="list-text">Aggiunto supporto per ONTAP ASA r2 per NVMe/TCP oltre a iSCSI. Vedere <block ref="0ffed2115293f61a0df2b3c8f01851e1" category="inline-link-macro-rx"></block>.</block>
+  <block id="674d1c5daba14e57bb12199e316a830d" category="list-text">Aggiunto il supporto SMB sicuro per i volumi ONTAP-NAS e ONTAP-NAS-Economy. Gli utenti e i gruppi di Active Directory possono ora essere utilizzati con volumi SMB per una maggiore sicurezza. Vedere <block ref="4f989a35378d98430cb4c4899de0cc08" category="inline-link-macro-rx"></block>.</block>
 </blocks>
