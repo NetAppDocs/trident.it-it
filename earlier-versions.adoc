@@ -8,7 +8,7 @@ summary: È possibile utilizzare il selettore della versione per passare dalla v
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

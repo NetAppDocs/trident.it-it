@@ -7,7 +7,7 @@ summary: Trident Protect consente di proteggere le applicazioni e i dati delle a
 = Informazioni su Trident Protect
 :allow-uri-read: 
 :icons: font
-:imagesdir: ./media/
+:imagesdir: ../media/
 
 
 [role="lead"]

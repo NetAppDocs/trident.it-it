@@ -8,7 +8,7 @@ summary: NetApp continua a migliorare e migliorare i propri prodotti e servizi. 
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]
@@ -91,7 +91,7 @@ NOTE: Questa funzionalità è sperimentale e attualmente supporta flussi di lavo
 
 
 
-=== Trident Protect
+=== Protezione Trident
 
 NetApp Trident Protect offre capacità avanzate di gestione dei dati delle applicazioni che migliorano la funzionalità e la disponibilità delle applicazioni stateful Kubernetes supportate dai sistemi storage NetApp ONTAP e dal provisioner dello storage NetApp Trident CSI.
 

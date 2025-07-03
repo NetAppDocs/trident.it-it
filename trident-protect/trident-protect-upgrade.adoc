@@ -35,7 +35,7 @@ helm repo update
 . Aggiornare i CRD Trident Protect:
 +
 
-NOTE: Questo passaggio è obbligatorio se si esegue l'aggiornamento da una versione precedente alla 25.06, poiché i CRD sono ora inclusi nella tabella del casco Trident Protect.
+NOTE: Questo passaggio è obbligatorio se si esegue l'aggiornamento da una versione precedente alla 25.06, poiché i CRD sono ora inclusi nella tabella di protezione del timone Trident.
 
 +
 .. Eseguire questo comando per spostare la gestione dei CRD da  `trident-protect-crds` A  `trident-protect` :
