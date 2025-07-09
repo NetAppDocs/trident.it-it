@@ -5733,4 +5733,5 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="674d1c5daba14e57bb12199e316a830d" category="list-text">Aggiunto il supporto SMB sicuro per i volumi ONTAP-NAS e ONTAP-NAS-Economy. Gli utenti e i gruppi di Active Directory possono ora essere utilizzati con volumi SMB per una maggiore sicurezza. Vedere <block ref="4f989a35378d98430cb4c4899de0cc08" category="inline-link-macro-rx"></block>.</block>
   <block id="68e904dfe8bbc558c556cc39aaca54b6" category="list-text">Aggiunto supporto per la replicazione del volume con SnapMirror per backend NVMe. Vedere <block ref="0837d9a30d067376d83aa60bb79334f8" category="inline-link-macro-rx"></block>.</block>
   <block id="afce633f05d99c109d2b0429ee891495" category="admonition">Questo passaggio è obbligatorio se si esegue l'aggiornamento da una versione precedente alla 25.06, poiché i CRD sono ora inclusi nella tabella di protezione del timone Trident.</block>
+  <block id="78ba3dee1dfae1136825fa94b594e8b0" category="paragraph"><block ref="b370fec489f67cf82a40d70295a9ea9a" category="inline-xref-macro-rx"></block></block>
 </blocks>
