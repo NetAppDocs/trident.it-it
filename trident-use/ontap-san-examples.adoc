@@ -199,9 +199,7 @@ Per accelerare il processo di formattazione, Trident consiglia di utilizzare la 
 | `encryption` | Abilitare la crittografia del volume NetApp (NVE) sul nuovo volume; il valore predefinito è `false`. NVE deve essere concesso in licenza e abilitato sul cluster per utilizzare questa opzione. Se NAE è abilitato sul backend, qualsiasi volume sottoposto a provisioning in Trident sarà abilitato NAE. Per ulteriori informazioni, fare riferimento a: link:../trident-reco/security-reco.html["Come funziona Trident con NVE e NAE"]. | "false" *Se specificato, impostare su  `true` per sistemi ASA r2*. 
 
 
-| `luksEncryption` | Attivare la crittografia LUKS. Fare riferimento a. link:../trident-reco/security-luks.html["Utilizzo di Linux Unified Key Setup (LUKS)"].
-
-La crittografia LUKS non è supportata per NVMe/TCP. | "" *Impostato su  `false` per sistemi ASA r2*. 
+| `luksEncryption` | Attivare la crittografia LUKS. Fare riferimento alla link:../trident-reco/security-luks.html["Utilizzo di Linux Unified Key Setup (LUKS)"]. | "" *Impostato su  `false` per sistemi ASA r2*. 
 
 
 | `tieringPolicy` | Criterio di suddivisione in livelli per utilizzare "none" *Non specificare per i sistemi ASA r2*. |  
