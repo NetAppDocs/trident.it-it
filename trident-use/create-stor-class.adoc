@@ -25,11 +25,14 @@ Configurare un oggetto Kubernetes StorageClass e creare la classe storage per is
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: <Name>
+  name: ontap-gold
 provisioner: csi.trident.netapp.io
-mountOptions: <Mount Options>
+mountOptions:
+  - nfsvers=3
+  - nolock
 parameters:
-  <Trident Parameters>
+  backendType: "ontap-nas"
+  media: "ssd"
 allowVolumeExpansion: true
 volumeBindingMode: Immediate
 ----
