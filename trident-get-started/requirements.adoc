@@ -108,8 +108,6 @@ Trident supporta i seguenti driver ONTAP per la virtualizzazione KubeVirt e Open
 
 La tabella seguente riassume le funzionalità disponibili con questa release di Trident e le versioni di Kubernetes che supporta.
 
-<<check for 25.06>>
-
 [cols="3"]
 |===
 | Funzione | Versione di Kubernetes | Sono richiesti i gate delle funzionalità? 
@@ -219,8 +217,6 @@ link:../trident-reference/ports.html["Porte Trident"]
 == Immagini container e corrispondenti versioni di Kubernetes
 
 Per le installazioni con montaggio ad aria, l'elenco seguente è un riferimento alle immagini contenitore necessarie per installare Trident. Utilizzare il `tridentctl images` comando per verificare l'elenco delle immagini contenitore necessarie.
-
-<<check for 25.06>>
 
 [cols="2"]
 |===
