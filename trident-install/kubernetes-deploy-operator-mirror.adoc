@@ -16,7 +16,7 @@ summary: 'È possibile distribuire manualmente l"operatore Trident per installar
 
 
 
-== Informazioni critiche su Trident 25,05
+== Informazioni critiche su Trident 25,06
 
 *È necessario leggere le seguenti informazioni critiche su Trident.*
 
