@@ -18,7 +18,7 @@ Ulteriori informazioni sulle porte utilizzate da Trident per la comunicazione.
 
 == Porte Trident
 
-Trident comunica sulle seguenti porte:
+Trident utilizza le seguenti porte per la comunicazione all'interno di Kubernetes:
 
 [cols="2,4"]
 |===
