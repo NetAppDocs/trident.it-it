@@ -109,13 +109,13 @@ Le seguenti opzioni aggiuntive sono disponibili solo per iSCSI*:
 
 Vedere gli esempi riportati di seguito:
 
-* Creazione di un volume da 10 GiB:
+* Crea un volume da 10 GiB:
 +
 [listing]
 ----
 docker volume create -d netapp --name demo -o size=10G -o encryption=true
 ----
-* Creazione di un volume 100GiB con snapshot:
+* Crea un volume da 100 GiB con snapshot:
 +
 [listing]
 ----
@@ -129,7 +129,7 @@ docker volume create -d netapp --name demo -o unixPermissions=4755
 ----
 
 
-Le dimensioni minime del volume sono 20 MiB.
+La dimensione minima del volume è 20 MiB.
 
 Se la riserva istantanea non viene specificata e il criterio snapshot è `none`, Trident utilizza una riserva istantanea del 0%.
 
@@ -175,7 +175,7 @@ Le altre opzioni di creazione dei volumi software Element includono:
 
 
 | `size`  a| 
-La dimensione del volume, per impostazione predefinita è 1GiB o voce di configurazione ... "Default": {"size": "5G"}.
+La dimensione del volume, predefinita è 1 GiB o voce di configurazione ... "defaults": {"size": "5G"}.
 
 
 

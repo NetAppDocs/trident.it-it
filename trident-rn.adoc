@@ -268,7 +268,7 @@ NetApp Trident Protect offre capacità avanzate di gestione dei dati delle appli
 * Dimensioni minime del volume Azure NetApp Files ridotte a 50 GiB. È prevista la disponibilità di Azure di nuove dimensioni minime per novembre.
 * Aggiunto `denyNewVolumePools` parametro di configurazione per limitare i driver ONTAP-NAS-Economy e ONTAP-SAN-Economy ai pool FlexVol preesistenti.
 * Aggiunto rilevamento per aggiunta, rimozione o ridenominazione di aggregati dalla SVM in tutti i driver ONTAP.
-* Aggiunto 18MiB overhead alle LUN LUKS per garantire che le dimensioni del PVC riportato siano utilizzabili.
+* Aggiunti 18 MiB di overhead ai LUN LUKS per garantire che le dimensioni PVC segnalate siano utilizzabili.
 * Miglioramento dello stadio del nodo ONTAP-SAN e ONTAP-SAN-Economy e annullamento della gestione degli errori per consentire l'annullamento della rimozione dei dispositivi dopo una fase di guasto.
 * È stato aggiunto un generatore di ruoli personalizzato che consente ai clienti di creare un ruolo minimalista per Trident in ONTAP.
 * Aggiunta ulteriore registrazione per la risoluzione dei problemi `lsscsi` (link:https://github.com/NetApp/trident/issues/792["Problema n. 792"]).
@@ -374,7 +374,7 @@ A partire dalla release 24,10, Astra Trident viene rinominato Trident (NetApp Tr
 * Risolti i problemi di installazione di Trident a causa di transazioni obsolete.
 * Corretto tridentctl per ignorare i messaggi di avviso da Kubernetes (link:https://github.com/NetApp/trident/issues/892["Problema n. 892"]).
 * La priorità del controller Trident è stata modificata `SecurityContextConstraint` in `0` (link:https://github.com/NetApp/trident/issues/887["Problema n. 887"]).
-* I driver ONTAP accettano dimensioni del volume inferiori a 20MiB GB (link:https://github.com/NetApp/trident/issues/885["Problema[#885"]).
+* I driver ONTAP ora accettano dimensioni di volume inferiori a 20 MiB ( link:https://github.com/NetApp/trident/issues/885["Problema[#885"] ).
 * Trident fisso per impedire la riduzione dei volumi FlexVol durante l'operazione di ridimensionamento per il driver ONTAP-SAN.
 * Risolto un errore di importazione del volume ANF con NFS v4,1.
 

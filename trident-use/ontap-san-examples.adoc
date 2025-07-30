@@ -246,7 +246,7 @@ Per i backend che definiscono `snapshotReserve`, Trident calcola le dimensioni d
 ----
 Total volume size = [(PVC requested size) / (1 - (snapshotReserve percentage) / 100)] * 1.1
 ----
-1,1 rappresenta il 10% di Trident in più aggiunto alla FlexVol per ospitare i metadati LUN. Per `snapshotReserve` = 5% e richiesta PVC = 5GiB, la dimensione totale del volume è 5,79GiB e la dimensione disponibile è 5,5GiB. Il `volume show` comando dovrebbe mostrare risultati simili a questo esempio:
+L'1,1 è il 10 percento in più Trident aggiunge al FlexVol per ospitare i metadati LUN. Per  `snapshotReserve` = 5% e richiesta PVC = 5 GiB, la dimensione totale del volume è 5,79 GiB e la dimensione disponibile è 5,5 GiB .  `volume show` il comando dovrebbe mostrare risultati simili a questo esempio:
 
 image::../media/vol-show-san.png[Mostra l'output del comando di visualizzazione del volume.]
 

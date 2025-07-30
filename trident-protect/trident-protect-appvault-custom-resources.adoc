@@ -16,19 +16,22 @@ summary: 'La risorsa personalizzata bucket (CR) per Trident Protect è nota come
 [role="lead"]
 La risorsa personalizzata bucket (CR) per Trident Protect è nota come AppVault. Gli oggetti AppVault sono la rappresentazione dichiarativa del flusso di lavoro di Kubernetes di un bucket di storage. AppVault CR contiene le configurazioni necessarie per l'utilizzo di un bucket nelle operazioni di protezione, come backup, snapshot, operazioni di ripristino e replica SnapMirror. Solo gli amministratori possono creare AppVaults.
 
-È necessario creare un AppVault CR manualmente o utilizzando la riga di comando quando si eseguono operazioni di protezione dei dati su un'applicazione e AppVault CR deve risiedere nel cluster in cui è installato Trident Protect. AppVault CR è specifico del proprio ambiente; è possibile utilizzare gli esempi di questa pagina come guida per la creazione di CRS AppVault.
+Quando si eseguono operazioni di protezione dei dati su un'applicazione, è necessario creare una CR di AppVault manualmente o dalla riga di comando. La CR di AppVault è specifica per il proprio ambiente e gli esempi in questa pagina possono essere utilizzati come guida per la creazione di CR di AppVault.
+
+
+NOTE: Assicurarsi che la CR di AppVault si trovi sul cluster in cui è installato Trident Protect. Se la CR di AppVault non esiste o non è possibile accedervi, la riga di comando mostrerà un errore.
 
 
 
 == Configurare l'autenticazione e le password AppVault
 
-Prima di creare una CR AppVault, è necessario assicurarsi che AppVault e il data mover scelto possano autenticarsi con il provider e con qualsiasi risorsa correlata.
+Prima di creare una CR di AppVault, assicurati che AppVault e il data mover scelto possano autenticarsi con il provider e con tutte le risorse correlate.
 
 
 
 === Password del repository di spostamento dati
 
-Quando si creano oggetti AppVault utilizzando CRS o il plug-in Trident Protect CLI, è possibile richiedere a Trident Protect di utilizzare un segreto Kubernetes che contiene password personalizzate per la crittografia del repository Restic e Kopia. Se non si specifica un segreto, Trident Protect utilizza una password predefinita.
+Quando si creano oggetti AppVault utilizzando le CR o il plugin Trident Protect CLI, è possibile specificare un segreto Kubernetes con password personalizzate per la crittografia Restic e Kopia. Se non si specifica un segreto, Trident Protect utilizza una password predefinita.
 
 * Quando si creano manualmente CR di AppVault, utilizzare il campo *spec.dataMoverPasswordSecretRef* per specificare il segreto.
 * Quando si creano oggetti AppVault utilizzando la CLI di Trident Protect, utilizzare  `--data-mover-password-secret-ref` argomento per specificare il segreto.
@@ -40,9 +43,13 @@ Quando si creano oggetti AppVault utilizzando CRS o il plug-in Trident Protect C
 
 Utilizzare gli esempi seguenti per creare la password segreta. Quando si creano oggetti AppVault, è possibile impostare Trident Protect per utilizzare questo segreto per l'autenticazione con l'archivio di spostamento dati.
 
+[NOTE]
+====
+* A seconda di quale strumento di spostamento dati si sta utilizzando, è sufficiente includere la password corrispondente per tale strumento. Ad esempio, se si sta utilizzando Restic e non si prevede di utilizzare Kopia in futuro, è possibile includere solo la password Restic quando si crea il segreto.
+* Conservare la password in un luogo sicuro. Sarà necessaria per ripristinare i dati sullo stesso cluster o su uno diverso. Se il cluster o il  `trident-protect` Se lo spazio dei nomi viene eliminato, non sarà possibile ripristinare i backup o gli snapshot senza la password.
 
-NOTE: A seconda di quale strumento di spostamento dati si sta utilizzando, è sufficiente includere la password corrispondente per tale strumento. Ad esempio, se si sta utilizzando Restic e non si prevede di utilizzare Kopia in futuro, è possibile includere solo la password Restic quando si crea il segreto.
 
+====
 [role="tabbed-block"]
 ====
 .Utilizzare un CR

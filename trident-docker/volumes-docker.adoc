@@ -34,7 +34,7 @@ docker volume create -d ntap_bronze --name bronzeVolume
 
 NOTE: Se non si specifica alcuna link:volume-driver-options.html["opzioni"^], vengono utilizzate le impostazioni predefinite del driver.
 
-* Eseguire l'override delle dimensioni predefinite del volume. Per creare un volume 20GiB con un driver, vedere l'esempio seguente:
+* Sostituisci la dimensione predefinita del volume. Per creare un volume da 20 GiB con un driver, vedi l'esempio seguente:
 +
 [source, console]
 ----
