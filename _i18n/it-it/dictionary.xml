@@ -5704,42 +5704,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="af4e755c6284fa61e563c93320e97aaa" category="paragraph">Trident utilizza le seguenti porte per la comunicazione all'interno di Kubernetes:</block>
   <block id="8a783a7c53eca16c3e7092da50957c1e" category="list-text">OpenShift 4.14 - 4.18</block>
   <block id="ef46cb32ba76d79fbc7bfb7586fff578" category="list-text">Assicurati di aver aggiornato all'ultima versione di <block ref="452b142235e718663e27bc4f162c14ca" prefix=" " category="inline-code"></block> .</block>
-  <block id="55b94ed9b78fb336b981481557e7d219" category="list-text">15 aprile 2025: <block ref="1d74efb61b1c97b9032a1222a24185b1" category="inline-link-macro-rx"></block></block>
-  <block id="38873c8c72328929e064d07375c3bb64" category="inline-link-macro">Utilizzo del protocollo Fibre Channel con Trident 25.02 per l'archiviazione persistente su Kubernetes</block>
-  <block id="c6fc47f295f8e48564562b41d6234e74" category="list-text">14 aprile 2025: <block ref="519219109d85923b9dfc4c314bbb8b20" category="inline-link-macro-rx"></block></block>
-  <block id="f752aa3cc1916f79a2806e72dfc8b4b5" category="list-text">14 aprile 2025: <block ref="e28ddf0afaf73832b19731c7248b6de5" category="inline-link-macro-rx"></block></block>
-  <block id="e828b47619f791883b7abff60a3529bc" category="inline-link-macro">Semplificazione dell'installazione Trident su Red Hat OpenShift con il nuovo operatore certificato</block>
-  <block id="02062222c04c114bc7fc20acf792eca9" category="list-text">31 marzo 2025: <block ref="20f7b4cad613435492a1b3cb3c26a028" category="inline-link-macro-rx"></block></block>
-  <block id="7259adf488b8a65d6f49febc93ff44f1" category="inline-link-macro">Provisioning Trident per PMI con Google Cloud NetApp Volumes</block>
-  <block id="1759bd5240df424d309ad71c96b867f8" category="list-text">27 marzo 2025: <block ref="90bc67f83290246dad8f0bc76fd49c2c" category="inline-link-macro-rx"></block></block>
-  <block id="b6bbcc8be7319fca806d894645c63253" category="list-text">5 marzo 2025: <block ref="c5953f971a0752feeb8ffbf7d9258789" category="inline-link-macro-rx"></block></block>
-  <block id="469a8897f90d7e07ede75ff9b199e586" category="inline-link-macro">Distribuzione dell'identità cloud con Trident, GKE e Google Cloud NetApp Volumes</block>
-  <block id="cb2e2f8e2789874710f34e485efc824e" category="list-text">27 febbraio 2025: <block ref="46c84c372fb557e16383c0494f1255f5" category="inline-link-macro-rx"></block></block>
-  <block id="869493e7a782c2bac6bf8778d6bf749e" category="list-text">12 dicembre 2024: <block ref="5c3a9e150bc491524071eb191093dabe" category="inline-link-macro-rx"></block></block>
-  <block id="afd55df73a814282b1a34c79040d709a" category="inline-link-macro">Trident 25.01: Miglioramento dell'esperienza di archiviazione Kubernetes con nuove funzionalità e miglioramenti</block>
-  <block id="13c401b1f27132099b945b95025ca748" category="list-text">26 novembre 2024: <block ref="4a1bf3162dde1793089483cf7682fb86" category="inline-link-macro-rx"></block></block>
-  <block id="0d5eeacaefc73b7986c8f85945c72129" category="inline-link-macro">NetApp Trident con Google Cloud NetApp Volumes</block>
-  <block id="76227bcfad23cc6957b8b7e9357c9269" category="list-text">11 novembre 2024: <block ref="8701d0c1e4315119a2dc9de106eb2681" category="inline-link-macro-rx"></block></block>
-  <block id="02104a16ef3fcf06a78872f4f5aea5d2" category="inline-link-macro">Amazon FSx for NetApp ONTAP con Red Hat OpenShift Service su AWS (ROSA) utilizzando Trident</block>
-  <block id="e2218d0205cdf02ed15039a9eb215920" category="list-text">29 ottobre 2024: <block ref="ecf88162cd631914aa447c7edeaa2e6e" category="inline-link-macro-rx"></block></block>
-  <block id="e7eb7f68cb5a04d95a6152e9d6ab37ec" category="inline-link-macro">Migrazione live di VM con OpenShift Virtualization su ROSA e Amazon FSx for NetApp ONTAP</block>
-  <block id="96788723465bd45962aba2ba495bac79" category="list-text">29 ottobre 2024: <block ref="231a583c773a423673d617a1071353b9" category="inline-link-macro-rx"></block></block>
-  <block id="c5b6456f211505596899eb36c3ee09e4" category="inline-link-macro">Utilizzo di NVMe/TCP per consumare lo storage ONTAP per le tue moderne app containerizzate su Amazon EKS</block>
-  <block id="3373d53eb859a1fef914c3f5ca7b306d" category="list-text">8 luglio 2024: <block ref="0549a17fef857ef2806f9656f7495ac5" category="inline-link-macro-rx"></block></block>
-  <block id="782250194e3b8d07e3c01ee076d7abd9" category="inline-link-macro">Archiviazione Kubernetes senza interruzioni con Google Cloud NetApp Volumes Flex e Astra Trident</block>
-  <block id="1c3ec9ce23b462e81e392f144f8c6527" category="list-text">1 luglio 2024: <block ref="48908e9b9a4cb59db7244b631bf66632" category="inline-link-macro-rx"></block></block>
-  <block id="c0575ecf088b36655f7a582773399ba0" category="inline-link-macro">ONTAP come archivio backend per il registro immagini integrato in OpenShift</block>
-  <block id="fa465e5731c44ee6dc77398eecb4493d" category="list-text">11 giugno 2024: <block ref="99a2855a4f47b1b3fc2dd744ecb3c177" category="inline-link-macro-rx"></block></block>
-  <block id="a35665637b8d8bcebbf303a7e9950cf2" category="inline-link-macro">Automazione del failover del registro per il ripristino di emergenza con i ganci post-ripristino Trident Protect</block>
-  <block id="9eef003e4e8a5cd2654642dbf1806c35" category="list-text">16 maggio 2025: <block ref="9c69f3b57e4c9e30a2d1dd0bbfc81eb9" category="inline-link-macro-rx"></block></block>
-  <block id="351257ff03e16ff522106900a9f35e9e" category="inline-link-macro">Ripristino di emergenza della virtualizzazione OpenShift con NetApp Trident Protect</block>
-  <block id="cc48e904c9802b69a8760ed8f894b251" category="list-text">16 maggio 2025: <block ref="a57e639cf15650353686ed7219eb274b" category="inline-link-macro-rx"></block></block>
-  <block id="a3bed2eca17a542318eff49566e65560" category="inline-link-macro">Migrazione della classe di archiviazione con Trident Protect Backup &amp; Restore</block>
-  <block id="95d102ffaff20709e445a0302dc9209b" category="list-text">13 maggio 2025: <block ref="9965527798b3d27a2b7fb71617212405" category="inline-link-macro-rx"></block></block>
-  <block id="c00f8563a4e3023d2ff83b5b26a91edc" category="inline-link-macro">Ridimensiona le applicazioni Kubernetes con i ganci di protezione post-ripristino Trident</block>
-  <block id="a3ca851cebfd3307178076015c1cb876" category="list-text">9 maggio 2025: <block ref="ee88df603de21180a12f2f1bbd1e61b2" category="inline-link-macro-rx"></block></block>
-  <block id="8f18e786e2a2dd5d70390afe4c75e024" category="inline-link-macro">Trident Protect Power Up: replica di Kubernetes per protezione e ripristino di emergenza</block>
-  <block id="ae7986fef0bfa9c9a4f730ee6bb5e0ac" category="list-text">3 aprile 2025: <block ref="4ca932fa6234c864106756a287da48ac" category="inline-link-macro-rx"></block></block>
   <block id="aa56a1d260c6089f006323437ab5613f" category="list-text">La dimensione minima consigliata per il membro/volume FlexGroup è 100 GiB.</block>
   <block id="006ae665d682a3f9a5488cf901070b36" category="list-text">Crea un volume da 10 GiB:</block>
   <block id="865cd97dd9f832e1d9213d79b236a1ab" category="list-text">Crea un volume da 100 GiB con snapshot:</block>
@@ -5748,11 +5712,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="fb489bd0bae5618bdc73d177f2d64e38" category="list-text">Crea un volume Gold da 10 GiB:</block>
   <block id="81271f59b907de8227da8c807392b336" category="list-text">Crea un volume Bronze da 100 GiB:</block>
   <block id="e19486e0f435d5132bb0d59bf69d3994" category="list-text">Sostituisci la dimensione predefinita del volume. Per creare un volume da 20 GiB con un driver, vedi l'esempio seguente:</block>
-  <block id="9c292a7d893942317e3d566cb6f6776c" category="paragraph">Quando si eseguono operazioni di protezione dei dati su un'applicazione, è necessario creare una CR di AppVault manualmente o dalla riga di comando. La CR di AppVault è specifica per il proprio ambiente e gli esempi in questa pagina possono essere utilizzati come guida per la creazione di CR di AppVault.</block>
-  <block id="e83cbbd4be53e68f06264e1522860ce6" category="admonition">Assicurarsi che la CR di AppVault si trovi sul cluster in cui è installato Trident Protect. Se la CR di AppVault non esiste o non è possibile accedervi, la riga di comando mostrerà un errore.</block>
-  <block id="05e673132e6ddc1f638835fcde244ff1" category="paragraph">Prima di creare una CR di AppVault, assicurati che AppVault e il data mover scelto possano autenticarsi con il provider e con tutte le risorse correlate.</block>
-  <block id="2c2d23c6647059f96e585a1174a5c975" category="paragraph">Quando si creano oggetti AppVault utilizzando le CR o il plugin Trident Protect CLI, è possibile specificare un segreto Kubernetes con password personalizzate per la crittografia Restic e Kopia. Se non si specifica un segreto, Trident Protect utilizza una password predefinita.</block>
-  <block id="1850a20880f300b00b10477bfcbd6087" category="list-text">Conservare la password in un luogo sicuro. Sarà necessaria per ripristinare i dati sullo stesso cluster o su uno diverso. Se il cluster o il <block ref="9a82c7a4099124e5bfaa83e7c5997bd4" prefix=" " category="inline-code"></block> Se lo spazio dei nomi viene eliminato, non sarà possibile ripristinare i backup o gli snapshot senza la password.</block>
   <block id="47d9ed5ad2795e2453dc7725d8fdeadc" category="paragraph">Durante la creazione di un backend, è generalmente possibile specificare un set di parametri. Era impossibile per l'amministratore creare un altro backend con le stesse credenziali di storage e con un set di parametri diverso. Con l'introduzione dei pool virtuali, questo problema è stato risolto. Un pool virtuale è un'astrazione di livello introdotta tra il backend e la classe di storage di Kubernetes, in modo che l'amministratore possa definire parametri insieme a etichette a cui è possibile fare riferimento tramite le classi di storage di Kubernetes come selettore, in modo indipendente dal backend. I pool virtuali possono essere definiti per tutti i backend NetApp supportati con Trident. L'elenco include SolidFire/ NetApp HCI, ONTAP, Cloud Volumes Service su GCP e Azure NetApp Files.</block>
   <block id="193dc4f3e19f36ad5c6f2ad43ea53a42" category="list-text">Aggiunti 18 MiB di overhead ai LUN LUKS per garantire che le dimensioni PVC segnalate siano utilizzabili.</block>
   <block id="85034b8ca1df8fbc112b8206cf773406" category="list-text">I driver ONTAP ora accettano dimensioni di volume inferiori a 20 MiB ( <block ref="91ddf20e925712134071a4cc83fc66a3" category="inline-link-macro-rx"></block> ).</block>
