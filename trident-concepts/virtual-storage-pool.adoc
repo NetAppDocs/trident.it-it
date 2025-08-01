@@ -33,6 +33,15 @@ Qualsiasi aspetto specificato al di fuori dell'elenco dei pool virtuali è globa
 ====
 La maggior parte degli aspetti è specificata in termini specifici del back-end. Fondamentalmente, i valori di aspetto non sono esposti al di fuori del driver del backend e non sono disponibili per la corrispondenza in `StorageClasses`. L'amministratore definisce invece una o più etichette per ogni pool virtuale. Ogni etichetta è una coppia chiave:valore e le etichette potrebbero essere comuni tra backend univoci. Come per gli aspetti, le etichette possono essere specificate per pool o globali per backend. A differenza degli aspetti, che hanno nomi e valori predefiniti, l'amministratore può definire i valori e le chiavi dell'etichetta in base alle esigenze. Per comodità, gli amministratori dello storage possono definire le etichette per ogni pool virtuale e raggruppare i volumi per etichetta.
 
+Le etichette del pool virtuale possono essere definite utilizzando questi caratteri:
+
+* lettere maiuscole `A-Z`
+* lettere minuscole `a-z`
+* numeri `0-9`
+* sottolineature `_`
+* trattini `-`
+
+
 R `StorageClass` identifica il pool virtuale da utilizzare facendo riferimento alle etichette all'interno di un parametro di selezione. I selettori del pool virtuale supportano i seguenti operatori:
 
 [cols="14%,34%,52%"]
