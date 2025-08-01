@@ -5351,8 +5351,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="f19e5d93360a2cdbfe64b6c513e8d263" category="list-text">Fare clic su *Installa*.</block>
   <block id="86499c179913093d38f20a089bb4967f" category="list-text">Selezionare le opzioni richieste e fare clic su *Installa*.</block>
   <block id="301a8f7d2ea6785da5f183d668f629b2" category="list-text">Una volta completata l'installazione, l'operatore è visibile nell'elenco degli operatori installati.</block>
-  <block id="daf49607bdd50d5294748814ce67ed21" category="list-text">Creare una TORC come l'installazione del bundle operatore.</block>
-  <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">Disinstallare l'operatore Trident</block>
   <block id="9838ab5306db947832d94d1cd49a486a" category="list-text">Selezionare l'operatore Trident dall'elenco degli operatori installati.</block>
   <block id="b5a7424a278ddd01fa4e381b58d1e00d" category="list-text">Selezionare se si desidera eliminare tutte le istanze dell'operando dall'operatore.</block>
   <block id="28ed84868f638999e59e306d6b87b07c" category="admonition">Se non si seleziona la casella di controllo *Elimina tutte le istanze dell'operando da questo operatore*, Trident non verrà disinstallato.</block>
@@ -5774,4 +5772,5 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="99be75de31964ff7afed59629c2827c9" category="list-text">numeri<block ref="415d01607bfb64fa0b7efaf0fe064e86" prefix=" " category="inline-code"></block></block>
   <block id="f0fbfac7ddb67830c39dcddb2e0101aa" category="list-text">sottolineature<block ref="b14a7b8059d9c055954c92674ce60032" prefix=" " category="inline-code"></block></block>
   <block id="c76231732eebaec2e2411ed7cfd30e2c" category="list-text">trattini<block ref="336d5ebc5436534e61d16e63ddfca327" prefix=" " category="inline-code"></block></block>
+  <block id="3304691bb80d9d42f8bae0707e46c701" category="paragraph">== Disinstallare l'operatore Trident</block>
 </blocks>

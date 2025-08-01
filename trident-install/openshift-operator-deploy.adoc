@@ -40,12 +40,10 @@ image::../media/openshift-operator-03.png[Installare]
 +
 image::../media/openshift-operator-04.png[Installato]
 
-. Creare una TORC come l'installazione del bundle operatore.
-
-
-
-
++
 == Disinstallare l'operatore Trident
+
+
 
 .Fasi
 . Selezionare l'operatore Trident dall'elenco degli operatori installati.
