@@ -30,7 +30,7 @@ Se si desidera utilizzare la funzionalità snapshot, installare il componente ag
 ====
 .Identità del pod
 --
-. Aggiungere al repository NetApp Trident la configurazione helm:
+. Aggiungere il repository Trident Helm:
 +
 [source, console]
 ----
@@ -62,7 +62,7 @@ trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT
 --
 .Associazione dell'account di servizio (IRSA)
 --
-. Aggiungere al repository NetApp Trident la configurazione helm:
+. Aggiungere il repository Trident Helm:
 +
 [source, console]
 ----

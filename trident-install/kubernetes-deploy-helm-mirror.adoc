@@ -38,7 +38,7 @@ Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes`
 
 == Distribuire l'operatore Trident e installare Trident utilizzando Helm
 
-Utilizzo di Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Grafico di comando"^] È possibile implementare l'operatore Trident e installare Trident in un'unica fase.
+Utilizzo del Tridentlink:https://netapp.github.io/trident-helm-chart["Grafico di comando"^] è possibile distribuire l'operatore Trident e installare Trident in un unico passaggio.
 
 Revisione link:../trident-get-started/kubernetes-deploy.html["panoramica dell'installazione"] per assicurarsi di aver soddisfatto i prerequisiti di installazione e selezionato l'opzione di installazione corretta per il proprio ambiente.
 
@@ -53,7 +53,7 @@ IMPORTANT: Quando si installa Trident in un repository privato, se si utilizza `
 +
 [source, console]
 ----
-helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident/trident-operator
+helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
 . Utilizzare `helm install` e specificare un nome per la distribuzione e la posizione del Registro di sistema dell'immagine. Lo link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Immagini Trident e CSI"] può trovarsi in un registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Negli esempi, `100.2506.0` è la versione di Trident che si sta installando.
 +
