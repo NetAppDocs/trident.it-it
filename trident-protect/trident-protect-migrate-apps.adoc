@@ -14,7 +14,7 @@ summary: Puoi ripristinare i dati di backup o Snapshot su un cluster o una class
 
 
 [role="lead"]
-Puoi migrare le tue applicazioni tra cluster o classi di storage ripristinando i dati snapshot o di backup in un cluster o una classe di storage differenti.
+È possibile migrare le applicazioni tra cluster o in classi di archiviazione diverse ripristinando i dati di backup.
 
 
 NOTE: Quando si esegue la migrazione di un'applicazione, tutti i collegamenti di esecuzione configurati per l'applicazione vengono migrati con l'applicazione. Se è presente un gancio di esecuzione post-ripristino, viene eseguito automaticamente come parte dell'operazione di ripristino.
@@ -65,7 +65,7 @@ NOTE: È possibile replicare un'applicazione tra cluster diversi utilizzando lin
 
 == Eseguire la migrazione delle applicazioni da una classe di storage a un'altra
 
-È possibile migrare le applicazioni da una classe di archiviazione a una classe di archiviazione diversa ripristinando uno snapshot nella classe di archiviazione di destinazione differente.
+È possibile migrare le applicazioni da una classe di archiviazione a una diversa ripristinando un backup nella classe di archiviazione di destinazione.
 
 Ad esempio (escludendo i segreti dalla CR di ripristino):
 
@@ -79,11 +79,11 @@ spec:
   appArchivePath: "${snapshotArchivePath}"
   appVaultRef: "${appVaultCRName}"
   namespaceMapping:
-    destination: "${destinationNamespace}"
-    source: "${sourceNamespace}"
+    - destination: "${destinationNamespace}"
+      source: "${sourceNamespace}"
   storageClassMapping:
-    destination: "${destinationStorageClass}"
-    source: "${sourceStorageClass}"
+    - destination: "${destinationStorageClass}"
+      source: "${sourceStorageClass}"
   resourceFilter:
     resourceMatchers:
       kind: Secret

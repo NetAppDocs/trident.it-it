@@ -33,7 +33,11 @@ entries:
   - title: Proteggere le applicazioni
     url: "/trident-protect/trident-protect-protect-apps.html"
   - title: Ripristino delle applicazioni
-    url: "/trident-protect/trident-protect-restore-apps.html"
+    entries:
+    - title: Ripristina le applicazioni utilizzando Trident Protect
+      url: "/trident-protect/trident-protect-restore-apps.html"
+    - title: Utilizza impostazioni avanzate
+      url: "/trident-protect/trident-protect-restore-settings.html"
   - title: Replica delle applicazioni con NetApp SnapMirror
     url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
   - title: Migrazione delle applicazioni
