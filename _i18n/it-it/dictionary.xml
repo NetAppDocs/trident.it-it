@@ -5796,4 +5796,5 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="5df2f935f2bc3df2c6378f665b3d6659" category="list-text">Puoi aggiungere il<block ref="e9a7558decb5e432d8b7c4d536cc9876" prefix=" " category="inline-code"></block> parametro per configurare e abilitare i servizi iSCSI e Multipath su tutti i nodi worker OpenShift.</block>
   <block id="f61306bfa8c6de676059739358d4479f" category="list-text">Fare clic su *Crea*; Trident Orchestrator verrà installato completamente.</block>
   <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">Disinstallare l'operatore Trident</block>
+  <block id="b94d4c5305d8d32a875a24a5b1501274" category="admonition">I clienti che utilizzano SolidFire sono pregati di non effettuare l'aggiornamento alla versione 25.06.1 a causa di un problema noto durante l'annullamento della pubblicazione dei volumi.  A breve verrà rilasciata la versione 25.06.2 per risolvere questo problema.</block>
 </blocks>

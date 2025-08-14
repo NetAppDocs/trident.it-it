@@ -28,6 +28,9 @@ Il riepilogo delle novità fornisce dettagli sui miglioramenti, le correzioni e 
 === Trident
 
 
+IMPORTANT: I clienti che utilizzano SolidFire sono pregati di non effettuare l'aggiornamento alla versione 25.06.1 a causa di un problema noto durante l'annullamento della pubblicazione dei volumi.  A breve verrà rilasciata la versione 25.06.2 per risolvere questo problema.
+
+
 
 ==== Correzioni
 
