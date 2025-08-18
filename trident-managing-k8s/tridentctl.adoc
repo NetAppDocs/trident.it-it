@@ -251,9 +251,9 @@ Allarmi:: `-h`, `--help`: Guida per lo stato backend.
 Per aggiornare utilizzando il file, procedere come segue `userState` `backend.json` :
 
 . Modificare il `backend.json` file per includere il `userState` campo con il valore impostato su 'sospeso'.
-. Aggiornare il backend utilizzando il `tridentctl backend update` comando e il percorso del file aggiornato `backend.json` .
+. Aggiorna il backend utilizzando `tridentctl update backend` comando e il percorso per l'aggiornamento `backend.json` file.
 +
-*Esempio*: `tridentctl backend update -f /<path to backend JSON file>/backend.json`
+*Esempio*: `tridentctl update backend  -f /<path to backend JSON file>/backend.json -n trident`
 
 
 
