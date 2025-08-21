@@ -5592,14 +5592,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="d716a23a6e731bf750989a45cf32a804" category="cell">Criterio di suddivisione in livelli per utilizzare "none" *Non specificare per i sistemi ASA r2*.</block>
   <block id="9e925e9341b490bfd3b4c4ca3b0c1ef2" category="inline-link-macro">questo</block>
   <block id="5a401de4946c2175a17ad6fda3a04781" category="admonition"><block ref="9f40590ca1185cea7261c2a60fc922ea" category="inline-link-macro-rx"></block> differiscono dagli altri sistemi ONTAP (ASA, AFF e FAS) nell'implementazione del loro livello di storage. Nei sistemi ASA r2, vengono utilizzate zone di disponibilità dello storage al posto degli aggregati. Fare riferimento a <block ref="261295ed43e7c9d663fb0a84ba5b2157" category="inline-link-macro-rx"></block> Articolo della Knowledge Base su come assegnare aggregati alle SVM nei sistemi ASA r2.</block>
-  <block id="d3a94db6693be8414be239f55df31b37" category="paragraph">== Autenticare il backend ONTAP</block>
-  <block id="f16fbd9bb3dcbec83ca559e0320bc245" category="paragraph">=== Abilita l'autenticazione basata sulle credenziali</block>
-  <block id="222449e5312c55d5a234569ae308041a" category="paragraph">=== Abilita l'autenticazione basata sul certificato</block>
-  <block id="9a86918a1cd754d4c3e7a1745efe18dc" category="paragraph">=== Aggiorna i metodi di autenticazione o ruota le credenziali</block>
-  <block id="f33ff792ccf735be92ad60ca85333619" category="paragraph">=== Crea un ruolo ONTAP personalizzato per Trident</block>
-  <block id="1e86eeb01cf8def6f697ea2c64e7df45" category="paragraph">== Autenticare le connessioni con CHAP bidirezionale</block>
-  <block id="1c47399fc1153044c4efc19db3115ddf" category="paragraph">=== Come funziona</block>
-  <block id="0cc88844e21c5adec6036d2a3e35f523" category="paragraph">=== Ruota le credenziali e aggiorna i backend</block>
   <block id="6fddcf0bbb95fe4fb7de4f5f2e53ee74" category="paragraph">Snapshot del gruppo di volumi Kubernetes di volumi persistenti (PV). NetApp Trident offre la possibilità di creare snapshot di più volumi (un gruppo di snapshot di volume). Questo snapshot del gruppo di volumi rappresenta copie di più volumi acquisite nello stesso momento.</block>
   <block id="9c3e7c7a7d7349669946d43b4988c3ed" category="admonition">VolumeGroupSnapshot è una funzionalità beta di Kubernetes con API beta. La versione minima richiesta per VolumeGroupSnapshot è Kubernetes 1.32.</block>
   <block id="54100cbc57b96027d8dd74891c09bf53" category="section-title">Creare snapshot del gruppo di volumi</block>
@@ -5807,4 +5799,8 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="6f95f26584cb2bbbc9c25ed197bf9234" category="admonition">NVMe è supportato solo con le API REST ONTAP e non con ONTAPI (ZAPI).</block>
   <block id="32653402e1251f3e6f9db04a67492d01" category="paragraph">*Se specificato, impostare sempre su<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> per sistemi ASA r2*.</block>
   <block id="e1b6f2a617a63649b238c99a6557a915" category="list-text">DH-HMAC-CHAP supportato nativamente da NVMe</block>
+  <block id="7fbe6e40125b7d1b2f5c5c05044e7526" category="section-title">Abilita l'autenticazione basata sul certificato</block>
+  <block id="42f93278b0d15c8d0f6613813bf586d5" category="section-title">Autenticare le connessioni con CHAP bidirezionale</block>
+  <block id="9ffdb95250e26c7a6b468126ac7c75b0" category="section-title">Come funziona</block>
+  <block id="81f2df0265026a1a04bda5484798a10d" category="section-title">Ruota le credenziali e aggiorna i backend</block>
 </blocks>
