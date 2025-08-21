@@ -5705,7 +5705,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="afd55df73a814282b1a34c79040d709a" category="inline-link-macro">Trident 25.01: Miglioramento dell'esperienza di archiviazione Kubernetes con nuove funzionalità e miglioramenti</block>
   <block id="13c401b1f27132099b945b95025ca748" category="list-text">26 novembre 2024: <block ref="4a1bf3162dde1793089483cf7682fb86" category="inline-link-macro-rx"></block></block>
   <block id="0d5eeacaefc73b7986c8f85945c72129" category="inline-link-macro">NetApp Trident con Google Cloud NetApp Volumes</block>
-  <block id="76227bcfad23cc6957b8b7e9357c9269" category="list-text">11 novembre 2024: <block ref="8701d0c1e4315119a2dc9de106eb2681" category="inline-link-macro-rx"></block></block>
   <block id="02104a16ef3fcf06a78872f4f5aea5d2" category="inline-link-macro">Amazon FSx for NetApp ONTAP con Red Hat OpenShift Service su AWS (ROSA) utilizzando Trident</block>
   <block id="e2218d0205cdf02ed15039a9eb215920" category="list-text">29 ottobre 2024: <block ref="ecf88162cd631914aa447c7edeaa2e6e" category="inline-link-macro-rx"></block></block>
   <block id="e7eb7f68cb5a04d95a6152e9d6ab37ec" category="inline-link-macro">Migrazione live di VM con OpenShift Virtualization su ROSA e Amazon FSx for NetApp ONTAP</block>
@@ -5805,4 +5804,7 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="81f2df0265026a1a04bda5484798a10d" category="section-title">Ruota le credenziali e aggiorna i backend</block>
   <block id="4bdb23ea513714e3ddde2986c05c669f" category="inline-link-macro">Miglioramento della coerenza dei dati: snapshot del gruppo di volumi nella virtualizzazione OpenShift con Trident</block>
   <block id="299fb00578f305c7fc8cabf601fd1c80" category="list-text">19 agosto 2025:<block ref="e5b6bdace6eea699ef0d8738f7d6c354" category="inline-link-macro-rx"></block></block>
+  <block id="a21cecd213989d401167ec6cfba8d998" category="list-text">11 novembre 2024: <block ref="daed3e0cfbeb06368e36167c5fc4f468" category="inline-link-macro-rx"></block></block>
+  <block id="dcae39a3bdbd6a2685507ccc14623d62" category="list-text">Applicare il CRD di Prometheus ServiceMonitor al cluster:</block>
+  <block id="e95fc483374f2aa2997fb27e7235f723" category="list-text">Assicurarsi che l'ambiente locale possa connettersi al bucket di archiviazione degli oggetti definito in AppVault CR durante l'esecuzione di<block ref="f9adf231483d5dde9cfc10a610b748d3" prefix=" " category="inline-code"></block> comando.  Se le restrizioni di rete impediscono l'accesso, eseguire invece la CLI Trident Protect dall'interno di un pod sul cluster di destinazione.</block>
 </blocks>
