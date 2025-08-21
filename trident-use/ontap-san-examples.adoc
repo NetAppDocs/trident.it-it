@@ -138,6 +138,9 @@ Parametro booleano per utilizzare le API REST ONTAP .
 
 NOTE: NVMe è supportato solo con le API REST ONTAP e non con ONTAPI (ZAPI).
 
+
+NOTE: NVMe è supportato solo con le API REST ONTAP e non con ONTAPI (ZAPI).
+
 *Se specificato, impostare sempre su `true` per sistemi ASA r2*.
 | `true` Per ONTAP 9.15.1 o versioni successive, altrimenti `false`. 
 
