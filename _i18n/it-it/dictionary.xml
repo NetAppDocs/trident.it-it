@@ -2804,7 +2804,6 @@ Opzionale quando le identità gestite sono abilitate su un cluster AKS.</block>
   <block id="ecb7d1d46da3859c69f45b619ace746a" category="example-title">Forza distacco</block>
   <block id="f393555b01f0bafc5bd6a63db97bac1d" category="example-title">Identità gestite su un cluster AKS</block>
   <block id="90a731f9a8a983f7cf3905960d8146ec" category="cell"><block ref="9aa82da0cffe247b84587c1cc8e32746" prefix="" category="inline-code"></block></block>
-  <block id="ff1e5aff28fa6b984ca73f22322bbe5f" category="cell"><block ref="e4d71bf2abad047425f4463e27bb83b0" prefix="" category="inline-code"></block></block>
   <block id="fca9ec6d50035c840a58bdecab9e25b1" category="cell"><block ref="256acfe307251e7444859851d87d5735" prefix="" category="inline-code"></block></block>
   <block id="cb970ba92f64074cb0c13138a539851d" category="paragraph">È possibile utilizzare gli attributi in <block ref="289efe9665b12a9f791f1897f30c1a0b" category="inline-xref-macro-rx"></block> durante la definizione<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> per personalizzare l'installazione.</block>
   <block id="0f63a7a4873a5bae5060bde9fd1009af" category="example-title">Configurazione personalizzata di base</block>
@@ -5807,4 +5806,7 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="a21cecd213989d401167ec6cfba8d998" category="list-text">11 novembre 2024: <block ref="daed3e0cfbeb06368e36167c5fc4f468" category="inline-link-macro-rx"></block></block>
   <block id="dcae39a3bdbd6a2685507ccc14623d62" category="list-text">Applicare il CRD di Prometheus ServiceMonitor al cluster:</block>
   <block id="e95fc483374f2aa2997fb27e7235f723" category="list-text">Assicurarsi che l'ambiente locale possa connettersi al bucket di archiviazione degli oggetti definito in AppVault CR durante l'esecuzione di<block ref="f9adf231483d5dde9cfc10a610b748d3" prefix=" " category="inline-code"></block> comando.  Se le restrizioni di rete impediscono l'accesso, eseguire invece la CLI Trident Protect dall'interno di un pod sul cluster di destinazione.</block>
+  <block id="710d51eba716c95765550f52a1c4fd61" category="cell"><block ref="4aff31f193e6ea4df2a1c4f841bad5d6" prefix="" category="inline-code"></block></block>
+  <block id="68087b4c898b9466dc989d8086e173dc" category="cell">Sostituisce il timeout predefinito di 180 secondi per la maggior parte delle operazioni API di Kubernetes (se diverso da zero, in secondi).</block>
+  <block id="bd3dd99c8eae44e2ae2bfc8f00dc3db0" category="cell"><block ref="045117b0e0a11a242b9765e79cbf113f" prefix="" category="inline-code"></block></block>
 </blocks>

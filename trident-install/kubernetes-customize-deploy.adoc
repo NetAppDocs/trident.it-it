@@ -65,7 +65,7 @@ Impostare sull'identità del workload ("Azure.workload.Identity/client-id: Xxxxx
 | `IPv6` | Installare Trident su IPv6 | falso 
 
 
-| `k8sTimeout` | Timeout per le operazioni Kubernetes | `30sec` 
+| `k8sTimeout` | Timeout per le operazioni Kubernetes | `180sec` 
 
 
 | `silenceAutosupport` | Non inviare pacchetti AutoSupport a NetApp

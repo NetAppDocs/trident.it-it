@@ -202,7 +202,7 @@ WARNING: Non rimuovere l'affinità predefinita dal file Values.yaml. Se si desid
 | `tridentIPv6` | Permette a Trident di lavorare in cluster IPv6. | `false` 
 
 
-| `tridentK8sTimeout` | Esegue l'override del timeout predefinito di 30 secondi per la maggior parte delle operazioni API di Kubernetes (se diverso da zero, in secondi). | `0` 
+| `tridentK8sTimeout` | Sostituisce il timeout predefinito di 180 secondi per la maggior parte delle operazioni API di Kubernetes (se diverso da zero, in secondi). | `180` 
 
 
 | `tridentHttpRequestTimeout` | Esegue l'override del timeout predefinito di 90 secondi per le richieste HTTP, con `0s` è una durata infinita per il timeout. Non sono consentiti valori negativi. | `"90s"` 
