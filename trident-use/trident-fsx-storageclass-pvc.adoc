@@ -22,7 +22,7 @@ Configurare un oggetto Kubernetes StorageClass e creare la classe storage per is
 
 === Configurare un oggetto Kubernetes StorageClass
 
- https://kubernetes.io/docs/concepts/storage/storage-classes/["Oggetto Kubernetes StorageClass"^]Identifica Trident come provisioner utilizzato per quella classe e istruisce Trident su come effettuare il provisioning di un volume. Ad esempio:
+IL https://kubernetes.io/docs/concepts/storage/storage-classes/["Oggetto Kubernetes StorageClass"^] L'oggetto identifica Trident come il provisioner utilizzato per quella classe e indica a Trident come effettuare il provisioning di un volume.  Utilizzare questo esempio per configurare Storageclass per i volumi tramite NFS (fare riferimento alla sezione Attributi Trident di seguito per l'elenco completo degli attributi):
 
 [source, YAML]
 ----
@@ -33,6 +33,20 @@ metadata:
 provisioner: csi.trident.netapp.io
 parameters:
   backendType: "ontap-nas"
+  provisioningType: "thin"
+  snapshots: "true"
+----
+Utilizzare questo esempio per configurare Storageclass per i volumi che utilizzano iSCSI:
+
+[source, YAML]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
   provisioningType: "thin"
   snapshots: "true"
 ----
@@ -95,29 +109,6 @@ Dopo aver creato il PVC, è possibile montare il volume in un pod.
 
 === Manifesti campione
 
-.Manifesto di esempio di PersistentVolume
-[%collapsible]
-====
-Questo manifesto di esempio mostra un PV di base di 10Gi associato a StorageClass `basic-csi`.
-
-[source, YAML]
-----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv-storage
-  labels:
-    type: local
-spec:
-  storageClassName: ontap-gold
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteMany
-  hostPath:
-    path: "/my/host/path"
-----
-====
 .Manifesti di campioni PersistentVolumeClaim
 [%collapsible]
 ====
@@ -140,27 +131,27 @@ spec:
       storage: 1Gi
   storageClassName: ontap-gold
 ----
-.PVC con NVMe/TCP
-Questo esempio mostra un PVC di base per NVMe/TCP con accesso RWX associato a una classe StorageClass denominata `protection-gold`.
+.PVC utilizzando l'esempio iSCSI
+Questo esempio mostra un PVC di base per iSCSI con accesso RWO associato a una StorageClass denominata `protection-gold` .
 
 [source, YAML]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-name: pvc-san-nvme
+name: pvc-san
 spec:
 accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
 resources:
   requests:
-    storage: 300Mi
+    storage: 1Gi
 storageClassName: protection-gold
 ----
 ====
 
 
-=== Creare PV e PVC
+=== Crea PVC
 
 .Fasi
 . Creare il PVC.

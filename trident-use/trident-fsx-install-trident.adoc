@@ -149,6 +149,10 @@ Prima di configurare il componente aggiuntivo Trident per AWS EKS, assicurati di
 
 . Nella pagina Impostazioni *Configura componenti aggiuntivi selezionati*, effettuare le seguenti operazioni:
 +
+
+NOTE: *Salta questi passaggi se utilizzi l'associazione Pod Identity.*
+
++
 .. Selezionare la *versione* che si desidera utilizzare.
 .. Se si utilizza l'autenticazione IRSA, assicurarsi di impostare i valori di configurazione disponibili nelle impostazioni di configurazione facoltative:
 +
