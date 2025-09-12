@@ -135,6 +135,14 @@ NOTE: A partire da OpenShift 4.19, la versione minima Trident supportata per que
 | `k8sAPIQPS`  a| 
 Limite di query al secondo (QPS) utilizzato dal controller durante la comunicazione con il server API Kubernetes.  Il valore Burst viene impostato automaticamente in base al valore QPS.
 | `100`; facoltativo 
+
+
+| `enableConcurrency`  a| 
+Consente operazioni simultanee del controller Trident per una maggiore produttività.
+
+
+NOTE: *Anteprima tecnica*: questa funzionalità è sperimentale in NetApp Trident 25.06 e attualmente supporta flussi di lavoro paralleli limitati con il driver ONTAP-SAN (protocolli iSCSI e FCP).
+| falso 
 |===
 
 NOTE: Per ulteriori informazioni sulla formattazione dei parametri del pod, fare riferimento a. link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Assegnazione di pod ai nodi"^].
