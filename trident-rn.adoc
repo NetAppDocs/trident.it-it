@@ -318,7 +318,7 @@ link:./trident-protect/learn-about-trident-protect.html["Ulteriori informazioni 
 
 
 
-* È stato aggiunto un nuovo flag `--k8s_api_qps` ai programmi di installazione per impostare il valore QPS utilizzato da Trident per comunicare con il server API Kubernetes.
+* Aggiunta una nuova bandiera `--k8s-api-qps` agli installatori per impostare il valore QPS utilizzato da Trident per comunicare con il server API Kubernetes.
 * Aggiunto `--node-prep` flag agli installatori per la gestione automatica delle dipendenze del protocollo storage per i nodi del cluster Kubernetes. Compatibilità testata e verificata con il protocollo storage iSCSI Amazon Linux 2023
 * Aggiunto supporto per il distacco forzato per volumi ONTAP-NAS-Economy durante scenari di spegnimento nodi non-Graceful.
 * I nuovi volumi NFS ONTAP-NAS-Economy utilizzeranno le policy di esportazione per qtree quando si utilizza `autoExportPolicy` l'opzione backend. I qtree verranno mappati solo alle policy di esportazione restrittive dei nodi al momento della pubblicazione, per migliorare il controllo degli accessi e la sicurezza. Le qtree esistenti passeranno al nuovo modello di policy di esportazione quando Trident pubblica il volume da tutti i nodi per farlo senza impatti sui carichi di lavoro attivi.
