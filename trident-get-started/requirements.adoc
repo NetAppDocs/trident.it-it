@@ -218,6 +218,31 @@ link:../trident-reference/ports.html["Porte Trident"]
 
 Per le installazioni con montaggio ad aria, l'elenco seguente è un riferimento alle immagini contenitore necessarie per installare Trident. Utilizzare il `tridentctl images` comando per verificare l'elenco delle immagini contenitore necessarie.
 
+
+
+=== Immagini del contenitore richieste per Trident 25.06.2
+
+[cols="2"]
+|===
+| Versioni di Kubernetes | Immagine container 
+
+
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0  a| 
+* docker.io/netapp/trident:25.06.2
+* docker.io/netapp/trident-autosupport:25,06
+* registry.k8s.io/sig-storage/csi-provisioner:v5,2.0
+* registro.k8s.io/sig-storage/csi-attacher:v4.8.1
+* registry.k8s.io/sig-storage/csi-resizer:v1.13.2
+* registro.k8s.io/sig-storage/csi-snapshotter:v8.2.1
+* registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.13.0
+* docker.io/netapp/trident-operator:25.06.2 (facoltativo)
+
+
+|===
+
+
+=== Immagini del contenitore richieste per Trident 25.06
+
 [cols="2"]
 |===
 | Versioni di Kubernetes | Immagine container 

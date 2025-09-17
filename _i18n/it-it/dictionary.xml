@@ -5706,7 +5706,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="11162de38772a3876602bb4d9d213f43" category="section-title">Mappatura delle classi di archiviazione</block>
   <block id="b48c8c7ca3eb5e63afdfe6bbd74a35c9" category="paragraph">IL<block ref="b57d666629acffb30cc697faadc136b5" prefix=" " category="inline-code"></block> L'attributo definisce una mappatura da una classe di archiviazione presente nell'applicazione di origine a una nuova classe di archiviazione nel cluster di destinazione.  È possibile utilizzarlo durante la migrazione di applicazioni tra cluster con classi di archiviazione diverse o quando si modifica il backend di archiviazione per le operazioni BackupRestore.</block>
   <block id="27f5153068cecd37b6fa4a136586658d" category="sidebar">Utilizza impostazioni avanzate</block>
-  <block id="78b16a5d2427fb1cb647b8ff8e8936dd" category="section-title">Novità della versione 25.06.1</block>
   <block id="56f0b7f1d902abcea5e9a924acc8cf68" category="list-text">Risolto un problema per cui gli NQN non venivano controllati prima di essere rimossi dai sottosistemi.</block>
   <block id="74ede3b036d836536636c89ae6208dc1" category="list-text">Risolto un problema per cui più tentativi di chiudere un dispositivo LUKS causavano errori nello scollegamento dei volumi.</block>
   <block id="e593abd973cbfe8b821587be547d75a8" category="list-text">Corretto il problema di destage del volume iSCSI quando il percorso del dispositivo è cambiato dalla sua creazione.</block>
@@ -5843,4 +5842,11 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="e6bd8d0922b2f21a4aea7439cad54ba6" category="paragraph">Per abilitare operazioni simultanee del controller Trident per una migliore produttività, aggiungere<block ref="663f61c1cf47f8a531c8d769e8bf59f4" prefix=" " category="inline-code"></block> opzione durante l'installazione come mostrato in questo esempio.</block>
   <block id="6b37510d663e6eea4cd2d594f41e9e80" category="section-title">Utilizzo simultaneo del driver Trident SAN/iSCSI ed EBS-CSI</block>
   <block id="dd601ed3d730aa713757843173c1c8c5" category="paragraph">Se si prevede di utilizzare i driver ontap-san (ad esempio, iSCSI) con AWS (EKS, ROSA, EC2 o qualsiasi altra istanza), la configurazione multipath richiesta sui nodi potrebbe entrare in conflitto con il driver CSI di Amazon Elastic Block Store (EBS).  Per garantire che il multipathing funzioni senza interferire con i dischi EBS sullo stesso nodo, è necessario escludere EBS dalla configurazione del multipathing.  Questo esempio mostra un<block ref="9ac80d53ede05256c28cf9e043eb423c" prefix=" " category="inline-code"></block> file che include le impostazioni Trident richieste escludendo i dischi EBS dal multipathing:</block>
+  <block id="f5df426ed26da0917a8092b8f0b273d7" category="section-title">Immagini del contenitore richieste per Trident 25.06.2</block>
+  <block id="2bf22bcd28ba853a9453f882ca5dd194" category="list-text">docker.io/netapp/trident:25.06.2</block>
+  <block id="1f8b4ae7badb9c9b5fd03f3770bf252f" category="list-text">docker.io/netapp/trident-operator:25.06.2 (facoltativo)</block>
+  <block id="543f0a02b84be74ac68a52c8fb383d86" category="section-title">Immagini del contenitore richieste per Trident 25.06</block>
+  <block id="c70a7b422c141acedc1060dd737c17a5" category="section-title">Novità della versione 25.06.2</block>
+  <block id="3e49406f91b1756e000630d03496d0da" category="list-text">*Kubernetes*: risolto un problema critico per cui venivano rilevati dispositivi iSCSI errati durante il distacco dei volumi dai nodi Kubernetes.</block>
+  <block id="76adb46eab5f5dd5b58c3c8a62320c12" category="section-title">Modifiche nel 25.06.1</block>
 </blocks>
