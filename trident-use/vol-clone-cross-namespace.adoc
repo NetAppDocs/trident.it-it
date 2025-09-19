@@ -21,6 +21,9 @@ Utilizzando Trident, puoi creare nuovi volumi utilizzando volumi esistenti o vol
 Prima di clonare i volumi, verificare che i backend di origine e di destinazione siano dello stesso tipo e abbiano la stessa classe di storage.
 
 
+NOTE: La clonazione tra spazi dei nomi è supportata solo per `ontap-san` E `ontap-nas` driver di archiviazione.  I cloni di sola lettura non sono supportati.
+
+
 
 == Avvio rapido
 
