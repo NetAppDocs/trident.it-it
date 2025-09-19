@@ -18,7 +18,7 @@ summary: 'È possibile aggiornare facilmente un"installazione Trident esistente 
 
 == Aggiornare un'installazione manuale
 
-È possibile eseguire l'aggiornamento da un'installazione dell'operatore Trident definita dall'ambito del cluster a un'altra installazione dell'operatore Trident definita dal cluster. Tutte le versioni 21,01 e successive di Trident utilizzano un operatore cluster-scoped.
+È possibile eseguire l'aggiornamento da un'installazione dell'operatore Trident con ambito cluster a un'altra installazione dell'operatore Trident con ambito cluster.  Tutte le versioni Trident utilizzano un operatore con ambito cluster.
 
 
 NOTE: Per eseguire l'aggiornamento da Trident installato utilizzando l'operatore con spazio dei nomi (versioni da 20,07 a 20,10), utilizza le istruzioni di aggiornamento di link:../earlier-versions.html["versione installata"]Trident.
@@ -40,20 +40,22 @@ Assicurarsi di utilizzare un cluster Kubernetes in esecuzione link:../trident-ge
 ----
 ./tridentctl -n trident version
 ----
-. Eliminare l'operatore Trident utilizzato per installare l'istanza Trident corrente. Ad esempio, se si sta eseguendo l'aggiornamento da 23,07, eseguire il seguente comando:
+. Aggiorna il `operator.yaml` , `tridentorchestrator_cr.yaml` , E `post_1_25_bundle.yaml` con il registro e i percorsi immagine per la versione a cui si sta effettuando l'aggiornamento (ad esempio 25.06) e il segreto corretto.
+. Eliminare l'operatore Trident utilizzato per installare l'istanza Trident corrente.  Ad esempio, se si esegue l'aggiornamento dalla versione 25.02, eseguire il seguente comando:
 +
 [listing]
 ----
-kubectl delete -f 23.07.0/trident-installer/deploy/<bundle.yaml> -n trident
+kubectl delete -f 25.02.0/trident-installer/deploy/<bundle.yaml> -n trident
 ----
 . Se l'installazione iniziale è stata personalizzata utilizzando `TridentOrchestrator` è possibile modificare `TridentOrchestrator` oggetto per modificare i parametri di installazione. Ciò potrebbe includere le modifiche apportate per specificare i registri di immagini Trident e CSI mirrorati per la modalità offline, abilitare i registri di debug o specificare i segreti di pull delle immagini.
-. Installa Trident usando il file YAML del bundle corretto per il tuo ambiente, dove _<bundle.yaml>_ si trova
-`bundle_pre_1_25.yaml` o `bundle_post_1_25.yaml` si basa sulla tua versione di Kubernetes. Ad esempio, se si sta installando Trident 25,06, eseguire il seguente comando:
+. Installa Trident utilizzando il file YAML del bundle corretto per il tuo ambiente, dove _<bundle.yaml>_ è
+`bundle_pre_1_25.yaml` O `bundle_post_1_25.yaml` in base alla versione di Kubernetes.  Ad esempio, se si installa Trident 25.06.0, eseguire il seguente comando:
 +
 [listing]
 ----
 kubectl create -f 25.06.0/trident-installer/deploy/<bundle.yaml> -n trident
 ----
+. Modifica la torcia del tridente per includere l'immagine 25.06.0.
 
 
 
