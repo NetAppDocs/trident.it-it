@@ -151,7 +151,7 @@ NOTE: Per ulteriori informazioni sulla formattazione dei parametri del pod, fare
 
 === Dettagli sulla forza di distacco
 
-Lo stacco forzato è disponibile solo per `ontap-san`, `ontap-san-economy`, `onatp-nas` e `onatp-nas-economy` . Prima di attivare la funzione di force stach, è necessario attivare la funzione NGNS (non-aggraziate node shutdown) sul cluster Kubernetes. NGNS è abilitato per impostazione predefinita per Kubernetes 1,28 e versioni successive. Per ulteriori informazioni, fare riferimento a link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes: Shutdown del nodo non aggraziato"^].
+Il distacco forzato è disponibile per `ontap-san` , `ontap-san-economy` , `ontap-nas` , E `ontap-nas-economy` soltanto. Prima di abilitare la disconnessione forzata, è necessario abilitare l'arresto non regolare del nodo (NGNS) sul cluster Kubernetes. NGNS è abilitato per impostazione predefinita per Kubernetes 1.28 e versioni successive. Per ulteriori informazioni, fare riferimento a link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes: Shutdown del nodo non aggraziato"^] .
 
 
 NOTE: Quando si utilizza il `ontap-nas` driver OR `ontap-nas-economy`, è necessario impostare il `autoExportPolicy` parametro nella configurazione backend in `true` modo che Trident possa limitare l'accesso dal nodo Kubernetes con il tag applicato utilizzando policy di esportazione gestite.
