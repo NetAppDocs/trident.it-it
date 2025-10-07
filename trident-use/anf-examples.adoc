@@ -103,7 +103,7 @@ Opzionale quando le identità gestite sono abilitate su un cluster AKS. |
 | `qosType` | Rappresenta il tipo di QoS: automatico o manuale. *Anteprima tecnica per Trident 25.06* | Auto 
 
 
-| `maxThroughput` | Imposta la velocità massima consentita. Supportato solo per pool di capacità QoS manuali. *Anteprima tecnica per Trident 25.06* | `4 MiB/sec` 
+| `maxThroughput` | Imposta la velocità massima consentita in MiB/sec. Supportato solo per pool di capacità QoS manuali. *Anteprima tecnica per Trident 25.06* | `4 MiB/sec` 
 |===
 
 NOTE: Per ulteriori informazioni sulle funzioni di rete, fare riferimento a. link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/configure-network-features["Configurare le funzionalità di rete per un volume Azure NetApp Files"^].
