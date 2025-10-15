@@ -227,3 +227,9 @@ Richiamare dataLIFS per ripristinare la funzionalità completa.
  If you remove the `hostNQN` of the worker node from the corresponding subsystem, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
 .Soluzione alternativa
 Aggiungere il `hostNQN` tornare al sottosistema.
+
+
+
+== I client NFSv4.2 segnalano "argomento non valido" dopo l'aggiornamento ONTAP quando si prevede che "v4.2-xattrs" sia abilitato
+
+Dopo l'aggiornamento ONTAP, i client NFSv4.2 potrebbero segnalare errori di tipo "argomento non valido" quando tentano di montare esportazioni NFSv4.2. Questo problema si verifica quando il `v4.2-xattrs` l'opzione non è abilitata sulla SVM. .Soluzione alternativa Abilitare il `v4.2-xattrs` opzione sull'SVM o eseguire l'aggiornamento a ONTAP 9.12.1 o versione successiva, dove questa opzione è abilitata per impostazione predefinita.
