@@ -1496,8 +1496,6 @@
   <block id="ae8df8316f5c485b7db4e7141e899701" category="cell">Indirizzo specificato o derivato da SVM, se non specificato (non consigliato)</block>
   <block id="68934a3e9455fa72420237eb05902327" category="cell">falso</block>
   <block id="ffe4ce29fe1a6176d496c40332e9cb98" category="cell">Valore codificato in base64 del certificato CA attendibile. Opzionale. Utilizzato per l'autenticazione basata su certificato</block>
-  <block id="83425e975af1b2d60355aa4162300198" category="cell">Nome utente per la connessione al cluster/SVM. Utilizzato per l'autenticazione basata sulle credenziali</block>
-  <block id="63d06d6cc41e485615f99a3aad0002b3" category="cell">Password per la connessione al cluster/SVM. Utilizzato per l'autenticazione basata sulle credenziali</block>
   <block id="ef65dd3301d78701f7cfcf8a01834f2f" category="cell">Derivato se un SVM<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block> è specificato</block>
   <block id="e3f688f3aa653574b3253640aa98f47c" category="cell">Prefisso utilizzato per il provisioning di nuovi volumi nella SVM. Non può essere aggiornato dopo l'impostazione</block>
   <block id="79892588cbecd0b88729ea1a55b2a3a4" category="cell">LUN massimi per FlexVol, devono essere compresi nell'intervallo [50, 200]</block>
@@ -1601,8 +1599,6 @@
   <block id="e3f84c141fd3f4682dfb31e0d71c7f5f" category="cell">Nome utente inbound. Necessario se<block ref="68978ccf4ed83900c8dd27558ca5ec18" prefix=" " category="inline-code"></block></block>
   <block id="62fbbf4cfd0cc0a82f953199d14a61e3" category="cell"><block ref="2ebe107bb3bc9551fbb0e5033046931c" prefix="" category="inline-code"></block></block>
   <block id="a379a576b788ab047d5e6405ff4f3511" category="cell">Nome utente di destinazione. Necessario se<block ref="68978ccf4ed83900c8dd27558ca5ec18" prefix=" " category="inline-code"></block></block>
-  <block id="394d848f17683e31e21f6cde5fd9e3e4" category="cell">Nome utente necessario per comunicare con il cluster ONTAP. Utilizzato per l'autenticazione basata su credenziali.</block>
-  <block id="6f0acf4836d44b03512e1caa0d774777" category="cell">Password necessaria per comunicare con il cluster ONTAP. Utilizzato per l'autenticazione basata su credenziali.</block>
   <block id="a0de2cc0c77c388210e1f48423eea29c" category="cell">Prefisso utilizzato per il provisioning di nuovi volumi nella SVM. Non può essere modificato in seguito. Per aggiornare questo parametro, è necessario creare un nuovo backend.</block>
   <block id="51e6d748c5af856ade589011dc2c7e85" category="cell"><block ref="37a6259cc0c1dae299a7866489dff0bd" prefix="" category="inline-code"></block></block>
   <block id="036c0eabd455d8a92d350429f2f5747e" category="cell">Gruppo di criteri QoS adattivi da assegnare per i volumi creati. Scegliere tra qosPolicy o adaptiveQosPolicy per pool di storage/backend</block>
@@ -5859,4 +5855,19 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="844c50b4f1aab48821867a1209be687b" category="admonition">_Sebbene Trident sia supportato su Rancher Kubernetes Engine 2 (RKE2) versioni 1.27.x - 1.34.x, Trident è attualmente qualificato solo su RKE2 v1.28.5+rke2r1._</block>
   <block id="27f15237580e8f85cd2846baf40ad83b" category="paragraph">1,27 - 1,34</block>
   <block id="73b1fe6d150d74c875ee4a368dd3b1a9" category="cell">v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0</block>
+  <block id="431f7ca0be64e2c321d4d4be79b721aa" category="inline-link-macro">Autenticare Trident su un SVM backend utilizzando le credenziali di Active Directory</block>
+  <block id="ebce82cad933beb695765f374ca16800" category="cell">Nome utente per connettersi al cluster/SVM. Utilizzato per l'autenticazione basata sulle credenziali. Per l'autenticazione di Active Directory, vedere <block ref="c266761f957eda011224921a8539eded" category="inline-link-macro-rx"></block>.</block>
+  <block id="c48567e30df98d399ca8a25594294caa" category="cell">Password per connettersi al cluster/SVM. Utilizzato per l'autenticazione basata sulle credenziali. Per l'autenticazione di Active Directory, vedere <block ref="c266761f957eda011224921a8539eded" category="inline-link-macro-rx"></block>.</block>
+  <block id="50d0e6e4ea5256d25a55581de47b2a0f" category="cell">Nome utente necessario per comunicare con il cluster ONTAP . Utilizzato per l'autenticazione basata sulle credenziali. Per l'autenticazione di Active Directory, vedere <block ref="c266761f957eda011224921a8539eded" category="inline-link-macro-rx"></block>.</block>
+  <block id="dece0a70145f48ad3b540f19d6ed5df8" category="cell">Password necessaria per comunicare con il cluster ONTAP . Utilizzato per l'autenticazione basata sulle credenziali. Per l'autenticazione di Active Directory, vedere <block ref="c266761f957eda011224921a8539eded" category="inline-link-macro-rx"></block>.</block>
+  <block id="27e5aeb0225e5a43e4c8c17f706a0a14" category="inline-link-macro">Configurare l'accesso al controller di dominio Active Directory in ONTAP</block>
+  <block id="2d6f3231a7f0c1252294552c9ce9c1e0" category="paragraph">È possibile configurare Trident per l'autenticazione a un SVM backend utilizzando le credenziali di Active Directory (AD). Prima che un account AD possa accedere all'SVM, è necessario configurare l'accesso del controller di dominio AD al cluster o all'SVM. Per l'amministrazione del cluster con un account AD, è necessario creare un tunnel di dominio. Fare riferimento a <block ref="affb415ae65d1b8ff6d4848fb0c01200" category="inline-link-macro-rx"></block> per i dettagli.</block>
+  <block id="fca3ffea6534176432f58b5a22ed22e1" category="list-title">passi</block>
+  <block id="fa349cdbbc85b9c18e91508e377f8475" category="list-text">Configurare le impostazioni del Domain Name System (DNS) per un SVM backend:</block>
+  <block id="1ffd05fea44ee961865d2fb5edc44bed" category="paragraph"><block ref="c3a0bdbd7b81f16edc3a67d3fbf4564b" prefix="" category="inline-code"></block></block>
+  <block id="c1ddcdee488a34a4b44c78f926dfee75" category="list-text">Eseguire il seguente comando per creare un account computer per l'SVM in Active Directory:</block>
+  <block id="1e1b13ed7ccf639907d02e773fed43f5" category="paragraph"><block ref="c53a082488a948b7a70806546ba7211d" prefix="" category="inline-code"></block></block>
+  <block id="34dd5efc5c883d290ed743abcc3fccb1" category="list-text">Utilizzare questo comando per creare un utente o un gruppo AD per gestire il cluster o SVM</block>
+  <block id="82a5f11771bfe77a499bcb96a45ce13f" category="paragraph"><block ref="22ec37652eb447176b3d5645ac4a7dbb" prefix="" category="inline-code"></block></block>
+  <block id="743fda998716813dc210d0fd0c3f2b65" category="list-text">Nel file di configurazione del backend Trident , impostare<block ref="14c4b06b824ec593239362517f538b29" prefix=" " category="inline-code"></block> E<block ref="5f4dcc3b5aa765d61d8327deb882cf99" prefix=" " category="inline-code"></block> parametri rispettivamente per il nome utente o gruppo AD e la password.</block>
 </blocks>

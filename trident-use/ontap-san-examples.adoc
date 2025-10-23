@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-san-examples.html 
-keywords: map backends, storage classes, trident backend, ontap san, ontap san economy, options, storageclasses, fsx, metrocluster 
+keywords: map backends, storage classes, trident backend, ontap san, ontap san economy, options, storageclasses, fsx, metrocluster, ad, active directory 
 summary: 'Informazioni su come creare e utilizzare i driver SAN ONTAP con l"installazione Trident. Questa sezione fornisce esempi di configurazione back-end e dettagli su come mappare i backend a StorageClasses.' 
 ---
 = Opzioni ed esempi di configurazione DELLA SAN ONTAP
@@ -90,10 +90,10 @@ NOTE: Se stai utilizzando credenziali "vsadmin", `managementLIF` devi essere que
 | `trustedCACertificate` | Valore codificato in base64 del certificato CA attendibile. Opzionale. Utilizzato per l'autenticazione basata su certificato. | "" 
 
 
-| `username` | Nome utente necessario per comunicare con il cluster ONTAP. Utilizzato per l'autenticazione basata su credenziali. | "" 
+| `username` | Nome utente necessario per comunicare con il cluster ONTAP . Utilizzato per l'autenticazione basata sulle credenziali. Per l'autenticazione di Active Directory, vedere link:../trident-use/ontap-san-examples.html#authenticate-trident-to-a-backend-svm-using-active-directory-credentials["Autenticare Trident su un SVM backend utilizzando le credenziali di Active Directory"]. | "" 
 
 
-| `password` | Password necessaria per comunicare con il cluster ONTAP. Utilizzato per l'autenticazione basata su credenziali. | "" 
+| `password` | Password necessaria per comunicare con il cluster ONTAP . Utilizzato per l'autenticazione basata sulle credenziali. Per l'autenticazione di Active Directory, vedere link:../trident-use/ontap-san-examples.html#authenticate-trident-to-a-backend-svm-using-active-directory-credentials["Autenticare Trident su un SVM backend utilizzando le credenziali di Active Directory"]. | "" 
 
 
 | `svm` | Macchina virtuale per lo storage da utilizzare | Derivato se un SVM `managementLIF` è specificato 
@@ -169,6 +169,28 @@ Per accelerare il processo di formattazione, Trident consiglia di utilizzare la 
 *-e nodose:*
 
 * Keep, non tentare di scartare i blocchi al momento di mkfs (scartare inizialmente i blocchi è utile sui dispositivi a stato solido e sullo storage sparse/thin-provisioning). Questo sostituisce l'opzione obsoleta "-K" ed è applicabile a tutti i file system (xfs, ext3 e ext4).
+
+
+
+
+=== Autenticare Trident su un SVM backend utilizzando le credenziali di Active Directory
+
+È possibile configurare Trident per l'autenticazione a un SVM backend utilizzando le credenziali di Active Directory (AD). Prima che un account AD possa accedere all'SVM, è necessario configurare l'accesso del controller di dominio AD al cluster o all'SVM. Per l'amministrazione del cluster con un account AD, è necessario creare un tunnel di dominio. Fare riferimento a link:https://docs.netapp.com/us-en/ontap/authentication/enable-ad-users-groups-access-cluster-svm-task.html["Configurare l'accesso al controller di dominio Active Directory in ONTAP"^] per i dettagli.
+
+.passi
+. Configurare le impostazioni del Domain Name System (DNS) per un SVM backend:
++
+`vserver services dns create -vserver <svm_name> -dns-servers <dns_server_ip1>,<dns_server_ip2>`
+
+. Eseguire il seguente comando per creare un account computer per l'SVM in Active Directory:
++
+`vserver active-directory create -vserver DataSVM -account-name ADSERVER1 -domain demo.netapp.com`
+
+. Utilizzare questo comando per creare un utente o un gruppo AD per gestire il cluster o SVM
++
+`security login create -vserver <svm_name> -user-or-group-name <ad_user_or_group> -application <application> -authentication-method domain -role vsadmin`
+
+. Nel file di configurazione del backend Trident , impostare `username` E `password` parametri rispettivamente per il nome utente o gruppo AD e la password.
 
 
 
