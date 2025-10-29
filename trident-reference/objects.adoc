@@ -75,6 +75,9 @@ Oltre alla specifica standard, Trident consente agli utenti di specificare le se
 
 
 | trident.netapp.io/blockSize | Dimensione blocco | solidfire-san 
+
+
+| trident.netapp.io/skipRecoveryQueue | saltaCoda di Recupero | ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, ontap-san-economy 
 |===
 Se il PV creato dispone di `Delete` Recuperare la policy, Trident elimina sia il PV che il volume di backup quando il PV viene rilasciato (ovvero quando l'utente elimina il PVC). In caso di errore dell'azione di eliminazione, Trident contrassegna il PV come tale e riprova periodicamente l'operazione fino a quando non viene eseguita correttamente o finché il PV non viene cancellato manualmente. Se il PV utilizza `+Retain+` Policy, Trident lo ignora e presuppone che l'amministratore lo pulisca da Kubernetes e dal backend, consentendo il backup o l'ispezione del volume prima della sua rimozione. L'eliminazione del PV non comporta l'eliminazione del volume di backup da parte di Trident. È necessario rimuoverlo utilizzando l'API REST (`tridentctl`).
 
@@ -435,6 +438,9 @@ Una configurazione del volume definisce le proprietà che un volume sottoposto a
 
 
 | Filesystem | stringa | no | Tipo di file system 
+
+
+| saltaCoda di Recupero | stringa | no | Durante l'eliminazione del volume, ignorare la coda di ripristino nell'archiviazione ed eliminare immediatamente il volume. 
 |===
 Trident genera `internalName` durante la creazione del volume. Si tratta di due fasi. Prima di tutto, prepende il prefisso di storage (predefinito) `trident` o il prefisso nella configurazione back-end) al nome del volume, con conseguente nome del modulo `<prefix>-<volume-name>`. Quindi, procede alla cancellazione del nome, sostituendo i caratteri non consentiti nel backend. Per i backend ONTAP, sostituisce i trattini con i caratteri di sottolineatura (quindi, il nome interno diventa `<prefix>_<volume-name>`). Per i backend degli elementi, sostituisce i caratteri di sottolineatura con trattini.
 

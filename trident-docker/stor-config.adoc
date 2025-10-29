@@ -264,6 +264,13 @@ Criterio di tiering da utilizzare, il valore predefinito è `none`.
  a| 
 `none`
 
+
+
+| `skipRecoveryQueue`  a| 
+Durante l'eliminazione del volume, ignorare la coda di ripristino nell'archiviazione ed eliminare immediatamente il volume.
+ a| 
+``
+
 |===
 
 
