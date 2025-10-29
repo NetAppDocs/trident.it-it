@@ -98,7 +98,7 @@ NOTE: Una volta aggiornato l'elenco degli aggregati all'interno della SVM, l'ele
 | "" 
 
 
-| `limitVolumeSize` | Fallire il provisioning se la dimensione del volume richiesta è superiore a questo valore. Limita anche la dimensione massima dei volumi gestiti per i qtree e l' `qtreesPerFlexvol`opzione consente di personalizzare il numero massimo di qtree per FlexVol volume | "" (non applicato per impostazione predefinita) 
+| `limitVolumeSize` | Il provisioning non riesce se la dimensione del volume richiesto è superiore a questo valore. | "" (non applicato per impostazione predefinita) 
 
 
 | `debugTraceFlags` | Flag di debug da utilizzare per la risoluzione dei problemi. Esempio, {"api":false, "method":true}
