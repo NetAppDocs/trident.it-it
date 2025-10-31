@@ -193,14 +193,14 @@ Questi parametri determinano quali pool di storage gestiti da Trident devono ess
 
 
 | BackendType | stringa  a| 
-ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, solidfire-san, azure-netapp-files, ontap-san-economy
+ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, solidfire-san, gcp-cvs, azure-netapp-files, ontap-san-economy
 | Il pool appartiene a questo tipo di backend | Backend specificato | Tutti i driver 
 
 
-| snapshot | bool | vero, falso | Il pool supporta volumi con snapshot | Volume con snapshot attivate | ontap-nas, ontap-san, solidfire-san 
+| snapshot | bool | vero, falso | Il pool supporta volumi con snapshot | Volume con snapshot attivate | ontap-nas, ontap-san, solidfire-san, gcp-cvs 
 
 
-| cloni | bool | vero, falso | Il pool supporta la clonazione dei volumi | Volume con cloni attivati | ontap-nas, ontap-san, solidfire-san 
+| cloni | bool | vero, falso | Il pool supporta la clonazione dei volumi | Volume con cloni attivati | ontap-nas, ontap-san, solidfire-san, gcp-cvs 
 
 
 | crittografia | bool | vero, falso | Il pool supporta volumi crittografati | Volume con crittografia attivata | ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, ontap-san 

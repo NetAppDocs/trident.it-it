@@ -21,17 +21,8 @@ NOTE: VolumeGroupSnapshot è una funzionalità beta di Kubernetes con API beta. 
 
 == Creare snapshot del gruppo di volumi
 
-Lo snapshot del gruppo di volumi è supportato con i seguenti driver di archiviazione:
+L'istantanea del gruppo di volumi è supportata con `ontap-san` driver, solo per protocollo iSCSI, non ancora supportato con Fibre Channel (FCP) né NVMe/TCP. Prima di iniziare
 
-* `ontap-san`driver - solo per i protocolli iSCSI e FC, non per il protocollo NVMe/TCP.
-* `ontap-san-economy`
-* `ontap-nas`
-
-
-
-NOTE: Lo snapshot del gruppo di volumi non è supportato per i sistemi di archiviazione NetApp AFX.
-
-.Prima di iniziare
 * Assicurati che la versione di Kubernetes sia K8s 1.32 o successiva.
 * Per utilizzare gli snapshot, è necessario disporre di un controller snapshot esterno e di CRD (Custom Resource Definitions). Questa è la responsabilità del Kubernetes orchestrator (ad esempio: Kubeadm, GKE, OpenShift).
 +

@@ -42,15 +42,10 @@ WARNING: Ciò è particolarmente importante per i volumi a blocchi, in quanto Ku
 ** Se il criterio di recupero della classe di storage è `delete`, Il volume di storage viene cancellato quando il PV viene cancellato.
 
 
-* Per impostazione predefinita, Trident gestisce il PVC e rinomina il FlexVol volume e il LUN sul backend. Puoi passare il `--no-manage` flag per importare un volume non gestito e il `--no-rename` flag per mantenere il nome del volume.
-+
-**  `--no-manage`* - Se usi il `--no-manage` flag, Trident non esegue alcuna operazione aggiuntiva sul PVC o sul PV per il ciclo di vita degli oggetti. Il volume di archiviazione non viene eliminato quando si elimina il PV e anche altre operazioni come la clonazione del volume e il ridimensionamento del volume vengono ignorate.
-**  `--no-rename`* - Se usi il `--no-rename` flag, Trident mantiene il nome del volume esistente durante l'importazione dei volumi e gestisce il ciclo di vita dei volumi.  Questa opzione è supportata solo per `ontap-nas` , `ontap-san` (inclusi i sistemi ASA r2) e `ontap-san-economy` conducenti.
+* Per impostazione predefinita, Trident gestisce il PVC e rinomina il FlexVol volume e il LUN sul backend. Puoi passare il `--no-manage` flag per importare un volume non gestito. Se usi `--no-manage` , Trident non esegue alcuna operazione aggiuntiva sul PVC o sul PV per l'intero ciclo di vita degli oggetti. Il volume di archiviazione non viene eliminato quando si elimina il PV e anche altre operazioni come la clonazione del volume e il ridimensionamento del volume vengono ignorate.
 +
 
-TIP: Queste opzioni sono utili se si desidera utilizzare Kubernetes per carichi di lavoro containerizzati ma si desidera gestire il ciclo di vita del volume di archiviazione al di fuori di Kubernetes.
-
-
+TIP: Questa opzione è utile se si desidera utilizzare Kubernetes per carichi di lavoro containerizzati ma si desidera gestire il ciclo di vita del volume di archiviazione al di fuori di Kubernetes.
 
 * Al PVC e al PV viene aggiunta un'annotazione che serve a doppio scopo per indicare che il volume è stato importato e se il PVC e il PV sono gestiti. Questa annotazione non deve essere modificata o rimossa.
 
@@ -83,7 +78,7 @@ spec:
 
 WARNING: Non includere parametri aggiuntivi come il nome PV o le dimensioni del volume. Questo può causare l'errore del comando di importazione.
 
-. Utilizzare il `tridentctl import` comando per specificare il nome del backend Trident contenente il volume e il nome che identifica in modo univoco il volume nello storage (ad esempio: ONTAP FlexVol, Element Volume). IL `-f` L'argomento è necessario per specificare il percorso del file PVC.
+. Utilizzare il `tridentctl import` comando per specificare il nome del backend Trident contenente il volume e il nome che identifica in modo univoco il volume nello storage (ad esempio: ONTAP FlexVol, Element Volume, percorso Cloud Volumes Service ). IL `-f` L'argomento è necessario per specificare il percorso del file PVC.
 +
 [listing]
 ----
@@ -222,6 +217,28 @@ tridentctl import volume element_default element-managed -f pvc-basic-import.yam
 |                   NAME                   |  SIZE  | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
 +------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
 | pvc-970ce1ca-2096-4ecd-8545-ac7edc24a8fe | 10 GiB | basic-element | block    | d3ba047a-ea0b-43f9-9c42-e38e58301c49 | online | true    |
++------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
+----
+
+
+=== Piattaforma Google Cloud
+
+Trident supporta l'importazione di volumi utilizzando `gcp-cvs` autista.
+
+
+NOTE: Per importare un volume supportato dal servizio NetApp Cloud Volumes Service in Google Cloud Platform, identifica il volume tramite il suo percorso. Il percorso del volume è la parte del percorso di esportazione del volume dopo il `:/` . Ad esempio, se il percorso di esportazione è `10.0.0.1:/adroit-jolly-swift` , il percorso del volume è `adroit-jolly-swift` .
+
+.Esempio di Google Cloud Platform
+L'esempio seguente importa un `gcp-cvs` volume sul backend `gcpcvs_YEppr` con il percorso del volume di `adroit-jolly-swift` .
+
+[listing]
+----
+tridentctl import volume gcpcvs_YEppr adroit-jolly-swift -f <path-to-pvc-file> -n trident
+
++------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
+|                   NAME                   |  SIZE  | STORAGE CLASS | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
+| pvc-a46ccab7-44aa-4433-94b1-e47fc8c0fa55 | 93 GiB | gcp-storage   | file     | e1a6e65b-299e-4568-ad05-4f0a105c888f | online | true    |
 +------------------------------------------+--------+---------------+----------+--------------------------------------+--------+---------+
 ----
 

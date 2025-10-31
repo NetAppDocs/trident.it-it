@@ -72,7 +72,7 @@ Per utilizzare Trident, è necessario uno o più dei seguenti backend supportati
 * Cloud Volumes ONTAP
 * Google Cloud NetApp Volumes
 * Array All SAN (ASA) NetApp
-* Versioni di cluster FAS, AFF o ASA r2 (iSCSI, NVMe/TCP e FC) locali con supporto limitato di NetApp. Vederelink:https://mysupport.netapp.com/site/info/version-support["Supporto della versione software"] .
+* Versioni di cluster FAS, AFF, Select o ASA r2 (iSCSI e NVMe/TCP) in locale con supporto limitato di NetApp. Vederelink:https://mysupport.netapp.com/site/info/version-support["Supporto della versione software"] .
 * Software NetApp HCI/Element 11 o superiore
 
 
@@ -220,7 +220,7 @@ Per le installazioni con montaggio ad aria, l'elenco seguente è un riferimento 
 
 
 
-=== Immagini del contenitore richieste per Trident 25.10
+=== Immagini del contenitore richieste per Trident 25.06.2
 
 [cols="2"]
 |===
@@ -228,14 +228,35 @@ Per le installazioni con montaggio ad aria, l'elenco seguente è un riferimento 
 
 
 | v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0  a| 
-* docker.io/netapp/trident:25.10.0
-* docker.io/netapp/trident-autosupport:25.10
-* registry.k8s.io/sig-storage/csi-provisioner:v5.3.0
-* registry.k8s.io/sig-storage/csi-attacher:v4.10.0
-* registry.k8s.io/sig-storage/csi-resizer:v1.14.0
-* registry.k8s.io/sig-storage/csi-snapshotter:v8.3.1
-* registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.15.0
-* docker.io/netapp/trident-operator:25.10.0 (facoltativo)
+* docker.io/netapp/trident:25.06.2
+* docker.io/netapp/trident-autosupport:25.06
+* registry.k8s.io/sig-storage/csi-provisioner:v5.2.0
+* registry.k8s.io/sig-storage/csi-attacher:v4.8.1
+* registry.k8s.io/sig-storage/csi-resizer:v1.13.2
+* registry.k8s.io/sig-storage/csi-snapshotter:v8.2.1
+* registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.13.0
+* docker.io/netapp/trident-operator:25.06.2 (facoltativo)
+
+
+|===
+
+
+=== Immagini del contenitore richieste per Trident 25.06
+
+[cols="2"]
+|===
+| Versioni di Kubernetes | Immagine container 
+
+
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0  a| 
+* docker.io/netapp/trident:25.06.0
+* docker.io/netapp/trident-autosupport:25.06
+* registry.k8s.io/sig-storage/csi-provisioner:v5.2.0
+* registry.k8s.io/sig-storage/csi-attacher:v4.8.1
+* registry.k8s.io/sig-storage/csi-resizer:v1.13.2
+* registry.k8s.io/sig-storage/csi-snapshotter:v8.2.1
+* registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.13.0
+* docker.io/netapp/trident-operator:25.06.0 (facoltativo)
 
 
 |===

@@ -35,17 +35,8 @@ helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-he
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --version 100.2510.0 --create-namespace --namespace trident-protect
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --version 100.2506.0 --create-namespace --namespace trident-protect
 ----
-. Facoltativamente, per abilitare la registrazione del debug (consigliata per la risoluzione dei problemi), utilizzare:
-+
-[source, console]
-----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --set logLevel=debug --version 100.2510.0 --create-namespace --namespace trident-protect
-----
-+
-La registrazione del debug aiuta NetApp a risolvere i problemi senza dover modificare il livello di registrazione o riprodurre i problemi.
-
 
 
 --
@@ -58,16 +49,17 @@ La registrazione del debug aiuta NetApp a risolvere i problemi senza dover modif
 +
 [source, console]
 ----
-docker.io/netapp/controller:25.10.0
-docker.io/netapp/restic:25.10.0
-docker.io/netapp/kopia:25.10.0
-docker.io/netapp/kopiablockrestore:25.10.0
-docker.io/netapp/trident-autosupport:25.10.0
-docker.io/netapp/exechook:25.10.0
-docker.io/netapp/resourcebackup:25.10.0
-docker.io/netapp/resourcerestore:25.10.0
-docker.io/netapp/resourcedelete:25.10.0
-docker.io/netapp/trident-protect-utils:v1.0.0
+docker.io/netapp/controller:25.06.0
+docker.io/netapp/restic:25.06.0
+docker.io/netapp/kopia:25.06.0
+docker.io/netapp/kopiablockrestore:25.06.0
+docker.io/netapp/trident-autosupport:25.06.0
+docker.io/netapp/exechook:25.06.0
+docker.io/netapp/resourcebackup:25.06.0
+docker.io/netapp/resourcerestore:25.06.0
+docker.io/netapp/resourcedelete:25.06.0
+docker.io/bitnami/kubectl:1.30.2
+gcr.io/kubebuilder/kube-rbac-proxy:v0.16.0
 ----
 +
 Ad esempio:
@@ -75,21 +67,21 @@ Ad esempio:
 +
 [source, console]
 ----
-docker pull docker.io/netapp/controller:25.10.0
+docker pull docker.io/netapp/controller:25.06.0
 ----
 +
 [source, console]
 ----
-docker tag docker.io/netapp/controller:25.10.0 <private-registry-url>/controller:25.10.0
+docker tag docker.io/netapp/controller:25.06.0 <private-registry-url>/controller:25.06.0
 ----
 +
 [source, console]
 ----
-docker push <private-registry-url>/controller:25.10.0
+docker push <private-registry-url>/controller:25.06.0
 ----
 +
 
-NOTE: Per ottenere la tabella Helm, scaricare prima la tabella Helm su un computer con accesso a Internet utilizzando `helm pull trident-protect --version 100.2510.0 --repo https://netapp.github.io/trident-protect-helm-chart`, quindi copia il risultato `trident-protect-100.2510.0.tgz` file nel tuo ambiente offline e installalo utilizzando `helm install trident-protect ./trident-protect-100.2510.0.tgz` invece del riferimento al repository nel passaggio finale.
+NOTE: Per ottenere la tabella Helm, scaricare prima la tabella Helm su un computer con accesso a Internet utilizzando `helm pull trident-protect --version 100.2506.0 --repo https://netapp.github.io/trident-protect-helm-chart`, quindi copia il risultato `trident-protect-100.2506.0.tgz` file nel tuo ambiente offline e installalo utilizzando `helm install trident-protect ./trident-protect-100.2506.0.tgz` invece del riferimento al repository nel passaggio finale.
 
 . Creare lo spazio dei nomi del sistema Trident Protect:
 +
@@ -120,29 +112,29 @@ helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-he
 [source, yaml]
 ----
 ---
-imageRegistry: <private-registry-url>
-imagePullSecrets:
-  - name: regcred
+controller:
+  image:
+    registry: <private-registry-url>
+rbacProxy:
+  image:
+    registry: <private-registry-url>
+crCleanup:
+  imagePullSecrets:
+    - name: regcred
+webhooksCleanup:
+  imagePullSecrets:
+    - name: regcred
 ----
 +
 
-NOTE: IL `imageRegistry` E `imagePullSecrets` i valori si applicano a tutte le immagini dei componenti, comprese `resourcebackup` E `resourcerestore` . Se si inseriscono immagini in un percorso di repository specifico all'interno del registro (ad esempio, `example.com:443/my-repo`), includere il percorso completo nel campo del registro. Ciò garantirà che tutte le immagini vengano estratte da `<private-registry-url>/<image-name>:<tag>`.
+NOTE: IL `controller.image.registry` l'impostazione si applica a tutte le immagini dei componenti, comprese `resourcebackup` E `resourcerestore`. Se si inseriscono immagini in un percorso di repository specifico all'interno del registro (ad esempio, `example.com:443/my-repo`), includere il percorso completo nel campo del registro. Ciò garantirà che tutte le immagini vengano estratte da `<private-registry-url>/<image-name>:<tag>`.
 
 . Utilizzare Helm per installare Trident Protect. Sostituire `<name_of_cluster>` con un nome cluster, che verrà assegnato al cluster e utilizzato per identificare i backup e gli snapshot del cluster:
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2510.0 --create-namespace --namespace trident-protect -f protectValues.yaml
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2506.0 --create-namespace --namespace trident-protect -f protectValues.yaml
 ----
-. Facoltativamente, per abilitare la registrazione del debug (consigliata per la risoluzione dei problemi), utilizzare:
-+
-[source, console]
-----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --set logLevel=debug --version 100.2510.0 --create-namespace --namespace trident-protect -f protectValues.yaml
-----
-+
-La registrazione del debug aiuta NetApp a risolvere i problemi senza dover modificare il livello di registrazione o riprodurre i problemi.
-
 
 
 --
