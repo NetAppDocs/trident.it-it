@@ -89,12 +89,34 @@ NOTE: Per impostazione predefinita, è possibile abilitare le directory snapshot
 
 == Protezione dei dati con le macchine virtuali KubeVirt
 
-Trident Protect 24.10 e 24.10.1 e versioni successive hanno un comportamento diverso quando si proteggono le applicazioni in esecuzione su VM KubeVirt. Per entrambe le versioni è possibile abilitare o disabilitare il blocco e lo sblocco del file system durante le operazioni di protezione dei dati.
+Trident Protect fornisce funzionalità di blocco e sblocco del file system per le macchine virtuali KubeVirt durante le operazioni di protezione dei dati per garantire la coerenza dei dati. Il metodo di configurazione e il comportamento predefinito per le operazioni di congelamento delle VM variano a seconda delle versioni Trident Protect, con le versioni più recenti che offrono una configurazione semplificata tramite i parametri del grafico Helm.
 
 
 NOTE: Durante le operazioni di ripristino, qualsiasi  `VirtualMachineSnapshots` creati per una macchina virtuale (VM) non vengono ripristinati.
 
+.Trident Protect 25.10 e versioni successive
+[%collapsible%open]
+====
+Trident Protect blocca e sblocca automaticamente i file system KubeVirt durante le operazioni di protezione dei dati per garantire la coerenza. A partire da Trident Protect 25.10, è possibile disattivare questo comportamento utilizzando `vm.freeze` parametro durante l'installazione della carta Helm. Il parametro è abilitato per impostazione predefinita.
+
+[source, console]
+----
+helm install ... --set vm.freeze=false ...
+----
+====
+.Trident Protect dal 24.10.1 al 25.06
+[%collapsible]
+====
+A partire da Trident Protect 24.10.1, Trident Protect blocca e sblocca automaticamente i file system KubeVirt durante le operazioni di data Protection. Facoltativamente, è possibile disattivare questo comportamento automatico utilizzando il seguente comando:
+
+[source, console]
+----
+kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=false -n trident-protect
+----
+====
 .Trident Protect 24,10
+[%collapsible]
+====
 Trident Protect 24,10 non garantisce automaticamente uno stato coerente dei file system delle macchine virtuali KubeVirt durante le operazioni di protezione dei dati. Per proteggere i dati delle macchine virtuali KubeVirt utilizzando Trident Protect 24,10, è necessario abilitare manualmente la funzionalità di blocco/sblocco dei file system prima dell'operazione di protezione dei dati. Ciò garantisce che i filesystem siano in uno stato coerente.
 
 È possibile configurare Trident Protect 24,10 per gestire il blocco e lo sblocco del file system della VM durante le operazioni di protezione dei dati link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["configurazione della virtualizzazione"^]utilizzando il seguente comando:
@@ -103,13 +125,7 @@ Trident Protect 24,10 non garantisce automaticamente uno stato coerente dei file
 ----
 kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=true -n trident-protect
 ----
-.Trident Protect 24.10.1 e versioni successive
-A partire da Trident Protect 24.10.1, Trident Protect blocca e sblocca automaticamente i file system KubeVirt durante le operazioni di data Protection. Facoltativamente, è possibile disattivare questo comportamento automatico utilizzando il seguente comando:
-
-[source, console]
-----
-kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=false -n trident-protect
-----
+====
 
 
 == Requisiti per la replica SnapMirror

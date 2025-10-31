@@ -16,7 +16,7 @@ summary: 'È possibile installare Trident utilizzando `tridentctl`. Questo proce
 
 
 
-== Informazioni critiche su Trident 25.06
+== Informazioni critiche su Trident10
 
 *È necessario leggere le seguenti informazioni critiche su Trident.*
 
@@ -75,8 +75,8 @@ Il pacchetto di installazione di Trident crea un pod Trident, configura gli ogge
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v25.06.0/trident-installer-25.06.0.tar.gz
-tar -xf trident-installer-25.06.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v25.10.0/trident-installer-25.10.0.tar.gz
+tar -xf trident-installer-25.10.0.tar.gz
 cd trident-installer
 ----
 
@@ -98,14 +98,14 @@ Installare Trident nello spazio dei nomi desiderato eseguendo il `tridentctl ins
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:25.06 --trident-image <your-registry>/trident:25.06.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:25.10 --trident-image <your-registry>/trident:25.10.0
 ----
 --
 .Immagini in diversi registri
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:25.06 --trident-image <your-registry>/trident:25.06.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:25.10 --trident-image <your-registry>/trident:25.10.0
 ----
 --
 ====
@@ -126,7 +126,7 @@ INFO Created Trident daemonset.
 INFO Waiting for Trident pod to start.
 INFO Trident pod started.                          namespace=trident pod=trident-controller-679648bd45-cv2mx
 INFO Waiting for Trident REST interface.
-INFO Trident REST interface is up.                 version=25.06.0
+INFO Trident REST interface is up.                 version=25.10.0
 INFO Trident installation succeeded.
 ....
 ----
@@ -166,7 +166,7 @@ NOTE: Se il programma di installazione non viene completato correttamente oppure
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 25.06.0        | 25.06.0        |
+| 25.10.0        | 25.10.0        |
 +----------------+----------------+
 ----
 
@@ -188,7 +188,7 @@ tridentctl install --windows -n trident
 .Forza distacco
 [%collapsible]
 ====
-Per ulteriori informazioni sullo stacco forzato, fare riferimento alink:..trident-get-started/kubernetes-customize-deploy.html["Personalizzare l'installazione dell'operatore Trident"] .
+Per informazioni, vederelink:../trident-reco/force-detach.html["Automazione del failover delle applicazioni stateful con Trident"] .
 
 [listing]
 ----
@@ -201,7 +201,7 @@ tridentctl install --enable-force-detach=true -n trident
 Per abilitare operazioni simultanee del controller Trident per una migliore produttività, aggiungere `--enable-concurrency` opzione durante l'installazione come mostrato in questo esempio.
 
 
-NOTE: *Anteprima tecnica*: questa funzionalità è sperimentale in NetApp Trident 25.06 e attualmente supporta flussi di lavoro paralleli limitati con il driver ONTAP-SAN (protocolli iSCSI e FCP).
+NOTE: *Anteprima tecnica*: questa funzionalità è sperimentale e attualmente supporta flussi di lavoro paralleli limitati con i driver ONTAP-NAS (solo NFS) e ONTAP-SAN (NVMe per ONTAP 9 unificato), oltre all'anteprima tecnica esistente per il driver ONTAP-SAN (protocolli iSCSI e FCP in ONTAP 9 unificato).
 
 [listing]
 ----
