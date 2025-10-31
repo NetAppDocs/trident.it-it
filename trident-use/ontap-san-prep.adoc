@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-san-prep.html 
-keywords: trident backend, ontap san, ontap-san, ontap-san-economy, fcp, asa r2, iscsi, nvme/tcp 
+keywords: trident backend, ontap san, ontap-san, ontap-san-economy, fcp, asa r2, iscsi, nvme/tcp, fc 
 summary: Scopri come preparare la configurazione di un backend ONTAP con i driver SAN ONTAP. 
 ---
 = Prepararsi a configurare il backend con i driver SAN ONTAP
@@ -21,7 +21,7 @@ Comprendere i requisiti e le opzioni di autenticazione per la configurazione di 
 Per tutti i backend ONTAP, Trident richiede che almeno un aggregato sia assegnato all'SVM.
 
 
-NOTE: link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemi ASA r2"^] differiscono dagli altri sistemi ONTAP (ASA, AFF e FAS) nell'implementazione del loro livello di storage. Nei sistemi ASA r2, vengono utilizzate zone di disponibilità dello storage al posto degli aggregati. Fare riferimento a link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["questo"^] Articolo della Knowledge Base su come assegnare aggregati alle SVM nei sistemi ASA r2.
+NOTE: link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemi ASA r2"^]differiscono dagli altri sistemi ONTAP (ASA, AFF e FAS) nell'implementazione del loro livello di archiviazione. Nei sistemi ASA r2, al posto degli aggregati vengono utilizzate zone di disponibilità dello storage. Fare riferimento alink:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["questo"^] Articolo della Knowledge Base su come assegnare aggregati alle SVM nei sistemi ASA r2.
 
 È inoltre possibile eseguire più di un driver e creare classi di storage che puntino all'una o all'altra. Ad esempio, è possibile configurare un `san-dev` classe che utilizza `ontap-san` driver e a. `san-default` classe che utilizza `ontap-san-economy` uno.
 

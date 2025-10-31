@@ -74,7 +74,7 @@ Ad esempio, un cluster ONTAP a due nodi può ospitare fino a 2000 FlexVol Volume
 
 === Clonare un volume
 
-NetApp Trident supporta la clonazione dei volumi quando si utilizza  `ontap-nas` ,  `ontap-san` ,  `solidfire-san` , E  `gcp-cvs` driver di archiviazione. Quando si utilizzano i `ontap-nas-flexgroup` driver o `ontap-nas-economy`, la clonazione non è supportata. La creazione di un nuovo volume da un volume esistente determinerà la creazione di un nuovo snapshot.
+NetApp Trident supporta la clonazione dei volumi quando si utilizza `ontap-nas` , `ontap-san` , E `solidfire-san` driver di archiviazione. Quando si utilizza il `ontap-nas-flexgroup` O `ontap-nas-economy` driver, la clonazione non è supportata. La creazione di un nuovo volume da un volume esistente comporterà la creazione di un nuovo snapshot.
 
 
 WARNING: Evitare di clonare una PVC associata a una StorageClass diversa. Eseguire le operazioni di clonazione all'interno della stessa StorageClass per garantire la compatibilità e prevenire comportamenti imprevisti.

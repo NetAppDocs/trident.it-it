@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-reco/integrate-trident.html 
-keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual pool, cvs, gcp, volumes 
+keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual pool 
 summary: Un cluster Kubernetes in genere è costituito da due tipi di nodi, ciascuno dei quali è responsabile di diversi aspetti della funzionalità. 
 ---
 = Integra Trident
@@ -124,37 +124,6 @@ Nota a piè di pagina: Yesfootnote:1[]: Non gestito da Trident
 
 
 
-=== Driver backend Cloud Volumes Service su Google Cloud
-
-Trident utilizza il `gcp-cvs` driver per il collegamento con Cloud Volumes Service in Google Cloud.
-
-Il `gcp-cvs` driver utilizza pool virtuali per astrarre il backend e consentire a Trident di determinare il posizionamento del volume. L'amministratore definisce i pool virtuali nei `backend.json` file. Le classi di storage utilizzano selettori per identificare i pool virtuali in base all'etichetta.
-
-* Se i pool virtuali sono definiti nel back-end, Trident tenterà di creare un volume nei pool storage di Google Cloud a cui tali pool virtuali sono limitati.
-* Se i pool virtuali non sono definiti nel back-end, Trident selezionerà un pool di storage Google Cloud dai pool di storage disponibili nell'area.
-
-
-Per configurare il backend di Google Cloud su Trident, è necessario specificare `projectNumber`, `apiRegion`, e `apiKey` nel file backend. Il numero del progetto si trova nella console di Google Cloud. La chiave API viene presa dal file della chiave privata dell'account di servizio creato durante la configurazione dell'accesso API per Cloud Volumes Service su Google Cloud.
-
-Per informazioni dettagliate sui tipi di servizio e sui livelli di servizio di Cloud Volumes Service su Google Cloud, fare riferimento alla link:../trident-use/gcp.html["Scopri di più sul supporto Trident per CVS per GCP"].
-
-[cols="20,10,10,10,10,10,10"]
-|===
-| Driver Cloud Volumes Service per Google Cloud | Snapshot | Cloni | Multi-attach | QoS | Espandere | Replica 
-
-
-| `gcp-cvs` | Sì | Sì | Sì | Sì | Sì | Disponibile solo sul tipo di servizio CVS-Performance. 
-|===
-[NOTE]
-====
-.Note sulla replica
-* La replica non è gestita da Trident.
-* Il clone verrà creato nello stesso pool di storage del volume di origine.
-
-
-====
-
-
 == Design di classe storage
 
 È necessario configurare e applicare singole classi di storage per creare un oggetto Kubernetes Storage Class. In questa sezione viene descritto come progettare una classe di storage per l'applicazione.
@@ -193,7 +162,7 @@ I pool virtuali consentono a un amministratore di creare un livello di astrazion
 
 == Progettazione di un pool virtuale
 
-Durante la creazione di un backend, è generalmente possibile specificare un set di parametri. Era impossibile per l'amministratore creare un altro backend con le stesse credenziali di storage e con un set di parametri diverso. Con l'introduzione dei pool virtuali, questo problema è stato risolto. Un pool virtuale è un'astrazione di livello introdotta tra il backend e la classe di storage di Kubernetes, in modo che l'amministratore possa definire parametri insieme a etichette a cui è possibile fare riferimento tramite le classi di storage di Kubernetes come selettore, in modo indipendente dal backend. I pool virtuali possono essere definiti per tutti i backend NetApp supportati con Trident. L'elenco include SolidFire/ NetApp HCI, ONTAP, Cloud Volumes Service su GCP e Azure NetApp Files.
+Durante la creazione di un backend, è generalmente possibile specificare un set di parametri. Era impossibile per l'amministratore creare un altro backend con le stesse credenziali di storage e con un set di parametri diverso. Con l'introduzione dei pool virtuali, questo problema è stato risolto. Un pool virtuale è un'astrazione di livello introdotta tra il backend e la classe di storage di Kubernetes, in modo che l'amministratore possa definire parametri insieme a etichette a cui è possibile fare riferimento tramite le classi di storage di Kubernetes come selettore, in modo indipendente dal backend. I pool virtuali possono essere definiti per tutti i backend NetApp supportati con Trident. L'elenco include SolidFire/ NetApp HCI, ONTAP e Azure NetApp Files.
 
 
 NOTE: Quando si definiscono i pool virtuali, si consiglia di non tentare di riorganizzare l'ordine dei pool virtuali esistenti in una definizione di backend. Si consiglia inoltre di non modificare/modificare gli attributi di un pool virtuale esistente e di non definire un nuovo pool virtuale.
@@ -277,17 +246,17 @@ Se un volume viene copiato in un'altra posizione, è possibile utilizzare la fun
 
 === Espandere i volumi
 
-Trident supporta il ridimensionamento di NFS, iSCSI e FC PVS. Ciò consente agli utenti di ridimensionare i propri volumi direttamente attraverso il livello Kubernetes. L'espansione dei volumi è possibile per tutte le principali piattaforme di storage NetApp, inclusi i backend ONTAP, SolidFire/NetApp HCI e Cloud Volumes Service. Per consentire una possibile espansione in un secondo momento, impostare `allowVolumeExpansion` su `true` in StorageClass associato al volume. Ogni volta che è necessario ridimensionare il volume persistente, modificare l' `spec.resources.requests.storage`annotazione nella rivendicazione volume persistente sulla dimensione del volume richiesta. Trident si occuperà automaticamente del ridimensionamento del volume sul cluster di storage.
+Trident supporta il ridimensionamento di PV NFS, iSCSI e FC. Ciò consente agli utenti di ridimensionare i propri volumi direttamente tramite il livello Kubernetes. L'espansione del volume è possibile per tutte le principali piattaforme di storage NetApp , inclusi ONTAP e i backend SolidFire/ NetApp HCI . Per consentire una possibile espansione successiva, impostare `allowVolumeExpansion` A `true` nella StorageClass associata al volume. Ogni volta che è necessario ridimensionare il volume persistente, modificare il `spec.resources.requests.storage` annotazione nella Persistent Volume Claim alla dimensione del volume richiesta. Trident si occuperà automaticamente di ridimensionare il volume sul cluster di archiviazione.
 
 
 
 === Importare un volume esistente in Kubernetes
 
-L'importazione dei volumi consente di importare un volume di storage esistente in un ambiente Kubernetes. Questa funzione è attualmente supportata da `ontap-nas`, `ontap-nas-flexgroup`, `solidfire-san`, `azure-netapp-files`, e. `gcp-cvs` driver. Questa funzionalità è utile quando si esegue il porting di un'applicazione esistente in Kubernetes o durante scenari di disaster recovery.
+L'importazione di volumi consente di importare un volume di archiviazione esistente in un ambiente Kubernetes. Questo è attualmente supportato da `ontap-nas` , `ontap-nas-flexgroup` , `solidfire-san` , E `azure-netapp-files` conducenti. Questa funzionalità è utile quando si trasferisce un'applicazione esistente in Kubernetes o durante scenari di disaster recovery.
 
 Quando si utilizzano ONTAP e driver, utilizzare il comando `tridentctl import volume <backend-name> <volume-name> -f /path/pvc.yaml` per importare un volume esistente in Kubernetes e `solidfire-san` gestirlo da Trident. Il file PVC YAML o JSON utilizzato nel comando volume di importazione punta a una classe di archiviazione che identifica Trident come provisioner. Quando si utilizza un backend NetApp HCI/SolidFire, assicurarsi che i nomi dei volumi siano univoci. Se i nomi dei volumi sono duplicati, clonare il volume con un nome univoco in modo che la funzione di importazione dei volumi possa distinguerli.
 
-Se viene utilizzato il `azure-netapp-files` driver OR `gcp-cvs`, utilizzare il comando `tridentctl import volume <backend-name> <volume path> -f /path/pvc.yaml` per importare il volume in Kubernetes che sarà gestito da Trident. In questo modo si garantisce un riferimento di volume univoco.
+Se il `azure-netapp-files` viene utilizzato il driver, utilizzare il comando `tridentctl import volume <backend-name> <volume path> -f /path/pvc.yaml` per importare il volume in Kubernetes affinché venga gestito da Trident. Ciò garantisce un riferimento volumetrico univoco.
 
 Quando viene eseguito il comando sopra indicato, Trident trova il volume del backend e ne legge le dimensioni. Aggiungerà automaticamente (e sovrascriverà se necessario) le dimensioni del volume del PVC configurato. Trident crea quindi il nuovo PV e Kubernetes lega il PVC al PV.
 

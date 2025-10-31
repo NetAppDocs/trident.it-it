@@ -14,12 +14,12 @@ summary: 'Informazioni su come creare e utilizzare i driver SAN ONTAP con l"inst
 [role="lead"]
 Informazioni su come creare e utilizzare i driver SAN ONTAP con l'installazione Trident. In questa sezione vengono forniti esempi di configurazione backend e dettagli per la mappatura dei backend a StorageClasses.
 
-link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemi ASA r2"^] differiscono dagli altri sistemi ONTAP (ASA, AFF e FAS) nell'implementazione del loro livello di archiviazione. Queste variazioni influiscono sull'utilizzo di determinati parametri, come indicato. link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["Scopri di più sulle differenze tra i sistemi ASA r2 e gli altri sistemi ONTAP"^].
+link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemi ASA r2"^]differiscono dagli altri sistemi ONTAP (ASA, AFF e FAS) nell'implementazione del loro livello di archiviazione. Tali variazioni incidono sull'utilizzo di determinati parametri come indicato. link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["Scopri di più sulle differenze tra i sistemi ASA r2 e gli altri sistemi ONTAP"^].
 
 
-NOTE: Solo il  `ontap-san` driver (con protocolli iSCSI e NVMe/TCP) è supportato per i sistemi ASA r2.
+NOTE: Solo il `ontap-san` Il driver (con protocolli iSCSI, NVMe/TCP e FC) è supportato per i sistemi ASA r2.
 
-Nella configurazione del backend Trident, non è necessario specificare che il sistema sia ASA r2. Quando si seleziona  `ontap-san` come il  `storageDriverName` Trident rileva automaticamente il sistema ASA r2 o il sistema ONTAP tradizionale. Alcuni parametri di configurazione del backend non sono applicabili ai sistemi ASA r2, come indicato nella tabella seguente.
+Nella configurazione del backend Trident non è necessario specificare che il sistema è ASA r2. Quando selezioni `ontap-san` come il `storageDriverName` , Trident rileva automaticamente l' ASA r2 o altri sistemi ONTAP . Alcuni parametri di configurazione del backend non sono applicabili ai sistemi ASA r2, come indicato nella tabella seguente.
 
 
 

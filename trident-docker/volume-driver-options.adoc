@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/volume-driver-options.html 
-keywords: create volumes, Trident, trident for docker, docker, docker volume, driver options, ontap, element volumes, cvs, cloud volumes service on gcp, azure netapp files 
+keywords: create volumes, Trident, trident for docker, docker, docker volume, driver options, ontap, element volumes, azure netapp files 
 summary: Ciascun driver di storage dispone di un set di opzioni diverso, che è possibile specificare al momento della creazione del volume per personalizzare il risultato. Di seguito sono riportate le opzioni applicabili al sistema di storage configurato. 
 ---
 = Opzioni di volume specifiche del driver

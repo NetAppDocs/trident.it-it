@@ -68,7 +68,7 @@ Eseguire i passaggi riportati di seguito per eseguire l'upgrade di Trident per D
 
 == Clonare un volume
 
-Quando si utilizza `ontap-nas` , , `ontap-san`, `solidfire-san` e `gcp-cvs storage drivers`, Trident può clonare i volumi. Quando si utilizzano i `ontap-nas-flexgroup` driver o `ontap-nas-economy`, la clonazione non è supportata. La creazione di un nuovo volume da un volume esistente determinerà la creazione di un nuovo snapshot.
+Quando si utilizza il `ontap-nas` , `ontap-san` , E `solidfire-san` driver di archiviazione, Trident può clonare i volumi. Quando si utilizza il `ontap-nas-flexgroup` O `ontap-nas-economy` driver, la clonazione non è supportata. La creazione di un nuovo volume da un volume esistente comporterà la creazione di un nuovo snapshot.
 
 * Esaminare il volume per enumerare gli snapshot:
 +
