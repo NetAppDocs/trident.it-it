@@ -201,7 +201,7 @@ WARNING: Non rimuovere l'affinità predefinita dal file Values.yaml. Se si desid
 | `tridentLogLevel` | Consente di impostare il livello di registrazione di Trident su: `trace`, `debug`, `info`, , `warn` `error` O `fatal`. | `"info"` 
 
 
-| `tridentDebug` | Consente di impostare il livello di registro di Trident su `debug`. | `false` 
+| `tridentDebug` | Consente di impostare il livello di registro di Trident su `debug` . È possibile automatizzare il processo di distacco forzato tramite l'integrazione con l'operatore di controllo dello stato del nodo (NHC). Per informazioni, vederelink:../trident-reco/force-detach.html["Automazione del failover delle applicazioni stateful con Trident"] . | `false` 
 
 
 | `tridentLogWorkflows` | Consente di attivare flussi di lavoro Trident specifici per la registrazione delle tracce o l'eliminazione dei registri. | `""` 
@@ -222,41 +222,41 @@ WARNING: Non rimuovere l'affinità predefinita dal file Values.yaml. Se si desid
 | `windows` | Consente di installare Trident sul nodo di lavoro Windows. | `false` 
 
 
-| `enableForceDetach` | Consente di attivare la funzione di distacco forzato. | È possibile automatizzare il processo di distacco forzato tramite l'integrazione con l'operatore di controllo dello stato del nodo (NHC). Per informazioni, vederelink:../trident-reco/force-detach.html["Automazione del failover delle applicazioni stateful con Trident"] . 
+| `enableForceDetach` | Consente di attivare la funzione di distacco forzato. | `false` 
 
 
-| `false` | `excludePodSecurityPolicy` | Esclude la creazione della policy di sicurezza del pod operatore. 
+| `excludePodSecurityPolicy` | Esclude la creazione della policy di sicurezza del pod operatore. | `false` 
 
 
-| `false` | `cloudProvider` | Impostare su `"Azure"` Quando si utilizzano identità gestite o un'identità cloud su un cluster AKS. Impostato su "AWS" quando si utilizza un'identità cloud su un cluster EKS. 
+| `cloudProvider` | Impostare su `"Azure"` Quando si utilizzano identità gestite o un'identità cloud su un cluster AKS. Impostato su "AWS" quando si utilizza un'identità cloud su un cluster EKS. | `""` 
 
 
-| `""` | `cloudIdentity` | Impostare sull'identità del workload ("Azure.workload.Identity/client-id: Xxxxxxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx") quando si utilizza l'identità cloud su un cluster AKS. Impostato sul ruolo AWS IAM ("'eks.amazonaws.com/role-arn: arn:AWS:iam::123456:role/Trident-role'") quando si utilizza l'identità cloud su un cluster EKS. 
+| `cloudIdentity` | Impostare sull'identità del workload ("Azure.workload.Identity/client-id: Xxxxxxxx-xxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx") quando si utilizza l'identità cloud su un cluster AKS. Impostato sul ruolo AWS IAM ("'eks.amazonaws.com/role-arn: arn:AWS:iam::123456:role/Trident-role'") quando si utilizza l'identità cloud su un cluster EKS. | `""` 
 
 
-| `""` | `iscsiSelfHealingInterval` | Intervallo in cui viene richiamata la riparazione automatica iSCSI. 
+| `iscsiSelfHealingInterval` | Intervallo in cui viene richiamata la riparazione automatica iSCSI. | `5m0s` 
 
 
-| `5m0s` | `iscsiSelfHealingWaitTime` | La durata dopo la quale l'autoriparazione iSCSI avvia un tentativo di risolvere una sessione obsoleta eseguendo una disconnessione e un login successivo. 
+| `iscsiSelfHealingWaitTime` | La durata dopo la quale l'autoriparazione iSCSI avvia un tentativo di risolvere una sessione obsoleta eseguendo una disconnessione e un login successivo. | `7m0s` 
 
 
-| `7m0s` | `nodePrep` | Consente a Trident di preparare i nodi del cluster Kubernetes per gestire i volumi utilizzando il protocollo di archiviazione dati specificato.  *Attualmente, `iscsi` è l'unico valore supportato.*  NOTA: a partire da OpenShift 4.19, la versione minima Trident supportata per questa funzionalità è 25.06.1. 
+| `nodePrep` | Consente a Trident di preparare i nodi del cluster Kubernetes per gestire i volumi utilizzando il protocollo di archiviazione dati specificato.  *Attualmente, `iscsi` è l'unico valore supportato.*  NOTA: a partire da OpenShift 4.19, la versione minima Trident supportata per questa funzionalità è 25.06.1. |  
 
 
-|  | `enableConcurrency`  a| 
+| `enableConcurrency`  a| 
 Consente operazioni simultanee del controller Trident per una maggiore produttività.
 
 
 NOTE: *Anteprima tecnica*: questa funzionalità è sperimentale e attualmente supporta flussi di lavoro paralleli limitati con i driver ONTAP-NAS (solo NFS) e ONTAP-SAN (NVMe per ONTAP 9 unificato), oltre all'anteprima tecnica esistente per il driver ONTAP-SAN (protocolli iSCSI e FCP in ONTAP 9 unificato).
+| falso 
 
 
-
-| falso | `k8sAPIQPS`  a| 
+| `k8sAPIQPS`  a| 
 Limite di query al secondo (QPS) utilizzato dal controller durante la comunicazione con il server API Kubernetes.  Il valore Burst viene impostato automaticamente in base al valore QPS.
+| `100`; facoltativo 
 
 
-
-| `100`; facoltativo | `resources`  a| 
+| `resources`  a| 
 Imposta i limiti delle risorse Kubernetes e le richieste per i pod del controller, del nodo e dell'operatore Trident . È possibile configurare CPU e memoria per ogni contenitore e sidecar per gestire l'allocazione delle risorse in Kubernetes.
 
 Per ulteriori informazioni sulla configurazione delle richieste e dei limiti delle risorse, fare riferimento alink:https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/["Gestione delle risorse per pod e container"^] .
@@ -276,10 +276,7 @@ Per ulteriori informazioni sulla configurazione delle richieste e dei limiti del
 * Controlla i TORC `status.CurrentInstallationParams` campo per visualizzare i valori attualmente applicati.
 
 
-====
-
-
- a| 
+==== a| 
 [source, yaml]
 ----
 resources:
@@ -371,12 +368,15 @@ resources:
     limits:
       cpu:
       memory:
-----| `httpsMetrics` | Abilita HTTPS per l'endpoint delle metriche Prometheus. 
+----
 
 
-| falso | `hostNetwork`  a| 
+| `httpsMetrics` | Abilita HTTPS per l'endpoint delle metriche Prometheus. | falso 
+
+
+| `hostNetwork`  a| 
 Abilita la rete host per il controller Trident . Questa funzionalità è utile quando si desidera separare il traffico frontend da quello backend in una rete multi-home.
-
+| falso 
 |===
 
 
