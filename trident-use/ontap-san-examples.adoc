@@ -164,11 +164,10 @@ Consente `formatOptions` di specificare gli argomenti della riga di comando per 
 
 === Consigli per l'uso di formatOptions
 
-Per accelerare il processo di formattazione, Trident consiglia di utilizzare la seguente opzione:
+Trident consiglia le seguenti opzioni per velocizzare il processo di formattazione:
 
-*-e nodose:*
-
-* Keep, non tentare di scartare i blocchi al momento di mkfs (scartare inizialmente i blocchi è utile sui dispositivi a stato solido e sullo storage sparse/thin-provisioning). Questo sostituisce l'opzione obsoleta "-K" ed è applicabile a tutti i file system (xfs, ext3 e ext4).
+* *-E nodiscard (ext3, ext4):* Non tentare di scartare i blocchi in fase di mkfs (scartare i blocchi inizialmente è utile su dispositivi a stato solido e storage sparse/thin-provisioned). Sostituisce l'opzione obsoleta "-K" ed è applicabile ai file system ext3, ext4.
+* *-K (xfs):* Non tentare di scartare blocchi al momento dell'esecuzione di mkfs. Questa opzione è applicabile al file system xfs.
 
 
 
