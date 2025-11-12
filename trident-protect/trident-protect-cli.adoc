@@ -122,11 +122,11 @@ Dopo aver installato il plugin Trident Protect CLI, è possibile abilitare il co
 .Attivare il completamento automatico per la shell Bash
 --
 .Fasi
-. Scaricare lo script di completamento:
+. Creare lo script di completamento:
 +
 [source, console]
 ----
-curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/25.10.0/tridentctl-completion.bash
+tridentctl-protect completion bash > tridentctl-completion.bash
 ----
 . Creare una nuova directory nella home directory in modo che contenga lo script:
 +
@@ -152,11 +152,11 @@ source ~/.bash/completions/tridentctl-completion.bash
 .Attivare il completamento automatico per la shell Z
 --
 .Fasi
-. Scaricare lo script di completamento:
+. Creare lo script di completamento:
 +
 [source, console]
 ----
-curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/25.10.0/tridentctl-completion.zsh
+tridentctl-protect completion zsh > tridentctl-completion.zsh
 ----
 . Creare una nuova directory nella home directory in modo che contenga lo script:
 +
