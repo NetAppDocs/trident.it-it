@@ -20,25 +20,26 @@ Con Trident, è possibile assegnare nomi e etichette significativi ai volumi cre
 
 Nomi di volumi ed etichette personalizzabili supportano:
 
-. Operazioni di creazione, importazione e cloning del volume.
-. Nel caso del driver ontap-nas-Economy, solo il nome del volume Qtree soddisfa il modello del nome.
-. Nel caso del driver ontap-san-Economy, solo il nome LUN è conforme al modello del nome.
+* Operazioni di creazione, importazione e cloning del volume.
+* Nel caso del `ontap-nas-economy` driver, solo il nome del volume Qtree è conforme al modello di nome.
+* Nel caso del `ontap-san-economy` driver, solo il nome LUN è conforme al modello di nome.
 
 
 
 
 == Limitazioni
 
-. I nomi dei volumi personalizzabili sono compatibili solo con i driver ONTAP on-premise.
-. I nomi dei volumi personalizzabili non si applicano ai volumi esistenti.
+* I nomi dei volumi personalizzati sono compatibili solo con i driver ONTAP locali.
+* Le etichette personalizzate sono supportate solo per `ontap-san`, `ontap-nas`, E `ontap-nas-flexgroup` conducenti.
+* I nomi di volume personalizzati non si applicano ai volumi esistenti.
 
 
 
 
 == Comportamenti chiave dei nomi di volume personalizzabili
 
-. Se si verifica un errore a causa di una sintassi non valida in un modello di nome, la creazione del backend non riesce. Tuttavia, se l'applicazione modello non riesce, il volume verrà denominato in base alla convenzione di denominazione esistente.
-. Il prefisso di archiviazione non è applicabile quando un volume viene nominato utilizzando un modello di nome dalla configurazione backend. Qualsiasi valore di prefisso desiderato può essere aggiunto direttamente al modello.
+* Se si verifica un errore a causa di una sintassi non valida in un modello di nome, la creazione del backend non riesce. Tuttavia, se l'applicazione modello non riesce, il volume verrà denominato in base alla convenzione di denominazione esistente.
+* Il prefisso di archiviazione non è applicabile quando un volume viene nominato utilizzando un modello di nome dalla configurazione backend. Qualsiasi valore di prefisso desiderato può essere aggiunto direttamente al modello.
 
 
 
