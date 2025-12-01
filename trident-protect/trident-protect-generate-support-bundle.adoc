@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-generate-support-bundle.html 
 keywords: trident, protect, bundle, support, netapp, custom, resource, file 
-summary: 'Trident Protect consente agli amministratori di generare bundle che includono informazioni utili al supporto di NetApp, tra cui log, metriche e informazioni sulla topologia dei cluster e delle applicazioni gestiti. Se si è connessi a Internet, è possibile caricare pacchetti di supporto nel sito di supporto NetApp (NSS) utilizzando un file di risorse personalizzato (CR).' 
+summary: 'Trident Protect consente agli amministratori di generare bundle che includono informazioni utili al supporto NetApp , tra cui registri, metriche e informazioni sulla topologia dei cluster e delle app in gestione. Se sei connesso a Internet, puoi caricare i bundle di supporto sul sito di supporto NetApp (NSS) utilizzando un file di risorse personalizzato (CR).' 
 ---
-= Generare un bundle di supporto Trident Protect
+= Genera un pacchetto di supporto Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary: 'Trident Protect consente agli amministratori di generare bundle che in
 
 
 [role="lead"]
-Trident Protect consente agli amministratori di generare bundle che includono informazioni utili al supporto NetApp , tra cui registri, metriche e informazioni sulla topologia dei cluster e delle app in gestione.  Se sei connesso a Internet, puoi caricare i bundle di supporto sul sito di supporto NetApp (NSS) utilizzando un file di risorse personalizzato (CR).
+Trident Protect consente agli amministratori di generare bundle che includono informazioni utili al supporto NetApp , tra cui registri, metriche e informazioni sulla topologia dei cluster e delle app in gestione. Se sei connesso a Internet, puoi caricare i bundle di supporto sul sito di supporto NetApp (NSS) utilizzando un file di risorse personalizzato (CR).
 
 [role="tabbed-block"]
 ====

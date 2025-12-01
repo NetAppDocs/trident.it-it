@@ -2,7 +2,7 @@
 permalink: trident-protect/monitor-trident-protect-resources.html 
 sidebar: sidebar 
 keywords: manage, authentication, rbac 
-summary: È possibile monitorare lo stato delle risorse Trident Protect utilizzando le metriche dello stato kube e Prometheus. In questo modo otterrai informazioni sullo stato di salute relative a implementazioni, nodi e pod. 
+summary: È possibile monitorare lo stato delle risorse Trident Protect utilizzando kube-state-metrics e Prometheus. In questo modo vengono fornite informazioni sullo stato di implementazione, sui nodi e sui pod. 
 ---
 = Monitorare le risorse Trident Protect
 :allow-uri-read: 
@@ -11,11 +11,11 @@ summary: È possibile monitorare lo stato delle risorse Trident Protect utilizza
 
 
 [role="lead"]
-È possibile utilizzare gli strumenti open source kube-state-metrics, Prometheus e Alertmanager per monitorare lo stato delle risorse protette da Trident Protect.
+È possibile utilizzare gli strumenti open source kube-state-metrics, Prometheus e Alertmanager per monitorare lo stato di integrità delle risorse protette da Trident Protect.
 
-Il servizio di metriche dello stato di kube genera metriche dalla comunicazione delle API Kubernetes. Il suo utilizzo con Trident Protect espone informazioni utili sullo stato delle risorse nell'ambiente.
+Il servizio kube-state-metrics genera metriche dalla comunicazione API di Kubernetes. Utilizzandolo con Trident Protect, puoi ottenere informazioni utili sullo stato delle risorse nel tuo ambiente.
 
-Prometheus è un toolkit in grado di acquisire i dati generati da metriche dello stato di kube e presentarli come informazioni facilmente leggibili su questi oggetti. Insieme, le metriche kube-state e Prometheus vi offrono un modo per monitorare lo stato e lo stato delle risorse che state gestendo con Trident Protect.
+Prometheus è un toolkit in grado di acquisire i dati generati da kube-state-metrics e presentarli come informazioni facilmente leggibili su questi oggetti. Insieme, kube-state-metrics e Prometheus ti consentono di monitorare lo stato e l'integrità delle risorse che gestisci con Trident Protect.
 
 Alertmanager è un servizio che acquisisce gli avvisi inviati da strumenti come Prometheus e li indirizza alle destinazioni configurate dall'utente.
 
@@ -33,7 +33,7 @@ Le configurazioni e le istruzioni incluse in questa procedura sono solo esempi; 
 
 == Fase 1: Installare gli strumenti di monitoraggio
 
-Per abilitare il monitoraggio delle risorse in Trident Protect, è necessario installare e configurare le metriche di stato kube, Prometus e Alertmanager.
+Per abilitare il monitoraggio delle risorse in Trident Protect, è necessario installare e configurare kube-state-metrics, Promethus e Alertmanager.
 
 
 
@@ -108,7 +108,7 @@ prometheus:
 ----
 helm install custom-resource -f metrics-config.yaml prometheus-community/kube-state-metrics --version 5.21.0
 ----
-. Configurare le metriche dello stato-kube per generare metriche per le risorse personalizzate utilizzate da Trident Protect seguendo le istruzioni riportate nella https://github.com/kubernetes/kube-state-metrics/blob/main/docs/metrics/extend/customresourcestate-metrics.md#custom-resource-state-metrics["documentazione sulle risorse personalizzate kube-state-metrics"^] .
+. Configurare kube-state-metrics per generare metriche per le risorse personalizzate utilizzate da Trident Protect seguendo le istruzioni in https://github.com/kubernetes/kube-state-metrics/blob/main/docs/metrics/extend/customresourcestate-metrics.md#custom-resource-state-metrics["documentazione sulle risorse personalizzate kube-state-metrics"^] .
 
 
 

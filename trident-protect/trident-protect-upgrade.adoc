@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-upgrade.html 
 keywords: trident, protect, netapp, upgrade, new, version 
-summary: È possibile aggiornare Trident Protect alla versione più recente per sfruttare le nuove funzionalità o le correzioni dei bug. 
+summary: 'Puoi aggiornare Trident Protect all"ultima versione per sfruttare le nuove funzionalità o le correzioni di bug.' 
 ---
-= Aggiornare Trident Protect
+= Aggiorna Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary: È possibile aggiornare Trident Protect alla versione più recente per 
 
 
 [role="lead"]
-È possibile aggiornare Trident Protect alla versione più recente per sfruttare le nuove funzionalità o le correzioni dei bug.
+Puoi aggiornare Trident Protect all'ultima versione per sfruttare le nuove funzionalità o le correzioni di bug.
 
 [NOTE]
 ====
@@ -22,7 +22,7 @@ summary: È possibile aggiornare Trident Protect alla versione più recente per 
 +
 Per evitare potenziali errori, è possibile disabilitare tutte le pianificazioni degli snapshot prima dell'aggiornamento e riabilitarle in seguito. Tuttavia, ciò comporterà la perdita di tutti gli snapshot pianificati durante il periodo di aggiornamento.
 
-* Per le installazioni di registri privati, assicurati che il grafico Helm e le immagini richiesti per la versione di destinazione siano disponibili nel tuo registro privato e verifica che i tuoi valori Helm personalizzati siano compatibili con la nuova versione del grafico. Per maggiori informazioni, fare riferimento alink:trident-protect-installation.html["Installare Trident Protect da un registro privato"] .
+* Per le installazioni di registri privati, assicurati che il grafico Helm e le immagini richiesti per la versione di destinazione siano disponibili nel tuo registro privato e verifica che i tuoi valori Helm personalizzati siano compatibili con la nuova versione del grafico. Per maggiori informazioni, fare riferimento alink:trident-protect-installation.html["Installa Trident Protect da un registro privato"] .
 
 
 ====
@@ -35,10 +35,10 @@ Per aggiornare Trident Protect, procedere come segue.
 ----
 helm repo update
 ----
-. Aggiornare i CRD Trident Protect:
+. Aggiorna i CRD Trident Protect:
 +
 
-NOTE: Questo passaggio è obbligatorio se si esegue l'aggiornamento da una versione precedente alla 25.06, poiché i CRD sono ora inclusi nella tabella di protezione del timone Trident.
+NOTE: Questo passaggio è necessario se si esegue l'aggiornamento da una versione precedente alla 25.06, poiché i CRD sono ora inclusi nella tabella Trident Protect Helm.
 
 +
 .. Eseguire questo comando per spostare la gestione dei CRD da  `trident-protect-crds` A  `trident-protect` :
@@ -59,7 +59,7 @@ kubectl delete secret -n trident-protect -l name=trident-protect-crds,owner=helm
 ----
 
 
-. Aggiornamento di Trident Protect:
+. Aggiorna Trident Protect:
 +
 [source, console]
 ----

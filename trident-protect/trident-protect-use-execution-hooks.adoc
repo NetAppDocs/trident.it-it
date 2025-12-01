@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-use-execution-hooks.html 
 keywords: trident, protect, execution hooks 
-summary: 'È possibile creare un gancio di esecuzione personalizzato per un"applicazione utilizzando Trident Protect. Per creare gli hook di esecuzione, è necessario disporre delle autorizzazioni Owner (Proprietario), Admin (Amministratore) o Member (membro).' 
+summary: 'È possibile creare un hook di esecuzione personalizzato per un"app utilizzando Trident Protect. Per creare hook di esecuzione è necessario disporre delle autorizzazioni di Proprietario, Amministratore o Membro.' 
 ---
-= Gestire i hook di esecuzione Trident Protect
+= Gestire gli hook di esecuzione Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -20,7 +20,7 @@ Un gancio di esecuzione è un'azione personalizzata che è possibile configurare
 
 == Tipi di hook di esecuzione
 
-Trident Protect supporta i seguenti tipi di hook di esecuzione, a seconda del momento in cui possono essere eseguiti:
+Trident Protect supporta i seguenti tipi di hook di esecuzione, in base al momento in cui possono essere eseguiti:
 
 * Pre-snapshot
 * Post-snapshot
@@ -37,7 +37,7 @@ Trident Protect supporta i seguenti tipi di hook di esecuzione, a seconda del mo
 Quando viene eseguita un'operazione di protezione dei dati, gli eventi hook di esecuzione hanno luogo nel seguente ordine:
 
 . Gli eventuali hook di esecuzione pre-operation personalizzati applicabili vengono eseguiti sui container appropriati. È possibile creare ed eseguire tutti gli hook pre-operation personalizzati necessari, ma l'ordine di esecuzione di questi hook prima dell'operazione non è garantito né configurabile.
-. Se applicabile, si verificano blocchi del filesystem. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Ulteriori informazioni sulla configurazione del blocco del filesystem con Trident Protect"].
+. Se applicabile, si verificano blocchi del file system. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Scopri di più sulla configurazione del congelamento del file system con Trident Protect"].
 . Viene eseguita l'operazione di protezione dei dati.
 . I filesystem congelati vengono scongelati, se applicabile.
 . Gli eventuali hook di esecuzione post-operation personalizzati applicabili vengono eseguiti sui container appropriati. È possibile creare ed eseguire tutti gli hook post-operation personalizzati necessari, ma l'ordine di esecuzione di questi hook dopo l'operazione non è garantito né configurabile.
@@ -67,9 +67,9 @@ NOTE: Se un gancio di esecuzione pre-snapshot aggiunge, modifica o rimuove le ri
 Quando si pianificano gli hook di esecuzione per le applicazioni, considerare quanto segue.
 
 * Un gancio di esecuzione deve utilizzare uno script per eseguire le azioni. Molti hook di esecuzione possono fare riferimento allo stesso script.
-* Trident Protect richiede che gli script utilizzati dagli hook di esecuzione siano scritti nel formato degli script di shell eseguibili.
+* Trident Protect richiede che gli script utilizzati dagli hook di esecuzione siano scritti nel formato degli script shell eseguibili.
 * La dimensione dello script è limitata a 96 KB.
-* Trident Protect utilizza le impostazioni di esecuzione hook e qualsiasi criterio corrispondente per determinare quali hook sono applicabili a un'operazione di snapshot, backup o ripristino.
+* Trident Protect utilizza le impostazioni dell'hook di esecuzione e tutti i criteri corrispondenti per determinare quali hook sono applicabili a un'operazione di snapshot, backup o ripristino.
 
 
 
@@ -81,7 +81,7 @@ NOTE: Poiché gli hook di esecuzione spesso riducono o disattivano completamente
 
 Quando si aggiunge o si modifica un gancio di esecuzione per un'applicazione, è possibile aggiungere filtri al gancio di esecuzione per gestire i contenitori corrispondenti. I filtri sono utili per le applicazioni che utilizzano la stessa immagine container su tutti i container, ma possono utilizzare ogni immagine per uno scopo diverso (ad esempio Elasticsearch). I filtri consentono di creare scenari in cui gli hook di esecuzione vengono eseguiti su alcuni container identici, ma non necessariamente su tutti. Se si creano più filtri per un singolo gancio di esecuzione, questi vengono combinati con un operatore AND logico. È possibile avere fino a 10 filtri attivi per gancio di esecuzione.
 
-Ogni filtro aggiunto a un gancio di esecuzione utilizza un'espressione regolare per far corrispondere i contenitori nel cluster. Quando un gancio corrisponde a un container, il gancio esegue lo script associato su quel container. Le espressioni regolari per i filtri utilizzano la sintassi RE2 (espressione regolare), che non supporta la creazione di un filtro che esclude i contenitori dall'elenco di corrispondenze. Per informazioni sulla sintassi supportata da Trident Protect per le espressioni regolari nei filtri di hook di esecuzione, vedere https://github.com/google/re2/wiki/Syntax["Supporto della sintassi RE2 (Regular Expression 2)"^].
+Ogni filtro aggiunto a un hook di esecuzione utilizza un'espressione regolare per abbinare i contenitori nel cluster. Quando un hook corrisponde a un contenitore, eseguirà lo script associato su quel contenitore. Le espressioni regolari per i filtri utilizzano la sintassi Regular Expression 2 (RE2), che non supporta la creazione di un filtro che escluda i contenitori dall'elenco delle corrispondenze. Per informazioni sulla sintassi supportata da Trident Protect per le espressioni regolari nei filtri di hook di esecuzione, vedere https://github.com/google/re2/wiki/Syntax["Supporto della sintassi RE2 (Regular Expression 2)"^] .
 
 
 NOTE: Se si aggiunge un filtro dello spazio dei nomi a un gancio di esecuzione che viene eseguito dopo un'operazione di ripristino o clonazione e l'origine e la destinazione del ripristino o del clone si trovano in spazi dei nomi diversi, il filtro dello spazio dei nomi viene applicato solo allo spazio dei nomi di destinazione.
@@ -96,7 +96,7 @@ Visita il sito https://github.com/NetApp/Verda["Progetto NetApp Verda GitHub"] p
 
 == Creare un gancio di esecuzione
 
-È possibile creare un gancio di esecuzione personalizzato per un'applicazione utilizzando Trident Protect. Per creare gli hook di esecuzione, è necessario disporre delle autorizzazioni Owner (Proprietario), Admin (Amministratore) o Member (membro).
+È possibile creare un hook di esecuzione personalizzato per un'app utilizzando Trident Protect. Per creare hook di esecuzione è necessario disporre delle autorizzazioni di Proprietario, Amministratore o Membro.
 
 [role="tabbed-block"]
 ====
@@ -104,7 +104,7 @@ Visita il sito https://github.com/NetApp/Verda["Progetto NetApp Verda GitHub"] p
 --
 .Fasi
 . Creare il file di risorse personalizzate (CR) e assegnargli un nome `trident-protect-hook.yaml`.
-. Configura i seguenti attributi per soddisfare la tua configurazione del cluster e dell'ambiente Trident Protect:
+. Configurare i seguenti attributi in modo che corrispondano all'ambiente Trident Protect e alla configurazione del cluster:
 +
 ** *metadata.name*: (_required_) il nome di questa risorsa personalizzata; scegliere un nome univoco e sensibile per il proprio ambiente.
 ** *Spec.applicationRef*: (_required_) il nome Kubernetes dell'applicazione per la quale eseguire l'hook di esecuzione.
@@ -221,7 +221,7 @@ L'esecuzione manuale di un gancio di esecuzione consiste in due passaggi di base
 --
 .Fasi
 . Creare il file di risorse personalizzate (CR) e assegnargli un nome `trident-protect-resource-backup.yaml`.
-. Configura i seguenti attributi per soddisfare la tua configurazione del cluster e dell'ambiente Trident Protect:
+. Configurare i seguenti attributi in modo che corrispondano all'ambiente Trident Protect e alla configurazione del cluster:
 +
 ** *metadata.name*: (_required_) il nome di questa risorsa personalizzata; scegliere un nome univoco e sensibile per il proprio ambiente.
 ** *Spec.applicationRef*: (_required_) il nome Kubernetes dell'applicazione per cui creare il backup delle risorse.
@@ -294,7 +294,7 @@ kubectl describe resourcebackup <my_backup_name>
 --
 .Fasi
 . Creare il file di risorse personalizzate (CR) e assegnargli un nome `trident-protect-hook-run.yaml`.
-. Configura i seguenti attributi per soddisfare la tua configurazione del cluster e dell'ambiente Trident Protect:
+. Configurare i seguenti attributi in modo che corrispondano all'ambiente Trident Protect e alla configurazione del cluster:
 +
 ** *metadata.name*: (_required_) il nome di questa risorsa personalizzata; scegliere un nome univoco e sensibile per il proprio ambiente.
 ** *Spec.applicationRef*: (_required_) assicurarsi che questo valore corrisponda al nome dell'applicazione dal ResourceBackup CR creato nel passaggio 1.

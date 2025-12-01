@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-customize-installation.html 
 keywords: customize, trident protect, resource limits, security context constraints, SCC, NetApp AutoSupport, proxy connection, helm, helm chart, helm upgrade 
-summary: Personalizzare le impostazioni predefinite di Trident Protect in base alle proprie esigenze. 
+summary: Personalizza le impostazioni predefinite di Trident Protect in base alle tue esigenze specifiche. 
 ---
-= Personalizzare l'installazione di Trident Protect
+= Personalizza l'installazione Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,17 +12,17 @@ summary: Personalizzare le impostazioni predefinite di Trident Protect in base a
 
 
 [role="lead"]
-È possibile personalizzare la configurazione predefinita di Trident Protect per soddisfare i requisiti specifici dell'ambiente.
+È possibile personalizzare la configurazione predefinita di Trident Protect per soddisfare i requisiti specifici del proprio ambiente.
 
 
 
 == Specificare i limiti delle risorse del contenitore Trident Protect
 
-È possibile utilizzare un file di configurazione per specificare i limiti delle risorse per i contenitori Trident Protect dopo l'installazione di Trident Protect. L'impostazione di limiti delle risorse consente di controllare la quantità di risorse del cluster utilizzata dalle operazioni Trident Protect.
+Dopo aver installato Trident Protect, è possibile utilizzare un file di configurazione per specificare i limiti delle risorse per i contenitori Trident Protect.  Impostando i limiti delle risorse è possibile controllare la quantità di risorse del cluster consumata dalle operazioni Trident Protect.
 
 .Fasi
 . Creare un file denominato `resourceLimits.yaml`.
-. Popolare il file con opzioni di limite delle risorse per i contenitori Trident Protect in base alle esigenze dell'ambiente.
+. Compilare il file con le opzioni di limitazione delle risorse per i contenitori Trident Protect in base alle esigenze del proprio ambiente.
 +
 Il seguente file di configurazione di esempio mostra le impostazioni disponibili e contiene i valori predefiniti per ogni limite di risorse:
 
@@ -89,7 +89,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 
 == Personalizzare i vincoli del contesto di protezione
 
-È possibile utilizzare un file di configurazione per modificare il vincolo del contesto di protezione OpenShift per i contenitori Trident Protect dopo l'installazione di Trident Protect. Questi vincoli definiscono le restrizioni di sicurezza per i pod in un cluster Red Hat OpenShift.
+È possibile utilizzare un file di configurazione per modificare i vincoli di contesto di sicurezza (SCC) di OpenShift per i contenitori Trident Protect dopo aver installato Trident Protect. Questi vincoli definiscono le restrizioni di sicurezza per i pod in un cluster Red Hat OpenShift.
 
 .Fasi
 . Creare un file denominato `sccconfig.yaml`.
@@ -134,7 +134,7 @@ In questo modo i valori predefiniti verranno sostituiti con quelli specificati n
 
 
 
-== Configurare le impostazioni aggiuntive del grafico del timone di protezione Trident
+== Configurare le impostazioni aggiuntive del grafico del timone Trident Protect
 
 È possibile personalizzare le impostazioni AutoSupport e il filtraggio degli spazi dei nomi in base alle proprie esigenze specifiche.  La tabella seguente descrive i parametri di configurazione disponibili:
 
@@ -148,7 +148,7 @@ In questo modo i valori predefiniti verranno sostituiti con quelli specificati n
 | autoSupport.insicuro | booleano | Salta la verifica TLS per le connessioni proxy AutoSupport quando impostato su `true` .  Utilizzare solo per connessioni proxy non sicure.  (predefinito: `false` ) 
 
 
-| autoSupport.abilitato | booleano | Abilita o disabilita i caricamenti giornalieri del bundle Trident Protect AutoSupport .  Quando impostato su `false` , i caricamenti giornalieri programmati sono disabilitati, ma puoi comunque generare manualmente i pacchetti di supporto.  (predefinito: `true` ) 
+| autoSupport.abilitato | booleano | Abilita o disabilita i caricamenti giornalieri del bundle Trident Protect AutoSupport . Quando impostato su `false` , i caricamenti giornalieri programmati sono disabilitati, ma puoi comunque generare manualmente i pacchetti di supporto. (predefinito: `true` ) 
 
 
 | restoreSkipNamespaceAnnotations | stringa | Elenco separato da virgole di annotazioni dello spazio dei nomi da escludere dalle operazioni di backup e ripristino.  Consente di filtrare gli spazi dei nomi in base alle annotazioni. 
@@ -206,7 +206,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 
 == Limita i pod Trident Protect a nodi specifici
 
-Puoi utilizzare il vincolo di selezione dei nodi di Kubernetes nodeSelector per controllare quali nodi sono idonei per eseguire i pod Trident Protect, in base alle etichette dei nodi. Per impostazione predefinita, Trident Protect è limitato ai nodi che eseguono Linux. È possibile personalizzare ulteriormente questi vincoli in base alle proprie esigenze.
+Puoi utilizzare il vincolo di selezione dei nodi Kubernetes nodeSelector per controllare quali nodi sono idonei a eseguire i pod Trident Protect, in base alle etichette dei nodi.  Per impostazione predefinita, Trident Protect è limitato ai nodi che eseguono Linux. È possibile personalizzare ulteriormente questi vincoli in base alle proprie esigenze.
 
 .Fasi
 . Creare un file denominato `nodeSelectorConfig.yaml`.

@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-protect-apps.html
 keywords: protect, snapshots, demand, configuration, cluster, appvault 
 summary: Proteggi tutte le app eseguendo snapshot e backup utilizzando una policy di protezione automatica o ad-hoc. 
 ---
-= Proteggi le applicazioni con Trident Protect
+= Proteggi le applicazioni utilizzando Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,10 +14,10 @@ summary: Proteggi tutte le app eseguendo snapshot e backup utilizzando una polic
 
 
 [role="lead"]
-Puoi proteggere tutte le app gestite da Trident Protect creando snapshot e backup con policy di protezione automatizzate o su base ad-hoc.
+È possibile proteggere tutte le app gestite da Trident Protect eseguendo snapshot e backup tramite una policy di protezione automatizzata o su base ad hoc.
 
 
-NOTE: È possibile configurare Trident Protect per bloccare e sbloccare i file system durante le operazioni di protezione dei dati. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Ulteriori informazioni sulla configurazione del blocco del filesystem con Trident Protect"].
+NOTE: È possibile configurare Trident Protect in modo che blocchi e sblocchi i file system durante le operazioni di protezione dei dati. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Scopri di più sulla configurazione del congelamento del file system con Trident Protect"].
 
 
 
@@ -390,13 +390,13 @@ kubectl get backup -n <namespace_name> <my_backup_cr_name> -o jsonpath='{.status
 
 == Abilitare backup e ripristino per operazioni Azure-NetApp-Files (ANF)
 
-Se è stato installato Trident Protect, è possibile abilitare una funzionalità di backup e ripristino efficiente in termini di spazio per backend di storage che utilizzano la classe di storage Azure-NetApp-Files e che sono stati creati prima di Trident 24,06. Questa funzionalità funziona con volumi NFSv4 e non occupa spazio aggiuntivo dal pool di capacità.
+Se hai installato Trident Protect, puoi abilitare la funzionalità di backup e ripristino a basso consumo di spazio per i backend di archiviazione che utilizzano la classe di archiviazione azure-netapp-files e sono stati creati prima di Trident 24.06. Questa funzionalità funziona con volumi NFSv4 e non consuma spazio aggiuntivo dal pool di capacità.
 
 .Prima di iniziare
 Verificare quanto segue:
 
-* Trident Protect è stato installato.
-* È stata definita un'applicazione in Trident Protect. Questa applicazione dispone di funzionalità di protezione limitate fino al completamento di questa procedura.
+* Hai installato Trident Protect.
+* Hai definito un'applicazione in Trident Protect. Questa applicazione avrà funzionalità di protezione limitate finché non avrai completato questa procedura.
 * È stata `azure-netapp-files` selezionata come classe di archiviazione predefinita per il backend di archiviazione.
 
 
@@ -426,13 +426,13 @@ Risposta:
 snapshotDirectory: "true"
 ----
 +
-Quando la directory snapshot non è abilitata, Trident Protect sceglie la normale funzionalità di backup, che consuma temporaneamente spazio nel pool di capacità durante il processo di backup. In questo caso, verificare che nel pool di capacità sia disponibile spazio sufficiente per creare un volume temporaneo delle dimensioni del volume di cui si desidera eseguire il backup.
+Quando la directory degli snapshot non è abilitata, Trident Protect sceglie la funzionalità di backup normale, che consuma temporaneamente spazio nel pool di capacità durante il processo di backup. In questo caso, assicurarsi che nel pool di capacità sia disponibile spazio sufficiente per creare un volume temporaneo delle dimensioni del volume sottoposto a backup.
 
 
 
 
 
 .Risultato
-L'applicazione è pronta per il backup e il ripristino utilizzando Trident Protect. Ciascun PVC è inoltre disponibile per essere utilizzato da altre applicazioni per backup e ripristini.
+L'applicazione è pronta per il backup e il ripristino tramite Trident Protect. Ogni PVC può essere utilizzato anche da altre applicazioni per backup e ripristini.
 
 ====

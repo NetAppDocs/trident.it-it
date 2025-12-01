@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-installation.html 
 keywords: install, trident, protect, requirements, registry 
-summary: 'Se l"ambiente in uso soddisfa i requisiti, è possibile seguire questi passaggi per installare Trident Protect.' 
+summary: Se il tuo ambiente soddisfa i requisiti, puoi seguire questi passaggi per installare Trident Protect. 
 ---
-= Installare e configurare Trident Protect
+= Installa e configura Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,15 +14,15 @@ summary: 'Se l"ambiente in uso soddisfa i requisiti, è possibile seguire questi
 
 
 [role="lead"]
-Se l'ambiente in uso soddisfa i requisiti di Trident Protect, è possibile seguire questa procedura per installare Trident Protect sul cluster. È possibile ottenere Trident Protect da NetApp o installarlo dal proprio registro privato. L'installazione da un registro privato è utile se il cluster non riesce ad accedere a Internet.
+Se il tuo ambiente soddisfa i requisiti per Trident Protect, puoi seguire questi passaggi per installare Trident Protect sul tuo cluster.  Puoi ottenere Trident Protect da NetApp oppure installarlo dal tuo registro privato. L'installazione da un registro privato è utile se il cluster non riesce ad accedere a Internet.
 
 
 
-== Installare Trident Protect
+== Installa Trident Protect
 
 [role="tabbed-block"]
 ====
-.Installare Trident Protect di NetApp
+.Installa Trident Protect da NetApp
 --
 .Fasi
 . Aggiungere il repository Trident Helm:
@@ -49,9 +49,9 @@ La registrazione del debug aiuta NetApp a risolvere i problemi senza dover modif
 
 
 --
-.Installare Trident Protect da un registro privato
+.Installa Trident Protect da un registro privato
 --
-È possibile installare Trident Protect da un registro di immagine privata se il cluster Kubernetes non è in grado di accedere a Internet. In questi esempi, sostituire i valori tra parentesi con le informazioni dell'ambiente:
+È possibile installare Trident Protect da un registro di immagini privato se il cluster Kubernetes non è in grado di accedere a Internet. In questi esempi, sostituisci i valori tra parentesi con le informazioni provenienti dal tuo ambiente:
 
 .Fasi
 . Estrarre le seguenti immagini sul computer locale, aggiornare i tag e quindi inviarle al registro privato:
@@ -115,7 +115,7 @@ kubectl create secret docker-registry regcred --docker-username=<registry-userna
 ----
 helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart
 ----
-. Creare un file denominato `protectValues.yaml`. Verificare che contenga le seguenti impostazioni di protezione Trident:
+. Crea un file denominato `protectValues.yaml` . Assicurarsi che contenga le seguenti impostazioni Trident Protect:
 +
 [source, yaml]
 ----
@@ -148,4 +148,4 @@ La registrazione del debug aiuta NetApp a risolvere i problemi senza dover modif
 --
 ====
 
-NOTE: Per ulteriori opzioni di configurazione del grafico Helm, incluse le impostazioni AutoSupport e il filtraggio dello spazio dei nomi, fare riferimento a link:trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Personalizzare l'installazione di Trident Protect"].
+NOTE: Per ulteriori opzioni di configurazione del grafico Helm, incluse le impostazioni AutoSupport e il filtraggio dello spazio dei nomi, fare riferimento a link:trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Personalizza l'installazione Trident Protect"].

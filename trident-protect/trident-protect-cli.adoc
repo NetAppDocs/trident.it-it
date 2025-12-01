@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-cli.html 
 keywords: trident, protect, command line utility, cli, netapp, custom, resources 
-summary: È possibile utilizzare il comando protectctl per creare e interagire con le risorse personalizzate di Trident Protect. 
+summary: È possibile utilizzare il comando protectctl per creare e interagire con le risorse personalizzate Trident Protect. 
 ---
-= Installare il plugin Trident Protect CLI
+= Installa il plugin Trident Protect CLI
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,11 +14,11 @@ summary: È possibile utilizzare il comando protectctl per creare e interagire c
 
 
 [role="lead"]
-È possibile utilizzare il plug-in della riga di comando Trident Protect, che è un'estensione dell'utilità Trident `tridentctl`, per creare e interagire con le risorse personalizzate Trident Protect (CRS).
+È possibile utilizzare il plugin della riga di comando Trident Protect, che è un'estensione di Trident `tridentctl` utilità, per creare e interagire con le risorse personalizzate (CR) Trident Protect.
 
 
 
-== Installare il plugin Trident Protect CLI
+== Installa il plugin Trident Protect CLI
 
 Prima di utilizzare l'utilità della riga di comando, è necessario installarla sulla macchina utilizzata per accedere al cluster. Attenersi alla seguente procedura, a seconda che il computer utilizzi una CPU x64 o ARM.
 
@@ -115,7 +115,7 @@ tridentctl-protect help
 
 == Attivare il completamento automatico del comando
 
-Dopo aver installato il plugin Trident Protect CLI, è possibile abilitare il completamento automatico per alcuni comandi.
+Dopo aver installato il plugin Trident Protect CLI, è possibile abilitare il completamento automatico per determinati comandi.
 
 [role="tabbed-block"]
 ====

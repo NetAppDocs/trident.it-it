@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-use-snapmirror-replication.html 
 keywords: trident, protect, netapp, snapmirror, data, asynchronous, replication, clusters 
-summary: Utilizzando Trident Protect, puoi utilizzare le funzionalità di replica asincrona della tecnologia NetApp SnapMirror per replicare le modifiche ai dati e alle applicazioni da un backend storage a un altro, sullo stesso cluster o tra cluster diversi. 
+summary: 'Utilizzando Trident Protect, è possibile sfruttare le funzionalità di replica asincrona della tecnologia NetApp SnapMirror per replicare le modifiche dei dati e delle applicazioni da un backend di storage all"altro, sullo stesso cluster o tra cluster diversi.' 
 ---
-= Replica le applicazioni utilizzando NetApp SnapMirror e Trident Protect
+= Replicare le applicazioni utilizzando NetApp SnapMirror e Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary: Utilizzando Trident Protect, puoi utilizzare le funzionalità di replic
 
 
 [role="lead"]
-Utilizzando Trident Protect, puoi utilizzare le funzionalità di replica asincrona della tecnologia NetApp SnapMirror per replicare le modifiche ai dati e alle applicazioni da un backend storage a un altro, sullo stesso cluster o tra cluster diversi.
+Utilizzando Trident Protect, è possibile sfruttare le funzionalità di replica asincrona della tecnologia NetApp SnapMirror per replicare le modifiche dei dati e delle applicazioni da un backend di storage all'altro, sullo stesso cluster o tra cluster diversi.
 
 
 
@@ -32,9 +32,9 @@ Puoi impedire la sovrascrittura delle annotazioni specifiche nel namespace di de
 helm upgrade trident-protect --set restoreSkipNamespaceAnnotations=<annotation_key_to_skip_1>,<annotation_key_to_skip_2> --reuse-values
 ----
 
-NOTE: Quando si esegue un'operazione di ripristino o failover, tutte le annotazioni e le etichette dello spazio dei nomi specificate in `restoreSkipNamespaceAnnotations` E `restoreSkipNamespaceLabels` sono esclusi dall'operazione di ripristino o failover. Assicurarsi che queste impostazioni siano configurate durante l'installazione iniziale di Helm. Per saperne di più, fare riferimento a link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Configurare le impostazioni aggiuntive del grafico del timone di protezione Trident"].
+NOTE: Quando si esegue un'operazione di ripristino o failover, tutte le annotazioni e le etichette dello spazio dei nomi specificate in `restoreSkipNamespaceAnnotations` E `restoreSkipNamespaceLabels` sono esclusi dall'operazione di ripristino o failover. Assicurarsi che queste impostazioni siano configurate durante l'installazione iniziale di Helm. Per saperne di più, fare riferimento a link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Configurare le impostazioni aggiuntive del grafico del timone Trident Protect"].
 
-Se l'applicazione di origine è stata installata utilizzando Helm con il `--create-namespace` flag, viene assegnato un trattamento speciale al `name` tasto etichetta. Durante il processo di ripristino o failover, Trident Protect copia questa etichetta nello spazio dei nomi di destinazione, ma aggiorna il valore allo spazio dei nomi di destinazione se il valore di origine corrisponde allo spazio dei nomi di origine. Se questo valore non corrisponde allo spazio dei nomi di origine, viene copiato nello spazio dei nomi di destinazione senza modifiche.
+Se hai installato l'applicazione sorgente utilizzando Helm con `--create-namespace` bandiera, un trattamento speciale è riservato al `name` etichetta chiave. Durante il processo di ripristino o failover, Trident Protect copia questa etichetta nello spazio dei nomi di destinazione, ma aggiorna il valore al valore dello spazio dei nomi di destinazione se il valore dell'origine corrisponde allo spazio dei nomi di origine. Se questo valore non corrisponde allo spazio dei nomi di origine, viene copiato nello spazio dei nomi di destinazione senza modifiche.
 
 
 
@@ -99,7 +99,7 @@ La tabella seguente illustra lo stato dello spazio dei nomi di destinazione di e
 
 |===
 
-NOTE: È possibile configurare Trident Protect per bloccare e sbloccare i file system durante le operazioni di protezione dei dati. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Ulteriori informazioni sulla configurazione del blocco del filesystem con Trident Protect"].
+NOTE: È possibile configurare Trident Protect in modo che blocchi e sblocchi i file system durante le operazioni di protezione dei dati. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Scopri di più sulla configurazione del congelamento del file system con Trident Protect"].
 
 
 
@@ -111,7 +111,7 @@ Quando si utilizza la relazione AppMirror per proteggere l'applicazione, ci sono
 * Durante l'inversione o la risincronizzazione inversa, tutti gli hook di esecuzione esistenti sull'applicazione vengono rimossi. Quando l'applicazione di origine diventa l'applicazione di destinazione, questi hook di esecuzione non sono più validi e vengono eliminati per impedirne l'esecuzione.
 
 
-Per saperne di più sugli hook di esecuzione, fare riferimento a link:../trident-protect/trident-protect-use-execution-hooks.html["Gestire i hook di esecuzione Trident Protect"] .
+Per saperne di più sugli hook di esecuzione, fare riferimento alink:../trident-protect/trident-protect-use-execution-hooks.html["Gestire gli hook di esecuzione Trident Protect"] .
 
 
 
@@ -119,7 +119,7 @@ Per saperne di più sugli hook di esecuzione, fare riferimento a link:../trident
 
 L'impostazione di una relazione di replica comporta quanto segue:
 
-* Scegliere la frequenza con cui desideri che Trident Protect crei un'istantanea dell'applicazione (che include le risorse Kubernetes dell'app e gli snapshot di volume per ciascuno dei volumi dell'app)
+* Scegliere la frequenza con cui si desidera che Trident Protect esegua uno snapshot dell'app (che include le risorse Kubernetes dell'app e gli snapshot del volume per ciascuno dei volumi dell'app)
 * Scelta del programma di replica (include risorse Kubernetes nonché dati dei volumi persistenti)
 * Impostazione dell'ora in cui eseguire l'istantanea
 
@@ -448,7 +448,7 @@ kubectl get amr -n my-app-namespace <relationship name> -o=jsonpath='{.status}' 
 
 === Failover sul cluster di destinazione
 
-Con Trident Protect puoi eseguire il failover di applicazioni replicate su un cluster di destinazione. Questa procedura interrompe la relazione di replica e porta l'applicazione online sul cluster di destinazione. Trident Protect non interrompe l'applicazione sul cluster di origine se era operativa.
+Utilizzando Trident Protect è possibile eseguire il failover delle applicazioni replicate su un cluster di destinazione. Questa procedura interrompe la relazione di replica e porta l'app online sul cluster di destinazione.  Trident Protect non arresta l'app sul cluster di origine se era operativa.
 
 .Fasi
 . Nel cluster di destinazione, modificare il file CR AppMirrorRelationship (ad esempio, `trident-protect-relationship.yaml`) e modificare il valore di *spec.desiredState* in `Promoted`.
@@ -509,7 +509,7 @@ Quando si esegue la risincronizzazione inversa di una relazione di replica non r
 
 == Invertire la direzione di replica dell'applicazione
 
-Quando si inverte la direzione di replica, Trident Protect sposta l'applicazione nel backend dello storage di destinazione, continuando nel contempo la replica nel back-end dello storage di origine. Trident Protect interrompe l'applicazione di origine e replica i dati sulla destinazione prima di eseguire il failover sull'app di destinazione.
+Quando si inverte la direzione della replica, Trident Protect sposta l'applicazione sul backend di archiviazione di destinazione, continuando a replicare sul backend di archiviazione di origine.  Trident Protect arresta l'applicazione di origine e replica i dati nella destinazione prima di eseguire il failover sull'app di destinazione.
 
 In questa situazione, si sta sostituendo l'origine e la destinazione.
 
@@ -609,7 +609,7 @@ A causa della replica inversa, si verificano le seguenti azioni:
 
 === Eseguire il failback delle applicazioni nel cluster di origine originale
 
-Utilizzando Trident Protect, è possibile ottenere il "fail back" dopo un'operazione di failover utilizzando la seguente sequenza di operazioni. In questo flusso di lavoro per ripristinare la direzione di replica originale, Trident Protect replica (risincronizza) tutte le modifiche apportate all'applicazione di origine prima di invertire la direzione di replica.
+Utilizzando Trident Protect, è possibile ottenere il "fail back" dopo un'operazione di failover utilizzando la seguente sequenza di operazioni.  In questo flusso di lavoro per ripristinare la direzione di replicazione originale, Trident Protect replica (risincronizza) tutte le modifiche apportate all'applicazione di origine prima di invertire la direzione di replicazione.
 
 Questo processo inizia da una relazione che ha completato un failover verso una destinazione e prevede i seguenti passaggi:
 
