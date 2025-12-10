@@ -35,6 +35,7 @@ Trident Protect è compatibile con un'ampia gamma di offerte Kubernetes completa
 ====
 * I backup Trident Protect sono supportati solo sui nodi di elaborazione Linux. I nodi di elaborazione Windows non sono supportati per le operazioni di backup.
 * Assicurarsi che il cluster su cui si installa Trident Protect sia configurato con un controller snapshot in esecuzione e i relativi CRD. Per installare un controller snapshot, fare riferimento a https://docs.netapp.com/us-en/trident/trident-use/vol-snapshots.html#deploy-a-volume-snapshot-controller["queste istruzioni"] .
+* Assicurarsi che esista almeno una VolumeSnapshotClass. Per maggiori informazioni, fare riferimento alink:https://docs.netapp.com/us-en/trident_main/trident-reference/objects.html#kubernetes-volumesnapshotclass-objects["VolumeSnapshotClass"] .
 
 
 ====
