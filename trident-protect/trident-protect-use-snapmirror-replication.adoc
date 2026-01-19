@@ -364,7 +364,11 @@ kubectl apply -f trident-protect-appvault-secondary-destination.yaml -n trident-
 ----
 
 
-. Nel cluster di destinazione, creare un file CR AppMirrorRelationship:
+. Nel cluster di destinazione, creare un file CR AppMirrorRelationship.
++
+
+NOTE: Quando si utilizza una CR, creare manualmente lo spazio dei nomi di destinazione prima di applicare la CR. Trident Protect crea automaticamente gli spazi dei nomi solo quando si utilizza la CLI.
+
 +
 [role="tabbed-block"]
 ====
