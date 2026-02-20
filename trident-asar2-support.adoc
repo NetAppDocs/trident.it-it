@@ -1,0 +1,48 @@
+= Operazioni supportate
+:allow-uri-read: 
+
+
+sidebar: sidebar permalink: trident-asar2-support.html keywords: asar2, trident, fcp, nvme, tcp, nvme/tcp, fibre channel summary: NetApp Trident supporta ONTAP ASA r2 per iSCSI e NVMe/TCP. --- = NetApp Trident supporto per sistemi storage ONTAP ASA r2 :hardbreaks: :icons: font :imagesdir: ./media/
+
+[role="lead"]
+NetApp Trident 25.02 e versioni successive supportano i sistemi NetApp ASA r2 come backend di storage. Fare riferimento a link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemi ASA r2"^] per ulteriori informazioni.
+
+I sistemi ASA r2 richiedono il `ontap-san` driver. Trident non supporta il `ontap-san-economy` driver per i sistemi ASA r2.
+
+Quando si specifica  `ontap-san` come  `storageDriverName` nella configurazione backend, Trident rileva automaticamente il sistema storage ASA r2.
+
+Trident fornisce una protezione dati limitata per i sistemi ASA r2 con Trident protect.
+
+I protocolli SAN supportati dipendono dalla versione di Trident:
+
+* Trident 25.02 e versioni successive supporta iSCSI.
+* Trident 25.06 e versioni successive supportano NVMe/TCP oltre a iSCSI.
+
+
+È necessario assegnare almeno un aggregato alla macchina virtuale di storage (SVM) per lo storage back-end ONTAP. Consultare link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["Assegnazione di aggregati a SVM nei sistemi ASA r2"^] per le istruzioni.
+
+
+
+== Operazioni supportate
+
+* Provisioning di volumi persistenti (PVs)
+* Provisioning dinamico del volume
+* Creazione ed eliminazione di volumi
+* Clonazione dei volumi
+* Espansione dei volumi
+* Gestione delle classi di archiviazione
+
+
+
+
+== Operazioni non supportate
+
+* Crittografia LUKS
+* Replica di volumi SnapMirror
+* Limitazione dell'utilizzo aggregato
+* Modalità di prenotazione dello spazio
+* Snapshot
+* Tiering
+
+
+Per ulteriori informazioni, fare riferimento a link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["Opzioni ed esempi di configurazione DELLA SAN ONTAP"^] .

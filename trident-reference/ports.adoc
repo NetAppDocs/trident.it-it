@@ -16,25 +16,104 @@ Ulteriori informazioni sulle porte utilizzate da Trident per la comunicazione.
 
 
 
-== Porte Trident
+== Panoramica
 
-Trident utilizza le seguenti porte per la comunicazione all'interno di Kubernetes:
+Trident utilizza diverse porte per la comunicazione all'interno dei cluster Kubernetes e con i backend di storage. Di seguito è riportato un riepilogo delle porte principali, delle loro funzioni e delle considerazioni sulla sicurezza.
 
-[cols="2,4"]
+* **Outbound focus**: i nodi Kubernetes (controller e worker) avviano principalmente il traffico verso LIF/IP di storage, pertanto le regole di iptables dovrebbero consentire outbound dagli IP dei nodi verso IP di storage specifici su queste porte. Evitare regole generiche "any-to-any".
+* **Restrizioni in ingresso**: limita le porte Trident interne al traffico interno al cluster (ad esempio, utilizzando CNI come Calico). Nessuna esposizione in ingresso non necessaria sui firewall host.
+* **Sicurezza del protocollo**:
++
+** Utilizzare TCP ove possibile (più affidabile).
+** Abilita CHAP/IPsec per iSCSI se sensibile; TLS/HTTPS per la gestione (porta 443/8443).
+** Per NFSv4 (predefinito in Trident), elimina le porte UDP/NFSv3 più vecchie (ad esempio, 4045-4049) se non necessarie.
+** Limitare alle subnet attendibili; monitorare con strumenti come Prometheus (porta opzionale 8001).
+
+
+
+
+
+
+=== Porte per i nodi controller
+
+Queste porte sono principalmente destinate all'operatore Trident (gestione backend). Tutte le porte interne sono a livello di pod; consentirle sui nodi solo se il firewall host interferisce con CNI.
+
+[cols="1,1,2,1,2"]
 |===
-| Porta | Scopo 
+| Porta/Protocollo | Direzione | Scopo | Driver/Protocollo | Note di sicurezza 
 
 
-| 8443 | HTTPS backchannel 
+| TCP 8000 | Inbound/Outbound (interno al cluster) | Trident REST server (comunicazioni operator-controller) | Tutto | Limitare ai CIDR del pod; nessuna esposizione esterna. 
 
 
-| 8001 | Endpoint delle metriche Prometheus 
+| TCP 8443 | Inbound/Outbound (interno al cluster) | Backchannel HTTPS (API interna sicura) | Tutto | Crittografato tramite TLS; limitare al service mesh Kubernetes se utilizzato. 
 
 
-| 8000 | Server REST Trident 
+| TCP 8001 | Inbound (interno al cluster, facoltativo) | metriche Prometheus | Tutto | Esporre solo agli strumenti di monitoraggio (ad esempio, utilizzando RBAC); disabilitare se inutilizzato. 
 
 
-| 17546 | Porta della sonda liveness/readiness utilizzata dai pod demonset di Trident 
+| TCP 443 | outbound | HTTPS a ONTAP SVM/cluster mgmt LIF | ONTAP (tutti), ANF | Richiedi la convalida del certificato TLS; limita solo agli IP LIF di gestione. 
+
+
+| TCP 8443 | outbound | HTTPS al proxy dei servizi Web E-Series | E-Series (iSCSI) | API REST predefinita; usa certs; configurabile nel backend YAML. 
+|===
+
+
+=== Porte per i nodi worker
+
+Queste porte sono destinate ai daemonset dei nodi CSI e ai mount dei pod. Le porte dati sono outbound verso i LIF dei dati del sistema storage; includere le porte extra NFSv3 se si utilizza NFSv3 (opzionale per NFSv4).
+
+[cols="1,1,2,1,2"]
+|===
+| Porta/Protocollo | Direzione | Scopo | Driver/Protocollo | Note di sicurezza 
+
+
+| TCP 17546 | In entrata (locale al pod) | Sonde di liveness/readiness del nodo CSI | Tutto | Configurabile (--probe-port); assicurarsi che non ci siano conflitti host; solo locale. 
+
+
+| TCP 8000 | Inbound/Outbound (interno al cluster) | Server REST Trident | Tutto | Come sopra; interno al pod. 
+
+
+| TCP 8443 | Inbound/Outbound (interno al cluster) | HTTPS backchannel | Tutto | Come sopra. 
+
+
+| TCP 8001 | Inbound (interno al cluster, facoltativo) | metriche Prometheus | Tutto | Come sopra. 
+
+
+| TCP 443 | outbound | HTTPS a ONTAP SVM/cluster mgmt LIF | ONTAP (tutti), ANF | Come sopra; utilizzato per la discovery. 
+
+
+| TCP 8443 | outbound | HTTPS al proxy dei servizi Web E-Series | E-Series (iSCSI) | Come sopra. 
+
+
+| TCP/UDP 111 | outbound | RPCBIND/portmapper | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Obbligatorio per v3; facoltativo per v4 (firewall offload); limitare se si utilizza solo NFSv4. 
+
+
+| TCP/UDP 2049 | outbound | Demone NFS | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Dati principali; ben noti; utilizzare TCP per affidabilità. 
+
+
+| TCP/UDP 635 | outbound | Daemon di mount | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Montaggio; possibili callback bidirezionali (consentire inbound effimero se necessario). 
+
+
+| UDP 4045 | outbound | NFS lock manager (nlockmgr) | ONTAP-NAS (NFSv3) | Blocco dei file; saltare per v4 (pNFS gestisce); solo UDP. 
+
+
+| UDP 4046 | outbound | Monitor dello stato NFS (statd) | ONTAP-NAS (NFSv3) | Notifiche; potrebbero essere necessarie porte effimere inbound (1024-65535) per i callback. 
+
+
+| UDP 4049 | outbound | Demone quota NFS (rquotad) | ONTAP-NAS (NFSv3) | Quote; saltare per v4. 
+
+
+| TCP 3260 | outbound | iSCSI target (rilevamento/dati/CHAP) | ONTAP-SAN (iSCSI), E-Series (iSCSI) | Ben noto; autenticazione CHAP su questa porta; abilita mutual CHAP per la sicurezza. 
+
+
+| TCP 445 | outbound | SMB/CIFS | ONTAP-NAS (SMB), ANF (SMB) | Ben noto; utilizzare SMB3 con crittografia (Trident annotation netapp.io/smb-encryption=true). 
+
+
+| TCP/UDP 88 (facoltativo) | outbound | Autenticazione Kerberos | ONTAP (NFS/SMB/iSCSI con Kerb) | Se si utilizza Kerberos (non predefinito); ai server AD, non al sistema storage. 
+
+
+| TCP/UDP 389 (facoltativo) | outbound | LDAP | ONTAP (NFS/SMB con LDAP) | Simile; per la risoluzione dei nomi/autenticazione; limitare ad AD. 
 |===
 
 NOTE: La porta della sonda liveness/Readiness può essere modificata durante l'installazione utilizzando `--probe-port` allarme. È importante assicurarsi che questa porta non venga utilizzata da un altro processo sui nodi di lavoro.

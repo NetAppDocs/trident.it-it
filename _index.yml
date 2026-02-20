@@ -10,6 +10,8 @@ indexpage:
       url: trident-rn.html
     - title: Versioni precedenti
       url: "/earlier-versions.html"
+    - title: Supporto Trident per sistemi storage ASA r2
+      url: trident-asar2-support.html
   - title: Inizia subito
     links:
     - title: Scopri Trident
