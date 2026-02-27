@@ -1,0 +1,187 @@
+---
+sidebar: sidebar 
+permalink: trident-use/google-cloud-netapp-volumes-auto-tiering.html 
+keywords: trident, google cloud netapp volumes, auto-tiering, storageclass, pvc annotations, data tiering, cooling days 
+summary: Configura il tiering automatico di Google Cloud NetApp Volumes utilizzando i meccanismi nativi di Kubernetes con Trident. 
+---
+= Configura il tiering automatico per Google Cloud NetApp Volumes
+:hardbreaks:
+:allow-uri-read: 
+:icons: 
+:imagesdir: ../media/
+:icontype: font:
+
+
+[role="lead"]
+Questa pagina descrive come configurare il tiering automatico per Google Cloud NetApp Volumes utilizzando Trident. Il tiering automatico viene configurato tramite i parametri del backend Trident e le annotazioni PersistentVolumeClaim durante il provisioning dei volumi.
+
+
+
+== Panoramica
+
+L'auto-tiering consente a Trident di effettuare il provisioning di volumi che spostano automaticamente i dati inattivi da un livello di prestazioni a un livello di capacità. Questo riduce i costi di storage preservando le prestazioni per i dati a cui si accede di frequente.
+
+Trident applica le impostazioni di auto-tiering solo al momento della creazione del volume. Le modifiche successive al provisioning non sono supportate in Trident 26.02.
+
+
+
+== Concetti
+
+
+
+=== Auto-tiering
+
+L'auto-tiering sposta i dati a cui si accede raramente da un livello di prestazioni a un livello di capacità in base ai modelli di accesso. Lo spostamento dei dati avviene in modo asincrono e non è immediato.
+
+
+
+=== Policy di tiering
+
+Il criterio di tiering determina se il tiering automatico è abilitato per un volume.
+
+Sono supportate le seguenti policy: * `auto`: Abilita la suddivisione in livelli automatica in base ai modelli di accesso * `none`: Disabilita la suddivisione in livelli automatica
+
+
+
+=== Giorni di raffreddamento
+
+I giorni di raffreddamento specificano il numero minimo di giorni per cui un blocco di dati deve rimanere inattivo prima di diventare idoneo per il tiering. I giorni di raffreddamento si applicano solo quando la tiering policy è impostata su  `auto`.
+
+
+
+== Modello di configurazione
+
+
+
+=== Ambiti di configurazione
+
+L'auto-tiering può essere configurato in più ambiti:
+
+* **Ambito del pool di archiviazione** Si applica a tutti i volumi provisioned dal pool.
+* **Ambito del volume** Si applica a un singolo volume tramite annotazioni PersistentVolumeClaim.
+
+
+Trident determina la configurazione effettiva in base a dove è definita ciascuna impostazione.
+
+
+
+=== Precedenza di configurazione
+
+Quando la stessa impostazione è definita in più ambiti, Trident applica il seguente ordine di precedenza:
+
+. Annotazioni PersistentVolumeClaim
+. Configurazione del backend Trident
+. Valori predefiniti del pool di archiviazione
+
+
+Le impostazioni definite a un livello di precedenza superiore sovrascrivono i valori di livello inferiore.
+
+
+
+== Funzionalità supportate in Trident 26.02
+
+Trident 26.02 supporta le seguenti funzionalità di auto-tiering per Google Cloud NetApp Volumes:
+
+* Abilitazione o disabilitazione del tiering automatico durante il provisioning del volume
+* Definizione di una politica di tiering nella configurazione del backend Trident
+* Sovrascrivere la policy di tiering e i giorni di raffreddamento per volume utilizzando le annotazioni PVC
+* Configurazione dei giorni di raffreddamento per i volumi con auto-tiering abilitato
+
+
+
+
+== Funzionalità non supportata in Trident 26.02
+
+Le seguenti operazioni non sono supportate:
+
+* Modifica delle impostazioni di auto-tiering dopo la creazione del volume
+* Modifica delle policy di tiering sui volumi esistenti tramite gli aggiornamenti di Kubernetes
+* Applicazione delle impostazioni di auto-tiering al di fuori dei flussi di lavoro di provisioning gestiti da Trident
+
+
+
+
+== Parametri di configurazione del backend
+
+I seguenti parametri controllano il comportamento dell'auto-tiering quando definiti nella configurazione del backend Trident:
+
+[cols="2,1,2"]
+|===
+| Parametro | Obbligatorio | Descrizione 
+
+
+| tieringPolicy | No | Criterio di suddivisione in livelli per volumi (`auto` or `none`) 
+
+
+| tieringMinimumCoolingDays | No | Numero di giorni di inattività prima che i dati vengano tiered (intervallo: 2–183, predefinito: 31) 
+|===
+
+
+== Sovrascritture a livello di volume tramite annotazioni PersistentVolumeClaim
+
+
+
+=== Annotazioni supportate
+
+Le annotazioni PersistentVolumeClaim consentono di ignorare le impostazioni di auto-tiering per volume.
+
+[cols="2,2"]
+|===
+| Annotazione | Descrizione 
+
+
+| `trident.netapp.io/tieringPolicy` | Sostituisce la policy di tiering per il volume 
+
+
+| `trident.netapp.io/tieringMinimumCoolingDays` | Sostituisce il valore dei giorni di raffreddamento per il volume 
+|===
+
+
+=== Esempio: PersistentVolumeClaim con override di auto-tiering
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: auto-tiering-pvc
+  annotations:
+    trident.netapp.io/tieringPolicy: auto
+    trident.netapp.io/tieringMinimumCoolingDays: "45"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: google-cloud-netapp-volumes-auto-tiering
+  resources:
+    requests:
+      storage: 500Gi
+----
+
+
+== Comportamento e limitazioni
+
+
+
+=== Comportamento di provisioning
+
+* Le impostazioni di auto-tiering vengono valutate e applicate solo al momento della creazione del volume.
+* Trident non riconcilia la configurazione del tiering dopo il provisioning.
+* I giorni di raffreddamento vengono ignorati quando la policy di tiering è impostata su  `none`.
+
+
+
+
+=== Limitazioni della piattaforma
+
+* Il tiering automatico è supportato solo per i volumi NAS (NFS e SMB).
+* I volumi a blocchi (iSCSI) non supportano l'auto-tiering.
+* Il pool di storage Google Cloud NetApp Volumes deve avere la suddivisione automatica in livelli abilitata in Google Cloud.
+
+
+
+
+=== Valori supportati
+
+* Intervallo valido per  `tieringMinimumCoolingDays`: 2 a 183
+* Valore predefinito: 31
+

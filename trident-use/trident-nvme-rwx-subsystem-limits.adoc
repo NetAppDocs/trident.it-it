@@ -1,0 +1,84 @@
+---
+sidebar: sidebar 
+permalink: trident-use/trident-nvme-rwx-subsystem-limits.html 
+keywords: trident, nvme, rwx, ontap, nvme subsystem, rwx nvme limit, super-subsystem, controller limit, 26.02 
+summary: 'Scopri i limiti del sottosistema RWX NVMe, incluso il limite di 64 nodi per volume, il cambiamento dell"architettura del sottosistema e i passaggi di aggiornamento necessari.' 
+---
+= Comprendere i limiti del sottosistema RWX NVMe
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+ReadWriteMany (RWX) volumi che utilizzano il protocollo NVMe hanno un limite di scalabilità di 64 nodi per volume. Di seguito sono illustrate le limitazioni, viene spiegata l'architettura del sottosistema NVMe coinvolto e vengono delineati i passaggi di risoluzione richiesti.
+
+
+
+== Comprendere il limite di 64 nodi
+
+Se si prevede di utilizzare volumi ReadWriteMany (RWX) con il protocollo NVMe, un singolo volume RWX NVMe non può essere montato da più di 64 nodi in un cluster Kubernetes.
+
+Non pianificare carichi di lavoro che montano lo stesso RWX NVMe PersistentVolumeClaim su più di 64 nodi.
+
+Questa limitazione si applica solo ai volumi RWX che utilizzano il protocollo NVMe.
+
+
+
+== Comprendere i modelli di sottosistema NVMe
+
+
+
+=== Modello di sottosistema per volume (versioni di Trident precedenti alla 26.02)
+
+Nelle versioni di Trident precedenti alla 26.02, i volumi RWX NVMe vengono forniti utilizzando un modello di sottosistema per volume. Ogni volume RWX NVMe è mappato al proprio sottosistema NVMe dedicato su ONTAP.
+
+Questo modello è semplice, ma presenta un limite di scalabilità inferiore. Nei cluster Kubernetes di grandi dimensioni, i limiti del controller del sottosistema vengono raggiunti rapidamente perché ogni volume RWX consuma un sottosistema dedicato.
+
+
+
+=== Modello super-sottosistema (introdotto in Trident 26.02)
+
+A partire da Trident 26.02, i volumi RWX NVMe utilizzano un modello di super-sottosistema condiviso. Più volumi RWX NVMe condividono lo stesso sottosistema NVMe.
+
+Ogni super-sottosistema supporta fino a 1024 namespace (volumi). Questo modello migliora significativamente la scalabilità per i carichi di lavoro RWX e riduce la probabilità di raggiungere i limiti del sottosistema ONTAP.
+
+Ogni volume RWX NVMe supporta fino a 64 nodi.
+
+
+
+== Identificare i sintomi di errore
+
+Se crei o colleghi volumi RWX NVMe su larga scala, potresti osservare errori simili ai seguenti:
+
+[listing]
+----
+Maximum number of controllers reached. No more controllers can be created.
+----
+Questo errore indica che è stato raggiunto il limite del controller del sottosistema ONTAP NVMe.
+
+
+
+== Risolvere gli errori di limite del sottosistema
+
+Per superare le limitazioni del sottosistema per volume e sfruttare il modello super-sottosistema, esegui l'aggiornamento a Trident 26.02 o versioni successive.
+
+
+
+== Aggiorna Trident per applicare il modello super-subsystem
+
+Per applicare il modello super-sottosistema ai volumi RWX NVMe:
+
+. Aggiorna Trident alla versione 26.02 o successiva.
+. Riduci a zero le repliche di tutti i pod che utilizzano volumi RWX NVMe.
+. Verificare che nessun carico di lavoro stia utilizzando attivamente volumi RWX NVMe.
+. Aumenta nuovamente il numero di pod.
+
+
+Questa sequenza di riavvio garantisce che i volumi RWX NVMe siano collegati utilizzando il modello super-subsystem.
+
+* Questa limitazione si applica solo ai volumi RWX che utilizzano il protocollo NVMe.
+* Il limite di 64 nodi si applica per ogni volume RWX NVMe.
+* Altre modalità di accesso e altri protocolli non sono interessati.
+

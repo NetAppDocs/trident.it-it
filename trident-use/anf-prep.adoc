@@ -16,9 +16,23 @@ Prima di poter configurare il backend Azure NetApp Files, è necessario assicura
 
 
 
+== Ambienti cloud Azure supportati
+
+Trident supporta backend Azure NetApp Files in più ambienti cloud di Azure.
+
+I cloud Azure supportati includono:
+
+* Azure Commercial
+* Azure Government (Azure Government / MAG)
+
+
+Durante la preparazione dell'ambiente, assicurati che la sottoscrizione di Azure, la configurazione dell'identità e le risorse di Azure NetApp Files vengano create nell'ambiente cloud di Azure appropriato.
+
+
+
 == Prerequisiti per volumi NFS e SMB
 
-Se si utilizza Azure NetApp Files per la prima volta o in una nuova posizione, è necessaria una configurazione iniziale per configurare Azure NetApp Files e creare un volume NFS. Fare riferimento a. https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure: Configura Azure NetApp Files e crea un volume NFS"^].
+Se si utilizza Azure NetApp Files per la prima volta o in una nuova posizione, è necessaria una configurazione iniziale per impostare Azure NetApp Files e creare un volume NFS. Fare riferimento a https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure: Configura Azure NetApp Files e crea un volume NFS"^].
 
 Per configurare e utilizzare un https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] back-end, sono necessari i seguenti elementi:
 
@@ -26,6 +40,7 @@ Per configurare e utilizzare un https://azure.microsoft.com/en-us/services/netap
 ====
 * `subscriptionID`, `tenantID`, `clientID`, `location`, e. `clientSecret` Sono opzionali quando si utilizzano identità gestite su un cluster AKS.
 * `tenantID`, `clientID`, e. `clientSecret` Sono opzionali quando si utilizza un'identità cloud su un cluster AKS.
+* Le distribuzioni di Azure NetApp Files nei cloud Azure non commerciali richiedono endpoint di Azure Resource Manager e di autenticazione specifici per il cloud. Assicurarsi che Trident e qualsiasi configurazione di backend utilizzino gli endpoint appropriati per l'ambiente cloud Azure.
 
 
 ====

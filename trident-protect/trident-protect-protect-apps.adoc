@@ -248,6 +248,7 @@ Una policy di protezione protegge un'app creando snapshot, backup o entrambi sec
 ** *spec.dayOfWeek*: (_Facoltativo_) Il giorno della settimana (0 - 7) in cui deve essere eseguita la pianificazione.  I valori 0 o 7 indicano domenica.  Questo campo è obbligatorio se la granularità è impostata su `Weekly` .  Il valore deve essere fornito come stringa.
 ** *spec.hour*: (_Facoltativo_) L'ora del giorno (0 - 23) in cui la pianificazione deve essere eseguita.  Questo campo è obbligatorio se la granularità è impostata su `Daily` , `Weekly` , O `Monthly` .  Il valore deve essere fornito come stringa.
 ** *spec.minute*: (_Facoltativo_) Il minuto dell'ora (0 - 59) in cui la pianificazione deve essere eseguita.  Questo campo è obbligatorio se la granularità è impostata su `Hourly` , `Daily` , `Weekly` , O `Monthly` .  Il valore deve essere fornito come stringa.
+** *spec.runImmediately*: (_Facoltativo_) Impostare su  `true` per attivare un'esecuzione di base immediata e una tantum (backup e/o snapshot in base alle impostazioni di conservazione) quando viene creata la pianificazione. Il valore predefinito è  `false`. Questo non modifica la ricorrenza successiva.
 +
 Esempio di YAML per la pianificazione di backup e snapshot:
 
@@ -290,6 +291,28 @@ spec:
   granularity: Daily
   hour: "2"
   minute: "0"
+----
++
+Esempio YAML per una pianificazione con esecuzione immediata:
+
++
+[source, yaml]
+----
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: Schedule
+metadata:
+  namespace: my-app-namespace
+  name: my-daily-schedule-run-immediately
+spec:
+  applicationRef: my-application
+  appVaultRef: appvault-name
+  backupRetention: "7"
+  snapshotRetention: "7"
+  granularity: Daily
+  hour: "3"
+  minute: "0"
+  runImmediately: true
 ----
 
 
@@ -345,6 +368,7 @@ NOTE: IL `--full-backup-rule` il flag non funziona con la granularità oraria, s
 
 
 
+** *Protezione di base immediata*: utilizza `--run-immediately true` per creare un backup o uno snapshot iniziale immediatamente quando viene creata la pianificazione, invece di attendere il primo orario di esecuzione pianificato. L'impostazione predefinita è `false`.
 ** *Programmazioni solo snapshot*: Imposta `--backup-retention 0` e specificare un valore maggiore di zero per `--snapshot-retention`.
 
 
