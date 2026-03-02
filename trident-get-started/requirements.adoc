@@ -42,16 +42,12 @@ Trident supporta molteplici motori e Orchestrator per container, tra cui:
 
 * Anthos on-premise (VMware) e anthos su Bare Metal 1,16
 * Kubernetes 1.27 - 1.35
-* OpenShift 4.12, 4.14 - 4.20 (se si prevede di utilizzare la preparazione del nodo iSCSI con OpenShift 4.19, la versione minima supportata Trident è 25.06.1.)
+* OpenShift 4.12, 4.14 - 4.21 (Se prevedi di utilizzare la preparazione del nodo iSCSI con OpenShift 4.19, la versione minima di Trident supportata è 25.06.1.)
 +
 
 NOTE: Trident continua a supportare le versioni precedenti di OpenShift in linea conlink:https://access.redhat.com/support/policy/updates/openshift["Ciclo di vita della versione Red Hat Extended Update Support (EUS)"] , anche se si basano su versioni di Kubernetes che non sono più ufficialmente supportate a monte.  In questi casi, durante l'installazione Trident , puoi tranquillamente ignorare eventuali messaggi di avviso relativi alla versione di Kubernetes.
 
-* Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.34.x
-+
-
-NOTE: _Sebbene Trident sia supportato su Rancher Kubernetes Engine 2 (RKE2) versioni 1.27.x - 1.34.x, Trident è attualmente qualificato solo su RKE2 v1.28.5+rke2r1._
-
+* Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.35.x
 
 
 Trident funziona anche con un host delle altre offerte Kubernetes completamente gestite e gestite in autonomia, tra cui Google Kubernetes Engine (GKE), Amazon Elastic Kubernetes Services (EKS), Azure Kubernetes Service (AKS), Mirantis Kubernetes Engine (MKE) e il portfolio VMware Tanzu.
@@ -228,8 +224,8 @@ Per le installazioni con montaggio ad aria, l'elenco seguente è un riferimento 
 | Versioni di Kubernetes | Immagine container 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0  a| 
-* docker.io/netapp/trident:26.02.0
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.35.0  a| 
+* docker.io/netapp/trident:25.10.0
 * docker.io/netapp/trident-autosupport:25.10
 * registry.k8s.io/sig-storage/csi-provisioner:v5.3.0
 * registry.k8s.io/sig-storage/csi-attacher:v4.10.0
