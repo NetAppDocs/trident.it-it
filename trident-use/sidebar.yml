@@ -56,6 +56,8 @@ entries:
       url: "/trident-use/trident-fsx-install-trident.html"
     - title: Configurare il backend dello storage
       url: "/trident-use/trident-fsx-storage-backend.html"
+    - title: Configura la configurazione automatica del backend
+      url: "/trident-use/trident-fsx-auto-backend-configuration.html"
     - title: Crea una policy di Autogrow
       url: "/trident-use/automatic-volume-expansion.html"
     - title: Gestisci una policy di Autogrow
