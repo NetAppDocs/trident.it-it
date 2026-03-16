@@ -52,11 +52,11 @@ Oltre a link:../trident-get-started/kubernetes-deploy.html#before-you-deploy["pr
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Utilizzare `helm install` e specificare un nome per la distribuzione come nell'esempio seguente dove si trova `100.2506.0` la versione di Trident che si sta installando.
+. Usa  `helm install` e specifica un nome per la distribuzione come nel seguente esempio in cui  `100..0` è la versione di Trident che stai installando.
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2506.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2602.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -86,11 +86,11 @@ Specificare un file YAML con override. Questo valore può essere specificato pi�
 Specificare le sostituzioni sulla riga di comando.
 
 |===
-Ad esempio, per modificare il valore predefinito di `debug`, eseguire il comando seguente dove si trova `100.2506.0` la versione di Trident che si sta installando:
+Ad esempio, per modificare il valore predefinito di `debug`, eseguire il seguente comando dove `100.2602.0` è la versione di Trident che si sta installando:
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2506.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2602.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
