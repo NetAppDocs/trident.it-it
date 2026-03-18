@@ -234,14 +234,7 @@ Opzione NAS per l'accesso alla `.snapshot` directory.
  a| 
 Consente o disabilita l'accesso alla  `.snapshot` directory.
 
-
-
-| `snapshotDir`  a| 
-Opzione NAS per l'accesso alla `.snapshot` directory.
- a| 
-Consente o disabilita l'accesso alla  `.snapshot` directory.
-
-Valori validi: `true`, `false`. Il comportamento predefinito può variare in base alla versione di ONTAP e Trident. Impostare esplicitamente per garantire un comportamento coerente.
+Valori validi: `true`, `false`. Il comportamento predefinito potrebbe variare in base alla versione di ONTAP e Trident. Impostare esplicitamente per garantire un comportamento coerente.
 
 
 

@@ -86,7 +86,7 @@ Queste porte sono destinate ai daemonset dei nodi CSI e ai mount dei pod. Le por
 | TCP 8443 | outbound | HTTPS al proxy dei servizi Web E-Series | E-Series (iSCSI) | Come sopra. 
 
 
-| TCP/UDP 111 | outbound | RPCBIND/portmapper | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Obbligatorio per v3; facoltativo per v4 (firewall offload); limitare se si utilizza -only. 
+| TCP/UDP 111 | outbound | RPCBIND/portmapper | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Obbligatorio per v3; facoltativo per v4 (firewall offload); limitare se si utilizza solo NFSv4. 
 
 
 | TCP/UDP 2049 | outbound | Demone NFS | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Dati principali; ben noti; utilizzare TCP per affidabilità. 
