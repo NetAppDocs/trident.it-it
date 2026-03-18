@@ -16,9 +16,9 @@ Prima di poter configurare il back-end di Google Cloud NetApp Volumes, devi veri
 
 
 
-== Prerequisiti per i volumi NFS
+== Prerequisiti per i volumi NFS o SMB
 
-Se stai utilizzando Google Cloud NetApp Volumes per la prima volta o in una nuova posizione, è necessaria una certa configurazione iniziale per configurare i volumi di Google Cloud NetApp e creare un volume NFS. Fare riferimento alla link:https://cloud.google.com/netapp/volumes/docs/before-you-begin/application-resilience["Prima di iniziare"^].
+Se utilizzi Google Cloud NetApp Volumes per la prima volta o in una nuova posizione, è necessaria una configurazione iniziale per impostare Google Cloud NetApp Volumes e creare un volume NFS o SMB. Consulta link:https://cloud.google.com/netapp/volumes/docs/before-you-begin/application-resilience["Prima di iniziare"^].
 
 Prima di configurare il back-end di Google Cloud NetApp Volumes, assicurati di disporre di quanto segue:
 

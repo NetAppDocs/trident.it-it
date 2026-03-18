@@ -232,7 +232,16 @@ Opzione NAS per i volumi NFS con provisioning, per impostazione predefinita su `
 | `snapshotDir`  a| 
 Opzione NAS per l'accesso alla `.snapshot` directory.
  a| 
-"True" per NFSv4 "false" per NFSv3
+Consente o disabilita l'accesso alla  `.snapshot` directory.
+
+
+
+| `snapshotDir`  a| 
+Opzione NAS per l'accesso alla `.snapshot` directory.
+ a| 
+Consente o disabilita l'accesso alla  `.snapshot` directory.
+
+Valori validi: `true`, `false`. Il comportamento predefinito può variare in base alla versione di ONTAP e Trident. Impostare esplicitamente per garantire un comportamento coerente.
 
 
 

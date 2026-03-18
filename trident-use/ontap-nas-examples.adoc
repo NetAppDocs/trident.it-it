@@ -184,7 +184,7 @@ Non utilizzare `debugTraceFlags` a meno che non si stia eseguendo la risoluzione
 | `unixPermissions` | Per i nuovi volumi | "777" per i volumi NFS; vuoto (non applicabile) per i volumi SMB 
 
 
-| `snapshotDir` | Controlla l'accesso a. `.snapshot` directory | "True" per NFSv4 "false" per NFSv3 
+| `snapshotDir` | Controlla l'accesso a. `.snapshot` directory | `true`, `false` (Impostato esplicitamente). 
 
 
 | `exportPolicy` | Policy di esportazione da utilizzare | "predefinito" 
@@ -657,7 +657,7 @@ parameters:
   selector: "app=mysqldb"
   fsType: "ext4"
 ----
-* Til `protection-silver-creditpoints-20k` StorageClass eseguirà il mapping al terzo pool virtuale in `ontap-nas-flexgroup` back-end. Questo è l'unico pool che offre una protezione di livello Silver e 20000 punti di credito.
+* Il  `protection-silver-creditpoints-20k` StorageClass verrà mappato al terzo pool virtuale nel  `ontap-nas-flexgroup` backend. Questo è l'unico pool che offre protezione di livello argento e 20000 punti credito.
 +
 [source, yaml]
 ----

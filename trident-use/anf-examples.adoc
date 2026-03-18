@@ -166,7 +166,7 @@ I valori `resourceGroups`, `netappAccounts` e `capacityPools` sono filtri che li
 `exportRule` Deve essere un elenco separato da virgole di qualsiasi combinazione di indirizzi IPv4 o subnet IPv4 nella notazione CIDR. Ignorato per i volumi SMB. | "0.0.0.0/0" 
 
 
-| `snapshotDir` | Controlla la visibilità della directory .snapshot | "True" per NFSv4 "false" per NFSv3 
+| `snapshotDir` | Accesso a `.snapshot` directory | `true`, `false` (Impostato esplicitamente). 
 
 
 | `size` | La dimensione predefinita dei nuovi volumi | "100 G" 

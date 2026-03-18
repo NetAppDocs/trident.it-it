@@ -86,7 +86,7 @@ Ogni back-end esegue il provisioning dei volumi in una singola area di Google Cl
 | `exportRule` | Le regole di esportazione per i nuovi volumi. Deve essere un elenco separato da virgole di qualsiasi combinazione di indirizzi IPv4. | "0.0.0.0/0" 
 
 
-| `snapshotDir` | Accesso a `.snapshot` directory | "True" per NFSv4 "false" per NFSv3 
+| `snapshotDir` | Accesso a `.snapshot` directory | `true`, `false` (Il comportamento predefinito potrebbe variare. Impostare esplicitamente) "false" per NFSv3 
 
 
 | `snapshotReserve` | Percentuale di volume riservato agli snapshot | "" (accettare l'impostazione predefinita di 0) 
