@@ -105,7 +105,10 @@ Gli esempi seguenti mostrano le configurazioni di base che lasciano la maggior p
 ====
 Questa è la configurazione backend minima assoluta. Con questa configurazione, Trident rileva tutti i pool di storage delegati ai volumi Google Cloud NetApp nella posizione configurata e posiziona nuovi volumi in uno di tali pool in modo casuale. Poiché `nasType` viene omesso, viene applicato il `nfs` valore predefinito e il backend esegue il provisioning dei volumi NFS.
 
-Questa configurazione è ideale quando si inizia a usare Google Cloud NetApp Volumes e si tenta le cose, ma in pratica con tutta probabilità sarà necessario fornire un ambito aggiuntivo per i volumi da eseguire il provisioning.
+Questa configurazione è ideale quando si inizia a utilizzare Google Cloud NetApp Volumes e si stanno facendo delle prove, ma in pratica potrebbe essere necessario fornire un ambito aggiuntivo per i volumi di cui si effettua il provisioning.
+
+
+NOTE: Sostituisci  `<id_value>` e  `<key_value>` con le credenziali del tuo account di servizio.
 
 [source, yaml]
 ----
@@ -116,15 +119,11 @@ metadata:
   name: backend-tbc-gcnv-secret
 type: Opaque
 stringData:
-  private_key_id: f2cb6ed6d7cc10c453f7d3406fc700c5df0ab9ec
+  private_key_id: "<id_value>"
   private_key: |
     -----BEGIN PRIVATE KEY-----
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    XsYg6gyxy4zq7OlwWgLwGa==
+    <key_value>
     -----END PRIVATE KEY-----
-
 ---
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -191,14 +190,12 @@ metadata:
   name: backend-tbc-gcnv-secret
 type: Opaque
 stringData:
-  private_key_id: f2cb6ed6d7cc10c453f7d3406fc700c5df0ab9ec
+  private_key_id: "<id_value>"
   private_key: |
     -----BEGIN PRIVATE KEY-----
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    XsYg6gyxy4zq7OlwWgLwGa==
+    <key_value>
     -----END PRIVATE KEY-----
+---
 
 ---
 apiVersion: trident.netapp.io/v1
@@ -245,14 +242,10 @@ metadata:
   name: backend-tbc-gcnv-secret
 type: Opaque
 stringData:
-  private_key_id: f2cb6ed6d7cc10c453f7d3406fc700c5df0ab9ec
+  private_key_id: "<id_value>"
   private_key: |
     -----BEGIN PRIVATE KEY-----
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m
-    XsYg6gyxy4zq7OlwWgLwGa==
+    <key_value>
     -----END PRIVATE KEY-----
 
 ---
