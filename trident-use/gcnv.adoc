@@ -29,7 +29,7 @@ I volumi a blocchi iSCSI forniscono storage a blocchi raw e sono accessibili com
 Ciò si applica ai seguenti ambienti:
 
 * Trident 26.02 e versioni successive
-* Google Kubernetes Engine (GKE)
+* Google Kubernetes Engine (GKE) o Red Hat OpenShift
 * Pool NAS di Google Cloud NetApp Volumes
 * Carichi di lavoro NFS e SMB
 

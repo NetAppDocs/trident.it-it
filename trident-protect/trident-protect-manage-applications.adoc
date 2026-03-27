@@ -94,12 +94,13 @@ spec:
 
 
 
-. (_Facoltativo_) Aggiungi un filtro che includa o escluda le risorse contrassegnate con etichette particolari:
+. (_Facoltativo_) Se necessario, puoi aggiungere il filtro delle risorse alla stessa CR per includere o escludere risorse specifiche:
 +
-** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `Include` o includere o `Exclude` escludere una risorsa definita in resourceMatchers. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
+** *Esempio di filtro generico:*
 +
-*** *ResourceFilter.resourceMatchers*: Una matrice di oggetti resourceMatcher. Se si definiscono più elementi in questa matrice, questi corrispondono come un'operazione OR e i campi all'interno di ogni elemento (gruppo, tipo, versione) corrispondono come un'operazione AND.
+*** *ResourceFilter.resourceSelectionCriteria*: (Necessario per il filtraggio) utilizzare `Include` o includere o `Exclude` escludere una risorsa definita in resourceMatchers. Aggiungere i seguenti parametri resourceMatcher per definire le risorse da includere o escludere:
 +
+**** *ResourceFilter.resourceMatchers*: Una matrice di oggetti resourceMatcher. Se si definiscono più elementi in questa matrice, questi corrispondono come un'operazione OR e i campi all'interno di ogni elemento (gruppo, tipo, versione) corrispondono come un'operazione AND.
 **** *ResourceMatchers[].group*: (_Optional_) Gruppo della risorsa da filtrare.
 **** *ResourceMatchers[].Kind*: (_Optional_) tipo di risorsa da filtrare.
 **** *ResourceMatchers[].version*: (_Optional_) versione della risorsa da filtrare.
@@ -137,6 +138,31 @@ spec:
 
 
 
+** *Esempio di filtro solo PVC:*
++
+Per definire un'applicazione solo PVC, è necessario includere anche  `PersistentVolume` e  `VolumeSnapshotClass` nel filtro delle risorse. Le operazioni di Snapshot e backup dipendono da  `PersistentVolume` (il volume con ambito cluster associato a ciascun PVC) e  `VolumeSnapshotClass` (il driver di snapshot), e non funzioneranno senza di essi. Ad esempio:
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: Application
+metadata:
+  name: my-pvc-app
+  namespace: my-app-namespace
+spec:
+  includedNamespaces:
+  - namespace: my-app-namespace
+  resourceFilter:
+    resourceMatchers:
+    - kind: PersistentVolumeClaim
+      version: v1
+    - kind: PersistentVolume
+      version: v1
+    - kind: VolumeSnapshotClass
+      version: v1
+    resourceSelectionCriteria: Include
+----
 
 
 . Dopo aver creato l'applicazione CR per adattarla all'ambiente in uso, applicare il CR. Ad esempio:
@@ -171,13 +197,17 @@ tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespa
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --annotation protect.trident.netapp.io/skip-vm-freeze=<"true"|"false">
 ----
-+
-Puoi usare  `--resource-filter-include` E  `--resource-filter-exclude` flag per includere o escludere risorse in base a  `resourceSelectionCriteria` come gruppo, tipo, versione, etichette, nomi e namespace, come mostrato nel seguente esempio:
-
+** Puoi usare  `--resource-filter-include` E  `--resource-filter-exclude` flag per includere o escludere risorse in base a  `resourceSelectionCriteria` come gruppo, tipo, versione, etichette, nomi e namespace, come mostrato nel seguente esempio:
 +
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --resource-filter-include '[{"Group":"apps","Kind":"Deployment","Version":"v1","Names":["my-deployment"],"Namespaces":["my-namespace"],"LabelSelectors":["app=my-app"]}]'
+----
+** Per definire un'applicazione solo PVC, è necessario includere anche  `PersistentVolume` e  `VolumeSnapshotClass`` nel filtro delle risorse. Le operazioni di Snapshot e backup dipendono da  `PersistentVolume` (il volume con ambito cluster associato a ciascun PVC) e  `VolumeSnapshotClass` (il driver di snapshot), e non funzioneranno senza di essi. Ad esempio:
++
+[source, console]
+----
+tridentctl-protect create app my-pvc-app --namespaces <my-app-namespace> --resource-filter-include '[{"Kind":"PersistentVolumeClaim","Version":"v1"},{"Kind":"PersistentVolume","Version":"v1"},{"Kind":"VolumeSnapshotClass","Version":"v1"}]' -n <my-app-namespace>
 ----
 
 
