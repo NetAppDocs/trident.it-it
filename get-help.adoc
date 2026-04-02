@@ -90,7 +90,7 @@ link:https://docs.netapp.com/us-en/trident-2301/index.html["23,01"^]
 
 == Supporto autonomo
 
-Per un elenco completo degli articoli per la risoluzione dei problemi, fare riferimento a https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["Knowledge base di NetApp (accesso richiesto)"^].
+Per un elenco completo di articoli sulla risoluzione dei problemi, fare riferimento a https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["Knowledge base di NetApp (accesso richiesto)"^].
 
 
 
