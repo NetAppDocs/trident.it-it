@@ -304,7 +304,7 @@ Assicurarsi che siano soddisfatti i seguenti prerequisiti:
 
 
 .Fasi
-. Verificare la disponibilità di AppVault CR sul cluster di destinazione utilizzando il plug-in Trident Protect CLI:
+. Verifica che la AppVault CR esista sul cluster di destinazione utilizzando il plugin CLI di Trident Protect:
 +
 [source, console]
 ----
@@ -312,9 +312,9 @@ tridentctl-protect get appvault --context <destination_cluster_name>
 ----
 +
 
-NOTE: Verificare che lo spazio dei nomi destinato al ripristino dell'applicazione esista nel cluster di destinazione.
+NOTE: Se il AppVault CR non esiste sul cluster di destinazione, crealo seguendo i passaggi in link:trident-protect-appvault-custom-resources.html["Utilizzare gli oggetti Trident Protect AppVault per gestire i bucket"].
 
-. Visualizzare il contenuto di backup dell'AppVault disponibile dal cluster di destinazione:
+. Visualizza il contenuto del backup disponibile AppVault sul cluster di destinazione e prendi nota  `appArchivePath` del backup che desideri ripristinare:
 +
 [source, console]
 ----
@@ -342,6 +342,9 @@ L'esecuzione di questo comando visualizza i backup disponibili in AppVault, incl
 . Ripristinare l'applicazione nel cluster di destinazione utilizzando il nome AppVault e il percorso di archiviazione:
 
 
+
+NOTE: Quando si utilizza una CR, assicurarsi che lo spazio dei nomi destinato al ripristino dell'applicazione esista sul cluster di destinazione.
+
 [role="tabbed-block"]
 ====
 .Utilizzare un CR
@@ -351,16 +354,7 @@ L'esecuzione di questo comando visualizza i backup disponibili in AppVault, incl
 +
 ** *metadata.name*: (_required_) il nome di questa risorsa personalizzata; scegliere un nome univoco e sensibile per il proprio ambiente.
 ** *Spec.appVaultRef*: (_required_) il nome dell'AppVault in cui sono memorizzati i contenuti di backup.
-** *Spec.appArchivePath*: Il percorso all'interno di AppVault in cui sono memorizzati i contenuti di backup. Per trovare il percorso, utilizzare il seguente comando:
-+
-[source, console]
-----
-kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
-----
-+
-
-NOTE: Se BackupRestore CR non è disponibile, è possibile utilizzare il comando menzionato al passaggio 2 per visualizzare il contenuto del backup.
-
+** *spec.appArchivePath*: (_Obbligatorio_) Il percorso all'interno di AppVault in cui sono archiviati i contenuti del backup. Utilizzare il comando del passaggio 2 per visualizzare i contenuti del backup e trovare  `appArchivePath` per il backup che si desidera ripristinare.
 ** *spec.destinationApplicationName*: (_Facoltativo_) Il nome per l'applicazione ripristinata. Se specificato, l'applicazione ripristinata utilizza questo nome. Se non specificato, l'applicazione ripristinata utilizza il nome dell'applicazione di origine.
 ** *spec.namespaceMapping*: mappatura dello spazio dei nomi di origine dell'operazione di ripristino allo spazio dei nomi di destinazione. Sostituire `my-source-namespace` e `my-destination-namespace` con le informazioni del proprio ambiente.
 +
