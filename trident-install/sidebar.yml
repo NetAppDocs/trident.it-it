@@ -3,28 +3,28 @@ section: trident-install
 title: Installare Trident
 entries:
 - title: Panoramica dell'installazione
-  url: "/trident-get-started/kubernetes-deploy.html"
+  url: "/trident-install/kubernetes-deploy.html"
 - title: Installare utilizzando l'operatore Trident
   entries:
   - title: Implementare manualmente l'operatore Trident (Standard)
-    url: "/trident-get-started/kubernetes-deploy-operator.html"
+    url: "/trident-install/kubernetes-deploy-operator.html"
   - title: Implementare manualmente l'operatore Trident (offline)
-    url: "/trident-get-started/kubernetes-deploy-operator-mirror.html"
+    url: "/trident-install/kubernetes-deploy-operator-mirror.html"
   - title: USA Trident Helm Chart (standard)
-    url: "/trident-get-started/kubernetes-deploy-helm.html"
+    url: "/trident-install/kubernetes-deploy-helm.html"
   - title: USA grafico Helm Trident (offline)
-    url: "/trident-get-started/kubernetes-deploy-helm-mirror.html"
+    url: "/trident-install/kubernetes-deploy-helm-mirror.html"
   - title: Personalizzare l'installazione dell'operatore Trident
-    url: "/trident-get-started/kubernetes-customize-deploy.html"
+    url: "/trident-install/kubernetes-customize-deploy.html"
 - title: Installare usando tridentctl
   entries:
   - title: Installare usando tridentctl
-    url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
+    url: "/trident-install/kubernetes-deploy-tridentctl.html"
   - title: Personalizzare l'installazione di tridentctl
-    url: "/trident-get-started/kubernetes-customize-deploy-tridentctl.html"
+    url: "/trident-install/kubernetes-customize-deploy-tridentctl.html"
 - title: Installare utilizzando un operatore certificato OpenShift
   entries:
   - title: Installare Trident utilizzando OpenShift OperatorHub
-    url: "/trident-get-started/openshift-operator-deploy.html"
+    url: "/trident-install/openshift-operator-deploy.html"
   - title: Passa all'operatore Trident certificato OpenShift
     url: "/trident-install/openshift-certified-operator-deploy.html"

@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: trident-get-started/kubernetes-deploy-helm.html 
+permalink: trident-install/kubernetes-deploy-helm.html 
 keywords: deploy, Trident, operator, helm, helm chart, configuration, values, standard, registry 
 summary: 'È possibile distribuire l"operatore Trident e installare Trident utilizzando Helm. Questo processo si applica alle installazioni in cui le immagini contenitore richieste da Trident non sono memorizzate in un registro privato.' 
 ---
@@ -40,10 +40,10 @@ Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes`
 
 Utilizzo di Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Grafico di comando"^] È possibile implementare l'operatore Trident e installare Trident in un'unica fase.
 
-Revisione link:../trident-get-started/kubernetes-deploy.html["panoramica dell'installazione"] per assicurarsi di aver soddisfatto i prerequisiti di installazione e selezionato l'opzione di installazione corretta per il proprio ambiente.
+Verificate link:kubernetes-deploy.html["panoramica dell'installazione"] per assicurarvi di aver soddisfatto i prerequisiti di installazione e di aver selezionato l'opzione di installazione corretta per il vostro ambiente.
 
 .Prima di iniziare
-Oltre a link:../trident-get-started/kubernetes-deploy.html#before-you-deploy["prerequisiti per l'implementazione"] di cui hai bisogno link:https://v3.helm.sh/["Helm versione 3"^].
+Oltre al link:kubernetes-deploy.html#before-you-deploy["prerequisiti per l'implementazione"] è necessario link:https://v3.helm.sh/["Helm versione 3"^].
 
 .Fasi
 . Aggiungere il repository Trident Helm:

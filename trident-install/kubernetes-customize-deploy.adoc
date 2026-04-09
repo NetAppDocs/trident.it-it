@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: trident-get-started/kubernetes-customize-deploy.html 
+permalink: trident-install/kubernetes-customize-deploy.html 
 keywords: deploy, trident, methods, operator, tridentctl, helm, attributes, customize, tridentorchestrator, smb, windows 
 summary: 'L"operatore Trident consente di personalizzare il modo in cui Trident viene installato utilizzando gli attributi nella `TridentOrchestrator` specifica.' 
 ---

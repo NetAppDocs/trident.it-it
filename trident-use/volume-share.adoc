@@ -141,7 +141,7 @@ Trident legge l' `shareFromPVC`annotazione sul PVC di destinazione e crea il PV 
 
 == Utilizzare `tridentctl get` per eseguire query sui volumi subordinati
 
-Utilizzando il[`tridentctl` è possibile eseguire `get` comando per ottenere volumi subordinati. Per ulteriori informazioni, fare riferimento al link:../trident-reference/tridentctl.html[`tridentctl` comandi e opzioni].
+Utilizzando l'[`tridentctl`utility, è possibile eseguire il `get`comando per ottenere volumi subordinati. Per ulteriori informazioni, consultare link:../trident-reference/trident-cl.html[`tridentctl` comandi e opzioni].
 
 [listing]
 ----

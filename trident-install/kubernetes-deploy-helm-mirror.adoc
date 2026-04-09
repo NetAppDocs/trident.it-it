@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: trident-get-started/kubernetes-deploy-helm-mirror.html 
+permalink: trident-install/kubernetes-deploy-helm-mirror.html 
 keywords: deploy, Trident, operator, helm, helm chart, configuration, values, offline, air gap, gap, registry 
 summary: 'È possibile distribuire l"operatore Trident e installare Trident utilizzando Helm. Questo processo si applica alle installazioni in cui le immagini contenitore richieste da Trident sono memorizzate in un registro privato.' 
 ---
@@ -40,10 +40,10 @@ Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes`
 
 Utilizzo del Tridentlink:https://netapp.github.io/trident-helm-chart["Grafico di comando"^] è possibile distribuire l'operatore Trident e installare Trident in un unico passaggio.
 
-Revisione link:../trident-get-started/kubernetes-deploy.html["panoramica dell'installazione"] per assicurarsi di aver soddisfatto i prerequisiti di installazione e selezionato l'opzione di installazione corretta per il proprio ambiente.
+Verificate link:kubernetes-deploy.html["panoramica dell'installazione"] per assicurarvi di aver soddisfatto i prerequisiti di installazione e di aver selezionato l'opzione di installazione corretta per il vostro ambiente.
 
 .Prima di iniziare
-Oltre a link:../trident-get-started/kubernetes-deploy.html#before-you-deploy["prerequisiti per l'implementazione"] di cui hai bisogno link:https://v3.helm.sh/["Helm versione 3"^].
+Oltre al link:kubernetes-deploy.html#before-you-deploy["prerequisiti per l'implementazione"] è necessario link:https://v3.helm.sh/["Helm versione 3"^].
 
 
 IMPORTANT: Quando si installa Trident in un repository privato, se si utilizza `imageRegistry` lo switch per specificare la posizione del repository, non utilizzare `/netapp/` nel percorso del repository.
