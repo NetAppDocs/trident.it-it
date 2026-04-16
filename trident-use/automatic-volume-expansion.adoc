@@ -33,8 +33,8 @@ Prima di configurare l'espansione automatica del volume, assicurarsi che siano s
 +
 ** Network File System (NFS)
 ** Internet Small Computer Systems Interface (iSCSI)
-** Protocollo Fibre Channel (NVMe)
-** Non-Volatile Memory Express over Fabrics (FCP)
+** Protocollo Fibre Channel (FCP)
+** Non-Volatile Memory Express over Fabrics (NVMe)
 
 
 
@@ -51,8 +51,8 @@ Prima di configurare l'espansione automatica del volume, assicurarsi che siano s
 +
 ** Network File System (NFS)
 ** Internet Small Computer Systems Interface (iSCSI)
-** Protocollo Fibre Channel (NVMe)
-** Non-Volatile Memory Express over Fabrics (FCP)
+** Protocollo Fibre Channel (FCP)
+** Non-Volatile Memory Express over Fabrics (NVMe)
 
 
 
