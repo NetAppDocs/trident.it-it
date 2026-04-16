@@ -6751,6 +6751,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="395717e339150790e9789265ce54670c" category="image-alt">Impostazioni di configurazione del componente aggiuntivo Trident</block>
   <block id="7d46dc6377e8ce5df89a34c4ad4e2991" category="image-alt">Stato attivo del componente aggiuntivo Trident</block>
   <block id="2c0204a63fd46aab7636df3eb5f83972" category="paragraph">Utilizzando l'<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>utility, è possibile eseguire il<block ref="b5eda0a74558a342cf659187f06f746f" prefix=" " category="inline-code"></block>comando per ottenere volumi subordinati. Per ulteriori informazioni, consultare link:../trident-reference/trident-cl.html<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix="[" category="inline-code"></block> comandi e opzioni].</block>
-  <block id="69ce754add983294c9646b227af63485" category="list-text">Protocollo Fibre Channel (FCP)</block>
-  <block id="95879db8219c8aca8e161d3712e8b423" category="list-text">Non-Volatile Memory Express over Fabrics (NVMe)</block>
+  <block id="ce1ff0a6a194c07d183ef0de076f81ae" category="list-text">Protocollo Fibre Channel (NVMe)</block>
+  <block id="062d8e05f949590d9b752838eb96ff40" category="list-text">Non-Volatile Memory Express over Fabrics (FCP)</block>
 </blocks>
