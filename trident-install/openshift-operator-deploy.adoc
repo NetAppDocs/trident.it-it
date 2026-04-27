@@ -39,14 +39,7 @@ NOTE: Assicurati di selezionare la versione più recente dell'operatore.
 +
 image::../media/openshift-operator-03.png[Installare]
 
-+
-Una volta completata l'installazione, l'Operatore sarà visibile nell'elenco degli operatori installati e sarà pronto per essere utilizzato.
-
 . Fare clic su *Visualizza operatore* per visualizzare i dettagli dell'operatore.
-+
-image::../media/openshift-operator-04.png[Installato]
-
-. In * Trident Orchestrator*, fare clic su *Crea istanza*.
 +
 image::../media/openshift-operator-07.png[Installato]
 
@@ -70,11 +63,29 @@ spec:
   silenceAutosupport: false
 ----
 +
-[]
+[NOTE]
 ====
-** Red Hat Enterprise Linux CoreOS (RHCOS) non ha iSCSI abilitato e configurato.
-** Puoi aggiungere il `nodePrep` parametro per configurare e abilitare i servizi iSCSI e Multipath su tutti i nodi worker OpenShift.
-** A partire da OpenShift 4.19, la versione minima Trident supportata per questa funzionalità è 25.06.1.
+L'interfaccia utente fornisce un esempio predefinito. È possibile modificarlo direttamente anziché copiare una configurazione completa.
+
+====
+
+
+[NOTE]
+====
+Opzionale: Abilita la concorrenza
+
+Per abilitare la concorrenza, aggiungere il seguente campo alla specifica:
+
+[source, yaml]
+----
+enableConcurrency: true
+----
+====
+[NOTE]
+====
+* Red Hat Enterprise Linux CoreOS (RHCOS) non ha iSCSI abilitato e configurato.
+* Puoi aggiungere il `nodePrep` parametro per configurare e abilitare i servizi iSCSI e Multipath su tutti i nodi worker OpenShift.
+* A partire da OpenShift 4.19, la versione minima Trident supportata per questa funzionalità è 25.06.1.
 
 
 ====
