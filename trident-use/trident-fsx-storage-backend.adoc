@@ -13,7 +13,17 @@ summary: 'Utilizzando Trident con Amazon FSX per NetApp ONTAP, puoi assicurarti 
 
 
 
-== Integrazione dei driver ONTAP SAN e NAS
+== Panoramica
+
+Prima di poter eseguire il provisioning dei volumi tramite Trident, è necessario integrare il backend di storage con Trident creando una Trident Backend Configuration (TBC). La TBC definisce come Trident si connette al backend di storage e fornisce le informazioni necessarie a Trident per gestire le risorse di storage.
+
+
+
+== Crea una configurazione backend Trident (TBC) per FSx for ONTAP
+
+Esistono due modi per configurare il backend Trident per utilizzare un file system FSx for ONTAP: * Creare un StorageClass che sfrutti la funzionalità Automatic Backend. * Creare il backend e il StorageClass separatamente.
+
+I passaggi descritti in questa sezione illustrano come creare il backend separatamente. Per informazioni su come utilizzare la funzione Backend automatico, consultare la sezione xref:trident-fsx-storageclass-pvc.html#configure-a-kubernetes-storageclass-object-with-automatic-backend-configuration-support-for-fsx-for-ontap[Configurare StorageClass e PVC] per ulteriori informazioni.
 
 Per creare un backend di archiviazione, è necessario creare un file di configurazione in formato JSON o YAML. Il file deve specificare il tipo di storage desiderato (NAS o SAN), il file system e la SVM per ottenerlo e come eseguirne l'autenticazione. Il seguente esempio illustra come definire lo storage basato su NAS e utilizzare un segreto AWS per memorizzare le credenziali nella SVM che desideri utilizzare:
 
@@ -280,4 +290,4 @@ Non utilizzare `debugTraceFlags` a meno che non si stia eseguendo la risoluzione
 
 == Fornire volumi SMB
 
-È possibile eseguire il provisioning dei volumi SMB utilizzando `ontap-nas` autista. Prima di completare <<Integrazione dei driver ONTAP SAN e NAS>> completa questi passaggi: link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["Preparatevi al provisioning dei volumi SMB"].
+È possibile eseguire il provisioning dei volumi SMB utilizzando `ontap-nas` autista. Prima di completare <<ONTAP SAN and NAS driver integration>> completa questi passaggi: link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["Preparatevi al provisioning dei volumi SMB"].

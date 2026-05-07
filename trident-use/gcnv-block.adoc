@@ -19,82 +19,29 @@ NOTE: Il `google-cloud-netapp-volumes-san` backend è necessario per il provisio
 
 
 
-== Volumi NAS e volumi a blocchi iSCSI
+== Panoramica
 
-Google Cloud NetApp Volumes supporta sia NAS che storage a blocchi, che differiscono nel modo in cui le applicazioni accedono e gestiscono i dati.
+Trident supporta i carichi di lavoro SAN (iSCSI) di Google Cloud NetApp Volumes utilizzando il driver  `google-cloud-netapp-volumes-san`.
 
-I volumi NAS forniscono storage basato su file e vengono montati come file system condivisi utilizzando NFS o SMB. Questi volumi sono comunemente utilizzati quando più pod o nodi richiedono accesso simultaneo agli stessi dati.
-
-I volumi a blocchi iSCSI forniscono raw block storage e sono collegati ai nodi Kubernetes come dispositivi a blocchi. Ogni volume viene fornito come Logical Unit Number (LUN) e vi si accede utilizzando il protocollo iSCSI. Lo storage a blocchi viene tipicamente utilizzato quando i carichi di lavoro richiedono l'accesso a livello di blocco o un comportamento di I/O gestito dall'applicazione.
-
-Puoi distribuire carichi di lavoro orientati ai blocchi su Google Kubernetes Engine utilizzando lo storage iSCSI gestito da Trident supportato dai pool *Flex Unified* di Google Cloud NetApp Volumes.
+I volumi SAN vengono forniti dai pool di storage Flex Unified e presentati ai nodi Kubernetes come dispositivi a blocchi iSCSI.
 
 Ciò si applica ai seguenti ambienti:
 
 * Trident 26.02 e versioni successive
-* Google Kubernetes Engine (GKE)
-* Google Cloud NetApp Volumes *Flex Unified* pool di storage
-* Carichi di lavoro basati su iSCSI a blocchi
+* Google Kubernetes Engine (GKE) o Red Hat OpenShift
+* Google Cloud NetApp Volumes Flex pool di storage unificati
+* Carichi di lavoro basati su iSCSI
 
-
-
-NOTE: Solo il livello di servizio Flex è supportato per i carichi di lavoro SAN in Trident 26.02.
-
-
-
-== Panoramica dell'architettura di storage
-
-Per i carichi di lavoro SAN, Trident fornisce storage a blocchi creando iSCSI Logical Unit Numbers (LUN) nei pool di storage Flex Unified.
-
-Ogni Kubernetes PersistentVolume corrisponde a una singola LUN. Trident gestisce l'intero ciclo di vita della LUN, inclusa la creazione, la mappatura degli host, il collegamento e la pulizia.
 
 
 
 == Pool di storage unificati Flex
 
-I pool di storage Flex Unified forniscono storage a blocchi utilizzando il protocollo iSCSI e sono necessari per il provisioning SAN.
+I pool di storage Flex Unified forniscono storage a blocchi utilizzando il protocollo iSCSI e sono necessari per il provisioning SAN:
 
-Per Trident 26.02:
-
-* Sono supportati solo i pool *Flex Unified REGIONAL*
-* I pool Flex Unified *ZONAL* sono supportati a partire da Trident 26.02.1
-* Solo il livello di servizio *Flex* è supportato per i carichi di lavoro SAN
-
-
-
-
-== volumi a blocchi
-
-I volumi a blocchi vengono forniti come LUN iSCSI e presentati ai nodi Kubernetes come dispositivi a blocchi.
-
-Volumi a blocchi:
-
-* Utilizzare il protocollo iSCSI
-* Supporta la presentazione sia del file system che dei blocchi raw
-* Sono allegati e gestiti da Trident
-* Supporta più modalità di accesso a Kubernetes
-
-
-
-
-== Modalità di accesso
-
-I volumi a blocchi forniti da Trident supportano le seguenti modalità di accesso:
-
-* `ReadWriteOnce` (RWO)
-* `ReadOnlyMany` (ROX)
-* `ReadWriteOncePod` (RWOP)
-* `ReadWriteMany` (RWX), supportato solo quando `volumeMode: Block`
-
-
-
-
-== Comportamento di volumeMode
-
-Il  `volumeMode` campo controlla come viene esposto un volume di blocco:
-
-* `Filesystem` Trident formatta e monta il volume.
-* `Block` Trident collega il dispositivo e lo espone come raw block device.
+* Sono supportati i pool regionali Flex Unified.
+* I pool Flex Unified ZONAL sono supportati a partire da Trident 26.02.1.
+* Per i carichi di lavoro SAN è supportato esclusivamente il livello di servizio *Flex*.
 
 
 
@@ -123,10 +70,9 @@ spec:
 ----
 
 
-== Creare un StorageClass per carichi di lavoro SAN
+== Crea un StorageClass
 
-Dopo aver configurato il backend SAN, crea una StorageClass che fa riferimento al driver 
-`google-cloud-netapp-volumes-san`.
+Dopo aver configurato il backend SAN, crea una StorageClass che fa riferimento al driver  `google-cloud-netapp-volumes-san`.
 
 Il tipo di file system è definito nella StorageClass, non nel backend.
 
@@ -150,23 +96,7 @@ Tipi di filesystem supportati:
 
 
 
-NOTE: Il driver SAN supporta solo il livello di servizio Flex e non utilizza parametri backend specifici del NAS come  `exportRule`, `unixPermissions`,
-`nasType`, `snapshotDir`, `nfsMountOptions` o impostazioni relative al tiering.
-
-
-
-== Operazioni supportate
-
-Volumi a blocchi forniti utilizzando il 
-`google-cloud-netapp-volumes-san` driver support:
-
-* Crea
-* Elimina
-* Clona
-* Snapshot
-* Ridimensionare
-* Importare
-
+NOTE: Il driver SAN supporta solo il livello di servizio Flex e non utilizza parametri backend specifici del NAS come  `exportRule`, `unixPermissions`, `nasType`, `snapshotDir`, `nfsMountOptions` o impostazioni relative al tiering.
 
 
 
@@ -254,6 +184,56 @@ spec:
 ----
 
 
+== Comportamento del volume a blocchi
+
+I volumi a blocchi vengono forniti come LUN iSCSI e presentati ai nodi Kubernetes come dispositivi a blocchi.
+
+Volumi a blocchi:
+
+* Utilizzare il protocollo iSCSI
+* Supporta la presentazione sia del file system che dei blocchi raw
+* Sono allegati e gestiti da Trident
+* Supporta più modalità di accesso a Kubernetes
+
+
+
+
+== Modalità di accesso
+
+I volumi a blocchi forniti da Trident supportano le seguenti modalità di accesso:
+
+* `ReadWriteOnce` (RWO)
+* `ReadOnlyMany` (ROX)
+* `ReadWriteOncePod` (RWOP)
+* `ReadWriteMany` (RWX), supportato solo quando `volumeMode: Block`
+
+
+
+
+== Comportamento di volumeMode
+
+Il  `volumeMode` campo controlla come viene esposto un volume di blocco:
+
+* `Filesystem` Trident formatta e monta il volume.
+* `Block` Trident collega il dispositivo e lo espone come raw block device.
+
+
+
+
+== Operazioni supportate
+
+Volumi a blocchi forniti utilizzando il  `google-cloud-netapp-volumes-san` driver support:
+
+* Crea
+* Elimina
+* Clona
+* Snapshot
+* Ridimensionare
+* Importare
+
+
+
+
 == Comportamento di overprovisioning extra GiB
 
 I volumi a blocchi di Google Cloud NetApp Volumes includono un overhead interno di metadati. Questo overhead riduce le dimensioni del dispositivo visibile al kernel rispetto alla capacità fornita.
@@ -276,8 +256,6 @@ Esempio:
 * Dimensioni fornite in Google Cloud NetApp Volumes: 101 GiB
 * Spazio utilizzabile visibile all'applicazione: almeno 100 GiB
 
-
-Ciò garantisce che le applicazioni ricevano sempre la capacità richiesta, anche dopo aver tenuto conto dell'overhead dei metadati interni.
 
 
 

@@ -19,6 +19,39 @@ WARNING: Il `tridentctl` Il file binario per Linux fornito nel file zip del prog
 
 
 
+== Novità della versione 26.02.1
+
+Scopri le novità in NetApp Trident e Trident Protect, inclusi miglioramenti, correzioni e deprecazioni.
+
+
+
+=== Trident
+
+
+
+==== Correzioni
+
+* *Kubernetes*:
+* Corretto il comportamento SAN di Google Cloud NetApp Volumes (GCNV) per supportare i pool Flex Unified ZONAL per carichi di lavoro a blocchi (iSCSI). Sono ora supportate sia le configurazioni zonali che regionali.
+* Corretta la gestione dei pool NAS UNIFIED di Google Cloud NetApp Volumes (GCNV) migliorando la creazione, la convalida, la denominazione e le operazioni di ricerca dei volumi di fallback quando  `InternalID` è assente.
+* Risolto un problema per cui le operazioni di ridimensionamento dei dispositivi iSCSI potevano non riuscire quando i percorsi e i portali disponibili non corrispondevano.
+* Risolto un problema intermittente che  `blkid` identificava in modo errato il tipo di filesystem per i dispositivi LUKS, impedendo la creazione di nuovi volumi.
+* È stato risolto un problema per cui le operazioni di pubblicazione e staging di LUKS su larga scala potevano bloccare il controller Trident. Gli utenti sono ora tenuti a tenere traccia delle passphrase LUKS associate ai volumi.
+* Risolto un problema per cui le partizioni iSCSI multipath potevano apparire come dispositivi fantasma, impedendo le operazioni CSI `NodeUnstage` di avere successo.
+* Risolto un problema di race condition nello spazio dei nomi NVMe/TCP durante la creazione simultanea di volumi (Issue #1089).
+* Risolto il problema delle operazioni di clonazione simultanee degli snapshot quando questi venivano eseguiti nello stesso secondo.
+* Risolto un problema che impediva alle VM KubeVirt che utilizzano `dataVolumes` di eseguire il failover con Trident Automated Workload Failover.
+* Risolto un errore che si verificava durante l'eliminazione di una risorsa personalizzata non valida  `TridentMirrorRelationship` mentre si utilizzava il core concorrente di Trident.
+* Risolto il problema di indentazione nella `tridentactionmirrorupdates` definizione YAML del CRD di Kubernetes (Issue #1120).
+* Risolto il problema relativo alla chiamata API REST per l'eliminazione asincrona di qtree (Issue #1121).
+* Corretto `ControllerPublish` per utilizzare il tipo di file system di configurazione del volume anziché un tipo di file system predefinito errato.
+* Risolto il problema di registrazione all'avvio del controller per segnalare correttamente lo stato dei driver concorrenti.
+* Gestione corretta dei backend sospesi in Trident concorrente.
+* Gestione avanzata degli ARN AWS per il supporto di regioni speciali.
+
+
+
+
 == Novità della versione 26.02
 
 Scopri le novità in NetApp Trident e Trident Protect, inclusi miglioramenti, correzioni e deprecazioni.
