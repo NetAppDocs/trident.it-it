@@ -47,7 +47,7 @@ Per attivare la creazione automatica del backend, definire i parametri richiesti
 
 È possibile passare parametri backend opzionali tramite la StorageClass. Definire tutti i valori opzionali come stringhe nella sezione StorageClass `parameters`.
 
-Per un elenco completo dei parametri backend, vedere: xref:trident-fsx-storage-backend.html#backend-advanced-configuration-and-examples[Configurazione del backend FSx for NetApp ONTAP].
+Per un elenco completo dei parametri backend, vedere: link:trident-fsx-storage-backend.html#backend-advanced-configuration-and-examples["Configurazione del backend FSx for NetApp ONTAP"].
 
 
 

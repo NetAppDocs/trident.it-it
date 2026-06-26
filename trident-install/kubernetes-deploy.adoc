@@ -56,7 +56,7 @@ TIP: Se non avete familiarizzato con il link:../trident-get-started/intro.html["
 
 == Scegliere il metodo di installazione desiderato
 
-Seleziona il metodo di installazione più adatto alle tue esigenze. È inoltre necessario esaminare le considerazioni per link:kubernetes-deploy.html#move-between-installation-methods["passaggio da un metodo all'altro"] prima di prendere la decisione.
+Seleziona il metodo di installazione più adatto alle tue esigenze. Dovresti anche esaminare le considerazioni per link:kubernetes-deploy.html#moving-between-installation-methods["passaggio da un metodo all'altro"] prima di prendere una decisione.
 
 
 

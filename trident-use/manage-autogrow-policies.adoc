@@ -244,7 +244,7 @@ kubectl annotate storageclass ontap-gold \
 
 === Cosa succede se imposto una politica di crescita automatica sia sulla StorageClass che sul PVC?
 
-L'annotazione PVC ha sempre la precedenza. Se un PVC ha l'annotazione  `trident.netapp.io/autogrowPolicy`, Trident utilizza quel valore indipendentemente da quanto specificato in StorageClass. Fare riferimento a link:create-autogrow-policies.adoc#_policy_precedence["Precedenza delle policy"] per i dettagli.
+L'annotazione PVC ha sempre la precedenza. Se un PVC ha l'annotazione  `trident.netapp.io/autogrowPolicy`, Trident utilizza quel valore indipendentemente da quanto specificato in StorageClass. Consultare link:automatic-volume-expansion.html#policy-precedence["Precedenza delle policy"] per i dettagli.
 
 Ad esempio, dato questo StorageClass:
 

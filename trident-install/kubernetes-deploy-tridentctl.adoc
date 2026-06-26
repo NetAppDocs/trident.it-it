@@ -151,7 +151,7 @@ trident-controller-679648bd45-cv2mx   6/6     Running   0          5m29s
 trident-node-linux-vgc8n              2/2     Running   0          5m29s
 ----
 
-NOTE: Se il programma di installazione non viene completato correttamente oppure `trident-controller-<generated id>` (`trident-csi-<generated id>` Nelle versioni precedenti alla 23.01) non ha lo stato *running*, la piattaforma non è stata installata. Utilizzare `-d` a. link:../troubleshooting.html#troubleshooting-an-unsuccessful-trident-deployment-using-tridentctl["attivare la modalità di debug"] e risolvere il problema.
+NOTE: Se il programma di installazione non viene completato correttamente o `trident-controller-<generated id>` (`trident-csi-<generated id>` nelle versioni precedenti alla 23.01) non presenta lo stato *Running*, la piattaforma non è stata installata. Usa  `-d` per link:../troubleshooting.html#unsuccessful-trident-deployment-using-tridentctl["attivare la modalità di debug"] e risolvere il problema.
 
 
 
