@@ -42,7 +42,7 @@ Trident supporta molteplici motori e Orchestrator per container, tra cui:
 
 * Anthos on-premise (VMware) e anthos su Bare Metal 1,16
 * Kubernetes 1.27 - 1.36
-* OpenShift 4.12, 4.14 - 4.21 (Se prevedi di utilizzare la preparazione del nodo iSCSI con OpenShift 4.19, la versione minima di Trident supportata è 25.06.1.)
+* OpenShift 4.12, 4.14 - 4.22 (Se prevedi di utilizzare la preparazione del nodo iSCSI con OpenShift 4.19, la versione minima di Trident supportata è 25.06.1.)
 +
 
 NOTE: Trident continua a supportare le versioni precedenti di OpenShift in linea conlink:https://access.redhat.com/support/policy/updates/openshift["Ciclo di vita della versione Red Hat Extended Update Support (EUS)"] , anche se si basano su versioni di Kubernetes che non sono più ufficialmente supportate a monte.  In questi casi, durante l'installazione Trident , puoi tranquillamente ignorare eventuali messaggi di avviso relativi alla versione di Kubernetes.
@@ -96,6 +96,49 @@ Trident supporta i seguenti driver ONTAP per la virtualizzazione KubeVirt e Open
 
 
 
+
+
+
+== Supporto Trident per Kubernetes su Kubernetes e piani di controllo ospitati OpenShift
+
+A partire dalla versione 26.06, Trident certifica pienamente la topologia Kubernetes su Kubernetes. Cluster Kubernetes i cui nodi vengono eseguiti come macchine virtuali KubeVirt su un cluster di infrastruttura (host). Questa topologia è alla base delle offerte di piani di controllo ospitati, come i piani di controllo ospitati (HCP) OpenShift su OpenShift Virtualization.
+
+
+NOTE: Questa configurazione funzionava nelle versioni precedenti, ma la piena qualificazione inizia con la 26.06.
+
+Il cluster guest (tenant) utilizza il driver CSI KubeVirt (`kubevirt-csi` come provider di storage. Quando un carico di lavoro nel cluster guest richiede un  `PersistentVolumeClaim`, il driver CSI KubeVirt crea un volume corrispondente nel cluster di infrastruttura. Trident esegue il provisioning del volume da ONTAP e il volume viene collegato a caldo alla VM del nodo guest. Trident viene eseguito solo nel cluster di infrastruttura. Il cluster guest utilizza lo storage ONTAP indirettamente tramite il driver CSI KubeVirt.
+
+.Requisiti:
+* Trident è installato sul cluster dell'infrastruttura con un backend ONTAP supportato.
+* Esiste una storage class Trident nel cluster di infrastruttura per il driver CSI KubeVirt su cui mappare i volumi del cluster guest.
+* KubeVirt o OpenShift Virtualization viene distribuito sul cluster di infrastruttura e il driver CSI KubeVirt viene installato in ogni cluster guest.
+
+
+[cols="2,1"]
+|===
+| Componente | Versione 
+
+
+| Trident | 26,06 
+
+
+| Kubernetes (infrastruttura e cluster guest) | 1,36 
+
+
+| KubeVirt | 1.9.0-beta.0 
+
+
+| Importatore di dati containerizzato (CDI) | 1,65 
+|===
+.Punti da considerare:
+* Nel guest cluster, i volumi appaiono come dispositivi a blocchi hot-plug sulle VM del nodo guest.
+* Il flusso di lavoro del driver CSI KubeVirt non richiede Trident nel cluster guest. Configuri il backend ONTAP e la classe di storage nel cluster di infrastruttura.
+
+
+.Installa Trident direttamente nel cluster guest:
+Puoi anche installare Trident direttamente nel cluster tenant. Installa Trident nel cluster tenant quando hai bisogno dell’intera gamma di funzionalità di Trident, come snapshot, cloni, ridimensionamento dei volumi e importazione, che  `kubevirt-csi`non sono disponibili di default.
+
+Nel cluster guest, usa protocolli basati su IP: NFS, iSCSI e NVMe/TCP. Il cluster guest non supporta Fibre Channel (FC) perché i nodi guest sono macchine virtuali senza connettività FC diretta.
 
 
 
@@ -223,7 +266,7 @@ Per le installazioni con montaggio ad aria, l'elenco seguente è un riferimento 
 | Versioni di Kubernetes | Immagine container 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.36.0  a| 
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0  a| 
 * docker.io/netapp/trident:26.02.0
 * docker.io/netapp/trident-autosupport:26.02
 * registry.k8s.io/sig-storage/csi-provisioner:v6.1.0

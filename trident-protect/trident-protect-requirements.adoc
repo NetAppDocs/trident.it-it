@@ -129,6 +129,8 @@ Trident Protect 24.10 non garantisce automaticamente uno stato coerente per i fi
 kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=true -n trident-protect
 ----
 ====
+Per sapere come definire le applicazioni e ripristinare le VM con Trident Protect, vedi link:trident-protect-kubevirt-vms.html["Proteggi le macchine virtuali KubeVirt con Trident Protect"].
+
 
 
 == Requisiti per la replica SnapMirror

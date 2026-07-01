@@ -93,6 +93,9 @@ NOTE: Se si aggiunge un filtro dello spazio dei nomi a un gancio di esecuzione c
 Visita il sito https://github.com/NetApp/Verda["Progetto NetApp Verda GitHub"] per scaricare i veri hook di esecuzione per le app più diffuse, come Apache Cassandra ed Elasticsearch. Puoi anche vedere esempi e trovare idee per strutturare i tuoi hook di esecuzione personalizzati.
 
 
+NOTE: Gli script presenti nel repository Verda vengono forniti così come sono e non sono ufficialmente supportati da NetApp. Il supporto NetApp copre solo il framework degli hook di esecuzione all'interno di Trident Protect.
+
+
 
 == Creare un gancio di esecuzione
 

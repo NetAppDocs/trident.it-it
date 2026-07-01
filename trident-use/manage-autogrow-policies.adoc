@@ -9,7 +9,7 @@ summary: 'Gestisci l"espansione automatica del volume utilizzando le Trident Aut
 
 
 [role="lead"]
-Dopo aver creato le Autogrow Policies, puoi visualizzarle, aggiornarle ed eliminarle secondo necessità. Puoi anche monitorare quali volumi stanno utilizzando una determinata policy.
+Dopo che crei le Autogrow Policies, puoi visualizzarle, aggiornarle ed eliminarle. Puoi anche monitorare quali volumi usano una determinata policy.
 
 
 
@@ -54,7 +54,7 @@ tridentctl get autogrowpolicy production-db-policy -o yaml
 È possibile modificare una policy esistente per cambiarne la soglia, l'entità della crescita o la dimensione massima. Le modifiche hanno effetto immediato per tutti i volumi che utilizzano la policy.
 
 
-IMPORTANT: Le modifiche interessano tutti i volumi che attualmente utilizzano la policy. Testare prima le modifiche in un ambiente non di produzione, se possibile.
+IMPORTANT: Le modifiche influiscono su tutti i volumi che utilizzano la policy. Quando possibile, testa prima le modifiche in un ambiente non di produzione.
 
 .Fasi
 . Modifica la policy:
@@ -79,8 +79,8 @@ spec:
 
 === Considerazioni sull'aggiornamento
 
-* *Effetto immediato:* tutti i volumi che utilizzano la policy adottano nuovi parametri alla successiva valutazione della crescita.
-* *Non è necessario riavviare il volume:* Le modifiche si applicano alla successiva operazione di crescita.
+* *Effetto immediato:* Tutti i volumi che utilizzano la policy adottano i nuovi parametri alla successiva valutazione della crescita.
+* *Non è necessario riavviare il volume:* Le modifiche si applicano alla prossima operazione di crescita.
 * *Test first:* convalidare le modifiche in un ambiente non di produzione quando possibile.
 * *Comunica le modifiche:* Notifica ai team quando modifichi le policy condivise.
 
@@ -89,7 +89,7 @@ spec:
 
 == Elimina un criterio Autogrow
 
-Le policy di Autogrow utilizzano la protezione del finalizzatore per impedire l'eliminazione accidentale mentre i volumi le stanno utilizzando attivamente.
+Le policy di crescita automatica utilizzano la protezione del finalizzatore per impedire la cancellazione accidentale mentre i volumi le utilizzano attivamente.
 
 .Fasi
 . Elimina la policy:
@@ -189,10 +189,16 @@ NOTE: Per i volumi SAN, se la  `growthAmount` configurata è pari o inferiore a 
 
 
 
+== Backend supportati
+
+Autogrow supporta i backend ONTAP. Autogrow supporta anche Google Cloud NetApp Volumes (GCNV) sia per i volumi NAS che SAN.
+
+
+
 == Limitazioni note
 
 * *ONTAP NVMe raw block volumes:* I volumi creati con versioni di ONTAP precedenti alla 9.16.1 non supportano l'autogrow.
-* *Volumi esistenti (distribuzioni brownfield):* l'autogrow potrebbe non funzionare per i volumi esistenti anche se viene applicata una valida Autogrow Policy. Ciò è dovuto a una migrazione in corso delle pubblicazioni dei volumi. Per confermare che la migrazione sia stata completata, controlla i log del controller Trident per `"Migration completed"` messaggi.
+* *Volumi esistenti (implementazioni brownfield):* L'espansione automatica potrebbe non funzionare per i volumi esistenti anche se è stata applicata una Autogrow Policy valida. Questa limitazione è dovuta a una migrazione in corso delle pubblicazioni dei volumi. Per verificare che la migrazione sia completa, controlla i log del controller Trident per messaggi  `"Migration completed"`.
 
 
 
@@ -283,7 +289,7 @@ Trident usa  `logs-policy` per  `database-pvc`, non  `standard-agp`.
 
 === Come faccio a disattivare l'autogrow per un volume specifico?
 
-Imposta l'annotazione PVC su  `"none"`. Questo sovrascrive qualsiasi criterio a livello di StorageClass per quel volume:
+Imposta l'annotazione PVC su  `"none"`. Questa impostazione sovrascrive qualsiasi policy a livello di StorageClass per quel volume:
 
 [source, console]
 ----
@@ -306,9 +312,9 @@ none
 
 === Cosa succede quando un volume raggiunge maxSize?
 
-Trident interrompe l'espansione del volume. Non vengono create ulteriori richieste di ridimensionamento per quel volume, anche se l'utilizzo continua ad aumentare oltre il  `usedThreshold`.
+Trident interrompe l'espansione del volume. Non crea ulteriori richieste di ridimensionamento per quel volume, anche se l'utilizzo continua ad aumentare oltre il  `usedThreshold`.
 
-Ad esempio, con questa policy, Trident smette di aumentare il volume una volta raggiunti 100 GiB:
+Ad esempio, con questa policy, Trident interrompe la crescita del volume dopo che raggiunge i 100 GiB:
 
 [source, yaml]
 ----
@@ -337,7 +343,7 @@ spec:
 
 === Posso modificare una policy senza riavviare i volumi?
 
-Sì. Quando si aggiorna una policy, tutti i volumi che la utilizzano adottano i nuovi parametri alla successiva valutazione della crescita. Non è necessario riavviare alcun volume.
+Sì. Quando aggiorni una policy, tutti i volumi che utilizzano quella policy adottano i nuovi parametri alla successiva valutazione della crescita. Non è necessario riavviare i volumi.
 
 Per aggiornare una policy in vigore:
 
@@ -386,7 +392,7 @@ kubectl apply -f autogrow-policy.yaml
 
 === Perché non posso eliminare una policy?
 
-Le policy utilizzano la protezione del finalizzatore. Se i volumi utilizzano ancora la policy, l'eliminazione entra in uno  `Deleting` stato e attende che tutti i volumi vengano rimossi dalla policy.
+Le policy utilizzano la protezione del finalizzatore. Se i volumi utilizzano ancora la policy, l'eliminazione entra in uno stato  `Deleting` e attende finché non rimuovi tutti i volumi dalla policy.
 
 Identificare i volumi interessati:
 
@@ -407,15 +413,17 @@ kubectl annotate pvc <pvc-name> \
 kubectl annotate pvc <pvc-name> \
   trident.netapp.io/autogrowPolicy-
 ----
-Dopo che tutti i volumi sono stati rimossi, il finalizzatore viene rilasciato e il criterio viene eliminato.
+Dopo aver rimosso tutti i volumi, Trident rilascia il finalizzatore ed elimina la policy.
 
 
 
-=== L'autogrow funziona con tutti i backend ONTAP?
+=== Quali backend sono supportati da autogrow?
 
-Autogrow supporta i protocolli NFS, iSCSI, FCP e NVMe. Tuttavia, i volumi raw block NVMe richiedono ONTAP 9.16.1 o versioni successive.
+Autogrow supporta i backend ONTAP. Supporta inoltre Google Cloud NetApp Volumes (GCNV) sia per i volumi NAS che SAN.
 
-I volumi esistenti nelle distribuzioni brownfield potrebbero richiedere il completamento della migrazione della pubblicazione del volume prima che l'autogrow abbia effetto. Verificare lo stato della migrazione controllando i log del controller Trident:
+Autogrow supporta i protocolli NFS, iSCSI, FCP e NVMe. I volumi a blocchi raw NVMe richiedono ONTAP 9.16.1 o versioni successive.
+
+I volumi esistenti nelle implementazioni brownfield potrebbero richiedere il completamento della migrazione della pubblicazione dei volumi prima che l'espansione automatica abbia effetto. Per verificare lo stato della migrazione, controlla i log del controller Trident:
 
 [source, console]
 ----

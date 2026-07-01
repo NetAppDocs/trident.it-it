@@ -28,6 +28,9 @@ summary: 'È possibile far sì che Trident Protect riconosca un"applicazione che
 
 È necessario definire ciascuna applicazione che si desidera gestire con Trident Protect.  È possibile definire un'applicazione per la gestione creando manualmente un CR dell'applicazione oppure utilizzando la CLI Trident Protect.
 
+
+NOTE: Per definire un'applicazione con ambito VM che protegge specifiche KubeVirt macchine virtuali (VM) per nome anziché interi namespace, usa il campo  `spec.includedVirtualMachines` nell'Application CR o il flag  `--virtual-machines` nella CLI. Per dettagli, riferimenti ai campi ed esempi YAML, consulta link:trident-protect-kubevirt-vms.html["Proteggi le macchine virtuali KubeVirt con Trident Protect"].
+
 [role="tabbed-block"]
 ====
 .Aggiungere un'applicazione utilizzando una CR
@@ -178,40 +181,43 @@ kubectl apply -f maria-app.yaml
 --
 .Fasi
 . Creare e applicare la definizione dell'applicazione utilizzando uno dei seguenti esempi, sostituendo i valori tra parentesi con le informazioni dell'ambiente. È possibile includere spazi dei nomi e risorse nella definizione dell'applicazione utilizzando elenchi separati da virgole con gli argomenti illustrati negli esempi.
-+
+
+
 Facoltativamente, quando si crea un'app è possibile utilizzare un'annotazione per specificare se l'applicazione può scrivere sul file system durante uno snapshot. Ciò è applicabile solo alle applicazioni definite da macchine virtuali, come negli ambienti KubeVirt, in cui si verificano blocchi del file system prima degli snapshot. Se si imposta l'annotazione su `true` , l'applicazione ignora l'impostazione globale e può scrivere sul file system durante uno snapshot. Se lo imposti su `false` , l'applicazione ignora l'impostazione globale e il file system viene bloccato durante uno snapshot. Se si utilizza l'annotazione ma l'applicazione non ha macchine virtuali nella definizione dell'applicazione, l'annotazione viene ignorata. Se non si utilizza l'annotazione, l'applicazione segue lalink:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["impostazione di congelamento globale Trident Protect"] .
 
-+
-Per specificare l'annotazione quando si utilizza l'interfaccia CLI per creare un'applicazione, è possibile utilizzare l' `--annotation`indicatore.
++ Per specificare l'annotazione quando usi la CLI per creare un'applicazione, puoi usare il  `--annotation` flag.
+
++ * Crea l'applicazione e utilizza l'impostazione globale per il comportamento di blocco del filesystem:
 
 +
-** Creare l'applicazione e utilizzare l'impostazione globale per il comportamento di blocco del file system:
-+
+
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace>
 ----
-** Creare l'applicazione e configurare l'impostazione dell'applicazione locale per il comportamento di blocco del filesystem:
++ * Crea l'applicazione e configura le impostazioni locali dell'applicazione per il comportamento di blocco del filesystem:
+
 +
+
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --annotation protect.trident.netapp.io/skip-vm-freeze=<"true"|"false">
 ----
-** Puoi usare  `--resource-filter-include` E  `--resource-filter-exclude` flag per includere o escludere risorse in base a  `resourceSelectionCriteria` come gruppo, tipo, versione, etichette, nomi e namespace, come mostrato nel seguente esempio:
+Puoi usare  `--resource-filter-include` e  `--resource-filter-exclude` flag per includere o escludere risorse in base a  `resourceSelectionCriteria` come gruppo, tipo, versione, etichette, nomi e namespace, come mostrato nel seguente esempio:
+
 +
+
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --resource-filter-include '[{"Group":"apps","Kind":"Deployment","Version":"v1","Names":["my-deployment"],"Namespaces":["my-namespace"],"LabelSelectors":["app=my-app"]}]'
 ----
-** Per definire un'applicazione solo PVC, è necessario includere anche  `PersistentVolume` e  `VolumeSnapshotClass`` nel filtro delle risorse. Le operazioni di Snapshot e backup dipendono da  `PersistentVolume` (il volume con ambito cluster associato a ciascun PVC) e  `VolumeSnapshotClass` (il driver di snapshot), e non funzioneranno senza di essi. Ad esempio:
++ * Per definire un'applicazione solo PVC, devi includere anche  `PersistentVolume` e  `VolumeSnapshotClass`` nel filtro delle risorse. Le operazioni di Snapshot e backup dipendono da  `PersistentVolume` (il volume con ambito cluster associato a ciascun PVC) e  `VolumeSnapshotClass` (il driver di Snapshot), e non funzioneranno senza di essi. Per esempio:
+
 +
+
 [source, console]
 ----
 tridentctl-protect create app my-pvc-app --namespaces <my-app-namespace> --resource-filter-include '[{"Kind":"PersistentVolumeClaim","Version":"v1"},{"Kind":"PersistentVolume","Version":"v1"},{"Kind":"VolumeSnapshotClass","Version":"v1"}]' -n <my-app-namespace>
 ----
-
-
-
-
 --
 ====

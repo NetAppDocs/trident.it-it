@@ -28,6 +28,8 @@ entries:
       url: "/trident-use/gcnv-examples.html"
     - title: Configura l'auto-tiering
       url: "/trident-use/gcnv-auto-tiering.html"
+    - title: Configura i pool di storage in modalità ONTAP
+      url: "/trident-use/gcnv-ontap-mode.html"
   - title: NetApp HCI o SolidFire
     url: "/trident-use/element.html"
   - title: Driver SAN ONTAP
@@ -82,6 +84,8 @@ entries:
   entries:
   - title: Provisioning di un volume
     url: "/trident-use/vol-provision.html"
+  - title: Sposta i volumi
+    url: "/trident-use/vol-move.html"
   - title: Espandere i volumi
     url: "/trident-use/vol-expansion.html"
   - title: Comprendere i limiti del sottosistema RWX NVMe

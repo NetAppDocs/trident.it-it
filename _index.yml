@@ -1,6 +1,6 @@
 ---
 indexpage:
-  title: Documentazione Trident 26.02
+  title: Documentazione Trident 26.06
   summary: Trident è un provisioner di storage open source e un orchestrator gestiti
     da NetApp. Consente di creare volumi di storage per applicazioni containerizzate
     gestite da Docker e Kubernetes.

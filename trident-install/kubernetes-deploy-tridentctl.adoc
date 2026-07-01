@@ -38,7 +38,7 @@ Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes`
 Verificate link:kubernetes-deploy.html["panoramica dell'installazione"] per assicurarvi di aver soddisfatto i prerequisiti di installazione e di aver selezionato l'opzione di installazione corretta per il vostro ambiente.
 
 .Prima di iniziare
-Prima di iniziare l'installazione, accedere all'host Linux e verificare che stia gestendo un link:requirements.html["Cluster Kubernetes supportato"^] e che si dispone dei privilegi necessari.
+Prima di iniziare l'installazione, accedi all'host Linux e verifica che stia gestendo un link:../trident-get-started/requirements.html["Cluster Kubernetes supportato"^] funzionante e che tu disponga dei privilegi necessari.
 
 
 NOTE: Con OpenShift, utilizzare `oc` invece di `kubectl` in tutti gli esempi che seguono, accedere come *system:admin* eseguendo `oc login -u system:admin` oppure `oc login -u kube-admin`.
