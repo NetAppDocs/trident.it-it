@@ -16,6 +16,7 @@ I pool virtuali forniscono un layer di astrazione tra i backend dello storage Tr
 
 
 
+[[learn-about-virtual-pools]]
 == Informazioni sui pool virtuali
 
 L'amministratore dello storage può definire pool virtuali su qualsiasi backend Trident in un file di definizione JSON o YAML.

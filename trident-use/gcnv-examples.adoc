@@ -16,6 +16,7 @@ Scopri le opzioni di configurazione di back-end per Google Cloud NetApp Volumes 
 
 
 
+[[backend-configuration-options]]
 == Opzioni di configurazione back-end
 
 Ogni back-end esegue il provisioning dei volumi in una singola area di Google Cloud. Per creare volumi in altre regioni, è possibile definire backend aggiuntivi.
@@ -74,6 +75,7 @@ Ogni back-end esegue il provisioning dei volumi in una singola area di Google Cl
 |===
 
 
+[[volume-provisioning-options]]
 == Opzioni di provisioning dei volumi
 
 È possibile controllare il provisioning del volume predefinito in `defaults` del file di configurazione.
@@ -96,6 +98,7 @@ Ogni back-end esegue il provisioning dei volumi in una singola area di Google Cl
 |===
 
 
+[[example-configurations]]
 == Configurazioni di esempio
 
 Gli esempi seguenti mostrano le configurazioni di base che lasciano la maggior parte dei parametri predefiniti. Questo è il modo più semplice per definire un backend.
@@ -354,6 +357,7 @@ supportedTopologies:
 ====
 
 
+[[whats-next]]
 == Quali sono le prossime novità?
 
 Dopo aver creato il file di configurazione back-end, eseguire il seguente comando:
@@ -381,6 +385,7 @@ Dopo aver identificato e corretto il problema con il file di configurazione, è 
 
 
 
+[[storage-class-definitions]]
 == Definizioni delle classi di storage
 
 Di seguito è riportata una definizione di base `StorageClass` che fa riferimento al backend riportato sopra.
@@ -434,6 +439,7 @@ Per ulteriori informazioni sulle classi di archiviazione, fare riferimento a lin
 
 
 
+[[example-definitions-for-smb-volumes]]
 === Definizioni di esempio per volumi SMB
 
 Utilizzando `nasType`, , `node-stage-secret-name` e  `node-stage-secret-namespace`, è possibile specificare un volume SMB e fornire le credenziali di Active Directory richieste. Qualsiasi utente/password di Active Directory con autorizzazioni qualsiasi/nessuna può essere utilizzato per il segreto di fase del nodo.
@@ -494,6 +500,7 @@ NOTE: `nasType: smb` Filtri per pool che supportano volumi SMB. `nasType: nfs` o
 
 
 
+[[pvc-definition-example]]
 === Esempio di definizione PVC
 
 [source, yaml]

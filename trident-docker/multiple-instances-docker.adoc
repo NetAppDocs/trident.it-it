@@ -16,6 +16,7 @@ Sono necessarie più istanze di Trident quando si desidera avere più configuraz
 
 
 
+[[steps-for-docker-managed-plugin-version-1-1317-03-or-later]]
 == Procedura per il plug-in gestito da Docker (versione 1.13/17.03 o successiva)
 
 . Avviare la prima istanza specificando un alias e un file di configurazione.
@@ -51,6 +52,7 @@ docker volume create -d silver --name ntapSilver
 
 
 
+[[steps-for-traditional-version-1-12-or-earlier]]
 == Procedura per la versione tradizionale (1.12 o precedente)
 
 . Avviare il plug-in con una configurazione NFS utilizzando un ID driver personalizzato:

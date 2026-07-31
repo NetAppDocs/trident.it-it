@@ -19,6 +19,7 @@ NOTE: Solo il `ontap-nas` il driver (con protocollo NFS) è supportato per i sis
 
 
 
+[[requirements]]
 == Requisiti
 
 * Per tutti i backend ONTAP, Trident richiede che almeno un aggregato sia assegnato all'SVM.
@@ -29,6 +30,7 @@ NOTE: Solo il `ontap-nas` il driver (con protocollo NFS) è supportato per i sis
 
 
 
+[[authenticate-the-ontap-backend]]
 == Autenticare il backend ONTAP
 
 Trident offre due modalità di autenticazione di un backend ONTAP.
@@ -44,6 +46,7 @@ WARNING: Se si tenta di fornire *credenziali e certificati*, la creazione del ba
 
 
 
+[[enable-credential-based-authentication]]
 === Abilitare l'autenticazione basata su credenziali
 
 Trident richiede le credenziali di un amministratore con ambito SVM/cluster per comunicare con il back-end ONTAP. Si consiglia di utilizzare ruoli standard predefiniti come `admin` o `vsadmin`. Ciò garantisce la compatibilità con le future versioni di ONTAP che potrebbero esporre le API delle funzioni da utilizzare nelle future versioni di Trident. È possibile creare e utilizzare un ruolo di accesso di protezione personalizzato con Trident, ma non è consigliabile.
@@ -89,6 +92,7 @@ Tenere presente che la definizione di backend è l'unica posizione in cui le cre
 
 
 
+[[enable-certificate-based-authentication]]
 === Abilitare l'autenticazione basata su certificato
 
 I backend nuovi ed esistenti possono utilizzare un certificato e comunicare con il backend ONTAP. Nella definizione di backend sono necessari tre parametri.
@@ -171,6 +175,7 @@ tridentctl update backend NasBackend -f cert-backend-updated.json -n trident
 
 
 
+[[update-authentication-methods-or-rotate-credentials]]
 === Aggiornare i metodi di autenticazione o ruotare le credenziali
 
 È possibile aggiornare un backend esistente per utilizzare un metodo di autenticazione diverso o per ruotare le credenziali. Questo funziona in entrambi i modi: I backend che utilizzano il nome utente/la password possono essere aggiornati per utilizzare i certificati; i backend che utilizzano i certificati possono essere aggiornati in base al nome utente/alla password. A tale scopo, è necessario rimuovere il metodo di autenticazione esistente e aggiungere il nuovo metodo di autenticazione. Quindi, utilizzare il file backend.json aggiornato contenente i parametri necessari per l'esecuzione `tridentctl update backend`.
@@ -210,6 +215,7 @@ L'aggiornamento di un backend non interrompe l'accesso ai volumi già creati, n�
 
 
 
+[[create-custom-ontap-role-for-trident]]
 === Creare un ruolo ONTAP personalizzato per Trident
 
 Puoi creare un ruolo cluster ONTAP con Minimum Privileges in modo da non dover utilizzare il ruolo di amministratore ONTAP per eseguire le operazioni in Trident. Quando si include il nome utente in una configurazione backend Trident, Trident utilizza il ruolo del cluster ONTAP creato per eseguire le operazioni.
@@ -269,6 +275,7 @@ Per ulteriori informazioni, fare riferimento alle pagine seguenti:
 
 
 
+[[manage-nfs-export-policies]]
 == Gestire le policy di esportazione NFS
 
 Trident utilizza le policy di esportazione NFS per controllare l'accesso ai volumi forniti.
@@ -281,6 +288,7 @@ Trident fornisce due opzioni quando si utilizzano i criteri di esportazione:
 
 
 
+[[dynamically-manage-export-policies]]
 === Gestione dinamica delle policy di esportazione
 
 Trident consente di gestire in modo dinamico le policy di esportazione per i backend ONTAP. In questo modo, l'amministratore dello storage può specificare uno spazio di indirizzi consentito per gli IP dei nodi di lavoro, invece di definire manualmente regole esplicite. Semplifica notevolmente la gestione delle policy di esportazione; le modifiche alle policy di esportazione non richiedono più l'intervento manuale sul cluster di storage. Inoltre, ciò consente di limitare l'accesso al cluster di storage solo ai nodi di lavoro che montano volumi e hanno IP nell'intervallo specificato, supportando una gestione dettagliata e automatizzata.
@@ -371,6 +379,7 @@ Se l'indirizzo IP di un nodo attivo viene aggiornato, è necessario riavviare il
 
 
 
+[[prepare-to-provision-smb-volumes]]
 == Preparatevi al provisioning dei volumi SMB
 
 Con un po' di preparazione aggiuntiva, puoi eseguire il provisioning dei volumi SMB utilizzando `ontap-nas` driver.
@@ -448,6 +457,7 @@ NOTE: Fare riferimento a. link:https://docs.netapp.com/us-en/ontap/smb-config/cr
 
 
 
+[[enable-secure-smb]]
 === Abilita SMB sicuro
 
 A partire dalla versione 25.06, NetApp Trident supporta il provisioning sicuro dei volumi SMB creati utilizzando  `ontap-nas` E  `ontap-nas-economy` backend. Quando l'SMB sicuro è abilitato, è possibile fornire un accesso controllato alle condivisioni SMB per utenti e gruppi di utenti di Active Directory (AD) utilizzando gli elenchi di controllo di accesso (ACL).

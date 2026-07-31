@@ -16,6 +16,7 @@ L'operatore Trident consente di personalizzare l'installazione di Trident utiliz
 
 
 
+[[understanding-controller-pods-and-node-pods]]
 == Comprensione dei pod controller e dei pod di nodi
 
 Trident viene eseguito come un singolo pod controller e un pod nodo su ciascun nodo worker nel cluster. Il pod del nodo deve essere in esecuzione su qualsiasi host in cui si desidera potenzialmente montare un volume Trident .
@@ -28,6 +29,7 @@ Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-p
 
 
 
+[[configuration-options]]
 == Opzioni di configurazione
 
 
@@ -90,7 +92,7 @@ Telemetria | `"http://proxy.example.com:8888"`
 | `logFormat` | Formato di registrazione Trident da utilizzare [text,json] | `"text"` 
 
 
-| `tridentImage` | Immagine Trident da installare | `"netapp/trident:26.02"` 
+| `tridentImage` | Immagine Trident da installare | `"netapp/trident:26.06"` 
 
 
 | `imageRegistry` | Percorso al registro interno, del formato
@@ -265,6 +267,7 @@ NOTE: Per ulteriori informazioni sulla formattazione dei parametri del pod, fare
 
 
 
+[[sample-configurations]]
 == Configurazioni di esempio
 
 Puoi usare gli attributi in<<Opzioni di configurazione>> quando si definisce `TridentOrchestrator` per personalizzare la tua installazione.

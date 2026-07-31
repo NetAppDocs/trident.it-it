@@ -4,6 +4,7 @@
 
 
 
+[[data-mover-timeout-annotation]]
 == Annotazione del timeout dello spostamento dati
 
 Durante le operazioni di backup e ripristino, è possibile utilizzare l'annotazione  `protect.trident.netapp.io/data-mover-timeout-sec` Per configurare il timeout per le operazioni di trasferimento dati. Questa annotazione specifica il tempo massimo, in secondi, che un data mover deve attendere per il completamento di una specifica operazione prima di andare in timeout. È particolarmente utile in situazioni in cui problemi di rete o altri fattori potrebbero causare l'arresto delle operazioni di trasferimento dati. Aiuta a rilevare e gestire le operazioni in stallo, anziché impostare un timeout generale per l'intero processo. Ad esempio, se non si registra alcun progresso nel ripristino dei dati del volume a causa di problemi di rete, l'operazione scadrà in base alla durata specificata.

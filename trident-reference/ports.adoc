@@ -16,6 +16,7 @@ Ulteriori informazioni sulle porte utilizzate da Trident per la comunicazione.
 
 
 
+[[overview]]
 == Panoramica
 
 Trident utilizza diverse porte per la comunicazione all'interno dei cluster Kubernetes e con i backend di storage. Di seguito è riportato un riepilogo delle porte principali, delle loro funzioni e delle considerazioni sulla sicurezza.
@@ -34,6 +35,7 @@ Trident utilizza diverse porte per la comunicazione all'interno dei cluster Kube
 
 
 
+[[ports-for-controller-nodes]]
 === Porte per i nodi controller
 
 Queste porte sono principalmente destinate all'operatore Trident (gestione backend). Tutte le porte interne sono a livello di pod; consentirle sui nodi solo se il firewall host interferisce con CNI.
@@ -59,6 +61,7 @@ Queste porte sono principalmente destinate all'operatore Trident (gestione backe
 |===
 
 
+[[ports-for-worker-nodes]]
 === Porte per i nodi worker
 
 Queste porte sono destinate ai daemonset dei nodi CSI e ai mount dei pod. Le porte dati sono outbound verso i LIF dei dati del sistema storage; includere le porte extra NFSv3 se si utilizza NFSv3 (opzionale per NFSv4).

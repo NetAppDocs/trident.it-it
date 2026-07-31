@@ -31,6 +31,7 @@ I protocolli SAN supportati dipendono dalla versione di Trident:
 
 
 
+[[supported-operations]]
 == Operazioni supportate
 
 * Provisioning di volumi persistenti (PVs)
@@ -43,6 +44,7 @@ I protocolli SAN supportati dipendono dalla versione di Trident:
 
 
 
+[[unsupported-operations]]
 == Operazioni non supportate
 
 * Crittografia LUKS

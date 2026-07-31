@@ -19,6 +19,7 @@ NOTE: Per ottenere assistenza con Trident, creare un bundle di supporto utilizza
 
 
 
+[[general-troubleshooting]]
 == Risoluzione dei problemi generali
 
 * Se il pod Trident non si accende correttamente (ad esempio, quando il pod Trident è bloccato in `ContainerCreating` con meno di due container pronti), in esecuzione `kubectl -n trident describe deployment trident` e. `kubectl -n trident describe pod trident-********-****` può fornire ulteriori informazioni. Ottenere i log di kubelet (ad esempio, via `journalctl -xeu kubelet`) può anche essere utile.
@@ -71,6 +72,7 @@ Installato con tridentctl::
 
 
 
+[[unsuccessful-trident-deployment-using-the-operator]]
 == Implementazione Trident non riuscita utilizzando l'operatore
 
 Se si sta implementando Trident utilizzando l'operatore, lo stato di `TridentOrchestrator` modifiche da `Installing` a. `Installed`. Se si osserva `Failed` e l'operatore non è in grado di eseguire il ripristino da solo, controllare i log dell'operatore eseguendo il seguente comando:
@@ -138,6 +140,7 @@ Per risolvere il problema, modificare `TridentOrchestrator` CR. In alternativa, 
 
 
 
+[[unsuccessful-trident-deployment-using-tridentctl]]
 == Implementazione Trident non riuscita utilizzando `tridentctl`
 
 Per capire cosa è andato storto, è possibile eseguire di nuovo il programma di installazione utilizzando ``-d`` argomento, che attiverà la modalità di debug e ti aiuterà a capire qual è il problema:
@@ -160,6 +163,7 @@ INFO Trident uninstallation succeeded.
 ----
 
 
+[[completely-remove-trident-and-crds]]
 == Rimuovere completamente Trident e CRD
 
 È possibile rimuovere completamente Trident e tutti i CRD creati e le risorse personalizzate associate.
@@ -199,12 +203,14 @@ tridentctl obliviate crd
 ====
 
 
+[[nvme-node-unstaging-failure-with-rwx-raw-block-namespaces-o-kubernetes-1-26]]
 == Guasto durante l'unstadiazione del nodo NVMe con namespace di blocchi raw RWX o Kubernetes 1,26
 
 Se utilizzi Kubernetes 1,26, il processo di staging del nodo potrebbe avere esito negativo quando utilizzi NVMe/TCP con namespace di blocchi raw RWX. I seguenti scenari forniscono una soluzione al problema. In alternativa, puoi eseguire l'upgrade di Kubernetes alla versione 1,27.
 
 
 
+[[deleted-the-namespace-and-pod]]
 === Eliminato il namespace e il pod
 
 Prendi in considerazione uno scenario in cui hai un namespace gestito Trident (volume persistente NVMe) collegato a un pod. Se si elimina lo spazio dei nomi direttamente dal back-end ONTAP, il processo di disinstallazione si blocca dopo aver tentato di eliminare il pod. Questo scenario non influisce sul cluster Kubernetes o su altre funzionalità.
@@ -214,6 +220,7 @@ Smontare il volume persistente (corrispondente a quel namespace) dal nodo rispet
 
 
 
+[[blocked-datalifs]]
 === LIF dati bloccate
 
  If you block (or bring down) all the dataLIFs of the NVMe Trident backend, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
@@ -222,6 +229,7 @@ Richiamare dataLIFS per ripristinare la funzionalità completa.
 
 
 
+[[deleted-namespace-mapping]]
 === Mapping spazio dei nomi eliminato
 
  If you remove the `hostNQN` of the worker node from the corresponding subsystem, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
@@ -230,6 +238,7 @@ Aggiungere il `hostNQN` tornare al sottosistema.
 
 
 
+[[nfsv4-2-clients-report-invalid-argument-after-upgrading-ontap-when-when-expecting-v4-2-xattrs-being-enabled]]
 == I client NFSv4.2 segnalano "argomento non valido" dopo l'aggiornamento ONTAP quando si prevede che "v4.2-xattrs" sia abilitato
 
 Dopo l'aggiornamento ONTAP, i client NFSv4.2 potrebbero segnalare errori di tipo "argomento non valido" quando tentano di montare esportazioni NFSv4.2. Questo problema si verifica quando il `v4.2-xattrs` l'opzione non è abilitata sulla SVM. .Soluzione alternativa Abilitare il `v4.2-xattrs` opzione sull'SVM o eseguire l'aggiornamento a ONTAP 9.12.1 o versione successiva, dove questa opzione è abilitata per impostazione predefinita.

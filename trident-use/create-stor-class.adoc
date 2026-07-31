@@ -16,6 +16,7 @@ Configurare un oggetto Kubernetes StorageClass e creare la classe storage per is
 
 
 
+[[configure-a-kubernetes-storageclass-object]]
 == Configurare un oggetto Kubernetes StorageClass
 
  https://kubernetes.io/docs/concepts/storage/storage-classes/["Oggetto Kubernetes StorageClass"^]Identifica Trident come provisioner utilizzato per quella classe e istruisce Trident su come effettuare il provisioning di un volume. Ad esempio:
@@ -40,6 +41,7 @@ Per ulteriori informazioni sull'interazione delle classi di archiviazione con i 
 
 
 
+[[create-a-storage-class]]
 == Creare una classe di storage
 
 Dopo aver creato l'oggetto StorageClass, è possibile creare la classe storage. <<Campioni di classe di conservazione>> fornisce alcuni esempi di base che è possibile utilizzare o modificare.
@@ -96,6 +98,7 @@ basic-csi    csi.trident.netapp.io   15h
 ----
 
 
+[[storage-class-samples]]
 === Campioni di classe di conservazione
 
 Trident fornisce https://github.com/NetApp/trident/tree/master/trident-installer/sample-input/storage-class-samples["definizioni semplici delle classi di archiviazione per backend specifici"^].

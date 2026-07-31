@@ -18,10 +18,12 @@ Prima di distribuire, determina quali driver Trident supportano la scalabilità 
 
 
 
+[[key-concepts-and-definitions]]
 == Concetti chiave e definizioni
 
 
 
+[[controller-scalability]]
 === Scalabilità del controller
 
 La scalabilità del controller si riferisce alla capacità del controller Trident di elaborare più operazioni di storage in parallelo, anziché serializzarle dietro un singolo blocco. Queste operazioni includono la creazione, l'eliminazione e il ridimensionamento dei volumi; la creazione e l'eliminazione di snapshot; la pubblicazione e l'annullamento della pubblicazione dei volumi; e la gestione del backend.
@@ -30,6 +32,7 @@ Quando abiliti la scalabilità del controller, le operazioni su volumi e backend
 
 
 
+[[default-behavior-serial-mode]]
 == Comportamento predefinito (modalità seriale)
 
 Per impostazione predefinita, il controller Trident elabora le operazioni una alla volta. Ogni richiesta di creazione, eliminazione, ridimensionamento o snapshot viene completata prima che Trident avvii la successiva. La modalità seriale è quella predefinita supportata per tutte le installazioni e non richiede configurazione.
@@ -38,12 +41,14 @@ La modalità seriale è sufficiente per la maggior parte dei carichi di lavoro. 
 
 
 
+[[controller-scalability-support]]
 == Supporto per la scalabilità del controller
 
 Trident supporta la scalabilità del controller a diversi livelli di maturità per diversi driver di storage.
 
 
 
+[[general-availability]]
 === Disponibilità generale
 
 I seguenti driver supportano la scalabilità del controller alla disponibilità generale in Trident 26.06:
@@ -64,6 +69,7 @@ I  `google-cloud-netapp-volumes` e  `google-cloud-netapp-volumes-san` driver son
 ====
 
 
+[[technical-preview]]
 === Anteprima tecnica
 
 Il seguente driver supporta la scalabilità del controller come funzionalità in anteprima tecnica in Trident 26.06:
@@ -80,6 +86,7 @@ Questo driver presenta le seguenti limitazioni:
 
 
 
+[[how-enableconcurrency-works]]
 == Come funziona enableConcurrency
 
 Quando imposti  `enableConcurrency` su  `true`, Trident applica l'elaborazione simultanea a tutti i backend gestiti dal controller. L'impostazione si applica a tutti i backend contemporaneamente. Non puoi abilitarla per singoli backend o singoli driver.
@@ -90,6 +97,7 @@ Per ripristinare l'avvio, rimuovi o riconfigura qualsiasi backend che utilizza u
 
 
 
+[[before-you-enable]]
 == Prima di abilitare
 
 [IMPORTANT]
@@ -114,12 +122,14 @@ Utilizza la tabella seguente per decidere se abilitare la scalabilità del contr
 |===
 
 
+[[enable-controller-scalability]]
 == Abilita la scalabilità del controller
 
 L' `enableConcurrency`opzione di configurazione controlla la scalabilità del controller. Devi abilitare esplicitamente questa opzione durante l'installazione di Trident o quando aggiorni una distribuzione esistente.
 
 
 
+[[trident-operator-deployment]]
 === Distribuzione dell'operatore Trident
 
 Per abilitare la scalabilità del controller con l'operatore Trident, imposta  `enableConcurrency` su  `true` nella  `TridentOrchestrator` risorsa personalizzata (CR).
@@ -164,6 +174,7 @@ kubectl get torc trident -o jsonpath='{.status.currentInstallationParams.enableC
 ----
 
 
+[[helm-deployment]]
 === Distribuzione Helm
 
 Per abilitare la scalabilità del controller con Helm, impostare il  `enableConcurrency` valore su  `true`.
@@ -199,6 +210,7 @@ helm install trident netapp-trident/trident-operator --namespace trident --creat
 ----
 
 
+[[tridentctl-deployment]]
 === implementazione tridentctl
 
 Per abilitare la scalabilità del controller con `tridentctl`, passare il `--enable-concurrency` flag durante l'installazione.
@@ -224,6 +236,7 @@ tridentctl install -n trident --enable-concurrency
 ----
 
 
+[[verify-that-controller-scalability-is-enabled]]
 === Verifica che la scalabilità del controller sia abilitata
 
 Dopo aver abilitato la scalabilità del controller, verifica che il controller Trident sia in esecuzione con la concorrenza abilitata. Controlla i log del pod del controller:
@@ -236,6 +249,7 @@ L'output include una voce di registro che conferma che la concorrenza è abilita
 
 
 
+[[concurrency-behavior]]
 == Comportamento della concorrenza
 
 Quando la scalabilità del controller è abilitata, il controller Trident adotta il seguente comportamento:
@@ -249,6 +263,7 @@ Quando la scalabilità del controller è abilitata, il controller Trident adotta
 
 
 
+[[caveats-and-limitations]]
 == Avvertenze e limitazioni
 
 Le seguenti considerazioni si applicano alla scalabilità del controller in Trident 26.06:
@@ -264,6 +279,7 @@ Le seguenti considerazioni si applicano alla scalabilità del controller in Trid
 
 
 
+[[recommendations]]
 == Raccomandazioni
 
 Prima di abilitare la scalabilità del controller, completa i seguenti passaggi:

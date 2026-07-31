@@ -21,6 +21,7 @@ Consultare la link:prereqs-docker.html["prerequisiti per l'implementazione"]. Un
 
 
 
+[[docker-managed-plugin-method-version-1-1317-03-and-later]]
 == Metodo del plugin gestito da Docker (versione 1.13/17.03 e successive)
 
 .Prima di iniziare
@@ -121,6 +122,7 @@ docker volume rm firstVolume
 
 
 
+[[traditional-method-version-1-12-or-earlier]]
 == Metodo tradizionale (versione 1.12 o precedente)
 
 .Prima di iniziare
@@ -151,8 +153,8 @@ Oppure https://docs.docker.com/engine/install/["seguire le istruzioni per la dis
 +
 [source, console]
 ----
-wget https://github.com/NetApp/trident/releases/download/10.0/trident-installer-26.02.0.tar.gz
-tar zxf trident-installer-26.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/10.0/trident-installer-26.06.0.tar.gz
+tar zxf trident-installer-26.06.0.tar.gz
 ----
 .. Spostarsi in una posizione nel percorso del vassoio:
 +
@@ -231,6 +233,7 @@ docker volume rm trident_2
 
 
 
+[[start-trident-at-system-startup]]
 == Avviare Trident all'avvio del sistema
 
 Un file di unità di esempio per i sistemi basati su sistema è disponibile all'indirizzo `contrib/trident.service.example` Nel Git repo. Per utilizzare il file con RHEL, procedere come segue:

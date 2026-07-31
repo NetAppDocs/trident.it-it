@@ -16,6 +16,7 @@ ReadWriteMany (RWX) volumi che utilizzano il protocollo NVMe hanno un limite di 
 
 
 
+[[understand-the-64-node-limit]]
 == Comprendere il limite di 64 nodi
 
 Se si prevede di utilizzare volumi ReadWriteMany (RWX) con il protocollo NVMe, un singolo volume RWX NVMe non può essere montato da più di 64 nodi in un cluster Kubernetes.
@@ -26,10 +27,12 @@ Questa limitazione si applica solo ai volumi RWX che utilizzano il protocollo NV
 
 
 
+[[understand-nvme-subsystem-models]]
 == Comprendere i modelli di sottosistema NVMe
 
 
 
+[[per-volume-subsystem-model-trident-releases-earlier-than-26-02]]
 === Modello di sottosistema per volume (versioni di Trident precedenti alla 26.02)
 
 Nelle versioni di Trident precedenti alla 26.02, i volumi RWX NVMe vengono forniti utilizzando un modello di sottosistema per volume. Ogni volume RWX NVMe è mappato al proprio sottosistema NVMe dedicato su ONTAP.
@@ -38,6 +41,7 @@ Questo modello è semplice, ma presenta un limite di scalabilità inferiore. Nei
 
 
 
+[[super-subsystem-model-introduced-in-trident-26-02]]
 === Modello super-sottosistema (introdotto in Trident 26.02)
 
 A partire da Trident 26.02, i volumi RWX NVMe utilizzano un modello di super-sottosistema condiviso. Più volumi RWX NVMe condividono lo stesso sottosistema NVMe.
@@ -48,6 +52,7 @@ Ogni volume RWX NVMe supporta fino a 64 nodi.
 
 
 
+[[identify-error-symptoms]]
 == Identificare i sintomi di errore
 
 Se crei o colleghi volumi RWX NVMe su larga scala, potresti osservare errori simili ai seguenti:
@@ -60,12 +65,14 @@ Questo errore indica che è stato raggiunto il limite del controller del sottosi
 
 
 
+[[resolve-subsystem-limit-errors]]
 == Risolvere gli errori di limite del sottosistema
 
 Per superare le limitazioni del sottosistema per volume e sfruttare il modello super-sottosistema, esegui l'aggiornamento a Trident 26.02 o versioni successive.
 
 
 
+[[upgrade-trident-to-apply-the-super-subsystem-model]]
 == Aggiorna Trident per applicare il modello super-subsystem
 
 Per applicare il modello super-sottosistema ai volumi RWX NVMe:

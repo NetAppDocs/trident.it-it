@@ -16,6 +16,7 @@ Scopri i diversi modi di gestire i backend in Trident.
 
 
 
+[[options-for-managing-backends]]
 == Opzioni per la gestione dei backend
 
 Con l'introduzione di `TridentBackendConfig`, gli amministratori dispongono ora di due metodi unici per gestire i back-end. Questo pone le seguenti domande:
@@ -26,6 +27,7 @@ Con l'introduzione di `TridentBackendConfig`, gli amministratori dispongono ora 
 
 
 
+[[manage-tridentctl-backends-using-tridentbackendconfig]]
 == Gestire `tridentctl` backend con `TridentBackendConfig`
 
 In questa sezione vengono descritte le procedure necessarie per gestire i backend creati con `tridentctl` Direttamente attraverso l'interfaccia Kubernetes creando `TridentBackendConfig` oggetti.
@@ -50,6 +52,7 @@ Per gestire un backend preesistente utilizzando `kubectl`, sarà necessario crea
 
 
 
+[[step-0-identify-the-backend]]
 === Fase 0: Identificare il backend
 
 Per creare un `TridentBackendConfig` che si collega a un backend esistente, sarà necessario ottenere la configurazione del backend. In questo esempio, supponiamo che sia stato creato un backend utilizzando la seguente definizione JSON:
@@ -116,6 +119,7 @@ cat ontap-nas-backend.json
 ----
 
 
+[[step-1-create-a-kubernetes-secret]]
 === Fase 1: Creare un Kubernetes Secret
 
 Creare un Segreto contenente le credenziali per il backend, come illustrato in questo esempio:
@@ -142,6 +146,7 @@ secret/backend-tbc-ontap-san-secret created
 ----
 
 
+[[step-2-create-a-tridentbackendconfig-cr]]
 === Fase 2: Creare un `TridentBackendConfig` CR
 
 Il passaggio successivo consiste nella creazione di un `TridentBackendConfig` CR che si associerà automaticamente al preesistente `ontap-nas-backend` (come in questo esempio). Assicurarsi che siano soddisfatti i seguenti requisiti:
@@ -204,6 +209,7 @@ tridentbackendconfig.trident.netapp.io/tbc-ontap-nas-backend created
 ----
 
 
+[[step-3-verify-the-status-of-the-tridentbackendconfig-cr]]
 === Fase 3: Verificare lo stato di `TridentBackendConfig` CR
 
 Dopo il `TridentBackendConfig` è stato creato, la sua fase deve essere `Bound`. Deve inoltre riflettere lo stesso nome e UUID del backend esistente.
@@ -226,12 +232,14 @@ Il back-end verrà ora completamente gestito utilizzando `tbc-ontap-nas-backend`
 
 
 
+[[manage-tridentbackendconfig-backends-using-tridentctl]]
 == Gestire `TridentBackendConfig` backend con `tridentctl`
 
  `tridentctl` può essere utilizzato per elencare i backend creati con `TridentBackendConfig`. Inoltre, gli amministratori possono anche scegliere di gestire completamente tali backend attraverso `tridentctl` eliminando `TridentBackendConfig` e assicurandosi `spec.deletionPolicy` è impostato su `retain`.
 
 
 
+[[step-0-identify-the-backend]]
 === Fase 0: Identificare il backend
 
 Ad esempio, supponiamo che il seguente backend sia stato creato utilizzando `TridentBackendConfig`:
@@ -253,6 +261,7 @@ Dall'output, si vede che `TridentBackendConfig` È stato creato correttamente ed
 
 
 
+[[step-1-confirm-deletionpolicy-is-set-to-retain]]
 === Fase 1: Confermare `deletionPolicy` è impostato su `retain`
 
 Diamo un'occhiata al valore di `deletionPolicy`. Questo deve essere impostato su `retain`. In questo modo, quando si elimina un `TridentBackendConfig` CR, la definizione di backend sarà ancora presente e potrà essere gestita con `tridentctl`.
@@ -277,6 +286,7 @@ NOTE: Non passare alla fase successiva a meno che `deletionPolicy` è impostato 
 
 
 
+[[step-2-delete-the-tridentbackendconfig-cr]]
 === Fase 2: Eliminare `TridentBackendConfig` CR
 
 Il passaggio finale consiste nell'eliminare `TridentBackendConfig` CR. Dopo la conferma di `deletionPolicy` è impostato su `retain`, è possibile procedere con l'eliminazione:

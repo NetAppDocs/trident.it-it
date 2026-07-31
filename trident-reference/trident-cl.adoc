@@ -16,6 +16,7 @@ Trident espone diverse opzioni della riga di comando per Trident orchestrator. Ã
 
 
 
+[[logging]]
 == Registrazione
 
 `-debug`:: Attiva l'output di debug.
@@ -24,6 +25,7 @@ Trident espone diverse opzioni della riga di comando per Trident orchestrator. Ã
 
 
 
+[[kubernetes]]
 == Kubernetes
 
 `-k8s_pod`:: Utilizzare questa opzione o. `-k8s_api_server` Per abilitare il supporto Kubernetes. Questa impostazione fa in modo che Trident utilizzi le credenziali dell'account del servizio Kubernetes del pod che lo contiene per contattare il server API. Questo funziona solo quando Trident viene eseguito come pod in un cluster Kubernetes con account di servizio abilitati.
@@ -32,6 +34,7 @@ Trident espone diverse opzioni della riga di comando per Trident orchestrator. Ã
 
 
 
+[[docker]]
 == Docker
 
 `-volume_driver <name>`:: Nome del driver utilizzato durante la registrazione del plugin Docker. L'impostazione predefinita Ã¨ `netapp`.
@@ -41,6 +44,7 @@ Trident espone diverse opzioni della riga di comando per Trident orchestrator. Ã
 
 
 
+[[rest]]
 == RIPOSO
 
 `-address <ip-or-host>`:: Specifica l'indirizzo in cui il server di GESTIONE DI Trident deve ascoltare. L'impostazione predefinita Ã¨ localhost. Quando si ascolta su localhost e si esegue all'interno di un pod Kubernetes, l'interfaccia REST non Ã¨ direttamente accessibile dall'esterno del pod. Utilizzare `-address ""` Per rendere l'interfaccia REST accessibile dall'indirizzo IP del pod.

@@ -57,6 +57,7 @@ link:../trident-use/vol-provision.html["Provisioning di un volume"]
 
 
 
+[[whats-next]]
 == Quali sono le prossime novità?
 
 Da oggi puoi aggiungere backend aggiuntivi, gestire classi di storage, gestire i backend ed eseguire operazioni in termini di volume.

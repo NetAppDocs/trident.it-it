@@ -19,12 +19,14 @@ WARNING: Il `tridentctl` Il file binario per Linux fornito nel file zip del prog
 
 
 
+[[whats-new-in-26-06]]
 == Novità della versione 26.06
 
 Scopri le novità in NetApp Trident e Trident Protect, inclusi miglioramenti, correzioni e deprecazioni.
 
 
 
+[[trident]]
 === Trident
 
 
@@ -100,6 +102,7 @@ NOTE: Non utilizzare in ambienti di produzione.
 
 
 
+[[trident-protect]]
 === Trident Protect
 
 
@@ -129,12 +132,14 @@ NOTE: Non utilizzare in ambienti di produzione.
 
 
 
+[[whats-new-in-26-02-1]]
 == Novità della versione 26.02.1
 
 Scopri le novità in NetApp Trident e Trident Protect, inclusi miglioramenti, correzioni e deprecazioni.
 
 
 
+[[trident]]
 === Trident
 
 
@@ -162,6 +167,7 @@ Scopri le novità in NetApp Trident e Trident Protect, inclusi miglioramenti, co
 
 
 
+[[trident-protect]]
 === Trident Protect
 
 
@@ -179,12 +185,14 @@ Aggiornate le dipendenze di Trident Protect per risolvere le vulnerabilità di s
 
 
 
+[[whats-new-in-26-02]]
 == Novità della versione 26.02
 
 Scopri le novità in NetApp Trident e Trident Protect, inclusi miglioramenti, correzioni e deprecazioni.
 
 
 
+[[trident]]
 === Trident
 
 
@@ -257,6 +265,7 @@ Sono disponibili due soluzioni alternative:
 
 
 
+[[trident-protect]]
 === Trident Protect
 
 
@@ -282,12 +291,14 @@ Sono disponibili due soluzioni alternative:
 
 
 
+[[whats-new-in-25-10]]
 == Novità della versione 25.10
 
 Scopri le novità di Trident e Trident Protect, inclusi miglioramenti, correzioni e deprecazioni.
 
 
 
+[[trident]]
 === Trident
 
 
@@ -351,6 +362,7 @@ NOTE: Non utilizzare in ambienti di produzione.
 
 
 
+[[trident-protect]]
 === Trident Protect
 
 NetApp Trident Protect offre funzionalità avanzate di gestione dei dati delle applicazioni che migliorano la funzionalità e la disponibilità delle applicazioni Kubernetes con stato supportate dai sistemi di storage NetApp ONTAP e dal provisioner di storage NetApp Trident CSI.
@@ -375,10 +387,12 @@ Vederelink:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect
 
 
 
+[[changes-in-25-06-2]]
 == Modifiche nel 25.06.2
 
 
 
+[[trident]]
 === Trident
 
 
@@ -390,10 +404,12 @@ Vederelink:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect
 
 
 
+[[changes-in-25-06-1]]
 == Modifiche nel 25.06.1
 
 
 
+[[trident]]
 === Trident
 
 
@@ -417,10 +433,12 @@ IMPORTANT: Per i clienti che utilizzano SolidFire, non aggiornare a 25.06.1 a ca
 
 
 
+[[changes-in-25-06]]
 == Modifiche nel 25.06
 
 
 
+[[trident]]
 === Trident
 
 
@@ -490,6 +508,7 @@ NOTE: Questa funzionalità è sperimentale e attualmente supporta flussi di lavo
 
 
 
+[[trident-protect]]
 === Trident Protect
 
 NetApp Trident Protect offre funzionalità avanzate di gestione dei dati delle applicazioni che migliorano la funzionalità e la disponibilità delle applicazioni Kubernetes con stato supportate dai sistemi di storage NetApp ONTAP e dal provisioner di storage NetApp Trident CSI.
@@ -521,10 +540,12 @@ NetApp Trident Protect offre funzionalità avanzate di gestione dei dati delle a
 
 
 
+[[changes-in-25-02-1]]
 == Modifiche nel 25.02.1
 
 
 
+[[trident]]
 === Trident
 
 
@@ -541,12 +562,14 @@ NetApp Trident Protect offre funzionalità avanzate di gestione dei dati delle a
 
 
 
+[[changes-in-25-02]]
 == Modifiche nel 25,02
 
 A partire da Trident 25.02, il riepilogo delle novità fornisce dettagli su miglioramenti, correzioni e deprecazioni per le versioni Trident e Trident Protect.
 
 
 
+[[trident]]
 === Trident
 
 
@@ -596,6 +619,7 @@ A partire da Trident 25.02, il riepilogo delle novità fornisce dettagli su migl
 
 
 
+[[trident-protect]]
 === Trident Protect
 
 NetApp Trident Protect offre funzionalità avanzate di gestione dei dati delle applicazioni che migliorano la funzionalità e la disponibilità delle applicazioni Kubernetes con stato supportate dai sistemi di storage NetApp ONTAP e dal provisioner di storage NetApp Trident CSI.
@@ -629,10 +653,12 @@ NetApp Trident Protect offre funzionalità avanzate di gestione dei dati delle a
 
 
 
+[[changes-in-24-10-1]]
 == Modifiche nel 24.10.1
 
 
 
+[[enhancements]]
 === Miglioramenti
 
 * *Kubernetes*: Aggiunto il supporto per Kubernetes 1,32.
@@ -641,6 +667,7 @@ NetApp Trident Protect offre funzionalità avanzate di gestione dei dati delle a
 
 
 
+[[fixes]]
 === Correzioni
 
 * Corretti gli indirizzi IP dei nodi mancanti dai criteri di esportazione automatica (link:https://github.com/NetApp/trident/issues/965["Problema n. 965"]).
@@ -651,10 +678,12 @@ NetApp Trident Protect offre funzionalità avanzate di gestione dei dati delle a
 
 
 
+[[changes-in-24-10]]
 == Modifiche nel 24,10
 
 
 
+[[enhancements]]
 === Miglioramenti
 
 * Google Cloud NetApp Volumes driver è ora generalmente disponibile per NFS Volumes e supporta il provisioning consapevole delle zone.
@@ -700,6 +729,7 @@ link:./trident-protect/learn-about-trident-protect.html["Scopri di più su Tride
 
 
 
+[[fixes]]
 === Correzioni
 
 * *Kubernetes*:
@@ -716,6 +746,7 @@ link:./trident-protect/learn-about-trident-protect.html["Scopri di più su Tride
 
 
 
+[[deprecations]]
 === Dipendenze
 
 * *Kubernetes:*
@@ -728,16 +759,19 @@ link:./trident-protect/learn-about-trident-protect.html["Scopri di più su Tride
 
 
 
+[[product-rebranding]]
 === Rebranding dei prodotti
 
 A partire dalla release 24,10, Astra Trident viene rinominato Trident (NetApp Trident). Il rebranding non influisce su funzionalità, piattaforme supportate o interoperabilità per Trident.
 
 
 
+[[changes-in-24-06]]
 == Modifiche nel 24,06
 
 
 
+[[enhancements]]
 === Miglioramenti
 
 * **IMPORTANTE**: Il `limitVolumeSize` parametro ora limita le dimensioni di qtree/LUN nei driver ONTAP economy. Utilizzare il nuovo  `limitVolumePoolSize` parametro per controllare le dimensioni FlexVol in tali driver. (link:https://github.com/NetApp/trident/issues/341["Problema n. 341"]).
@@ -764,6 +798,7 @@ A partire dalla release 24,10, Astra Trident viene rinominato Trident (NetApp Tr
 
 
 
+[[fixes]]
 === Correzioni
 
 * Risolti i problemi di installazione di Trident a causa di transazioni obsolete.
@@ -776,10 +811,12 @@ A partire dalla release 24,10, Astra Trident viene rinominato Trident (NetApp Tr
 
 
 
+[[changes-in-24-02]]
 == Modifiche nel 24,02
 
 
 
+[[enhancements]]
 === Miglioramenti
 
 * Aggiunto supporto per Cloud Identity.
@@ -802,6 +839,7 @@ A partire dalla release 24,10, Astra Trident viene rinominato Trident (NetApp Tr
 
 
 
+[[fixes]]
 === Correzioni
 
 * Messaggi di avviso ACP fissi, quando ACP non è abilitato (link:https://github.com/NetApp/trident/issues/866["Problema n. 866"]).
@@ -810,6 +848,7 @@ A partire dalla release 24,10, Astra Trident viene rinominato Trident (NetApp Tr
 
 
 
+[[deprecations]]
 === Dipendenze
 
 * Rimosso il framework degli attestati in-toto dai manifesti di immagini multipiattaforma.
@@ -817,10 +856,12 @@ A partire dalla release 24,10, Astra Trident viene rinominato Trident (NetApp Tr
 
 
 
+[[changes-in-23-10]]
 == Modifiche nel 23,10
 
 
 
+[[fixes]]
 === Correzioni
 
 * Espansione del volume fisso se la nuova dimensione richiesta è inferiore alle dimensioni del volume totale per i driver di storage ontap-nas e ontap-nas-flexgroup (link:https://github.com/NetApp/trident/issues/834["Problema n. 834"^]).
@@ -831,6 +872,7 @@ A partire dalla release 24,10, Astra Trident viene rinominato Trident (NetApp Tr
 
 
 
+[[enhancements]]
 === Miglioramenti
 
 
@@ -850,16 +892,19 @@ Aggiunto supporto per Kubernetes 1,28.
 
 
 
+[[changes-in-23-07-1]]
 == Modifiche nel 23.07.1
 
 *Kubernetes:* eliminazione di daemonset fissa per supportare aggiornamenti senza downtime (.link:https://github.com/NetApp/trident/issues/740["Problema n. 740"^]).
 
 
 
+[[changes-in-23-07]]
 == Modifiche nel 23,07
 
 
 
+[[fixes]]
 === Correzioni
 
 
@@ -883,6 +928,7 @@ Aggiunto supporto per Kubernetes 1,28.
 
 
 
+[[enhancements]]
 === Miglioramenti
 
 
@@ -918,6 +964,7 @@ Sono stati apportati molti miglioramenti a livello organizzativo e di formattazi
 
 
 
+[[deprecations]]
 === Dipendenze
 
 
@@ -931,6 +978,7 @@ Sono stati apportati molti miglioramenti a livello organizzativo e di formattazi
 
 
 
+[[changes-in-23-04]]
 == Modifiche nel 23,04
 
 
@@ -938,6 +986,7 @@ IMPORTANT: Force volume Detach for ONTAP-SAN-* Volumes è supportato solo con le
 
 
 
+[[fixes]]
 === Correzioni
 
 * Fixed Trident Operator to Use IPv6 localhost for installation when specified in spec.
@@ -954,6 +1003,7 @@ IMPORTANT: Force volume Detach for ONTAP-SAN-* Volumes è supportato solo con le
 
 
 
+[[enhancements]]
 === Miglioramenti
 
 * Kubernetes:
@@ -975,16 +1025,19 @@ IMPORTANT: Force volume Detach for ONTAP-SAN-* Volumes è supportato solo con le
 
 
 
+[[deprecations]]
 === Dipendenze
 
 **Kubernetes:** gli igroups con ambito backend non verranno più creati durante la configurazione dei driver ontap-san e ontap-san-Economy (link:https://github.com/NetApp/trident/issues/758["Numero 758"]).
 
 
 
+[[changes-in-23-01-1]]
 == Cambiamenti nel 23.01.1
 
 
 
+[[fixes]]
 === Correzioni
 
 * Fixed Trident Operator to Use IPv6 localhost for installation when specified in spec.
@@ -996,6 +1049,7 @@ IMPORTANT: Force volume Detach for ONTAP-SAN-* Volumes è supportato solo con le
 
 
 
+[[changes-in-23-01]]
 == Cambiamenti nel 23.01
 
 
@@ -1003,6 +1057,7 @@ IMPORTANT: Kubernetes 1,27 è ora supportato in Trident. Eseguire l'aggiornament
 
 
 
+[[fixes]]
 === Correzioni
 
 * Kubernetes: Aggiunta di opzioni per escludere la creazione della policy di sicurezza Pod per correggere le installazioni Trident tramite Helm (link:https://github.com/NetApp/trident/issues/794["Numeri 783, 794"^]).
@@ -1010,6 +1065,7 @@ IMPORTANT: Kubernetes 1,27 è ora supportato in Trident. Eseguire l'aggiornament
 
 
 
+[[enhancements]]
 === Miglioramenti
 
 .Kubernetes
@@ -1032,6 +1088,7 @@ IMPORTANT: Kubernetes 1,27 è ora supportato in Trident. Eseguire l'aggiornament
 
 
 
+[[deprecations]]
 === Dipendenze
 
 * Kubernetes: Aggiornato il numero minimo di Kubernetes supportati a 1.21.
@@ -1040,6 +1097,7 @@ IMPORTANT: Kubernetes 1,27 è ora supportato in Trident. Eseguire l'aggiornament
 
 
 
+[[changes-in-22-10]]
 == Cambiamenti nel 22.10
 
 *Prima di eseguire l'aggiornamento a Trident 22,10, è necessario leggere le seguenti informazioni critiche.*
@@ -1057,6 +1115,7 @@ Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes`
 ====
 
 
+[[fixes]]
 === Correzioni
 
 * Risolto il problema specifico del backend ONTAP creato con `credentials` il campo non riesce a entrare in linea durante l'aggiornamento 22.07.0 (link:https://github.com/NetApp/trident/issues/759["Numero 759"^]).
@@ -1069,6 +1128,7 @@ Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes`
 
 
 
+[[enhancements]]
 === Miglioramenti
 
 * Kubernetes:
@@ -1088,6 +1148,7 @@ Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes`
 
 
 
+[[deprecations]]
 === Dipendenze
 
 * **Kubernetes:** aggiornato il numero minimo di Kubernetes supportati a 1.20.
@@ -1097,10 +1158,12 @@ Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes`
 
 
 
+[[changes-in-22-07]]
 == Cambiamenti nel 22.07
 
 
 
+[[fixes]]
 === Correzioni
 
 **Kubernetes**
@@ -1111,6 +1174,7 @@ Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes`
 
 
 
+[[enhancements]]
 === Miglioramenti
 
 * Transizione da k8s.gcr.io a registry.k8s.io come registro predefinito per le immagini CSI
@@ -1122,6 +1186,7 @@ Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes`
 
 
 
+[[deprecations]]
 === Dipendenze
 
 * **Kubernetes:** aggiornato il numero minimo di Kubernetes supportati a 1.19.
@@ -1130,6 +1195,7 @@ Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes`
 
 
 
+[[removals]]
 === Rimozioni
 
 * Il driver CVS AWS (obsoleto dal 22.04) è stato rimosso.
@@ -1143,12 +1209,14 @@ Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes`
 
 
 
+[[documentation]]
 === Documentazione
 
 È stata aggiunta una nuova link:https://docs.netapp.com/us-en/trident/trident-reference/pod-security.html["Standard di sicurezza Pod"]sezione (PSS) con i dettagli delle autorizzazioni abilitate da Trident all'installazione.
 
 
 
+[[changes-in-22-04]]
 == Cambiamenti nel 22.04
 
 NetApp continua a migliorare e migliorare i propri prodotti e servizi. Ecco alcune delle funzioni più recenti di Trident. Per le versioni precedenti, fare riferimento alla https://docs.netapp.com/us-en/trident/earlier-versions.html["Versioni precedenti della documentazione"].
@@ -1158,6 +1226,7 @@ IMPORTANT: Se si esegue l'aggiornamento da una release precedente di Trident e s
 
 
 
+[[fixes]]
 === Correzioni
 
 * Analisi migliorata dei nomi degli iniziatori iSCSI. (link:https://github.com/NetApp/trident/issues/681["Numero GitHub 681"^])
@@ -1172,6 +1241,7 @@ IMPORTANT: Se si esegue l'aggiornamento da una release precedente di Trident e s
 
 
 
+[[enhancements]]
 === Miglioramenti
 
 * Le connessioni in entrata agli endpoint sicuri di Trident ora richiedono almeno TLS 1.3. (link:https://github.com/NetApp/trident/issues/698["Numero GitHub 698"^])
@@ -1182,16 +1252,19 @@ IMPORTANT: Se si esegue l'aggiornamento da una release precedente di Trident e s
 
 
 
+[[removals]]
 === Rimozioni
 
 Il driver e-Series (disattivato dal 20.07) è stato rimosso.
 
 
 
+[[changes-in-22-01-1]]
 == Cambiamenti nel 22.01.1
 
 
 
+[[fixes]]
 === Correzioni
 
 * Risolto il problema di annullamento della pubblicazione dei volumi sui nodi cancellati. (link:https://github.com/NetApp/trident/issues/691["Numero GitHub 691"])
@@ -1200,10 +1273,12 @@ Il driver e-Series (disattivato dal 20.07) è stato rimosso.
 
 
 
+[[changes-in-22-01-0]]
 == Cambiamenti nel 22.01.0
 
 
 
+[[fixes]]
 === Correzioni
 
 * *Kubernetes:* aumenta il tempo di tentativi di backoff per la registrazione dei nodi per cluster di grandi dimensioni.
@@ -1218,6 +1293,7 @@ Il driver e-Series (disattivato dal 20.07) è stato rimosso.
 
 
 
+[[enhancements]]
 === Miglioramenti
 
 * Miglioramenti di Kubernetes:
@@ -1232,12 +1308,14 @@ Il driver e-Series (disattivato dal 20.07) è stato rimosso.
 
 
 
+[[deprecations]]
 === Dipendenze
 
 L'interfaccia REST di Trident può ascoltare e servire solo a 127.0.0.1 o [::1] indirizzi
 
 
 
+[[changes-in-21-10-1]]
 == Cambiamenti nel 21.10.1
 
 
@@ -1245,6 +1323,7 @@ WARNING: La versione v21.10.0 presenta un problema che può mettere il controlle
 
 
 
+[[fixes]]
 === Correzioni
 
 * Correzione della potenziale condizione di gara durante l'importazione di un volume su un backend CVS GCP, con conseguente mancata importazione.
@@ -1254,10 +1333,12 @@ WARNING: La versione v21.10.0 presenta un problema che può mettere il controlle
 
 
 
+[[changes-in-21-10-0]]
 == Cambiamenti nel 21.10.0
 
 
 
+[[fixes]]
 === Correzioni
 
 * Risolto il problema a causa del quale i cloni dei volumi XFS non potevano essere montati sullo stesso nodo del volume di origine (problema di GitHub 514).
@@ -1278,6 +1359,7 @@ WARNING: La versione v21.10.0 presenta un problema che può mettere il controlle
 
 
 
+[[enhancements]]
 === Miglioramenti
 
 * Supporto aggiunto per `unixPermissions` Opzione per volumi di performance GCP-CVS.
@@ -1293,6 +1375,7 @@ WARNING: La versione v21.10.0 presenta un problema che può mettere il controlle
 
 
 
+[[experimental-enhancements]]
 === Miglioramenti sperimentali
 
 * Aggiunto supporto per la replica dei volumi in `ontap-san` driver.
@@ -1301,6 +1384,7 @@ WARNING: La versione v21.10.0 presenta un problema che può mettere il controlle
 
 
 
+[[known-issues]]
 == Problemi noti
 
 I problemi noti identificano i problemi che potrebbero impedire l'utilizzo corretto del prodotto.
@@ -1324,6 +1408,7 @@ NOTE: Non è possibile specificare `dataLIF` su un backend SAN ONTAP. Trident sc
 
 
 
+[[find-more-information]]
 == Trova ulteriori informazioni
 
 * https://github.com/NetApp/trident["Trident GitHub"^]

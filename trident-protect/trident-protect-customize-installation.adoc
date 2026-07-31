@@ -16,6 +16,7 @@ summary: Personalizza le impostazioni predefinite di Trident Protect in base all
 
 
 
+[[specify-trident-protect-container-resource-limits]]
 == Specificare i limiti delle risorse del contenitore Trident Protect
 
 Dopo aver installato Trident Protect, è possibile utilizzare un file di configurazione per specificare i limiti delle risorse per i contenitori Trident Protect.  Impostando i limiti delle risorse è possibile controllare la quantità di risorse del cluster consumata dalle operazioni Trident Protect.
@@ -87,6 +88,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 
 
 
+[[customize-security-context-constraints]]
 == Personalizzare i vincoli del contesto di protezione
 
 È possibile utilizzare un file di configurazione per modificare i vincoli di contesto di sicurezza (SCC) di OpenShift per i contenitori Trident Protect dopo aver installato Trident Protect. Questi vincoli definiscono le restrizioni di sicurezza per i pod in un cluster Red Hat OpenShift.
@@ -134,6 +136,7 @@ In questo modo i valori predefiniti verranno sostituiti con quelli specificati n
 
 
 
+[[configure-additional-trident-protect-helm-chart-settings]]
 == Configurare le impostazioni aggiuntive del grafico del timone Trident Protect
 
 Puoi personalizzare le impostazioni di AutoSupport, il filtro dei namespace e la gestione dei certificati webhook di OpenShift per soddisfare le tue esigenze specifiche. La tabella seguente descrive i parametri di configurazione disponibili:
@@ -209,6 +212,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 ====
 
 
+[[restrict-trident-protect-pods-to-specific-nodes]]
 == Limita i pod Trident Protect a nodi specifici
 
 Puoi utilizzare il vincolo di selezione dei nodi Kubernetes nodeSelector per controllare quali nodi sono idonei a eseguire i pod Trident Protect, in base alle etichette dei nodi.  Per impostazione predefinita, Trident Protect è limitato ai nodi che eseguono Linux. È possibile personalizzare ulteriormente questi vincoli in base alle proprie esigenze.

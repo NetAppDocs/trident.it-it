@@ -16,6 +16,7 @@ summary: È possibile utilizzare il programma di installazione di Trident per pe
 
 
 
+[[learn-about-the-installer]]
 == Informazioni sul programma di installazione
 
 Il programma di installazione di Trident consente di personalizzare gli attributi. Ad esempio, se l'immagine Trident è stata copiata in un repository privato, è possibile specificare il nome dell'immagine utilizzando `--trident-image`. Se l'immagine Trident e le immagini sidecar CSI necessarie sono state copiate in un repository privato, potrebbe essere preferibile specificare la posizione di tale repository utilizzando `--image-registry` lo switch, che assume il formato `<registry FQDN>[:port]`.

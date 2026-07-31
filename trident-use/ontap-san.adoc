@@ -16,6 +16,7 @@ Informazioni sulla configurazione di un backend ONTAP con driver SAN ONTAP e Clo
 
 
 
+[[ontap-san-driver-details]]
 == Dettagli del driver SAN ONTAP
 
 Trident fornisce i seguenti driver di storage SAN per comunicare con il cluster ONTAP. Le modalità di accesso supportate sono: _ReadWriteOnce_ (RWO), _ReadOnlyMany_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).
@@ -111,6 +112,7 @@ ROX e RWX non sono disponibili in modalità Volume filesystem.
 ====
 
 
+[[user-permissions]]
 == Autorizzazioni utente
 
 Trident può essere eseguito come amministratore di ONTAP o SVM, in genere utilizzando un utente del cluster o un utente SVM `admin` o `vsadmin` un utente con un nome diverso che svolge lo stesso ruolo. Per le implementazioni di Amazon FSX per NetApp ONTAP, Trident si aspetta un'esecuzione come amministratore ONTAP o SVM, con l'utente del cluster `fsxadmin`, un `vsadmin` utente SVM o un utente con un nome diverso che abbia lo stesso ruolo. L' `fsxadmin`utente sostituisce in modo limitato l'utente amministratore del cluster.
@@ -122,6 +124,7 @@ Sebbene sia possibile creare un ruolo più restrittivo all'interno di ONTAP che 
 
 
 
+[[additional-considerations-for-nvmetcp]]
 == Considerazioni aggiuntive su NVMe/TCP
 
 Trident supporta il protocollo non-volatile memory express (NVMe) utilizzando il `ontap-san` driver, tra cui:

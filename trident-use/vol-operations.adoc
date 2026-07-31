@@ -16,6 +16,7 @@ Scopri le funzionalità offerte da Trident per la gestione dei tuoi volumi.
 
 
 
+[[managing-volumes]]
 == Gestione dei volumi
 
 Fai riferimento a quanto segue per scoprire come gestire i tuoi volumi con Trident.

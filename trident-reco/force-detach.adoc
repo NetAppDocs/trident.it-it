@@ -16,6 +16,7 @@ La funzionalità di distacco forzato di Trident consente di staccare automaticam
 
 
 
+[[details-about-force-detach]]
 == Dettagli sulla forza di distacco
 
 Il distacco forzato è disponibile per `ontap-san` , `ontap-san-economy` , `ontap-nas` , E `ontap-nas-economy` soltanto. Prima di abilitare la disconnessione forzata, è necessario abilitare l'arresto non regolare del nodo (NGNS) sul cluster Kubernetes. NGNS è abilitato per impostazione predefinita per Kubernetes 1.28 e versioni successive. Per ulteriori informazioni, fare riferimento a link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes: Shutdown del nodo non aggraziato"^] .
@@ -44,12 +45,14 @@ Quando l'integrità del nodo viene ripristinata e il tag viene rimosso, Trident:
 
 
 
+[[details-about-automated-failover]]
 == Dettagli sul failover automatico
 
 È possibile automatizzare il processo di distacco forzato tramite l'integrazione conlink:https://github.com/medik8s/node-healthcheck-operator["operatore di controllo dello stato di salute del nodo (NHC)"^] . Quando si verifica un errore di nodo, NHC attiva la riparazione del nodo Trident (TNR) e forza automaticamente il distacco creando un CR TridentNodeRemediation nello spazio dei nomi di Trident che definisce il nodo in errore. Il TNR viene creato solo in caso di guasto del nodo e rimosso da NHC una volta che il nodo torna online o viene eliminato.
 
 
 
+[[failed-node-pod-removal-process]]
 === Processo di rimozione del pod del nodo non riuscito
 
 Il failover automatico seleziona i carichi di lavoro da rimuovere dal nodo in errore. Quando viene creato un TNR, il controller TNR contrassegna il nodo come sporco, impedendo la pubblicazione di nuovi volumi e inizia a rimuovere i pod supportati dalla funzione di distacco forzato e i relativi allegati di volume.
@@ -88,6 +91,7 @@ Queste annotazioni possono essere applicate a qualsiasi pod.
 ====
 
 
+[[tridentnoderemediation-cr]]
 === TridentNodeRemediation CR
 
 Il CR TridentNodeRemediation (TNR) definisce un nodo non riuscito. Il nome del TNR è il nome del nodo non riuscito.
@@ -135,6 +139,7 @@ I TNR possono trovarsi in uno dei seguenti stati:
 
 
 
+[[enabling-automated-failover]]
 === Abilitazione del failover automatico
 
 *Prerequisiti*:
@@ -198,6 +203,7 @@ Per ulteriori opzioni di configurazione, fare riferimento alink:https://github.c
 
 
 
+[[additional-setup-information]]
 === Informazioni aggiuntive sulla configurazione
 
 Quando Trident viene installato con la funzione force-detach abilitata, vengono create automaticamente due risorse aggiuntive nello spazio dei nomi Trident per facilitare l'integrazione con NHC: TridentNodeRemediationTemplate (TNRT) e ClusterRole.
@@ -246,6 +252,7 @@ rules:
 ----
 
 
+[[k8s-cluster-upgrades-and-maintenance]]
 === Aggiornamenti e manutenzione del cluster K8s
 
 Per evitare eventuali failover, sospendere il failover automatico durante la manutenzione o gli aggiornamenti di K8, quando è previsto che i nodi si fermino o si riavviino. È possibile mettere in pausa il CR NHC (descritto sopra) applicando una patch al suo CR:
@@ -256,6 +263,7 @@ In questo modo si sospende il failover automatico. Per riattivare il failover au
 
 
 
+[[limitations]]
 === Limitazioni
 
 * Le operazioni di I/O vengono impedite solo sui nodi non riusciti per i volumi supportati da force-detach. Vengono rimossi automaticamente solo i pod che utilizzano volumi/PVC supportati da force-detach.
@@ -264,6 +272,7 @@ In questo modo si sospende il failover automatico. Per riattivare il failover au
 
 
 
+[[integrating-custom-node-health-check-solutions]]
 === Integrazione di soluzioni personalizzate per il controllo dello stato dei nodi
 
 È possibile sostituire Node Healthcheck Operator con strumenti alternativi di rilevamento degli errori dei nodi per attivare il failover automatico. Per garantire la compatibilità con il meccanismo di failover automatico, la soluzione personalizzata deve:

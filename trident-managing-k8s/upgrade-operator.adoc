@@ -16,6 +16,7 @@ Puoi aggiornare Trident utilizzando l'operatore Trident manualmente o tramite He
 
 
 
+[[upgrade-a-manual-installation]]
 == Aggiornare un'installazione manuale
 
 È possibile eseguire l'aggiornamento da un'installazione dell'operatore Trident con ambito cluster a un'altra installazione dell'operatore Trident con ambito cluster.  Tutte le versioni Trident utilizzano un operatore con ambito cluster.
@@ -59,6 +60,7 @@ kubectl create -f 25.06.0/trident-installer/deploy/<bundle.yaml> -n trident
 
 
 
+[[upgrade-a-helm-installation]]
 == Aggiornare un'installazione Helm
 
 È possibile aggiornare un'installazione di Trident Helm.
@@ -104,6 +106,7 @@ NOTE: Se si impostano opzioni personalizzate durante l'installazione iniziale (a
 
 
 
+[[upgrade-from-a-tridentctl-installation-to-trident-operator]]
 == Aggiornamento da a. `tridentctl` Installazione all'operatore Trident
 
 È possibile eseguire l'aggiornamento all'ultima versione dell'operatore Trident da un `tridentctl` installazione. I backend e i PVC esistenti saranno automaticamente disponibili.

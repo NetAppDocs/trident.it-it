@@ -23,12 +23,14 @@ NOTE: Assicurarsi che AppVault CR si trovi nel cluster in cui è installato Trid
 
 
 
+[[configure-appvault-authentication-and-passwords]]
 == Configurare l'autenticazione e le password AppVault
 
 Prima di creare una CR di AppVault, assicurati che AppVault e il data mover scelto possano autenticarsi con il provider e con tutte le risorse correlate.
 
 
 
+[[data-mover-repository-passwords]]
 === Password del repository di spostamento dati
 
 Quando si creano oggetti AppVault utilizzando CR o il plug-in Trident Protect CLI, è possibile specificare un segreto Kubernetes con password personalizzate per la crittografia Restic e Kopia.  Se non specifichi un segreto, Trident Protect utilizza una password predefinita.
@@ -81,6 +83,7 @@ kubectl create secret generic my-optional-data-mover-secret \
 ====
 
 
+[[s3-compatible-storage-iam-permissions]]
 === Autorizzazioni IAM per l'archiviazione compatibile con S3
 
 Quando si accede a un archivio compatibile con S3 come Amazon S3, Generic S3, https://docs.netapp.com/us-en/storagegrid/s3/index.html["StorageGRID S3"^] , O https://docs.netapp.com/us-en/ontap/s3-config/["ONTAP S3"^] utilizzando Trident Protect, è necessario assicurarsi che le credenziali utente fornite dispongano delle autorizzazioni necessarie per accedere al bucket.  Di seguito è riportato un esempio di policy che concede le autorizzazioni minime richieste per l'accesso con Trident Protect. È possibile applicare questo criterio all'utente che gestisce i criteri dei bucket compatibili con S3.
@@ -107,6 +110,7 @@ Per ulteriori informazioni sulle policy di Amazon S3, fare riferimento agli esem
 
 
 
+[[eks-pod-identity-for-amazon-s3-aws-authentication]]
 === Identità pod EKS per l'autenticazione Amazon S3 (AWS)
 
 Trident Protect supporta EKS Pod Identity per le operazioni di spostamento dati Kopia. Questa funzionalità consente l'accesso sicuro ai bucket S3 senza dover archiviare le credenziali AWS nei segreti di Kubernetes.
@@ -148,6 +152,7 @@ spec:
 ----
 
 
+[[appvault-key-generation-examples-for-cloud-providers]]
 === Esempi di generazione delle chiavi AppVault per i cloud provider
 
 Quando si definisce un CR AppVault, è necessario includere le credenziali per accedere alle risorse ospitate dal provider, a meno che non si utilizzi l'autenticazione IAM.  Il modo in cui vengono generate le chiavi per le credenziali varia a seconda del provider.  Di seguito sono riportati esempi di generazione di chiavi da riga di comando per diversi provider.  È possibile utilizzare gli esempi seguenti per creare chiavi per le credenziali di ciascun provider cloud.
@@ -215,12 +220,14 @@ kubectl create secret generic <secret-name> \
 ====
 
 
+[[appvault-creation-examples]]
 == Esempi di creazione di AppVault
 
 Di seguito sono riportate alcune definizioni AppVault di esempio per ogni provider.
 
 
 
+[[appvault-cr-examples]]
 === Esempi di AppVault CR
 
 È possibile utilizzare i seguenti esempi CR per creare oggetti AppVault per ciascun provider cloud.
@@ -404,6 +411,7 @@ spec:
 ====
 
 
+[[appvault-creation-examples-using-the-trident-protect-cli]]
 === Esempi di creazione di AppVault utilizzando la CLI Trident Protect
 
 È possibile utilizzare i seguenti esempi di comandi CLI per creare CRS AppVault per ciascun provider.
@@ -493,6 +501,7 @@ tridentctl-protect create vault StorageGridS3 <vault-name> \
 ====
 
 
+[[supported-providerconfig-s3-configuration-options]]
 === Supportato `providerConfig.s3` opzioni di configurazione
 
 Per le opzioni di configurazione del provider S3, consultare la seguente tabella:
@@ -518,6 +527,7 @@ Per le opzioni di configurazione del provider S3, consultare la seguente tabella
 |===
 
 
+[[view-appvault-information]]
 == Visualizzare le informazioni AppVault
 
 È possibile utilizzare il plug-in Trident Protect CLI per visualizzare informazioni sugli oggetti AppVault creati nel cluster.
@@ -559,6 +569,7 @@ Il nome del cluster nella prima colonna della tabella è disponibile solo se è 
 
 
 
+[[remove-an-appvault]]
 == Rimuovere un AppVault
 
 È possibile rimuovere un oggetto AppVault in qualsiasi momento.

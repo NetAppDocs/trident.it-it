@@ -15,6 +15,7 @@ A partire da Trident 26.06, un amministratore dello storage può spostare in mod
 
 
 
+[[requirements]]
 == Requisiti
 
 La funzione di spostamento del volume si applica al driver  `ontap-san` per i volumi iSCSI solo. I protocolli NVMe e NAS non sono supportati.
@@ -33,6 +34,7 @@ Prima di spostare un volume, assicurati che siano soddisfatti i seguenti requisi
 
 
 
+[[how-it-works]]
 == Come funziona
 
 Trident sposta il volume (LUN) tra due posizioni all'interno dello stesso ONTAP cluster. Prima che i dati vengano spostati, Trident aggiunge nuovi percorsi iSCSI alla destinazione, affiancandoli a quelli esistenti, così il dispositivo multipath dell'host non perde mai l'accesso. Dopo che ONTAP ha completato lo spostamento, Trident elimina i percorsi di origine obsoleti.
@@ -41,10 +43,12 @@ Trident gestisce lo spostamento attraverso una serie ordinata di stati visibili 
 
 
 
+[[move-a-volume]]
 == Sposta un volume
 
 
 
+[[identify-the-volume-and-locations]]
 === Identifica il volume e le posizioni
 
 . Individua il nome del PV da spostare. Il nome del PV è anche il nome della risorsa di spostamento.
@@ -53,6 +57,7 @@ Trident gestisce lo spostamento attraverso una serie ordinata di stati visibili 
 
 
 
+[[start-the-move]]
 === Inizia lo spostamento
 
 Puoi usare entrambi i metodi. Entrambi creano la stessa  `TridentVolumeMove`risorsa, il cui nome è il nome del PV.
@@ -106,6 +111,7 @@ kubectl apply -f tridentvolumemove.yaml
 
 
 
+[[monitor-the-move]]
 === Monitora lo spostamento
 
 Monitora i progressi utilizzando il  `tvm`nome breve o  `tridentvolumemove`:
@@ -176,6 +182,7 @@ L' `.status.attachments`elenco riporta lo stato di avanzamento di ciascun nodo c
 |===
 
 
+[[clean-up-the-move-resource]]
 === Pulisci la risorsa di spostamento
 
 Se imposti  `deleteAfterSuccess`, Trident rimuove automaticamente la risorsa. Altrimenti, puoi eliminarla manualmente. Prima di richiedere un altro spostamento sullo stesso volume, assicurati che non esista alcuna risorsa  `TridentVolumeMove` per quel volume né in uno stato  `Succeeded` né in uno stato  `Failed`.

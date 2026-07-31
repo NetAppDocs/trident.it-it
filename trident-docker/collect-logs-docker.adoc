@@ -16,6 +16,7 @@ summary: È possibile raccogliere i registri per ottenere assistenza nella risol
 
 
 
+[[collect-logs-for-troubleshooting]]
 == Raccogliere i registri per la risoluzione dei problemi
 
 .Fasi
@@ -64,6 +65,7 @@ docker plugin enable <plugin>
 
 
 
+[[general-troubleshooting-tips]]
 == Suggerimenti generali per la risoluzione dei problemi
 
 * Il problema più comune in cui i nuovi utenti eseguono è una configurazione errata che impedisce l'inizializzazione del plug-in. In questo caso, quando si tenta di installare o abilitare il plug-in, viene visualizzato un messaggio simile al seguente:

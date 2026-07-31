@@ -19,6 +19,7 @@ NOTE: Ignorare questa sezione se si utilizza CHAP, che è consigliabile per semp
 
 
 
+[[learn-about-volume-access-groups]]
 == Informazioni sui gruppi di accesso ai volumi
 
 Trident può utilizzare i gruppi di accesso ai volumi per controllare l'accesso ai volumi forniti. Se CHAP è disattivato, si prevede di trovare un gruppo di accesso chiamato `trident` a meno che non si specifichino uno o più ID del gruppo di accesso nella configurazione.

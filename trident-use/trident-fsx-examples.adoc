@@ -16,6 +16,7 @@ Scopri le opzioni di configurazione back-end per Amazon FSX per ONTAP. Questa se
 
 
 
+[[backend-configuration-options]]
 == Opzioni di configurazione back-end
 
 Per le opzioni di configurazione del backend, consultare la tabella seguente:
@@ -116,6 +117,7 @@ Non utilizzare `debugTraceFlags` a meno che non si stia eseguendo la risoluzione
 |===
 
 
+[[update-datalif-after-initial-configuration]]
 === Aggiornare `dataLIF` dopo la configurazione iniziale
 
 Puoi modificare la dataLIF dopo la configurazione iniziale eseguendo il seguente comando per fornire il nuovo file JSON di backend con i dati LIF aggiornati.
@@ -129,6 +131,7 @@ NOTE: Se sono collegati a uno o più pod, è necessario abbassare tutti i pod co
 
 
 
+[[backend-configuration-options-for-provisioning-volumes]]
 == Opzioni di configurazione back-end per il provisioning dei volumi
 
 È possibile controllare il provisioning predefinito utilizzando queste opzioni in `defaults` della configurazione. Per un esempio, vedere gli esempi di configurazione riportati di seguito.
@@ -175,6 +178,7 @@ NOTE: Se sono collegati a uno o più pod, è necessario abbassare tutti i pod co
 |===
 
 
+[[example-configurations]]
 == Configurazioni di esempio
 
 .Configurazione della classe di storage per volumi SMB

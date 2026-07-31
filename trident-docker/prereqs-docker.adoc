@@ -16,6 +16,7 @@ summary: 'È necessario installare e configurare i prerequisiti del protocollo n
 
 
 
+[[verify-the-requirements]]
 == Verificare i requisiti
 
 * Verificare che l'implementazione soddisfi tutti i requisiti di link:../trident-get-started/requirements.html["requisiti"].
@@ -30,6 +31,7 @@ docker --version
 
 
 
+[[nfs-tools]]
 === Strumenti NFS
 
 Installa gli strumenti NFS utilizzando i comandi del tuo sistema operativo.
@@ -56,6 +58,7 @@ WARNING: Riavviare i nodi di lavoro dopo aver installato gli strumenti NFS per e
 
 
 
+[[iscsi-tools]]
 === Strumenti iSCSI
 
 Installare gli strumenti iSCSI utilizzando i comandi del sistema operativo.
@@ -158,6 +161,7 @@ sudo systemctl status open-iscsi
 ====
 
 
+[[nvme-tools]]
 == Strumenti NVMe
 
 Installa gli strumenti NVMe utilizzando i comandi del tuo sistema operativo.
@@ -192,6 +196,7 @@ sudo modprobe nvme-tcp
 ====
 
 
+[[fc-tools]]
 == Strumenti FC
 
 Installa gli strumenti FC utilizzando i comandi del tuo sistema operativo.

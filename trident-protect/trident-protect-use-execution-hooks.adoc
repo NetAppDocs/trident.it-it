@@ -18,6 +18,7 @@ Un gancio di esecuzione è un'azione personalizzata che è possibile configurare
 
 
 
+[[types-of-execution-hooks]]
 == Tipi di hook di esecuzione
 
 Trident Protect supporta i seguenti tipi di hook di esecuzione, in base al momento in cui possono essere eseguiti:
@@ -32,6 +33,7 @@ Trident Protect supporta i seguenti tipi di hook di esecuzione, in base al momen
 
 
 
+[[order-of-execution]]
 === Ordine di esecuzione
 
 Quando viene eseguita un'operazione di protezione dei dati, gli eventi hook di esecuzione hanno luogo nel seguente ordine:
@@ -62,6 +64,7 @@ NOTE: Se un gancio di esecuzione pre-snapshot aggiunge, modifica o rimuove le ri
 
 
 
+[[important-notes-about-custom-execution-hooks]]
 == Note importanti sugli hook di esecuzione personalizzati
 
 Quando si pianificano gli hook di esecuzione per le applicazioni, considerare quanto segue.
@@ -77,6 +80,7 @@ NOTE: Poiché gli hook di esecuzione spesso riducono o disattivano completamente
 
 
 
+[[execution-hook-filters]]
 == Esecuzione dei filtri hook
 
 Quando si aggiunge o si modifica un gancio di esecuzione per un'applicazione, è possibile aggiungere filtri al gancio di esecuzione per gestire i contenitori corrispondenti. I filtri sono utili per le applicazioni che utilizzano la stessa immagine container su tutti i container, ma possono utilizzare ogni immagine per uno scopo diverso (ad esempio Elasticsearch). I filtri consentono di creare scenari in cui gli hook di esecuzione vengono eseguiti su alcuni container identici, ma non necessariamente su tutti. Se si creano più filtri per un singolo gancio di esecuzione, questi vengono combinati con un operatore AND logico. È possibile avere fino a 10 filtri attivi per gancio di esecuzione.
@@ -88,6 +92,7 @@ NOTE: Se si aggiunge un filtro dello spazio dei nomi a un gancio di esecuzione c
 
 
 
+[[execution-hook-examples]]
 == Esempi di gancio di esecuzione
 
 Visita il sito https://github.com/NetApp/Verda["Progetto NetApp Verda GitHub"] per scaricare i veri hook di esecuzione per le app più diffuse, come Apache Cassandra ed Elasticsearch. Puoi anche vedere esempi e trovare idee per strutturare i tuoi hook di esecuzione personalizzati.
@@ -97,6 +102,7 @@ NOTE: Gli script presenti nel repository Verda vengono forniti così come sono e
 
 
 
+[[create-an-execution-hook]]
 == Creare un gancio di esecuzione
 
 È possibile creare un hook di esecuzione personalizzato per un'app utilizzando Trident Protect. Per creare hook di esecuzione è necessario disporre delle autorizzazioni di Proprietario, Amministratore o Membro.
@@ -205,6 +211,7 @@ tridentctl-protect create exechook <my_exec_hook_name> --action <action_type> --
 ====
 
 
+[[manually-run-an-execution-hook]]
 == Eseguire manualmente un gancio di esecuzione
 
 È possibile eseguire manualmente un gancio di esecuzione a scopo di test o se è necessario eseguire nuovamente il gancio manualmente dopo un errore. È necessario disporre delle autorizzazioni Proprietario, Amministratore o membro per eseguire manualmente i ganci di esecuzione.

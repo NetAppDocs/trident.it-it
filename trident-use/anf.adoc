@@ -16,6 +16,7 @@ Utilizza Azure NetApp Files come backend per Trident. Questo backend supporta vo
 
 
 
+[[supported-azure-cloud-environments]]
 == Ambienti cloud Azure supportati
 
 Trident supporta backend Azure NetApp Files in più ambienti cloud di Azure.
@@ -30,6 +31,7 @@ Quando distribuisci Trident o configuri un backend Azure NetApp Files, assicurat
 
 
 
+[[review-azure-netapp-files-driver-support]]
 == Esaminare il supporto del driver Azure NetApp Files
 
 Trident fornisce il seguente driver di storage Azure NetApp Files.
@@ -54,6 +56,7 @@ RWO, ROX, RWX, RWOP
 |===
 
 
+[[review-considerations]]
 == Considerazioni sulla revisione
 
 * Azure NetApp Files non supporta volumi inferiori a 50 GiB. Trident crea un volume da 50 GiB quando viene richiesto un volume più piccolo.
@@ -63,6 +66,7 @@ RWO, ROX, RWX, RWOP
 
 
 
+[[use-managed-identities-for-aks]]
 == Usa identità gestite per AKS
 
 Trident supporta link:https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview["identità gestite"^] per i cluster AKS.
@@ -116,6 +120,7 @@ tridentctl install --cloud-provider="Azure" -n trident
 ====
 
 
+[[use-workload-identity-for-aks]]
 == Usa l'identità del carico di lavoro per AKS
 
 Workload identity consente ai pod Kubernetes di accedere alle risorse di Azure autenticandosi come workload identity.

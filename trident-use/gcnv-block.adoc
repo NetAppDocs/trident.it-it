@@ -19,6 +19,7 @@ NOTE: Il `google-cloud-netapp-volumes-san` backend è necessario per il provisio
 
 
 
+[[overview]]
 == Panoramica
 
 Trident supporta i carichi di lavoro SAN (iSCSI) di Google Cloud NetApp Volumes utilizzando il driver  `google-cloud-netapp-volumes-san`.
@@ -35,6 +36,7 @@ Ciò si applica ai seguenti ambienti:
 
 
 
+[[flex-unified-storage-pools]]
 == Pool di storage unificati Flex
 
 I pool di storage Flex Unified forniscono storage a blocchi utilizzando il protocollo iSCSI e sono necessari per il provisioning SAN:
@@ -46,6 +48,7 @@ I pool di storage Flex Unified forniscono storage a blocchi utilizzando il proto
 
 
 
+[[configure-a-trident-san-backend]]
 == Configura un backend SAN Trident
 
 [source, yaml]
@@ -70,6 +73,7 @@ spec:
 ----
 
 
+[[create-a-storageclass]]
 == Crea un StorageClass
 
 Dopo aver configurato il backend SAN, crea una StorageClass che fa riferimento al driver  `google-cloud-netapp-volumes-san`.
@@ -100,10 +104,12 @@ NOTE: Il driver SAN supporta solo il livello di servizio Flex e non utilizza par
 
 
 
+[[provision-block-volumes]]
 == Effettuare il provisioning dei volumi a blocchi
 
 
 
+[[readwriteonce-rwo]]
 === ReadWriteOnce (RWO)
 
 [source, yaml]
@@ -122,6 +128,7 @@ spec:
 ----
 
 
+[[readwriteoncepod-rwop]]
 === ReadWriteOncePod (RWOP)
 
 [source, yaml]
@@ -140,6 +147,7 @@ spec:
 ----
 
 
+[[readonlymany-rox]]
 === ReadOnlyMany (ROX)
 
 Un modello comune per ROX è clonare un volume ReadWriteOnce esistente e montare il clone come di sola lettura.
@@ -163,6 +171,7 @@ spec:
 ----
 
 
+[[readwritemany-rwx-raw-block-only]]
 === ReadWriteMany (RWX) — solo raw block
 
 ReadWriteMany è supportato solo quando `volumeMode: Block`.
@@ -184,6 +193,7 @@ spec:
 ----
 
 
+[[block-volume-behavior]]
 == Comportamento del volume a blocchi
 
 I volumi a blocchi vengono forniti come LUN iSCSI e presentati ai nodi Kubernetes come dispositivi a blocchi.
@@ -198,6 +208,7 @@ Volumi a blocchi:
 
 
 
+[[access-modes]]
 == Modalità di accesso
 
 I volumi a blocchi forniti da Trident supportano le seguenti modalità di accesso:
@@ -210,6 +221,7 @@ I volumi a blocchi forniti da Trident supportano le seguenti modalità di access
 
 
 
+[[volumemode-behavior]]
 == Comportamento di volumeMode
 
 Il  `volumeMode` campo controlla come viene esposto un volume di blocco:
@@ -220,6 +232,7 @@ Il  `volumeMode` campo controlla come viene esposto un volume di blocco:
 
 
 
+[[supported-operations]]
 == Operazioni supportate
 
 Volumi a blocchi forniti utilizzando il  `google-cloud-netapp-volumes-san` driver support:
@@ -234,6 +247,7 @@ Volumi a blocchi forniti utilizzando il  `google-cloud-netapp-volumes-san` drive
 
 
 
+[[extra-gib-overprovisioning-behavior]]
 == Comportamento di overprovisioning extra GiB
 
 I volumi a blocchi di Google Cloud NetApp Volumes includono un overhead interno di metadati. Questo overhead riduce le dimensioni del dispositivo visibile al kernel rispetto alla capacità fornita.
@@ -259,10 +273,12 @@ Esempio:
 
 
 
+[[pod-examples]]
 == Esempi di pod
 
 
 
+[[filesystem-mounted-block-volume-rwo]]
 === Volume a blocchi montato sul filesystem (RWO)
 
 [source, yaml]
@@ -286,6 +302,7 @@ spec:
 ----
 
 
+[[raw-block-device-rwx]]
 === Dispositivo a blocchi raw (RWX)
 
 [source, yaml]
@@ -309,6 +326,7 @@ spec:
 ----
 
 
+[[attach-and-mount-behavior]]
 == Comportamento di attach e mount
 
 Per i volumi SAN forniti da Google Cloud NetApp Volumes:

@@ -16,6 +16,7 @@ A partire dalla release 24,02, Trident segue una cadenza di quattro mesi, fornen
 
 
 
+[[considerations-before-upgrading]]
 == Considerazioni prima dell'aggiornamento
 
 Quando si effettua l'aggiornamento alla versione più recente di Trident, tenere presente quanto segue:
@@ -33,6 +34,7 @@ Quando si effettua l'aggiornamento alla versione più recente di Trident, tenere
 
 
 
+[[step-1-select-a-version]]
 == Fase 1: Selezionare una versione
 
 Le versioni Trident seguono una convenzione di denominazione basata sulla data `YY.MM`, dove "YY" è l'ultima cifra dell'anno e "MM" è il mese. I rilasci di DOT seguono una `YY.MM.X` convenzione, dove "X" è il livello di patch. Selezionare la versione a cui eseguire l'aggiornamento in base alla versione da cui si sta eseguendo l'aggiornamento.
@@ -51,6 +53,7 @@ NOTE: Quando si esegue l'aggiornamento utilizzando l'operatore Trident su OpenSh
 
 
 
+[[step-2-determine-the-original-installation-method]]
 == Fase 2: Determinare il metodo di installazione originale
 
 Per determinare quale versione è stata utilizzata per l'installazione originale di Trident:
@@ -71,6 +74,7 @@ Per determinare quale versione è stata utilizzata per l'installazione originale
 
 
 
+[[step-3-select-an-upgrade-method]]
 == Fase 3: Selezionare un metodo di aggiornamento
 
 In generale, dovresti eseguire l'aggiornamento utilizzando lo stesso metodo usato per l'installazione iniziale, tuttavia puoi link:../trident-install/kubernetes-deploy.html#moving-between-installation-methods["passare da un metodo di installazione all'altro"]. Ci sono due opzioni per aggiornare Trident.

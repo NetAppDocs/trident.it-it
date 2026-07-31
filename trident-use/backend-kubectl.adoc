@@ -16,6 +16,7 @@ Un backend definisce la relazione tra Trident e un sistema di storage. Spiega a 
 
 
 
+[[tridentbackendconfig]]
 == `TridentBackendConfig`
 
 `TridentBackendConfig` (`tbc`, , `tbconfig` `tbackendconfig` ) È un CRD in primo piano, con nome, che consente di gestire backend Trident utilizzando `kubectl`. Gli amministratori di Kubernetes e dello storage possono ora creare e gestire i backend direttamente attraverso l'interfaccia a riga di comando di Kubernetes senza richiedere un'utility a riga di comando dedicata (`tridentctl`).
@@ -72,6 +73,7 @@ TIP: I backend creati con `tridentctl` non hanno un oggetto associato `TridentBa
 
 
 
+[[steps-overview]]
 == Panoramica dei passaggi
 
 Per creare un nuovo backend utilizzando `kubectl`, eseguire le seguenti operazioni:
@@ -84,6 +86,7 @@ Dopo aver creato un backend, è possibile osservarne lo stato utilizzando `kubec
 
 
 
+[[step-1-create-a-kubernetes-secret]]
 == Fase 1: Creare un Kubernetes Secret
 
 Creare un segreto contenente le credenziali di accesso per il backend. Si tratta di una caratteristica esclusiva di ogni piattaforma/servizio di storage. Ecco un esempio:
@@ -176,6 +179,7 @@ Il Segreto creato in questo passaggio verrà indicato in `spec.credentials` camp
 
 
 
+[[step-2-create-the-tridentbackendconfig-cr]]
 == Fase 2: Creare `TridentBackendConfig` CR
 
 A questo punto, è possibile creare il `TridentBackendConfig` CR. In questo esempio, un backend che utilizza `ontap-san` il driver viene creato utilizzando `TridentBackendConfig` oggetto mostrato di seguito:
@@ -202,6 +206,7 @@ spec:
 ----
 
 
+[[step-3-verify-the-status-of-the-tridentbackendconfig-cr]]
 == Fase 3: Verificare lo stato di `TridentBackendConfig` CR
 
 Ora che è stato creato il `TridentBackendConfig` CR, è possibile verificare lo stato. Vedere il seguente esempio:
@@ -232,6 +237,7 @@ In questa fase, viene creato un backend. È possibile gestire anche diverse oper
 
 
 
+[[optional-step-4-get-more-details]]
 == (Facoltativo) fase 4: Ulteriori informazioni
 
 È possibile eseguire il seguente comando per ottenere ulteriori informazioni sul backend:

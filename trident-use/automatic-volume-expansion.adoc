@@ -21,6 +21,7 @@ NOTE: I volumi aumentano automaticamente di dimensione quando viene superata la 
 
 
 
+[[requirements]]
 == Requisiti
 
 Prima di configurare l'espansione automatica del volume, assicurarsi che siano soddisfatti i seguenti requisiti:
@@ -40,6 +41,7 @@ Prima di configurare l'espansione automatica del volume, assicurarsi che siano s
 
 
 
+[[limitations]]
 == Limitazioni
 
 * I volumi raw block ONTAP Non-Volatile Memory Express precedenti a ONTAP 9.16.1 non supportano l'espansione automatica.
@@ -58,6 +60,7 @@ Prima di configurare l'espansione automatica del volume, assicurarsi che siano s
 
 
 
+[[provision-volumes-with-autogrow-policy]]
 == Provision Volumes con criterio di Autogrow
 
 La policy di Autogrow può essere configurata a due livelli:
@@ -68,6 +71,7 @@ La policy di Autogrow può essere configurata a due livelli:
 
 
 
+[[create-an-autogrow-policy]]
 == Crea una policy di Autogrow
 
 Le Autogrow Policies consentono l'espansione automatica del volume quando i volumi raggiungono una soglia di capacità definita.
@@ -92,6 +96,7 @@ Questa flessibilità consente di introdurre l'espansione automatica senza ricrea
 
 
 
+[[autogrow-policy-specifications]]
 === Specifiche della Autogrow Policy
 
 Le Autogrow Policies sono risorse personalizzate di Kubernetes definite come segue:
@@ -114,6 +119,7 @@ Le Autogrow Policies sono risorse personalizzate di Kubernetes definite come seg
 |===
 
 
+[[create-an-autogrow-policy]]
 == Crea una policy di Autogrow
 
 .Fasi
@@ -153,6 +159,7 @@ standard-autogrow   80%              10%             Success
 
 
 
+[[policy-states]]
 == Stati delle policy
 
 Dopo aver creato una policy, Trident convalida la specifica e assegna uno dei seguenti stati:
@@ -172,6 +179,7 @@ Dopo aver creato una policy, Trident convalida la specifica e assegna uno dei se
 |===
 
 
+[[associate-a-policy-with-a-storageclass]]
 == Associa una policy a un StorageClass
 
 È possibile associare una Autogrow Policy a una StorageClass utilizzando l' `trident.netapp.io/autogrowPolicy`annotazione. Tutti i volumi forniti da quella StorageClass ereditano la policy.
@@ -218,6 +226,7 @@ production-db-policy
 
 
 
+[[policy-precedence]]
 == Precedenza delle policy
 
 Quando le annotazioni Autogrow Policy sono impostate sia su una StorageClass che su un PVC, Trident applica le seguenti regole di precedenza:
@@ -248,12 +257,14 @@ Quando le annotazioni Autogrow Policy sono impostate sia su una StorageClass che
 |===
 
 
+[[configuration-examples]]
 == Esempi di configurazione
 
 Gli esempi seguenti mostrano configurazioni comuni di Autogrow Policy per diversi casi d'uso.
 
 
 
+[[conservative-policy-for-production-databases]]
 === Politica conservativa per database di produzione
 
 [source, yaml]
@@ -269,6 +280,7 @@ spec:
 ----
 
 
+[[log-storage-with-fixed-growth-increments]]
 === Archiviazione dei log con incrementi di crescita fissi
 
 [source, yaml]
@@ -284,6 +296,7 @@ spec:
 ----
 
 
+[[minimal-policy-with-defaults]]
 === Politica minima con valori predefiniti
 
 Quando si omettono  `growthAmount` e  `maxSize`, Trident utilizza i valori predefiniti (`10%` crescita, dimensione illimitata):
@@ -299,6 +312,7 @@ spec:
 ----
 
 
+[[policy-with-a-custom-maxsize-and-default-growthamount]]
 === Policy con un maxSize personalizzato e growthAmount predefinito
 
 [source, yaml]
@@ -313,6 +327,7 @@ spec:
 ----
 
 
+[[aggressive-growth-with-unlimited-maxsize]]
 === Crescita aggressiva con maxSize illimitata
 
 [source, yaml]
@@ -327,6 +342,7 @@ spec:
 ----
 
 
+[[policy-with-fractional-percentages]]
 === Policy con percentuali frazionarie
 
 [source, yaml]
@@ -345,6 +361,7 @@ NOTE: Sono supportate le percentuali frazionarie. Se si specificano più di tre 
 
 
 
+[[nas-storageclass-with-autogrow]]
 === NAS StorageClass con Autogrow
 
 [source, yaml]
@@ -363,6 +380,7 @@ allowVolumeExpansion: true
 ----
 
 
+[[san-storageclass-with-autogrow]]
 === SAN StorageClass con crescita automatica
 
 [source, yaml]

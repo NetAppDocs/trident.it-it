@@ -16,6 +16,7 @@ Utilizzando Trident, è possibile creare un volume in un namespace primario e co
 
 
 
+[[features]]
 == Caratteristiche
 
 TridentVolumeReference CR consente di condividere in modo sicuro i volumi NFS ReadWriteMany (RWX) in uno o più namespace Kubernetes. Questa soluzione nativa di Kubernetes offre i seguenti vantaggi:
@@ -31,6 +32,7 @@ image::cross-namespace-sharing.png[Un diagramma concettuale della condivisione d
 
 
 
+[[quick-start]]
 == Avvio rapido
 
 Puoi configurare la condivisione dei volumi NFS in pochi passaggi.
@@ -53,6 +55,7 @@ Il proprietario dello spazio dei nomi di destinazione crea il PVC subordinato pe
 
 
 
+[[configure-the-source-and-destination-namespaces]]
 == Configurare gli spazi dei nomi di origine e di destinazione
 
 Per garantire la sicurezza, la condivisione di spazi dei nomi incrociati richiede la collaborazione e l'azione del proprietario dello spazio dei nomi di origine, dell'amministratore del cluster e del proprietario dello spazio dei nomi di destinazione. Il ruolo dell'utente viene designato in ogni fase.
@@ -133,12 +136,14 @@ Trident legge l' `shareFromPVC`annotazione sul PVC di destinazione e crea il PV 
 
 
 
+[[delete-a-shared-volume]]
 == Eliminare un volume condiviso
 
 È possibile eliminare un volume condiviso tra più spazi dei nomi. Trident rimuoverà l'accesso al volume sul namespace di origine e manterrà l'accesso agli altri namespace che condividono il volume. Quando tutti gli spazi dei nomi che fanno riferimento al volume vengono rimossi, Trident elimina il volume.
 
 
 
+[[use-tridentctl-get-to-query-subordinate-volumes]]
 == Utilizzare `tridentctl get` per eseguire query sui volumi subordinati
 
 Utilizzando l'[`tridentctl`utility, è possibile eseguire il `get`comando per ottenere volumi subordinati. Per ulteriori informazioni, consultare link:../trident-reference/trident-cl.html[`tridentctl` comandi e opzioni].
@@ -157,6 +162,7 @@ Allarmi:
 
 
 
+[[limitations]]
 == Limitazioni
 
 * Trident non può impedire la scrittura degli spazi dei nomi di destinazione nel volume condiviso. È necessario utilizzare il blocco dei file o altri processi per impedire la sovrascrittura dei dati dei volumi condivisi.
@@ -166,6 +172,7 @@ Allarmi:
 
 
 
+[[for-more-information]]
 == Per ulteriori informazioni
 
 Per ulteriori informazioni sull'accesso ai volumi tra spazi dei nomi:

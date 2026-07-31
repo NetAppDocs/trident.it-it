@@ -16,6 +16,7 @@ NetApp Trident ottimizza la gestione dello storage di Amazon FSX per NetApp ONTA
 
 
 
+[[prerequisites]]
 == Prerequisiti
 
 Prima di configurare il componente aggiuntivo Trident per AWS EKS, assicurati di disporre di quanto segue:
@@ -32,6 +33,7 @@ Prima di configurare il componente aggiuntivo Trident per AWS EKS, assicurati di
 
 
 
+[[steps]]
 == Fasi
 
 . Assicurati di creare il ruolo IAM e il segreto AWS per abilitare i pod EKS per accedere alle risorse AWS. Per istruzioni, vedere link:../trident-use/trident-fsx-iam-role.html["Creare un ruolo IAM e un segreto AWS"^].
@@ -69,6 +71,7 @@ kubectl get pods -n trident
 
 
 
+[[installuninstall-the-trident-eks-add-on-using-cli]]
 == Installare/disinstallare il componente aggiuntivo Trident EKS utilizzando la CLI
 
 .Installare il componente aggiuntivo NetApp Trident EKS utilizzando la CLI:

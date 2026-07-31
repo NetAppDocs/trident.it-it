@@ -16,6 +16,7 @@ Trident può creare e collegare in modo selettivo i volumi ai nodi presenti in u
 
 
 
+[[overview]]
 == Panoramica
 
 Utilizzando la funzionalità topologia CSI, l'accesso ai volumi può essere limitato a un sottoinsieme di nodi, in base alle aree geografiche e alle zone di disponibilità. I provider di cloud oggi consentono agli amministratori di Kubernetes di generare nodi basati su zone. I nodi possono essere collocati in diverse zone di disponibilità all'interno di una regione o in diverse regioni. Per facilitare il provisioning dei volumi per i carichi di lavoro in un'architettura multi-zona, Trident utilizza la topologia CSI.
@@ -56,6 +57,7 @@ kubectl get nodes -o=jsonpath='{range .items[*]}[{.metadata.name}, {.metadata.la
 
 
 
+[[step-1-create-a-topology-aware-backend]]
 == Fase 1: Creazione di un backend compatibile con la topologia
 
 I backend di storage Trident possono essere progettati per eseguire il provisioning selettivo dei volumi in base alle zone di disponibilità. Ogni backend può portare un blocco opzionale `supportedTopologies` che rappresenta un elenco di zone e regioni supportate. Per StorageClasses che utilizzano tale backend, un volume viene creato solo se richiesto da un'applicazione pianificata in una regione/zona supportata.
@@ -146,6 +148,7 @@ In questo esempio, il `region` e. `zone` le etichette indicano la posizione del 
 
 
 
+[[step-2-define-storageclasses-that-are-topology-aware]]
 == Fase 2: Definire StorageClasses che siano compatibili con la topologia
 
 In base alle etichette della topologia fornite ai nodi del cluster, è possibile definire StorageClasses in modo da contenere informazioni sulla topologia. In questo modo verranno determinati i pool di storage che fungono da candidati per le richieste PVC effettuate e il sottoinsieme di nodi che possono utilizzare i volumi forniti da Trident.
@@ -176,6 +179,7 @@ Nella definizione StorageClass fornita sopra, `volumeBindingMode` è impostato s
 
 
 
+[[step-3-create-and-use-a-pvc]]
 == Fase 3: Creare e utilizzare un PVC
 
 Con StorageClass creato e mappato a un backend, è ora possibile creare PVC.
@@ -284,12 +288,14 @@ pvc-san   Bound    pvc-ecb1e1a0-840c-463b-8b65-b3d033e2e62b   300Mi      RWO    
 ----
 
 
+[[update-backends-to-include-supportedtopologies]]
 == Aggiorna i back-end da includere `supportedTopologies`
 
 I backend preesistenti possono essere aggiornati per includere un elenco di `supportedTopologies` utilizzo di `tridentctl backend update`. Ciò non influisce sui volumi già sottoposti a provisioning e verrà utilizzato solo per i PVC successivi.
 
 
 
+[[find-more-information]]
 == Trova ulteriori informazioni
 
 * https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/["Gestire le risorse per i container"^]
