@@ -18,7 +18,7 @@ summary: 'È possibile aggiornare facilmente un"installazione Trident esistente 
 La disinstallazione e la reinstallazione di Trident funge da aggiornamento. Quando si disinstalla Trident, il PVC (Persistent Volume Claim) e il PV (Persistent Volume Claim) utilizzati dall'implementazione Trident non vengono eliminati. I PVC che sono già stati sottoposti a provisioning rimarranno disponibili mentre Trident è offline, e Trident eseguirà il provisioning dei volumi per qualsiasi PVC creato nel frattempo dopo il ritorno online.
 
 .Prima di iniziare
-Revisione link:upgrade-trident.html#select-an-upgrade-method["Selezionare un metodo di aggiornamento"] prima di eseguire l'aggiornamento con `tridentctl`.
+Rivedi link:upgrade-trident.html#step-3-select-an-upgrade-method["Selezionare un metodo di aggiornamento"] prima di aggiornare usando `tridentctl`.
 
 .Fasi
 . Eseguire il comando di disinstallazione in `tridentctl` per rimuovere tutte le risorse associate a Trident, ad eccezione dei CRD e degli oggetti correlati.

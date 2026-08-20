@@ -517,7 +517,7 @@ Per le opzioni di configurazione del provider S3, consultare la seguente tabella
 | `providerConfig.s3.secure` | Abilita la comunicazione HTTPS sicura con l'endpoint S3. | vero | "vero", "falso" 
 
 
-| `providerConfig.s3.proxyURL` | Specificare l'URL del server proxy utilizzato per connettersi a S3. | Nessuno | http://proxy.example.com:8080[] 
+| `providerConfig.s3.proxyURL` | Specificare l'URL del server proxy utilizzato per connettersi a S3. | Nessuno | \http://proxy.example.com:8080 
 
 
 | `providerConfig.s3.rootCA` | Fornire un certificato CA radice personalizzato per la verifica SSL/TLS. | Nessuno | "CN=MyCustomCA" 

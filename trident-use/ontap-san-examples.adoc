@@ -12,7 +12,7 @@ summary: 'Informazioni su come creare e utilizzare i driver SAN ONTAP con l"inst
 
 
 [role="lead"]
-Scopri come creare e utilizzare i driver SAN ONTAP con la tua installazione Trident. Questa sezione fornisce esempi di configurazione del backend e dettagli per il mapping dei backend a StorageClasses. link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemi ASA r2"^] differiscono dagli altri sistemi ONTAP (ASA, AFF e FAS) nell'implementazione del loro livello di storage. Queste variazioni influiscono sull'utilizzo di determinati parametri come indicato. link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["Scopri di più sulle differenze tra i sistemi ASA r2 e gli altri sistemi ONTAP"^]. Nella configurazione del backend Trident, non è necessario specificare che il sistema sia ASA r2. Quando si seleziona  `ontap-san` come  `storageDriverName`, Trident rileva automaticamente i sistemi ASA r2 o altri sistemi ONTAP. Alcuni parametri di configurazione del backend non sono applicabili ai sistemi ASA r2, come indicato nella tabella seguente.
+Crea e usa i driver SAN ONTAP con la tua installazione di Trident. Questa sezione fornisce esempi di configurazione del backend e dettagli per la mappatura dei backend a StorageClasses. link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemi ASA r2"^] differiscono dagli altri sistemi ONTAP (ASA, AFF e FAS) nell'implementazione del loro livello di storage. Queste variazioni influiscono sull'uso di alcuni parametri come indicato. link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["Scopri di più sulle differenze tra i sistemi ASA r2 e gli altri sistemi ONTAP"^]. Nella configurazione del backend di Trident, non devi specificare che il tuo sistema è ASA r2. Quando selezioni  `ontap-san` come  `storageDriverName`, Trident rileva automaticamente ASA r2 o altri sistemi ONTAP. Alcuni parametri di configurazione del backend non sono applicabili ai sistemi ASA r2 come indicato nella tabella seguente.
 
 
 NOTE: Solo il `ontap-san` Il driver (con protocolli iSCSI, NVMe/TCP e FC) è supportato per i sistemi ASA r2.
@@ -21,6 +21,8 @@ NOTE: Solo il `ontap-san` Il driver (con protocolli iSCSI, NVMe/TCP e FC) è sup
 
 [[backend-configuration-options]]
 == Opzioni di configurazione back-end
+
+A partire dalla versione 26.06, puoi abilitare il posizionamento bilanciato di ONTAP così che ONTAP selezioni l'aggregato per i nuovi volumi. Consulta link:ontap-balanced-placement.html["Usa un posizionamento bilanciato con i backend ONTAP"] per i requisiti e gli esempi.
 
 Per le opzioni di configurazione del backend, consultare la tabella seguente:
 
@@ -96,19 +98,28 @@ NOTE: Se stai utilizzando credenziali "vsadmin", `managementLIF` devi essere que
 | `svm` | Macchina virtuale per lo storage da utilizzare | Derivato se un SVM `managementLIF` è specificato 
 
 
-| `storagePrefix` | Prefisso utilizzato per il provisioning di nuovi volumi nella SVM. Non può essere modificato in seguito. Per aggiornare questo parametro, è necessario creare un nuovo backend. | `trident` 
+| `storagePrefix` | Prefisso utilizzato durante il provisioning di nuovi volumi nell'SVM. Non può essere modificato in seguito. Per aggiornare questo parametro, devi creare un nuovo backend. | `trident` 
 
 
 | `aggregate`  a| 
-Aggregato per il provisioning (facoltativo; se impostato, deve essere assegnato alla SVM). Per il `ontap-nas-flexgroup` driver, questa opzione viene ignorata. Se non viene assegnato, è possibile utilizzare qualsiasi aggregato disponibile per il provisioning di un volume FlexGroup.
+Aggregato per il provisioning (facoltativo; se impostato, deve essere assegnato all'SVM). Per il  `ontap-nas-flexgroup` driver, questa opzione viene ignorata. Se non assegnato, è possibile utilizzare uno qualsiasi degli aggregati disponibili per il provisioning di un volume FlexGroup.
 
 
-NOTE: Una volta aggiornato l'aggregato in SVM, viene aggiornato automaticamente in Trident eseguendo un polling della SVM senza riavviare il controller Trident. Dopo aver configurato un aggregato specifico in Trident per il provisioning dei volumi, in caso di ridenominazione o spostamento dell'aggregato dalla SVM, il back-end passa allo stato di errore in Trident durante il polling dell'aggregato della SVM. È necessario modificare l'aggregato in uno presente nella SVM o rimuoverlo del tutto per riportare online il back-end.
+NOTE: Quando l'aggregato viene aggiornato in SVM, viene aggiornato automaticamente anche in Trident tramite polling di SVM, senza dover riavviare il Trident Controller. Quando hai configurato un aggregato specifico in Trident per il provisioning dei volumi, se l'aggregato viene rinominato o spostato fuori da SVM, il backend passa allo stato di errore in Trident durante il polling dell'aggregato SVM. Devi cambiare l'aggregato con uno presente su SVM oppure rimuoverlo del tutto per riportare online il backend.
 
 *Non specificare per i sistemi ASA r2*.
+
+*Non specificare quando  `useBalancedPlacement` è impostato su  `true`.*
  a| 
 ""
 
+
+
+| `useBalancedPlacement`  a| 
+Delega la selezione dell'aggregato per i nuovi volumi a ONTAP [Boolean]. Richiede ONTAP 9.19.1 o versioni successive e  `useREST` impostato su  `true`. Non può essere combinato con  `aggregate`.
+
+Consulta la documentazione link:ontap-balanced-placement.html["Usa un posizionamento bilanciato con i backend ONTAP"] per requisiti ed esempi.
+| `false` 
 
 
 | `limitAggregateUsage` | Il provisioning non riesce se l'utilizzo è superiore a questa percentuale. Se si utilizza un backend Amazon FSX per NetApp ONTAP, non specificare  `limitAggregateUsage`. Fornito `fsxadmin` e `vsadmin` non contiene le autorizzazioni necessarie per recuperare l'utilizzo dell'aggregato e limitarlo mediante Trident. *Non specificare per i sistemi ASA r2*. | "" (non applicato per impostazione predefinita) 
@@ -145,7 +156,7 @@ NOTE: NVMe è supportato solo con le API REST ONTAP e non con ONTAPI (ZAPI).
 
 
 | `formatOptions`  a| 
-Consente `formatOptions` di specificare gli argomenti della riga di comando per il `mkfs` comando, che verranno applicati ogni volta che un volume viene formattato. In questo modo è possibile formattare il volume in base alle proprie preferenze. Assicurarsi di specificare le opzioni formatOptions simili a quelle del comando mkfs, escludendo il percorso del dispositivo. Esempio: "-e nodiscard"
+Usa  `formatOptions` per specificare gli argomenti della riga di comando per il comando  `mkfs`, che viene applicato ogni volta che un volume viene formattato. Questo ti permette di formattare il volume secondo le tue preferenze. Assicurati di specificare le formatOptions in modo simile alle opzioni del comando mkfs, escludendo il percorso del dispositivo. Esempio: "-E nodiscard"
 
 *Supportato per  `ontap-san` E  `ontap-san-economy` driver con protocollo iSCSI.* *Inoltre, supportati per sistemi ASA r2 quando si utilizzano i protocolli iSCSI e NVMe/TCP.*
  a| 
@@ -224,7 +235,7 @@ Trident consiglia le seguenti opzioni per velocizzare il processo di formattazio
 | `splitOnClone` | Separare un clone dal suo padre al momento della creazione | "falso" 
 
 
-| `encryption` | Abilitare la crittografia del volume NetApp (NVE) sul nuovo volume; il valore predefinito è `false`. NVE deve essere concesso in licenza e abilitato sul cluster per utilizzare questa opzione. Se NAE è abilitato sul backend, qualsiasi volume sottoposto a provisioning in Trident sarà abilitato NAE. Per ulteriori informazioni, fare riferimento a: link:../trident-reco/security-reco.html["Come funziona Trident con NVE e NAE"]. | "false" *Se specificato, impostare su  `true` per sistemi ASA r2*. 
+| `encryption` | Abilita NetApp Volume Encryption (NVE) sul nuovo volume; il valore predefinito è  `false`. NVE deve essere concesso in licenza e abilitato sul cluster per usare questa opzione. Se NAE è abilitato sul backend, qualsiasi volume effettuato il provisioning in Trident è abilitato per NAE. Per ulteriori informazioni, consulta: link:../trident-reco/security-reco.html["Come funziona Trident con NVE e NAE"]. | "false" *Se specificato, impostare su  `true` per sistemi ASA r2*. 
 
 
 | `luksEncryption` | Attivare la crittografia LUKS. Fare riferimento alla link:../trident-reco/security-luks.html["Utilizzo di Linux Unified Key Setup (LUKS)"]. | "" *Impostato su  `false` per sistemi ASA r2*. 
@@ -267,7 +278,7 @@ defaults:
 
 ----
 
-NOTE: Per tutti i volumi creati utilizzando il `ontap-san` driver, Trident aggiunge un ulteriore 10% di capacità alla FlexVol per ospitare i metadati LUN. Il LUN viene fornito con le dimensioni esatte richieste dall'utente nel PVC. Trident aggiunge il 10% al FlexVol (mostra come dimensioni disponibili in ONTAP). A questo punto, gli utenti otterranno la quantità di capacità utilizzabile richiesta. Questa modifica impedisce inoltre che le LUN diventino di sola lettura, a meno che lo spazio disponibile non sia completamente utilizzato. Ciò non si applica a ontap-san-Economy.
+NOTE: Per tutti i volumi creati utilizzando il  `ontap-san` driver, Trident aggiunge un ulteriore 10% di capacità al FlexVol per ospitare i metadati del LUN. Il LUN viene predisposto con la dimensione esatta richiesta dall'utente nel PVC. Trident aggiunge il 10% al FlexVol (mostrato come Dimensione disponibile in ONTAP). Ora ottieni la quantità di capacità utilizzabile che hai richiesto. Questa modifica impedisce anche che i LUN diventino di sola lettura, a meno che lo spazio disponibile non sia completamente utilizzato. Questo non si applica a ontap-san-economy.
 
 Per i backend che definiscono `snapshotReserve`, Trident calcola le dimensioni dei volumi come segue:
 
@@ -401,6 +412,24 @@ chapTargetUsername: iJF4heBRT0TCwxyz
 chapUsername: uh2aNCLSd6cNwxyz
 username: vsadmin
 password: <password>
+----
+====
+.Esempio di posizionamento bilanciato
+[%collapsible]
+====
+Questo esempio abilita il posizionamento bilanciato di ONTAP, così che ONTAP selezioni l'aggregato per i nuovi volumi. Il posizionamento bilanciato richiede ONTAP 9.19.1 o versioni successive. Consulta link:ontap-balanced-placement.html["Usa un posizionamento bilanciato con i backend ONTAP"] per i dettagli.
+
+[source, yaml]
+----
+---
+version: 1
+storageDriverName: ontap-san
+backendName: san-balanced-placement
+managementLIF: 10.0.0.1
+svm: svm_iscsi
+username: vsadmin
+password: <password>
+useBalancedPlacement: true
 ----
 ====
 .Esempio NVMe/TCP
@@ -632,9 +661,9 @@ storage:
 [[map-backends-to-storageclasses]]
 == Mappare i backend in StorageClasses
 
-Le seguenti definizioni di StorageClass fanno riferimento a. <<Esempi di backend con pool virtuali>>. Utilizzando il `parameters.selector` Ciascun StorageClass richiama i pool virtuali che possono essere utilizzati per ospitare un volume. Gli aspetti del volume saranno definiti nel pool virtuale scelto.
+Le seguenti StorageClass definizioni si riferiscono a <<Esempi di backend con pool virtuali>>. Utilizzando il campo  `parameters.selector`, ciascuna StorageClass indica quali pool virtuali puoi usare per ospitare un volume. Ora il volume ha le caratteristiche definite nel pool virtuale scelto.
 
-* Il `protection-gold` StorageClass verrà mappato al primo pool virtuale in `ontap-san` back-end. Questo è l'unico pool che offre una protezione di livello gold.
+* Il `protection-gold` StorageClass mappa il primo pool virtuale nel `ontap-san` backend. Questo è l'unico pool che offre protezione di livello oro.
 +
 [source, yaml]
 ----
@@ -647,7 +676,7 @@ parameters:
   selector: "protection=gold"
   fsType: "ext4"
 ----
-* Il `protection-not-gold` StorageClass eseguirà il mapping al secondo e al terzo pool virtuale in `ontap-san` back-end. Questi sono gli unici pool che offrono un livello di protezione diverso dall'oro.
+* La  `protection-not-gold` StorageClass corrisponde al secondo e al terzo pool virtuale nel  `ontap-san` backend. Questi sono gli unici pool che offrono un livello di protezione diverso da gold.
 +
 [source, yaml]
 ----
@@ -660,7 +689,7 @@ parameters:
   selector: "protection!=gold"
   fsType: "ext4"
 ----
-* Il `app-mysqldb` StorageClass eseguirà il mapping al terzo pool virtuale in `ontap-san-economy` back-end. Questo è l'unico pool che offre la configurazione del pool di storage per l'applicazione di tipo mysqldb.
+* La `app-mysqldb` StorageClass corrisponde al terzo pool virtuale nel `ontap-san-economy` backend. Questo è l'unico pool che offre la configurazione del pool di storage per le app di tipo mysqldb.
 +
 [source, yaml]
 ----
@@ -673,7 +702,7 @@ parameters:
   selector: "app=mysqldb"
   fsType: "ext4"
 ----
-* Il `protection-silver-creditpoints-20k` StorageClass eseguirà il mapping al secondo pool virtuale in `ontap-san` back-end. Questo è l'unico pool che offre una protezione di livello Silver e 20000 punti di credito.
+* La `protection-silver-creditpoints-20k` StorageClass corrisponde al secondo pool virtuale nel `ontap-san` backend. Questo è l'unico pool che offre protezione di livello argento e 20000 punti credito.
 +
 [source, yaml]
 ----
@@ -686,7 +715,7 @@ parameters:
   selector: "protection=silver; creditpoints=20000"
   fsType: "ext4"
 ----
-* Il `creditpoints-5k` StorageClass eseguirà il mapping al terzo pool virtuale in `ontap-san` il back-end e il quarto pool virtuale in `ontap-san-economy` back-end. Queste sono le uniche offerte di pool con 5000 punti di credito.
+* La `creditpoints-5k` StorageClass corrisponde al terzo pool virtuale nel `ontap-san` backend e al quarto pool virtuale nel `ontap-san-economy` backend. Queste sono le uniche offerte di pool con 5000 creditpoints.
 +
 [source, yaml]
 ----
@@ -699,7 +728,7 @@ parameters:
   selector: "creditpoints=5000"
   fsType: "ext4"
 ----
-* Il `my-test-app-sc` StorageClass verrà mappato su `testAPP` pool virtuale in `ontap-san` conducente con `sanType: nvme`. Si tratta dell'unica offerta di piscina `testApp`.
+* La  `my-test-app-sc` StorageClass corrisponde al  `testAPP` pool virtuale nel  `ontap-san` driver con  `sanType: nvme`. Questo è l'unico pool che offre  `testApp`.
 +
 [source, yaml]
 ----
@@ -715,4 +744,4 @@ parameters:
 ----
 
 
-Trident deciderà quale pool virtuale viene selezionato e garantirà che i requisiti di storage vengano soddisfatti.
+Trident decide quale pool virtuale viene selezionato e garantisce che il requisito di storage sia soddisfatto.

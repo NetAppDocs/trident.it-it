@@ -1,18 +1,16 @@
----
-sidebar: sidebar 
-permalink: trident-use/ontap-nas-examples.html 
-keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx, metrocluster 
-summary: 'Scopri come creare e utilizzare i driver NAS ONTAP con l"installazione Trident. Questa sezione fornisce esempi di configurazione back-end e dettagli su come mappare i backend a StorageClasses.' 
----
 = Opzioni ed esempi di configurazione del NAS ONTAP
-:hardbreaks:
 :allow-uri-read: 
-:icons: font
-:imagesdir: ../media/
 
+
+'''
+sidebar: sidebar permalink: trident-use/ontap-nas-examples.html keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx, metrocluster summary: Scopri come creare e usare i driver ONTAP NAS con la tua installazione Trident. Questa sezione fornisce esempi di configurazione del backend e dettagli su come mappare i backend alle StorageClasses. ---
+
+
+
+= Opzioni ed esempi di configurazione del NAS ONTAP
 
 [role="lead"]
-Impara a creare e utilizzare i driver NAS ONTAP con la tua installazione Trident. Questa sezione fornisce esempi di configurazione del backend e dettagli per il mapping dei backend a StorageClasses. A partire dalla release 25.10, NetApp Trident supporta link:https://docs.netapp.com/us-en/ontap-afx/index.html["Sistemi di archiviazione NetApp AFX"^]. NetApp AFX storage systems differiscono dagli altri sistemi basati su ONTAP (ASA, AFF e FAS) nell'implementazione del loro livello di storage.
+Crea e utilizza i driver ONTAP NAS con la tua installazione di Trident. Questa sezione fornisce esempi di configurazione del backend e dettagli per la mappatura dei backend a StorageClasses. A partire dalla versione 25.10, NetApp Trident supporta link:https://docs.netapp.com/us-en/ontap-afx/index.html["Sistemi di archiviazione NetApp AFX"^]. I sistemi storage NetApp AFX differiscono dagli altri sistemi basati su ONTAP (ASA, AFF e FAS) nell'implementazione del loro livello di storage.
 
 
 NOTE: Solo il `ontap-nas` il driver (con protocollo NFS) è supportato per i sistemi NetApp AFX; il protocollo SMB non è supportato.
@@ -23,6 +21,8 @@ NOTE: Solo il `ontap-nas` il driver (con protocollo NFS) è supportato per i sis
 == Opzioni di configurazione back-end
 
 Nella configurazione del backend di Trident, non è necessario specificare che il sistema è un NetApp AFX storage system. Quando si seleziona  `ontap-nas` come  `storageDriverName`, Trident rileva automaticamente il sistema storage AFX. Alcuni parametri di configurazione del backend non sono applicabili ai sistemi storage AFX.
+
+A partire dalla versione 26.06, puoi abilitare il posizionamento bilanciato di ONTAP così che ONTAP selezioni l'aggregato per i nuovi volumi. Il posizionamento bilanciato è richiesto per i sistemi storage AFX su ONTAP 9.19.1 o versioni successive. Consulta link:ontap-balanced-placement.html["Usa un posizionamento bilanciato con i backend ONTAP"] per i requisiti e gli esempi.
 
 La tabella seguente mostra le opzioni di configurazione del backend:
 
@@ -84,20 +84,31 @@ NOTE: Solo per i sistemi NetApp AFX `ontap-nas` è supportato.
 Prefisso utilizzato per il provisioning di nuovi volumi nella SVM. Non può essere aggiornato dopo l'impostazione
 
 
-NOTE: Quando si utilizza ONTAP-nas-Economy e un prefisso di archiviazione di 24 o più caratteri, i qtree non avranno il prefisso di archiviazione incorporato, anche se sarà nel nome del volume.
+NOTE: Quando usi ontap-nas-economy e un storagePrefix di 24 o più caratteri, i qtree non hanno il prefisso di storage incluso, anche se è presente nel nome del volume.
 | "trident" 
 
 
 | `aggregate`  a| 
-Aggregato per il provisioning (facoltativo; se impostato, deve essere assegnato alla SVM). Per il `ontap-nas-flexgroup` driver, questa opzione viene ignorata. Se non viene assegnato, è possibile utilizzare qualsiasi aggregato disponibile per il provisioning di un volume FlexGroup.
+Aggregato per il provisioning (facoltativo; se impostato, deve essere assegnato all'SVM). Per il  `ontap-nas-flexgroup` driver, questa opzione viene ignorata. Se non assegnato, è possibile utilizzare uno qualsiasi degli aggregati disponibili per il provisioning di un volume FlexGroup.
 
 
-NOTE: Una volta aggiornato l'aggregato in SVM, viene aggiornato automaticamente in Trident eseguendo un polling della SVM senza riavviare il controller Trident. Dopo aver configurato un aggregato specifico in Trident per il provisioning dei volumi, in caso di ridenominazione o spostamento dell'aggregato dalla SVM, il back-end passa allo stato di errore in Trident durante il polling dell'aggregato della SVM. È necessario modificare l'aggregato in uno presente nella SVM o rimuoverlo del tutto per riportare online il back-end.
+NOTE: Quando l'aggregato viene aggiornato in SVM, viene aggiornato automaticamente anche in Trident tramite polling di SVM, senza dover riavviare il Trident Controller. Quando hai configurato un aggregato specifico in Trident per il provisioning dei volumi, se l'aggregato viene rinominato o spostato fuori dalla SVM, il backend passa allo stato di errore in Trident durante il polling dell'aggregato SVM. Devi cambiare l'aggregato con uno presente sulla SVM oppure rimuoverlo del tutto per riportare online il backend.
 
 *Non specificare per i sistemi di archiviazione AFX.*
+
+*Non specificare quando  `useBalancedPlacement` è impostato su  `true`.*
  a| 
 ""
 
+
+
+| `useBalancedPlacement`  a| 
+Delega la selezione dell'aggregato per i nuovi volumi a ONTAP [Boolean]. Richiede ONTAP 9.19.1 o versioni successive e  `useREST` impostato su  `true`. Non può essere combinato con  `aggregate`.
+
+Consulta la documentazione link:ontap-balanced-placement.html["Usa un posizionamento bilanciato con i backend ONTAP"] per requisiti ed esempi.
+
+*Se specificato, impostalo sempre su  `true` per i sistemi storage AFX su ONTAP 9.19.1 o versioni successive.*
+| `false`; `true` per sistemi di storage AFX su ONTAP 9.19.1 o versioni successive 
 
 
 | `limitAggregateUsage` | Il provisioning non riesce se l'utilizzo è superiore a questa percentuale. *Non si applica ad Amazon FSx per ONTAP*. *Non specificare per i sistemi di archiviazione AFX.* | "" (non applicato per impostazione predefinita) 
@@ -107,7 +118,7 @@ NOTE: Una volta aggiornato l'aggregato in SVM, viene aggiornato automaticamente 
 Elenco di aggregati per il provisioning (facoltativo; se impostato, deve essere assegnato alla SVM). Tutti gli aggregati assegnati alla SVM vengono utilizzati per il provisioning di un volume FlexGroup. Supportato per il driver di archiviazione *ONTAP-nas-FlexGroup*.
 
 
-NOTE: Una volta aggiornato l'elenco degli aggregati all'interno della SVM, l'elenco viene aggiornato automaticamente in Trident eseguendo un polling della SVM senza dover riavviare il controller Trident. Dopo aver configurato un elenco di aggregati specifici in Trident per il provisioning dei volumi, se l'elenco degli aggregati viene rinominato o spostato fuori dalla SVM, il back-end passa allo stato di errore in Trident durante il polling dell'aggregato della SVM. È necessario modificare l'elenco degli aggregati in uno presente nella SVM o rimuoverlo del tutto per riportare online il back-end.
+NOTE: Quando l'elenco degli aggregati viene aggiornato in SVM, l'elenco viene aggiornato automaticamente in Trident tramite polling di SVM, senza dover riavviare il Trident Controller. Quando hai configurato un elenco specifico di aggregati in Trident per il provisioning dei volumi, se l'elenco degli aggregati viene rinominato o spostato fuori da SVM, il backend passa allo stato di errore in Trident durante il polling dell'aggregato SVM. Devi cambiare l'elenco degli aggregati con uno presente su SVM oppure rimuoverlo del tutto per riportare online il backend.
 | "" 
 
 
@@ -122,7 +133,7 @@ Non utilizzare `debugTraceFlags` a meno che non si stia eseguendo la risoluzione
 | `nasType` | Configurare la creazione di volumi NFS o SMB. Le opzioni sono `nfs` , `smb` o nullo. Impostando il valore su null, i volumi NFS vengono impostati di default. *Se specificato, impostare sempre su `nfs` per i sistemi di stoccaggio AFX*. | `nfs` 
 
 
-| `nfsMountOptions` | Elenco separato da virgole delle opzioni di montaggio NFS. Le opzioni di montaggio per volumi persistenti di Kubernetes vengono normalmente specificate in classi di storage, ma se non sono specificate opzioni di montaggio in una classe di storage, Trident tornerà all'utilizzo delle opzioni di montaggio specificate nel file di configurazione del backend di storage. Se non sono specificate opzioni di montaggio nella classe di storage o nel file di configurazione, Trident non imposterà alcuna opzione di montaggio su un volume persistente associato. | "" 
+| `nfsMountOptions` | Elenco separato da virgole delle opzioni di montaggio NFS. Le opzioni di montaggio per i volumi persistenti di Kubernetes sono normalmente specificate nelle classi di storage, ma se non vengono specificate opzioni di montaggio in una classe di storage, Trident utilizza le opzioni di montaggio specificate nel file di configurazione del backend di storage. Se non vengono specificate opzioni di montaggio nella classe di storage o nel file di configurazione, Trident non imposta alcuna opzione di montaggio su un volume persistente associato. | "" 
 
 
 | `qtreesPerFlexvol` | Qtree massimi per FlexVol, devono essere compresi nell'intervallo [50, 300] | "200" 
@@ -175,7 +186,7 @@ Non utilizzare `debugTraceFlags` a meno che non si stia eseguendo la risoluzione
 | `splitOnClone` | Separare un clone dal suo padre al momento della creazione | "falso" 
 
 
-| `encryption` | Abilitare la crittografia del volume NetApp (NVE) sul nuovo volume; il valore predefinito è `false`. NVE deve essere concesso in licenza e abilitato sul cluster per utilizzare questa opzione. Se NAE è abilitato sul backend, qualsiasi volume sottoposto a provisioning in Trident sarà abilitato NAE. Per ulteriori informazioni, fare riferimento a: link:../trident-reco/security-reco.html["Come funziona Trident con NVE e NAE"]. | "falso" 
+| `encryption` | Abilita NetApp Volume Encryption (NVE) sul nuovo volume; il valore predefinito è  `false`. NVE deve essere concesso in licenza e abilitato sul cluster per usare questa opzione. Se NAE è abilitato sul backend, qualsiasi volume effettuato il provisioning in Trident è abilitato per NAE. Per ulteriori informazioni, consulta: link:../trident-reco/security-reco.html["Come funziona Trident con NVE e NAE"]. | "falso" 
 
 
 | `tieringPolicy` | Criterio di tiering da utilizzare "nessuno" |  
@@ -244,7 +255,7 @@ Per snapshotReserve = 50% e richiesta PVC = 5 GiB, la dimensione totale del volu
 
 image::../media/volume-show-nas.png[Mostra l'output del comando di visualizzazione del volume.]
 
-I backend esistenti delle installazioni precedenti eseguiranno il provisioning dei volumi come spiegato sopra durante l'aggiornamento Trident. Per i volumi creati prima dell'aggiornamento, è necessario ridimensionarli affinché la modifica venga visualizzata. Ad esempio, un PVC da 2 GiB con  `snapshotReserve=50` In precedenza, il risultato era un volume che forniva 1 GiB di spazio scrivibile. Ridimensionando il volume a 3 GiB, ad esempio, l'applicazione ottiene 3 GiB di spazio scrivibile su un volume da 6 GiB.
+Per i backend esistenti da installazioni precedenti, esegui il provisioning dei volumi come spiegato sopra durante l'aggiornamento di Trident. Per i volumi che hai creato prima dell'aggiornamento, dovresti ridimensionare i volumi affinché la modifica venga rilevata. Ad esempio, un PVC da 2 GiB con  `snapshotReserve=50` in precedenza generava un volume che forniva 1 GiB di spazio scrivibile. Ridimensionando il volume a 3 GiB, ad esempio, l'applicazione avrà a disposizione 3 GiB di spazio scrivibile su un volume da 6 GiB.
 
 
 
@@ -364,6 +375,25 @@ autoExportCIDRs:
 username: admin
 password: password
 nfsMountOptions: nfsvers=4
+----
+====
+.Esempio di posizionamento bilanciato
+[%collapsible]
+====
+Questo esempio abilita il posizionamento bilanciato di ONTAP, così che ONTAP selezioni l'aggregato per i nuovi volumi. Il posizionamento bilanciato richiede ONTAP 9.19.1 o versioni successive. Consulta link:ontap-balanced-placement.html["Usa un posizionamento bilanciato con i backend ONTAP"] per i dettagli.
+
+[source, yaml]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: nas-balanced-placement
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: svm_nfs
+username: vsadmin
+password: password
+useBalancedPlacement: true
 ----
 ====
 .Esempio di indirizzi IPv6
@@ -620,9 +650,9 @@ storage:
 [[map-backends-to-storageclasses]]
 == Mappare i backend in StorageClasses
 
-Le seguenti definizioni di StorageClass fanno riferimento a. <<Esempi di backend con pool virtuali>>. Utilizzando il `parameters.selector` Ciascun StorageClass richiama i pool virtuali che possono essere utilizzati per ospitare un volume. Gli aspetti del volume saranno definiti nel pool virtuale scelto.
+Le seguenti definizioni di StorageClass si riferiscono a <<Esempi di backend con pool virtuali>>. Utilizzando il campo  `parameters.selector`, ciascuna StorageClass indica quali pool virtuali possono essere utilizzati per ospitare un volume. Il volume ha le caratteristiche definite nel pool virtuale scelto.
 
-* Il `protection-gold` StorageClass eseguirà il mapping al primo e al secondo pool virtuale in `ontap-nas-flexgroup` back-end. Questi sono gli unici pool che offrono una protezione di livello gold.
+* La `protection-gold` StorageClass corrisponde al primo e al secondo pool virtuale nel `ontap-nas-flexgroup` backend. Questi sono gli unici pool che offrono la protezione di livello oro.
 +
 [source, yaml]
 ----
@@ -635,7 +665,7 @@ parameters:
   selector: "protection=gold"
   fsType: "ext4"
 ----
-* Il `protection-not-gold` StorageClass eseguirà il mapping al terzo e al quarto pool virtuale in `ontap-nas-flexgroup` back-end. Questi sono gli unici pool che offrono un livello di protezione diverso dall'oro.
+* La  `protection-not-gold` StorageClass corrisponde al terzo e al quarto pool virtuale nel  `ontap-nas-flexgroup` backend. Questi sono gli unici pool che offrono un livello di protezione diverso da gold.
 +
 [source, yaml]
 ----
@@ -648,7 +678,7 @@ parameters:
   selector: "protection!=gold"
   fsType: "ext4"
 ----
-* Il `app-mysqldb` StorageClass eseguirà il mapping al quarto pool virtuale in `ontap-nas` back-end. Questo è l'unico pool che offre la configurazione del pool di storage per l'applicazione di tipo mysqldb.
+* La  `app-mysqldb` StorageClass corrisponde al quarto pool virtuale nel  `ontap-nas` backend. Questo è l'unico pool che offre la configurazione del pool di storage per app di tipo mysqldb.
 +
 [source, yaml]
 ----
@@ -661,7 +691,7 @@ parameters:
   selector: "app=mysqldb"
   fsType: "ext4"
 ----
-* Il  `protection-silver-creditpoints-20k` StorageClass verrà mappato al terzo pool virtuale nel  `ontap-nas-flexgroup` backend. Questo è l'unico pool che offre protezione di livello argento e 20000 punti credito.
+* La `protection-silver-creditpoints-20k` StorageClass corrisponde al terzo pool virtuale nel `ontap-nas-flexgroup` backend. Questo è l'unico pool che offre protezione di livello argento e 20000 punti credito.
 +
 [source, yaml]
 ----
@@ -674,7 +704,7 @@ parameters:
   selector: "protection=silver; creditpoints=20000"
   fsType: "ext4"
 ----
-* Il `creditpoints-5k` StorageClass eseguirà il mapping al terzo pool virtuale in `ontap-nas` il back-end e il secondo pool virtuale in `ontap-nas-economy` back-end. Queste sono le uniche offerte di pool con 5000 punti di credito.
+* La `creditpoints-5k` StorageClass corrisponde al terzo pool virtuale nel `ontap-nas` backend e al secondo pool virtuale nel `ontap-nas-economy` backend. Queste sono le uniche offerte di pool con 5000 creditpoints.
 +
 [source, yaml]
 ----
@@ -689,7 +719,7 @@ parameters:
 ----
 
 
-Trident deciderà quale pool virtuale viene selezionato e garantirà che i requisiti di storage vengano soddisfatti.
+Trident decide quale pool virtuale viene selezionato e garantisce che il requisito di storage sia soddisfatto.
 
 
 

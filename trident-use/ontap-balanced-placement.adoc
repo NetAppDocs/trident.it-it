@@ -1,0 +1,169 @@
+---
+sidebar: sidebar 
+permalink: trident-use/ontap-balanced-placement.html 
+keywords: trident backend, ontap, balanced placement, useBalancedPlacement, aggregates, afx, unified, provisioning, storage pools 
+summary: 'Trident supporta il posizionamento bilanciato ONTAP, che delega la selezione dell"aggregato a ONTAP quando Trident effettua il provisioning dei volumi sui backend ONTAP.' 
+---
+= Usa un posizionamento bilanciato con i backend ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:linkattrs: 
+:relative_path: ./
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puoi abilitare il posizionamento bilanciato ONTAP sui backend ONTAP. Con il posizionamento bilanciato, ONTAP seleziona l'aggregate ottimale per ogni nuovo volume, così non devi gestire l'assegnazione degli aggregate in Trident.
+
+
+
+[[how-balanced-placement-works]]
+== Come funziona il posizionamento bilanciato
+
+Per impostazione predefinita, Trident rileva gli aggregati assegnati a un SVM, tratta ciascun aggregato come un pool di storage e seleziona un aggregato quando esegue il provisioning di un volume.
+
+Quando abiliti il posizionamento bilanciato:
+
+* Trident riporta l'intero SVM come un singolo pool di storage invece di riportare i singoli aggregati.
+* ONTAP seleziona l'aggregato per ogni nuovo volume e bilancia i volumi tra gli aggregati disponibili.
+* Trident crea volumi utilizzando l'ONTAP `/application/containers` REST API.
+
+
+Il posizionamento bilanciato è disponibile per i sistemi ONTAP unificati (AFF, FAS e ASA) e per i sistemi di storage NetApp AFX.
+
+
+
+[[requirements]]
+== Requisiti
+
+* Il backend deve utilizzare ONTAP 9.19.1 o versioni successive.
+* Trident deve comunicare con ONTAP tramite REST. Il posizionamento bilanciato non è disponibile con ZAPI.
+* La configurazione del backend non deve specificare gli aggregati. Non puoi combinare il posizionamento bilanciato con la selezione esplicita degli aggregati.
+
+
+
+
+[[default-values]]
+== Valori predefiniti
+
+Il valore predefinito di `useBalancedPlacement` dipende dal sistema storage:
+
+[cols="1,1,2"]
+|===
+| sistema storage | Predefinito | Note 
+
+
+| ONTAP unificato (AFF, FAS, ASA) | `false` | Trident seleziona gli aggregati a meno che tu non abiliti il posizionamento bilanciato. 
+
+
+| NetApp AFX (ONTAP 9.19.1 o versioni successive) | `true` | È richiesto un posizionamento bilanciato. Impostare  `useBalancedPlacement` su  `false` causa il fallimento della convalida del backend. 
+
+
+| NetApp AFX (versioni precedenti a ONTAP 9.19.1) | `false` | Il posizionamento bilanciato non è disponibile. 
+|===
+
+
+[[configuration-option]]
+== Opzione di configurazione
+
+[cols="1,2,1"]
+|===
+| Parametro | Descrizione | Predefinito 
+
+
+| `useBalancedPlacement` | Delega la selezione aggregata per i nuovi volumi a ONTAP. Imposta questa opzione alla radice della configurazione del backend o sui singoli pool virtuali. | `false`; `true` per AFX su ONTAP 9.19.1 o versioni successive 
+|===
+
+
+[[balanced-placement-with-virtual-pools]]
+== Posizionamento bilanciato con pool virtuali
+
+Il posizionamento bilanciato funziona con o senza pool virtuali:
+
+* Senza pool virtuali, Trident segnala l'SVM come un singolo pool di storage e crea tutti i nuovi volumi utilizzando un posizionamento bilanciato.
+* Con i pool virtuali, Trident segnala i pool virtuali e associa i volumi ad essi come di consueto. Se il pool virtuale corrispondente ha il posizionamento bilanciato abilitato, ONTAP seleziona l'aggregato per il volume.
+
+
+Imposta  `useBalancedPlacement` nella directory principale della configurazione del backend per applicarlo a tutti i pool virtuali, oppure impostalo su singoli pool virtuali per abilitarlo in modo selettivo.
+
+
+
+[[examples]]
+== Esempi
+
+Il seguente esempio abilita il posizionamento bilanciato su un backend ONTAP unificato:
+
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: nas-balanced-placement
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: trident_svm
+username: cluster-admin
+password: <password>
+useBalancedPlacement: true
+----
+L'esempio seguente consente un posizionamento bilanciato utilizzando  `TridentBackendConfig`:
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-nas
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  backendName: nas-balanced-placement
+  managementLIF: 10.0.0.1
+  svm: trident_svm
+  useBalancedPlacement: true
+  credentials:
+    name: backend-tbc-ontap-nas-secret
+----
+Il seguente esempio abilita il posizionamento bilanciato solo sul `gold` pool virtuale. Trident continua a selezionare gli aggregati per i volumi che corrispondono al `bronze` pool virtuale:
+
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: nas-virtual-pools
+managementLIF: 10.0.0.1
+svm: trident_svm
+username: cluster-admin
+password: <password>
+storage:
+- labels:
+    performance: gold
+  useBalancedPlacement: true
+- labels:
+    performance: bronze
+----
+
+
+[[backend-validation-errors]]
+== Errori di convalida del backend
+
+La creazione o l'aggiornamento del backend non riesce nei seguenti casi:
+
+[cols="2,2"]
+|===
+| Configurazione | Risultato 
+
+
+| `useBalancedPlacement: true` su ONTAP precedente alla versione 9.19.1 | La convalida non è riuscita. Aggiorna a ONTAP 9.19.1 o versione successiva. 
+
+
+| `useBalancedPlacement: true` su un backend utilizzando ZAPI | La convalida non è riuscita. Configura il backend per usare REST. 
+
+
+| `useBalancedPlacement: true` combinato con aggregati specifici | La convalida non è riuscita. Rimuovi la configurazione dell'aggregate o disabilita il posizionamento bilanciato. 
+
+
+| `useBalancedPlacement: false`su AFX con ONTAP 9.19.1 o versioni successive | La convalida non è riuscita. Per AFX su ONTAP 9.19.1 o versioni successive è richiesto un posizionamento bilanciato. 
+|===
