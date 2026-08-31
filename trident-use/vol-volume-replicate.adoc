@@ -233,19 +233,22 @@ Durante un failover pianificato (migrazione), eseguire le seguenti operazioni pe
 
 .Fasi
 . Sul cluster Kubernetes primario, creare una snapshot del PVC e attendere la creazione dello snapshot.
-. Sul cluster Kubernetes primario, creare SnapshotInfo CR per ottenere dettagli interni.
+. Sul cluster Kubernetes primario, crea il TridentTridentSnapshotInfoCR per ottenere i dettagli interni.
 +
 .Esempio
 [source, yaml]
 ----
-kind: SnapshotInfo
+kind: TridentSnapshotInfo
 apiVersion: trident.netapp.io/v1
 metadata:
   name: csi-nas
 spec:
-  snapshot-name: csi-nas-snapshot
+  snapshotName csi-nas-snapshot
 ----
-. Nel cluster Kubernetes secondario, aggiornare il campo _spec.state_ del _TridentMirrorRelationship_ CR a _Promoted_ e _spec.promotedSnapshotHandle_ come nome interno dello snapshot.
++
+.. Sul cluster Kubernetes secondario, aggiorna il campo _spec.state_ del CR _TridentMirrorRelationship_ a _promoted_ e _spec.volumeMappings[].promotedSnapshotHandle_ al internalName dello snapshot.
+
+
 . Sul cluster Kubernetes secondario, confermare lo stato (campo status.state) di TridentMirrorRelationship a promosso.
 
 

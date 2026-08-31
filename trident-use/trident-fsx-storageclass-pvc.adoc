@@ -348,7 +348,7 @@ parameters:
 ----
 
 
-==== Classe di storage per iSCSI
+==== Classe di archiviazione per iSCSI
 
 Utilizza questo esempio per configurare StorageClass per volumi tramite iSCSI:
 

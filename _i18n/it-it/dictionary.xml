@@ -4326,8 +4326,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="ffe4cfc202d643b50342b93a4a11a82f" category="section-title">Promozione del PVC secondario durante un failover pianificato</block>
   <block id="1d60b89a076d7f30b8efdef50e842f68" category="paragraph">Durante un failover pianificato (migrazione), eseguire le seguenti operazioni per promuovere il PVC secondario:</block>
   <block id="3310d9a60c164accb7c262ab6e9fbc65" category="list-text">Sul cluster Kubernetes primario, creare una snapshot del PVC e attendere la creazione dello snapshot.</block>
-  <block id="8b17b79902950942165541a8ab704363" category="list-text">Sul cluster Kubernetes primario, creare SnapshotInfo CR per ottenere dettagli interni.</block>
-  <block id="678346d79faaa65b2da52e6d7ddce845" category="list-text">Nel cluster Kubernetes secondario, aggiornare il campo _spec.state_ del _TridentMirrorRelationship_ CR a _Promoted_ e _spec.promotedSnapshotHandle_ come nome interno dello snapshot.</block>
   <block id="7b007b14980acd66e9301e02a5670f47" category="list-text">Sul cluster Kubernetes secondario, confermare lo stato (campo status.state) di TridentMirrorRelationship a promosso.</block>
   <block id="f69101c0107c4bbf8f0ccc9141beb68b" category="section-title">Ripristinare una relazione di mirroring dopo un failover</block>
   <block id="9a023cbe1d3be933d8edb6228f9901ce" category="paragraph">Prima di ripristinare una relazione di specchiatura, scegliere il lato che si desidera creare come nuovo primario.</block>
@@ -6619,7 +6617,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="7d6abad6d9b0cb2c17d374eb60cfd549" category="paragraph">Di seguito sono riportati alcuni esempi di configurazioni di Storage Class da utilizzare con Trident e FSx for ONTAP.</block>
   <block id="79aed0c0cab8f60748d97cff824e71d8" category="section-title">Classe di archiviazione per NFS</block>
   <block id="1aeaba8f713cb76c3933e520e71db58b" category="paragraph">È possibile utilizzare questo esempio per configurare StorageClass per volumi tramite NFS (fare riferimento alla sezione Attributi Trident di seguito per l'elenco completo degli attributi):</block>
-  <block id="3c2af55b3b722b8e55112e627dcfa582" category="section-title">Classe di storage per iSCSI</block>
   <block id="157051d3c2492a3589f7ef937c9a3380" category="paragraph">Utilizza questo esempio per configurare StorageClass per volumi tramite iSCSI:</block>
   <block id="5182a799b5d9bfc055f426543bab1173" category="section-title">Classe di archiviazione che utilizza NFSv3 e AWS Bottlerocket</block>
   <block id="d95d0aae1fadec77938feae823d4861b" category="section-title">Attributi di Trident StorageClass</block>
@@ -7326,4 +7323,7 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="13d49e861126c9f4e8187c3ed601942a" category="list-text">Risolti gli errori di pubblicazione dei cloni NVMe PVC (e la mappatura errata del namespace padre) durante la creazione di cloni di un volume montato in modalità concorrente.</block>
   <block id="92908f9dc019fbc39650b0f44ecbe68d" category="list-text">Risolti gli errori di creazione degli snapshot per i PVC sui backend ONTAP-SAN-Economy utilizzando un nameTemplate.</block>
   <block id="241bcdc29e2aecc9374092674e96e3b7" category="list-text">Aggiunta l'opzione<block ref="c187d606271268ec08cafc7fe2d89aba" prefix=" " category="inline-code"></block> (secondi) nella configurazione del backend ONTAP per impostare i timeout dei client API REST e ZAPI per ciascun backend.</block>
+  <block id="69eb48c01ded3a79590a6ae42b855f34" category="section-title">Classe di archiviazione per iSCSI</block>
+  <block id="791aed607ce65a32c8115590f604749d" category="list-text">Sul cluster Kubernetes primario, crea il TridentTridentSnapshotInfoCR per ottenere i dettagli interni.</block>
+  <block id="e239ae5dff4b309ee9e4b5a6800472ca" category="list-text">Sul cluster Kubernetes secondario, aggiorna il campo _spec.state_ del CR _TridentMirrorRelationship_ a _promoted_ e _spec.volumeMappings[].promotedSnapshotHandle_ al internalName dello snapshot.</block>
 </blocks>
