@@ -140,14 +140,11 @@ Limite di query al secondo (QPS) utilizzato dal controller durante la comunicazi
 
 
 | `enableConcurrency`  a| 
-Consente operazioni simultanee del controller Trident per una maggiore produttività.
+Consente operazioni simultanee del controller Trident per un throughput migliore. Per ulteriori informazioni sui driver supportati, vedi il link: https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
+| `resources` 
 
 
-NOTE: *Anteprima tecnica*: questa funzionalità è sperimentale e attualmente supporta flussi di lavoro paralleli limitati con i driver ONTAP-NAS (solo NFS) e ONTAP-SAN (NVMe per ONTAP 9 unificato), oltre all'anteprima tecnica esistente per il driver ONTAP-SAN (protocolli iSCSI e FCP in ONTAP 9 unificato).
-| falso 
-
-
-| `resources`  a| 
+ a| 
 Imposta i limiti delle risorse Kubernetes e le richieste per il controller Trident e i pod dei nodi. È possibile configurare CPU e memoria per ogni contenitore e sidecar per gestire l'allocazione delle risorse in Kubernetes.
 
 Per ulteriori informazioni sulla configurazione delle richieste e dei limiti delle risorse, fare riferimento alink:https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/["Gestione delle risorse per pod e container"^] .
@@ -252,15 +249,10 @@ resources:
         limits:
           cpu:
           memory:
-----
+----| `httpsMetrics` 
 
 
-| `httpsMetrics` | Abilita HTTPS per l'endpoint delle metriche Prometheus. | falso 
-
-
-| `hostNetwork`  a| 
-Abilita la rete host per il controller Trident . Questa funzionalità è utile quando si desidera separare il traffico frontend da quello backend in una rete multi-home.
-| falso 
+| Abilita HTTPS per l'endpoint delle metriche Prometheus. | falso | `hostNetwork` 
 |===
 
 NOTE: Per ulteriori informazioni sulla formattazione dei parametri del pod, fare riferimento a. link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Assegnazione di pod ai nodi"^].

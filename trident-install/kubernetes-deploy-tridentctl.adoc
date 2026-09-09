@@ -206,10 +206,7 @@ tridentctl install --enable-force-detach=true -n trident
 .Abilita le operazioni simultanee del controller Trident
 [%collapsible]
 ====
-Per abilitare operazioni simultanee del controller Trident per una migliore produttività, aggiungere `--enable-concurrency` opzione durante l'installazione come mostrato in questo esempio.
-
-
-NOTE: *Anteprima tecnica*: questa funzionalità è sperimentale e attualmente supporta flussi di lavoro paralleli limitati con i driver ONTAP-NAS (solo NFS) e ONTAP-SAN (NVMe per ONTAP 9 unificato), oltre all'anteprima tecnica esistente per il driver ONTAP-SAN (protocolli iSCSI e FCP in ONTAP 9 unificato).
+Per abilitare operazioni simultanee del controller Trident e migliorare il throughput, aggiungi l' `--enable-concurrency`opzione durante l'installazione come mostrato in questo esempio. Per ulteriori informazioni sui driver supportati, vedi il link: https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
 
 [listing]
 ----
