@@ -34,7 +34,7 @@ Per le opzioni di configurazione del backend, consultare la tabella seguente:
 | `version` |  | Sempre 1 
 
 
-| `storageDriverName` | Nome del driver di storage | `ontap-san` o. `ontap-san-economy` 
+| `storageDriverName` | Nome del driver di archiviazione. Non puoi modificarlo dopo la creazione. Per aggiornare questo parametro, devi creare un nuovo backend. | `ontap-san` o. `ontap-san-economy` 
 
 
 | `backendName` | Nome personalizzato o backend dello storage | Nome del driver + "_" + dataLIF 
