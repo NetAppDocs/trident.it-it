@@ -4,7 +4,7 @@ permalink: trident-reco/storage-config-best-practices.html
 keywords: kubernetes, clusters, nodes, components, master, compute 
 summary: Un cluster Kubernetes in genere è costituito da due tipi di nodi, ciascuno dei quali è responsabile di diversi aspetti della funzionalità. 
 ---
-= Configurazione dello storage
+= Procedure consigliate per la configurazione dello storage di Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

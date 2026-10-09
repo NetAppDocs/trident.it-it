@@ -4,7 +4,7 @@ permalink: trident-concepts/virtual-storage-pool.html
 keywords: virtual pools, Trident, backends 
 summary: I pool virtuali forniscono un layer di astrazione tra i backend di storage di Trident e lo storage Classes di Kubernetes. Consentono a un amministratore di definire aspetti quali posizione, performance e protezione per ciascun backend in modo comune, indipendente dal backend, senza che una StorageClass specifichi il tipo di backend fisico, pool di back-end o backend da utilizzare per soddisfare i criteri desiderati. 
 ---
-= Pool virtuali
+= Configurazione del pool di storage virtuale Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

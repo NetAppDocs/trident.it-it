@@ -4,7 +4,7 @@ permalink: trident-use/manage-stor-class.html
 keywords: storage class, manage storage class, storage classes, kubernetes storage classes 
 summary: È possibile visualizzare le classi di storage esistenti, impostare una classe di storage predefinita, identificare il backend della classe di storage ed eliminare le classi di storage. 
 ---
-= Gestire le classi di storage
+= Gestisci le classi di storage di Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

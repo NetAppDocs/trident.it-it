@@ -4,7 +4,7 @@ permalink: trident-use/vol-group-snapshots.html
 keywords: volumes, on-demand volume group snapshots, csi, csi snapshots, create snapshots, backends, kubernetes, create PVCs, PVCs, snapshot, volume snapshot, import snapshot, recover data 
 summary: 'Le snapshot del volume di Kubernetes dei volumi persistenti (PVS) consentono copie point-in-time dei volumi. Puoi creare una snapshot di un volume creato utilizzando Trident, importare uno snapshot creato al di fuori di Trident, creare un nuovo volume da una snapshot esistente e recuperare i dati del volume da snapshot.' 
 ---
-= Lavorare con gli snapshot del gruppo di volumi
+= Lavora con gli snapshot dei gruppi di volumi di Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

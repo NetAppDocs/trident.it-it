@@ -4,7 +4,7 @@ permalink: trident-use/backend_options.html
 keywords: backends, storage system, anf, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, kubectl, tridentctl, backend management options 
 summary: Scopri i diversi modi di gestire i backend in Trident. 
 ---
-= Passare da un'opzione di gestione back-end all'altra
+= Scegli un metodo di gestione del backend Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

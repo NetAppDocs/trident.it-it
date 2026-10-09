@@ -4,7 +4,7 @@ permalink: trident-reco/backup.html
 keywords: data protection, replication, dr, disaster recovery, snapmirror, back up, snapshot, element, volume replication 
 summary: Scopri le opzioni di protezione e recovery per Trident e volumi creati con Trident. È necessario disporre di una strategia di protezione e ripristino dei dati per ogni applicazione con un requisito di persistenza. 
 ---
-= Protezione dei dati e disaster recovery
+= Protezione dei dati e disaster recovery di Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

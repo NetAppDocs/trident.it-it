@@ -4,7 +4,7 @@ permalink: trident-use/vol-provision.html
 keywords: volumes, pvc, pv, persistentvolume, persistentvolumeclaim, mount, pod, provision 
 summary: 'Creare un PersistentVolume (PV) e un PersistentVolumeClaim (PVC) che utilizza Kubernetes StorageClass configurato per richiedere l"accesso al PV. È quindi possibile montare il PV su un pod.' 
 ---
-= Provisioning di un volume
+= Esegui il provisioning di un volume Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

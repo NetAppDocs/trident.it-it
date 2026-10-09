@@ -4,7 +4,7 @@ permalink: trident-managing-k8s/upgrade-operator-overview.html
 keywords: upgrade, trident, operator, helm, controller, daemonset, node pods, rolling upgrade, zero downtime 
 summary: 'Prima di utilizzare l"operatore Trident per aggiornare Trident, è necessario comprendere i processi in background che si verificano durante l"aggiornamento. Sono incluse le modifiche al controller Trident, al pod dei controller e ai pod dei nodi e al daemonSet dei nodi che consentono l"esecuzione degli aggiornamenti.' 
 ---
-= Comprendere il flusso di lavoro di aggiornamento dell'operatore
+= Comprendi il flusso di lavoro di aggiornamento dell'operatore Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
