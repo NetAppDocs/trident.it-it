@@ -116,7 +116,7 @@ Trident non può configurare le relazioni di replica di SnapMirror, tuttavia l'a
 È quindi possibile importare i volumi recuperati in Trident utilizzando link:../trident-use/vol-import.html["importazione di volumi tridentctl"].
 
 
-NOTE: L'importazione non è supportata su `ontap-nas-economy`,  `ontap-san-economy`, o. `ontap-flexgroup-economy` driver.
+NOTE: L'importazione di volumi è supportata con il driver  `ontap-san-economy`. L'importazione di Qtree con il driver  `ontap-nas-economy` è una funzionalità Tech Preview e non è supportata per l'uso in produzione. L'importazione non è supportata con il driver  `ontap-flexgroup-economy`. Per i dettagli, vedi link:../trident-use/vol-import.html["Importa i volumi Trident"].
 
 
 

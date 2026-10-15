@@ -87,7 +87,7 @@ Trident crea il PV e il suo volume di storage di backend.
 
 ====
 . *Amministratore del cluster:* assicurarsi che sia presente il corretto RBAC per concedere l'autorizzazione al proprietario dello spazio dei nomi di destinazione per creare il CR TridentVolumeReference nello spazio dei nomi di destinazione(`namespace2` ).
-. *Destination namespace owner:* creare una CR di TridentVolumeReference nello spazio dei nomi di destinazione che si riferisce allo spazio dei nomi di origine `pvc1`.
+. *Proprietario dello spazio dei nomi di destinazione:* Crea un CR TridentVolumeReference nello spazio dei nomi di destinazione che faccia riferimento al PVC di origine `pvc1`.
 +
 [source, yaml]
 ----

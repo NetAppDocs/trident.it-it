@@ -164,14 +164,24 @@ metadata:
   name: csi-nas
 spec:
   state: established
+  replicationPolicy: MirrorAllSnapshots
+  replicationSchedule: 5min
   volumeMappings:
   - localPVCName: csi-nas
     remoteVolumeHandle: "datavserver:trident_pvc_3bedd23c_46a8_4384_b12b_3c38b313c1e1"
 ----
 +
-Trident creerà una relazione SnapMirror con il nome del criterio di relazione configurato (o predefinito per ONTAP) e la inizializzerà.
+Il TMR `spec` ha quattro campi di primo livello: `state`, che imposta lo stato di relazione desiderato (vedi <<Stati di replica dei volumi>>); `volumeMappings`, che associa i PVC locali ai relativi handle di volume remoti; e i campi facoltativi `replicationPolicy` e `replicationSchedule` descritti di seguito.
 
-.. Crea un PVC con StorageClass creato in precedenza per agire come secondario (destinazione SnapMirror).
+
+
+
+
+I campi  `replicationPolicy` e  `replicationSchedule` sono facoltativi. Imposta  `replicationPolicy` sul nome di un criterio asincrono di SnapMirror su ONTAP e  `replicationSchedule` sul nome di una pianificazione ONTAP. Se ometti uno dei due campi, Trident utilizza il criterio di replica o la pianificazione corrispondente configurata sul backend. Imposta questi campi quando crei la relazione; non puoi modificare il criterio o la pianificazione dopo che la relazione è stata stabilita. Per utilizzare impostazioni diverse, elimina e ricrea il TMR.
+
+Trident crea e inizializza una relazione di SnapMirror utilizzando la policy di replica e la pianificazione configurate.
+
+. Crea un PVC con StorageClass creato in precedenza per agire come secondario (destinazione SnapMirror).
 +
 .Esempio
 [source, yaml]
@@ -192,8 +202,6 @@ storageClassName: csi-nas
 ----
 +
 Trident verificherà la presenza del CRD TridentMirrorRelationship e non riuscirà a creare il volume se la relazione non esiste. Se la relazione esiste, Trident garantirà il posizionamento del nuovo FlexVol volume in una SVM a cui viene eseguito il peering con la SVM remota definita nella MirrorRelationship.
-
-
 
 
 
@@ -261,7 +269,7 @@ Prima di ripristinare una relazione di specchiatura, scegliere il lato che si de
 
 .Fasi
 . Nel cluster Kubernetes secondario, verificare che i valori per il campo _spec.remoteVolumeHandle_ in TridentMirrorRelationship siano aggiornati.
-. Sul cluster Kubernetes secondario, aggiornare il campo _spec.mirror_ di TridentMirrorRelationship a `reestablished`.
+. Sul cluster Kubernetes secondario, aggiorna il campo _spec.state_ di TridentMirrorRelationship in `reestablished`.
 
 
 

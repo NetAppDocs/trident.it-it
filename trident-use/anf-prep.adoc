@@ -25,6 +25,7 @@ I cloud Azure supportati includono:
 
 * Azure Commercial
 * Azure Government (Azure Government / MAG)
+* Azure Cina
 
 
 Durante la preparazione dell'ambiente, assicurati che la sottoscrizione di Azure, la configurazione dell'identità e le risorse di Azure NetApp Files vengano create nell'ambiente cloud di Azure appropriato.
