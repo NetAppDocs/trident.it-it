@@ -1,0 +1,136 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-failover-older-snapshot.html 
+keywords: trident protect, netapp, snapmirror, failover, older snapshot, recovery point, ransomware, AppMirrorRelationship, promotedSnapshot 
+summary: 'Esegui il failover di un"applicazione replicata verso uno snapshot precedente, consentendo il ripristino da un punto nel tempo precedente al danneggiamento o alla compromissione dei dati.' 
+---
+= Esegui il failover a uno snapshot precedente usando Trident Protect
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Usa Trident Protect per eseguire il failover di un'applicazione replicata verso uno snapshot precedente, consentendoti di ripristinare i dati a un momento precedente al loro danneggiamento o alla loro compromissione. Per impostazione predefinita, il failover utilizza lo snapshot trasferito più di recente.
+
+
+CAUTION: Il passaggio a uno snapshot precedente fa sì che ONTAP SnapMirror elimini gli snapshot sul cluster di destinazione più recenti dello snapshot selezionato, perché non sono più validi. Aggiungi l'annotazione in questa procedura solo se questa perdita di dati è accettabile.
+
+.Prima di iniziare
+* Esiste un oggetto AppMirrorRelationship ed è nello stato `Established`. Per crearne uno, consulta link:trident-protect-use-snapmirror-replication.html#set-up-a-replication-relationship["Impostare una relazione di replica"]. Per verificare lo stato, esegui  `kubectl get amr -n <namespace> <relationship_name> -o=jsonpath='{.status}'`.
+* I cluster di origine e di destinazione utilizzano backend di storage ONTAP con replica SnapMirror. Azure NetApp Files e altri backend non-ONTAP non sono supportati. Consulta link:trident-protect-requirements.html#requirements-for-snapmirror-replication["Requisiti per la replica SnapMirror"].
+* Nell'applicazione di origine esiste una pianificazione di snapshot (con `snapshotRetention` valore maggiore di 1).
+
+
+
+
+[[identify-the-snapshot]]
+== Identifica l'istantanea
+
+Ogni istantanea ha un orario di completamento, quindi puoi scegliere il momento che desideri.
+
+.Fasi
+. Sul cluster di origine, elenca gli snapshot:
++
+[source, console]
+----
+kubectl get snapshots -n my-app-namespace
+----
+. Individua l'istantanea a cui eseguire il failover. Utilizza il `completionTimestamp` valore per selezionare il momento desiderato.
+. Ottieni il percorso dell'archivio di quella snapshot:
++
+[source, console]
+----
+kubectl get snapshots <snapshot_name> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
+. Registra l'ultima parte del percorso, ovvero tutto ciò che segue l'ultima barra. Questa parte è il _basename_. Ad esempio:
++
+[listing]
+----
+20231114173500_schedule-20231114173500_f8df8bd3-a727-4a14-b954-9666aa618b55
+----
++
+
+NOTE: Usa il nome base, non il nome della risorsa personalizzata snapshot.
+
+
+
+.Risultato
+Il nome di base dello snapshot selezionato viene registrato.
+
+
+
+[[fail-over-to-the-selected-snapshot]]
+== Passa allo snapshot selezionato in caso di errore
+
+Specifica l'istantanea da promuovere e conferma la perdita di dati aggiungendo un'annotazione.
+
+.Fasi
+. Sul cluster di destinazione, aggiungi l'annotazione a AppMirrorRelationship. Senza l'annotazione, un failover può utilizzare solo lo snapshot trasferito più di recente.
++
+[source, console]
+----
+kubectl annotate appmirrorrelationship <relationship_name> -n my-app-namespace protect.trident.netapp.io/allow-promotion-with-older-snapshots="true"
+----
+. Modifica il file CR AppMirrorRelationship (ad esempio `trident-protect-relationship.yaml`):
++
+** Imposta *spec.desiredState* su `Promoted`.
+** Imposta *spec.promotedSnapshot* sul nome base che hai registrato in <<Identifica l'istantanea>>.
++
+Ad esempio:
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppMirrorRelationship
+metadata:
+  name: <relationship_name>
+  namespace: <namespace>
+  annotations:
+    protect.trident.netapp.io/allow-promotion-with-older-snapshots: "true"
+spec:
+  desiredState: Promoted
+  promotedSnapshot: <basename>
+----
+
+
+. Applicare la CR:
++
+[source, console]
+----
+kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
+----
+. Verifica lo stato della relazione:
++
+[source, console]
+----
+kubectl get amr -n my-app-namespace <relationship_name> -o=jsonpath='{.status}' | jq
+----
+
+
+.Risultato
+La relazione passa allo `Promoted` stato e l'applicazione viene eseguita sul cluster di destinazione con i dati dello snapshot selezionato.
+
+Se la relazione rimane nello  `Promoting`stato e  `status.error`mostra  `The snapshot provided is invalid or older than the most recently transferred snapshot`, l'annotazione è mancante o non è impostata su  `true`. Aggiungi l'annotazione e riprova.
+
+.Quali sono le prossime novità?
+Per tornare al cluster originale, esegui un link:trident-protect-use-snapmirror-replication.html#reverse-resync-a-failed-over-replication-relationship["risincronizzazione inversa"] e poi link:trident-protect-use-snapmirror-replication.html#reverse-application-replication-direction["invertire la direzione della replica"].
+
+
+CAUTION: Per tornare al cluster originale, non eseguire una normale risincronizzazione. Una normale risincronizzazione scarta l'applicazione di failover e ripristina la relazione con l'istantanea di origine più recente.
+
+
+
+[[related-information]]
+== Informazioni correlate
+
+* link:trident-protect-use-snapmirror-replication.html["Configura e gestisci la replica delle applicazioni utilizzando Trident Protect"]
+* link:trident-protect-use-snapmirror-replication.html#fail-over-to-destination-cluster["Failover sul cluster di destinazione"]
+* link:trident-protect-use-snapmirror-replication.html#resync-a-failed-over-replication-relationship["Risincronizzazione di una relazione di replica non riuscita"]
+* link:trident-protect-use-snapmirror-replication.html#fail-back-applications-to-the-original-source-cluster["Eseguire il failback delle applicazioni nel cluster di origine originale"]
+* link:trident-protect-protect-apps.html#create-a-data-protection-schedule["Creare un piano di data Protection"]
+

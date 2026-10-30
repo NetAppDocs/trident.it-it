@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/gcnv-ontap-mode.html 
 keywords: trident, google cloud netapp volumes, gcnv, ontap-mode, expert mode, ontap-san, ontap-nas, proxy, tech preview, backend configuration 
-summary: Configura i backend ontap-san e ontap-nas di Trident per effettuare il provisioning dello storage sui pool di storage in modalità ONTAP di Google Cloud NetApp Volumes. Questa funzionalità è una Tech Preview in Trident 26.06. 
+summary: Configura i backend ontap-san e ontap-nas di Trident per effettuare il provisioning dello storage sui pool di storage in modalità ONTAP di Google Cloud NetApp Volumes. Questa funzionalità è una Tech Preview in Trident 26.10. 
 ---
 = Configura i pool di storage in modalità ONTAP di Google Cloud NetApp Volumes
 :allow-uri-read: 
@@ -15,7 +15,7 @@ A partire da Trident 26.06, puoi configurare backend esistenti `ontap-san` e `on
 
 [NOTE]
 ====
-Questa funzionalità è una Tech Preview in Trident 26.06. Le funzionalità Tech Preview non sono supportate per l'uso in produzione. La funzionalità, i campi di configurazione e la matrice supportata possono cambiare prima della disponibilità generale (GA).
+Questa funzionalità è una Tech Preview in Trident 26.10. Le funzionalità Tech Preview non sono supportate per l'utilizzo in produzione. La funzionalità, i campi di configurazione e la matrice supportata possono cambiare prima della disponibilità generale (GA).
 
 ====
 
@@ -67,9 +67,9 @@ Prima di configurare un backend in modalità ONTAP, assicurati di avere quanto s
 [[configure-the-backend]]
 == Configura il backend
 
-A `TridentBackendConfig` richiede `credentials`. Per la modalità ONTAP, quel secret contiene le credenziali del proxy GCP, non ONTAP `managementLIF`/ `username`/ `password`. `svm` è facoltativo: ogni pool GCNV in modalità ONTAP attualmente ha un SVM e Trident lo ricava dal pool quando omesso.
+A `TridentBackendConfig`richiede `credentials`di fare riferimento a un Kubernetes Secret. Per la modalità ONTAP, il secret fornisce le credenziali per l'accesso al proxy GCP, non ONTAP `managementLIF` / `username` / `password`. A seconda del metodo di autenticazione, può contenere campi della chiave dell'account di servizio o essere vuoto. `svm`è facoltativo: ogni pool GCNV in modalità ONTAP attualmente ha un SVM e Trident lo ricava dal pool quando viene omesso.
 
-Usa lo stesso modello di account di servizio come per il GCNV nativo: campi non sensibili in  `gcnv.apiKey`,  `private_key` e  `private_key_id` nel secret. Vedi link:../trident-use/gcnv-examples.html["Esempi di configurazione di Google Cloud NetApp Volumes"^].
+Per l'autenticazione con chiave dell'account di servizio, usa lo stesso schema di GCNV nativo: campi non sensibili in `gcnv.apiKey`, `private_key` e `private_key_id` nel secret. Vedi link:../trident-use/gcnv-examples.html["Esempi di configurazione di Google Cloud NetApp Volumes"^]. Per l'autenticazione con Workload Identity Pool o GKE cloud identity, vedi gli esempi in <<authentication>>.
 
 .backend ontap-san
 [source, yaml]
@@ -89,7 +89,7 @@ spec:
   gcnv:
     proxyURL: "https://netapp.googleapis.com"
     projectNumber: "<project-number>"
-    location: "<region-or-zone>"
+    location: "<pool-location>"
     poolID: "<pool-id>"
   svm: "<svm-name>"
 ----
@@ -111,7 +111,7 @@ spec:
   gcnv:
     proxyURL: "https://netapp.googleapis.com"
     projectNumber: "<project-number>"
-    location: "<region-or-zone>"
+    location: "<pool-location>"
     poolID: "<pool-id>"
     apiKey:
       type: service_account
@@ -122,6 +122,7 @@ spec:
       token_uri: "https://oauth2.googleapis.com/token"
       auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs"
       client_x509_cert_url: "<client-x509-cert-url>"
+  svm: "<svm-name>"
 ----
 .Segreto
 [source, yaml]
@@ -144,46 +145,144 @@ stringData:
 Non mettere  `private_key` o  `private_key_id` nella  `TridentBackendConfig` spec: il CRD li rifiuta. Usa  `ontap-san` con lo stesso  `gcnv` e lo stesso modello di credenziali per storage a blocchi.
 
 ====
- svm: "<svm-name>"
-[listing]
-----
 
-== Authentication
 
-Trident resolves credentials for proxy access in the following order:
+[[authentication]]
+== Autenticazione
+
+Trident risolve le credenziali per l'accesso proxy nel seguente ordine:
 
 . Workload Identity Pool (WIP)
-. Service account key
-. Application Default Credentials (ADC)
+. Chiave dell'account di servizio
+. Credenziali predefinite dell'applicazione (ADC)
 
-For this Tech Preview, use the following practices:
 
-* Prefer Workload Identity Pool where it is available.
-* Do not embed raw private keys in version-controlled backend files. Store credentials in a Kubernetes secret.
-* Apply least-privilege IAM scoping to the service account.
+Per questa Tech Preview, segui le seguenti procedure:
 
-== Validation and initialization behavior
+* Preferisci Workload Identity Pool dove è disponibile.
+* Non incorporare chiavi private raw nei file di backend sottoposti a controllo di versione. Archivia le credenziali in un secret di Kubernetes.
+* Applica all'account di servizio un ambito IAM con privilegi minimi.
 
-Trident validates an ONTAP-mode backend during initialization and fails fast rather than partially initializing.
 
-Backend initialization fails if a required `gcnv` field is missing, the driver is unsupported for ONTAP-mode, or credential resolution fails.
+Il `location` valore nel `gcnv` blocco deve corrispondere alla posizione del pool di storage: usa la zona per un pool zonale e la regione per un pool regionale.
 
-== Known limitations
 
-* This feature is a Tech Preview. Behavior and the supported matrix can change before GA.
-* ZAPI fallback is not used in ONTAP-mode.
-* Protocol and node-readiness requirements still apply. For example, iSCSI workflows require the node-side prerequisites described in link:../trident-use/worker-node-prep.html[Prepare the worker node].
-* Existing ONTAP and GCNV environment constraints still apply.
 
-== Upgrade and compatibility
+[[workload-identity-pool]]
+=== Pool di identità dei carichi di lavoro
 
-ONTAP-mode is opt-in per backend through the `gcnv` configuration block:
+Usa `gcnv.wipCredential` per la federazione esplicita dell'account esterno configurata su `TridentBackendConfig`. Su OpenShift, Trident proietta il token in `/var/run/secrets/wif-token/token`; questo è l'unico percorso del token che Trident proietta per OpenShift WIF, quindi usalo per `credential_source.file`. Installa Trident con l'audience WIF come descritto in link:gcnv.html#openshift-wif["Configura Google Cloud NetApp Volumes con Workload Identity Federation"]. Il `credentials` campo fa ancora riferimento a un Secret, ma il Secret non deve contenere un `private_key`.
 
-* Existing non-GCNV ONTAP backends are unaffected.
-* Mixed deployments that combine direct ONTAP backends and ONTAP-mode proxy backends are supported through backend-level configuration. Each backend is configured independently.
-* To stop using ONTAP-mode, remove or replace the affected backends. No global switch is required.
-
-== What's next?
-
-Apply secret before TBC; use `kubectl apply` and `-n trident` to match examples.
+[source, yaml]
 ----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gcnv-ontap-empty
+  namespace: trident
+type: Opaque
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: gcnv-ontap-nas-wip
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  backendName: gcnv-ontap-nas-wip
+  useREST: true
+  nasType: nfs
+  nfsMountOptions: nfsvers=4.1
+  credentials:
+    name: gcnv-ontap-empty
+    type: secret
+  gcnv:
+    proxyURL: "https://netapp.googleapis.com"
+    projectNumber: "<project-number>"
+    location: "<pool-location>"
+    poolID: "<pool-id>"
+    wipCredential:
+      type: external_account
+      audience: "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<wif-pool-id>/providers/<provider-id>"
+      subject_token_type: "urn:ietf:params:oauth:token-type:jwt"
+      token_url: "https://sts.googleapis.com/v1/token"
+      service_account_impersonation_url: "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/<service-account-email>:generateAccessToken"
+      credential_source:
+        file: "/var/run/secrets/wif-token/token"
+----
+
+
+[[gke-cloud-identity]]
+=== identità cloud GKE
+
+Per GKE, configura l'identità cloud di Trident durante l'installazione come descritto in link:gcnv.html#use-gke-workload-identity["Usa l'identità del carico di lavoro GKE"]. Il backend utilizza le credenziali predefinite dell'applicazione (ADC); ometti sia `gcnv.apiKey` che `gcnv.wipCredential`. Il campo  `credentials`fa ancora riferimento a un Secret, ma non inserirvi un `private_key`.
+
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gcnv-ontap-empty
+  namespace: trident
+type: Opaque
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: gcnv-ontap-nas-wi
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  backendName: gcnv-ontap-nas-wi
+  useREST: true
+  nasType: nfs
+  nfsMountOptions: nfsvers=4.1
+  credentials:
+    name: gcnv-ontap-empty
+    type: secret
+  gcnv:
+    proxyURL: "https://netapp.googleapis.com"
+    projectNumber: "<project-number>"
+    location: "<pool-location>"
+    poolID: "<pool-id>"
+----
+
+
+[[validation-and-initialization-behavior]]
+== Comportamento di validazione e inizializzazione
+
+Trident valida un backend in modalità ONTAP durante l'inizializzazione e si arresta immediatamente invece di inizializzarsi solo parzialmente.
+
+L'inizializzazione del backend non riesce se manca un campo `gcnv` obbligatorio, se il driver non è supportato per la modalità ONTAP o se la risoluzione delle credenziali non riesce.
+
+
+
+[[known-limitations]]
+== Limitazioni note
+
+* Questa funzionalità è una Tech Preview. Il comportamento e la matrice supportata possono cambiare prima della GA.
+* Il fallback ZAPI non viene utilizzato in modalità ONTAP.
+* I requisiti relativi al protocollo e alla predisposizione del nodo rimangono validi. Ad esempio, i flussi di lavoro iSCSI richiedono i prerequisiti lato nodo descritti in link:../trident-use/worker-node-prep.html["Preparare il nodo di lavoro"].
+* Le limitazioni dell'ambiente ONTAP e GCNV esistenti rimangono valide.
+
+
+
+
+[[upgrade-and-compatibility]]
+== Aggiornamento e compatibilità
+
+La modalità ONTAP è opzionale per ciascun backend tramite il `gcnv` blocco di configurazione:
+
+* I backend ONTAP esistenti non GCNV non sono interessati.
+* Le implementazioni miste che combinano backend ONTAP diretti e backend proxy in modalità ONTAP sono supportate tramite la configurazione a livello di backend. Configuri ciascun backend in modo indipendente.
+* Per interrompere l'utilizzo di ONTAP-mode, rimuovi o sostituisci i backend interessati. Non è necessario alcuno switch globale.
+
+
+
+
+[[whats-next]]
+== Quali sono le prossime novità?
+
+Applica il secret prima di TBC; usa  `kubectl apply` e  `-n trident` per allinearti agli esempi.

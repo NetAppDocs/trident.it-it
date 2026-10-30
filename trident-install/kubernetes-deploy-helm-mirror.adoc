@@ -16,8 +16,8 @@ summary: 'È possibile distribuire l"operatore Trident e installare Trident util
 
 
 
-[[critical-information-about-trident-26-06]]
-== Informazioni critiche su Trident 26.06
+[[critical-information-about-trident-26-10]]
+== Informazioni critiche su Trident 26.10
 
 *È necessario leggere le seguenti informazioni critiche su Trident.*
 
@@ -26,7 +26,7 @@ summary: 'È possibile distribuire l"operatore Trident e installare Trident util
 ====
 []
 =====
-* Kubernetes 1.37 è ora supportato in Trident. Aggiorna Trident prima di aggiornare Kubernetes.
+* Trident 26.10 supporta Kubernetes dalla versione 1.27 alla 1.37. Controlla l'elenco delle immagini specifiche per la versione in link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Requisiti Trident"] prima di aggiornare Kubernetes.
 * Trident impone rigorosamente l'uso della configurazione multipath negli ambienti SAN, con un valore consigliato di `find_multipaths: no` nel file multipath.conf.
 +
 Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes` oppure `find_multipaths: smart` il valore nel file multipath.conf causerà errori di montaggio. Trident ha raccomandato l'uso di `find_multipaths: no` dalla release 21.07.
@@ -57,7 +57,7 @@ IMPORTANT: Quando si installa Trident in un repository privato, se si utilizza `
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Usa `helm install` e specifica un nome per il deployment e la posizione del registro delle immagini. Le tue link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Immagini Trident e CSI"] possono essere localizzate in un unico registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Negli esempi,  `100.2606.0` è la versione di Trident che stai installando.
+. Usa `helm install` e specifica un nome per il deployment e la posizione del registro delle immagini. Le tue link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Immagini Trident e CSI"] possono essere localizzate in un unico registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Negli esempi,  `100.2610.0` è la versione di Trident che stai installando.
 +
 [role="tabbed-block"]
 ====
@@ -65,14 +65,14 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 --
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2606.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
+helm install <name> netapp-trident/trident-operator --version 100.2610.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
 --
 .Immagini in diversi registri
 --
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2606.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:26.06.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:26.06 --set tridentImage=<your-registry>/trident:26.06.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
+helm install <name> netapp-trident/trident-operator --version 100.2610.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:26.10.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:26.10 --set tridentImage=<your-registry>/trident:26.10.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
 --
 ====
@@ -105,17 +105,17 @@ Specificare un file YAML con override. Questo valore può essere specificato pi�
 Specificare le sostituzioni sulla riga di comando.
 
 |===
-Ad esempio, per modificare il valore predefinito di `debug`, eseguire il seguente comando dove `100.2606.0` è la versione di Trident che si sta installando:
+Ad esempio, per modificare il valore predefinito di `debug`, eseguire il seguente comando dove `100.2610.0` è la versione di Trident che si sta installando:
 
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2606.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2610.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 Per aggiungere il valore nodePrep, eseguire il comando seguente:
 
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2606.0  --create-namespace --namespace trident --set nodePrep={iscsi}
+helm install <name> netapp-trident/trident-operator --version 100.2610.0  --create-namespace --namespace trident --set nodePrep={iscsi}
 ----
 
 
@@ -220,6 +220,9 @@ NOTE: IL `tridentK8sTimeout` il parametro è applicabile solo per l'installazion
 | `tridentSilenceAutosupport` | Consente di disattivare la creazione di rapporti periodici AutoSupport Trident. | `false` 
 
 
+| `tridentExcludeAutosupport` | Quando è impostato su `true`, Trident non configura il container AutoSupport durante l'installazione. | `false` 
+
+
 | `tridentAutosupportImageTag` | Consente di sovrascrivere il tag dell'immagine per il contenitore Trident AutoSupport. | `<version>` 
 
 
@@ -257,6 +260,9 @@ NOTE: IL `tridentK8sTimeout` il parametro è applicabile solo per l'installazion
 
 
 | `enableForceDetach` | Consente di abilitare la funzione di distacco forzato. È possibile automatizzare il processo di distacco forzato tramite l'integrazione con l'operatore di controllo dello stato del nodo (NHC). Per informazioni, vederelink:../trident-reco/force-detach.html["Automazione del failover delle applicazioni stateful con Trident"] . | `false` 
+
+
+| `enableDataLIFRefresh` | Aggiorna i LIF dati NVMe per i volumi pubblicati quando i LIF vengono aggiunti, rimossi o assegnati a un nuovo indirizzo. Si applica a `ontap-san` con `sanType: nvme` su ONTAP unificato e NVMe/TCP su ASA r2. Per ulteriori informazioni, vedi link:../trident-use/refresh-nvme-data-lifs.html["Aggiorna i LIF dei dati NVMe"]. | `false` 
 
 
 | `excludePodSecurityPolicy` | Esclude la creazione della policy di sicurezza del pod operatore. | `false` 

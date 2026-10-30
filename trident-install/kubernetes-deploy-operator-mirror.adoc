@@ -26,7 +26,7 @@ summary: 'È possibile distribuire manualmente l"operatore Trident per installar
 ====
 []
 =====
-* Kubernetes 1.37 è ora supportato in Trident. Aggiorna Trident prima di aggiornare Kubernetes.
+* Trident 26.10 supporta Kubernetes dalla versione 1.27 alla 1.37. Controlla l'elenco delle immagini specifiche per la versione in link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Requisiti Trident"] prima di aggiornare Kubernetes.
 * Trident impone rigorosamente l'uso della configurazione multipath negli ambienti SAN, con un valore consigliato di `find_multipaths: no` nel file multipath.conf.
 +
 Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes` oppure `find_multipaths: smart` il valore nel file multipath.conf causerà errori di montaggio. Trident ha raccomandato l'uso di `find_multipaths: no` dalla release 21.07.
@@ -81,8 +81,8 @@ Il pacchetto di installazione di Trident contiene tutto ciò che serve per distr
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v6.0/trident-installer-26.06.0.tar.gz
-tar -xf trident-installer-26.06.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v26.10.0/trident-installer-26.10.0.tar.gz
+tar -xf trident-installer-26.10.0.tar.gz
 cd trident-installer
 ----
 
@@ -101,10 +101,10 @@ kubectl create -f deploy/crds/<VERSION>.yaml
 [[step-3-update-the-registry-location-in-the-operator]]
 === Fase 3: Aggiornare la posizione del registro nell'operatore
 
-In `/deploy/operator.yaml`, aggiorna `image: docker.io/netapp/trident-operator:26.06.0` per riflettere la posizione del tuo registro delle immagini. Le tue link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Immagini Trident e CSI"] possono essere localizzate in un unico registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Per esempio:
+In `/deploy/operator.yaml`, aggiorna `image: docker.io/netapp/trident-operator:26.10.0` per riflettere la posizione del tuo registro delle immagini. Le tue link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Immagini Trident e CSI"] possono essere localizzate in un unico registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Ad esempio:
 
-* `image: <your-registry>/trident-operator:26.06.0` se tutte le immagini si trovano in un unico registro.
-* `image: <your-registry>/netapp/trident-operator:26.06.0` se la tua immagine Trident si trova in un registro diverso rispetto alle tue immagini CSI.
+* `image: <your-registry>/trident-operator:26.10.0` se tutte le immagini si trovano in un unico registro.
+* `image: <your-registry>/netapp/trident-operator:26.10.0` se la tua immagine Trident si trova in un registro diverso rispetto alle tue immagini CSI.
 
 
 
@@ -175,8 +175,8 @@ Il tuo link:../trident-get-started/requirements.html#container-images-and-corres
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:26.06"
-tridentImage: "<your-registry>/trident:26.06.0"
+autosupportImage: "<your-registry>/trident-autosupport:26.10"
+tridentImage: "<your-registry>/trident:26.10.0"
 ----
 --
 .Immagini in diversi registri
@@ -184,8 +184,8 @@ tridentImage: "<your-registry>/trident:26.06.0"
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:26.06"
-tridentImage: "<your-registry>/trident:26.06.0"
+autosupportImage: "<your-registry>/trident-autosupport:26.10"
+tridentImage: "<your-registry>/trident:26.10.0"
 ----
 --
 ====
@@ -211,16 +211,16 @@ API Version: trident.netapp.io/v1
 Kind:        TridentOrchestrator
 ...
 Spec:
-  Autosupport Image:  <your-registry>/trident-autosupport:26.06
+  Autosupport Image:  <your-registry>/trident-autosupport:26.10
   Debug:              true
   Image Registry:     <your-registry>
   Namespace:          trident
-  Trident Image:      <your-registry>/trident:26.06.0
+  Trident Image:      <your-registry>/trident:26.10.0
 Status:
   Current Installation Params:
     IPv6:                       false
     Autosupport Hostname:
-    Autosupport Image:          <your-registry>/trident-autosupport:26.06
+    Autosupport Image:          <your-registry>/trident-autosupport:26.10
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                      true
@@ -232,11 +232,11 @@ Status:
     Log Format:           text
     Probe Port:           17546
     Silence Autosupport:  false
-    Trident Image:        <your-registry>/trident:26.06.0
+    Trident Image:        <your-registry>/trident:26.10.0
   Message:                Trident installed
   Namespace:              trident
   Status:                 Installed
-  Version:                v26.06.0
+  Version:                v26.10.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -314,6 +314,6 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.06.0        | 26.06.0        |
+| 26.10.0        | 26.10.0        |
 +----------------+----------------+
 ----

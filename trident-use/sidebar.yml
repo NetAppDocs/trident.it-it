@@ -4,6 +4,8 @@ title: USA Trident
 entries:
 - title: Preparare il nodo di lavoro
   url: "/trident-use/worker-node-prep.html"
+- title: Esegui il provisioning dello storage a oggetti con COSI
+  url: "/trident-use/cosi.html"
 - title: Configurare e gestire i backend
   entries:
   - title: Panoramica
@@ -40,6 +42,8 @@ entries:
       url: "/trident-use/ontap-san-prep.html"
     - title: Opzioni di configurazione ed esempi
       url: "/trident-use/ontap-san-examples.html"
+    - title: Aggiorna i LIF dei dati NVMe
+      url: "/trident-use/refresh-nvme-data-lifs.html"
   - title: Driver NAS ONTAP
     entries:
     - title: Panoramica
@@ -96,6 +100,8 @@ entries:
     url: "/trident-use/controller-scalability.html"
   - title: Espansione automatica del volume
     url: "/trident-use/automatic-volume-expansion.html"
+  - title: Configura il dimensionamento automatico del volume ONTAP
+    url: "/trident-use/ontap-autosize.html"
   - title: Gestisci l'espansione automatica del volume
     url: "/trident-use/manage-autogrow-policies.html"
   - title: Importa volumi

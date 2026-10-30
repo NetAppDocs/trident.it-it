@@ -16,8 +16,8 @@ summary: 'È possibile distribuire manualmente l"operatore Trident per installar
 
 
 
-[[critical-information-about-trident-26-06]]
-== Informazioni critiche su Trident 26.06
+[[critical-information-about-trident-26-10]]
+== Informazioni critiche su Trident 26.10
 
 *È necessario leggere le seguenti informazioni critiche su Trident.*
 
@@ -26,7 +26,7 @@ summary: 'È possibile distribuire manualmente l"operatore Trident per installar
 ====
 []
 =====
-* Kubernetes 1.37 è ora supportato in Trident. Aggiorna Trident prima di aggiornare Kubernetes.
+* Trident 26.10 supporta Kubernetes dalla versione 1.27 alla 1.37. Controlla l'elenco delle immagini specifiche per la versione in link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Requisiti Trident"] prima di aggiornare Kubernetes.
 * Trident impone rigorosamente l'uso della configurazione multipath negli ambienti SAN, con un valore consigliato di `find_multipaths: no` nel file multipath.conf.
 +
 Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes` oppure `find_multipaths: smart` il valore nel file multipath.conf causerà errori di montaggio. Trident ha raccomandato l'uso di `find_multipaths: no` dalla release 21.07.
@@ -81,8 +81,8 @@ Il pacchetto di installazione di Trident contiene tutto ciò che serve per distr
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v26.06.0/trident-installer-26.06.0.tar.gz
-tar -xf trident-installer-26.06.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v26.10.0/trident-installer-26.10.0.tar.gz
+tar -xf trident-installer-26.10.0.tar.gz
 cd trident-installer
 ----
 
@@ -180,7 +180,7 @@ Status:
   Current Installation Params:
     IPv6:                      false
     Autosupport Hostname:
-    Autosupport Image:         netapp/trident-autosupport:26.06
+    Autosupport Image:         netapp/trident-autosupport:26.10
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                     true
@@ -190,10 +190,10 @@ Status:
     Kubelet Dir:          /var/lib/kubelet
     Log Format:           text
     Silence Autosupport:  false
-    Trident Image:        netapp/trident:26.06.0
+    Trident Image:        netapp/trident:26.10.0
   Message:                  Trident installed  Namespace:                trident
   Status:                   Installed
-  Version:                  v26.06.0
+  Version:                  v26.10.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -271,6 +271,6 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.06.0        | 26.06.0        |
+| 26.10.0        | 26.10.0        |
 +----------------+----------------+
 ----

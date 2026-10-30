@@ -47,7 +47,7 @@ I protocolli SAN supportati dipendono dalla versione di Trident:
 [[unsupported-operations]]
 == Operazioni non supportate
 
-* Crittografia LUKS
+* Crittografia Linux Unified Key Setup (LUKS)
 * Replica di volumi SnapMirror
 * Limitazione dell'utilizzo aggregato
 * Modalità di prenotazione dello spazio

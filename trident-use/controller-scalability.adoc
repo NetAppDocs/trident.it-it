@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/controller-scalability.html 
-keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, ontap-nas-economy, ontap-san-economy, asa-r2 
+keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, ontap-nas-economy, ontap-san-economy, ontap-nas-flexgroup, asa-r2 
 summary: Comprendere la scalabilità del controller, il comportamento della concorrenza e la maturità delle funzionalità. 
 ---
 = Scalabilità del controller
@@ -14,7 +14,7 @@ summary: Comprendere la scalabilità del controller, il comportamento della conc
 [role="lead"]
 Trident migliora la scalabilità del controller grazie a una maggiore concorrenza tra più driver di storage. Quando abiliti la scalabilità del controller, il controller Trident elabora le operazioni di storage in parallelo invece di serializzarle, il che aumenta il throughput negli ambienti Kubernetes con molte operazioni simultanee.
 
-Prima di distribuire, determina quali driver Trident supportano la scalabilità del controller nella disponibilità generale e quali driver sono disponibili come anteprima tecnica in Trident 26.06. Questo ti aiuta a prendere decisioni di distribuzione informate e a gestire il rischio. La scalabilità del controller è disabilitata per impostazione predefinita.
+Prima di distribuire, determina quali driver Trident supportano la scalabilità del controller nella disponibilità generale e quali driver sono disponibili come anteprima tecnica in Trident 26.10. Questo ti aiuta a prendere decisioni di distribuzione informate e a gestire il rischio. La scalabilità del controller è disabilitata per impostazione predefinita.
 
 
 
@@ -51,11 +51,12 @@ Trident supporta la scalabilità del controller a diversi livelli di maturità p
 [[general-availability]]
 === Disponibilità generale
 
-I seguenti driver supportano la scalabilità del controller alla disponibilità generale in Trident 26.06:
+I seguenti driver supportano la scalabilità del controller alla disponibilità generale in Trident 26.10:
 
 * `ontap-san`
 * `ontap-nas`
 * `ontap-nas-economy`
+* `ontap-nas-flexgroup`
 * `ontap-san-economy`
 * `google-cloud-netapp-volumes`
 * `azure-netapp-files`
@@ -72,7 +73,7 @@ I  `google-cloud-netapp-volumes` e  `google-cloud-netapp-volumes-san` driver son
 [[technical-preview]]
 === Anteprima tecnica
 
-Il seguente driver supporta la scalabilità del controller come funzionalità in anteprima tecnica in Trident 26.06:
+Il seguente driver supporta la scalabilità del controller come funzionalità in anteprima tecnica in Trident 26.10:
 
 * `asa-r2` (SAN e NVMe)
 
@@ -266,7 +267,7 @@ Quando la scalabilità del controller è abilitata, il controller Trident adotta
 [[caveats-and-limitations]]
 == Avvertenze e limitazioni
 
-Le seguenti considerazioni si applicano alla scalabilità del controller in Trident 26.06:
+Le seguenti considerazioni si applicano alla scalabilità del controller in Trident 26.10:
 
 * La scalabilità del controller supporta solo i driver presenti negli elenchi di disponibilità generale e di anteprima tecnica. Per dettagli, vedi <<before-you-enable,Prima di abilitare>>.
 * Il controller Trident gestisce la concorrenza internamente. Questa versione non prevede limiti di concorrenza configurabili dall'utente.

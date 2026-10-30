@@ -12,7 +12,7 @@ summary: 'Puoi abilitare Linux Unified Key Setup (LUKS) per crittografare i volu
 
 
 [role="lead"]
-Puoi abilitare Linux Unified Key Setup (LUKS) per crittografare i volumi ONTAP SAN e ONTAP SAN ECONOMY su Trident. Trident supporta la rotazione della passphrase e l'espansione del volume per volumi crittografati LUKS.
+Linux Unified Key Setup (LUKS) è una specifica per la crittografia del disco. Trident utilizza LUKS per fornire la crittografia lato host per volume per i volumi ONTAP SAN e ONTAP SAN ECONOMY, con supporto per la rotazione della passphrase e l'espansione del volume.
 
 In Trident, i volumi crittografati con LUKS utilizzano il Cypher e la modalità aes-xts-plain64, come consigliato da link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^].
 
@@ -95,6 +95,48 @@ stringData:
   luks-passphrase: secretA
 ----
 
+
+
+
+[[use-luks-with-rwx-raw-block-volumes]]
+== Usa LUKS con volumi raw a blocchi RWX
+
+A partire da Trident 26.10, puoi utilizzare la crittografia LUKS con volumi a blocchi raw basati su iSCSI collegati a più nodi Kubernetes tramite la modalità di accesso `ReadWriteMany` (RWX). Questo è utile per carichi di lavoro come le macchine virtuali KubeVirt che devono collegare lo stesso volume crittografato a un nodo di destinazione mentre è ancora collegato al nodo di origine durante la migrazione live.
+
+Il supporto RWX LUKS è limitato ai volumi a blocchi raw. I volumi RWX LUKS in modalità filesystem non sono supportati. L'applicazione è responsabile del coordinamento dell'accesso simultaneo ai dati decrittografati; Trident coordina solo le operazioni LUKS.
+
+Configura LUKS sul backend, StorageClass e il Secret della passphrase come descritto in <<Attivare la crittografia LUKS>>. Quindi crea un PVC con `volumeMode: Block` e `ReadWriteMany`:
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-rwx-pvc
+  namespace: my-app
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Block
+  storageClassName: san-luks-rwx
+  resources:
+    requests:
+      storage: 10Gi
+----
+I pod su più nodi possono collegare questo PVC come dispositivo a blocchi raw. Trident formatta il dispositivo con LUKS2 al primo collegamento e apre il volume crittografato esistente sui nodi successivi. Le operazioni LUKS esistenti, tra cui la rotazione della passphrase e l'espansione del volume, sono supportate.
+
+
+
+[[why-trident-serializes-luks-operations]]
+=== Perché Trident serializza le operazioni LUKS
+
+LUKS2 memorizza copie ridondanti della sua intestazione di crittografia all'inizio del dispositivo a blocchi. `cryptsetup`Può riparare un'intestazione quando rileva che le copie differiscono, anche durante comandi che sembrano di sola lettura. Il suo meccanismo di blocco è locale a un nodo e non può coordinare operazioni su altri nodi. Se un nodo sta aggiornando l'intestazione mentre un altro esegue `cryptsetup`, il secondo nodo potrebbe attivare la riparazione dell'intestazione e interrompere l'aggiornamento, corrompendo potenzialmente l'intestazione.
+
+Per impedire l'accesso simultaneo all'intestazione, Trident utilizza un Lease di Kubernetes per ogni volume RWX LUKS. Prima che un nodo esegua qualsiasi `cryptsetup` comando per il volume, deve detenere il Lease. Trident rilascia il Lease dopo un'operazione riuscita. Se un altro nodo richiede un'operazione mentre il Lease è detenuto, Trident restituisce un errore recuperabile e Kubernetes riprova in seguito. Le operazioni su volumi diversi sono indipendenti.
+
+Se un' `cryptsetup`operazione fallisce, Trident mantiene intenzionalmente il Lease in modo che solo lo stesso nodo possa riprovare. Un evento di avviso con motivo  `LeaseRetained`registra l'errore. I Lease non scadono automaticamente; un amministratore dovrebbe rimuovere un Lease solo dopo aver verificato che nessuna `cryptsetup` operazione sia in esecuzione sul nodo che lo detiene. Per le procedure di ripristino, vedi <<rwx-luks-stuck-lease,Risolvere un Lease bloccato per i volumi RWX Linux Unified Key Setup (LUKS)>>.
+
+Poiché i nodi si alternano nell'apertura del volume, l'avvio dei carichi di lavoro su molti nodi diversi può richiedere più tempo rispetto a un volume non crittografato. Kubernetes riprova gli errori di blocco temporanei al termine dell'operazione corrente. I pod possono rimanere in `ContainerCreating` più a lungo durante le scalabilità orizzontali su larga scala; i carichi di lavoro sullo stesso nodo possono condividere un'unica mappatura del dispositivo aperto.
 
 
 

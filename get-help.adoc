@@ -34,6 +34,11 @@ Supporto autonomo:: La documentazione Trident è disponibile per i mesi dal 25 a
 
 
  a| 
+link:https://docs.netapp.com/us-en/trident/index.html["26,10"^]
+| Ottobre 2027 | Ottobre 2028 | Ottobre 2029 
+
+
+ a| 
 link:https://docs.netapp.com/us-en/trident/index.html["26,06"^]
 | Luglio 2027 | Luglio 2028 | Luglio 2029 
 

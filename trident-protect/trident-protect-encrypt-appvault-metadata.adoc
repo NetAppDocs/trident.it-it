@@ -1,0 +1,349 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-encrypt-appvault-metadata.html 
+keywords: trident protect, appvault, encryption, metadata, password, password rotation, vault password, secret, kopia, restic 
+summary: Puoi crittografare i metadati di snapshot e backup che Trident Protect memorizza in un AppVault e modificare la password che protegge i dati crittografati. 
+---
+= Crittografa i metadati di AppVault per snapshot e backup di Trident Protect
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puoi crittografare i metadati di snapshot e backup che Trident Protect memorizza in un AppVault, incluse le informazioni sensibili nei Kubernetes Secrets. Puoi anche modificare la password che protegge i dati crittografati. Una singola modifica della password crittografa nuovamente la chiave di crittografia dei metadati e sposta ogni repository Kopia e ogni repository Restic nell'AppVault alla nuova password.
+
+La crittografia è disabilitata per impostazione predefinita. Quando la abiliti, Trident Protect crittografa i nuovi metadati di snapshot e backup prima di archiviarli in AppVault. Questo protegge le risorse dell'applicazione, incluse le informazioni sensibili in Secrets, a meno che tu non escluda esplicitamente tali risorse dallo snapshot o dal backup dell'applicazione.
+
+Una password del vault protegge la chiave che crittografa i dati. Tieni presente il seguente comportamento:
+
+* Quando modifichi la password del vault, Trident Protect protegge la stessa chiave con la nuova password. Non sovrascrive i dati già crittografati.
+* I dati memorizzati prima di attivare la crittografia rimangono leggibili.
+* I dati crittografati rimangono leggibili, anche se in seguito disattivi la crittografia per i nuovi dati.
+
+
+.A proposito di questa attività
+Quando attivi la crittografia, Trident Protect utilizza una password predefinita non sicura a meno che non specifichi una password personalizzata. Per ogni AppVault, crea una password del vault personalizzata e fai riferimento a essa in `spec.vaultPasswordSecretRef`.
+
+Se hai abilitato la crittografia con la password predefinita e in seguito hai aggiunto una password personalizzata, devi ruotare la password in modo che i dati e i repository esistenti passino alla password personalizzata. Vedi <<Ruota la password del vault>>.
+
+Utilizza una password personalizzata univoca per ciascun AppVault. Ruota la password di un solo AppVault alla volta e verifica che la rotazione sia completata prima di iniziare un'altra modifica della password.
+
+.Prima di iniziare
+Assicurati di avere quanto segue:
+
+* Accesso allo `trident-protect` spazio dei nomi.
+* Autorizzazione a creare Secrets di Kubernetes e applicare patch alle risorse personalizzate (CR) di AppVault.
+* È prevista una password segreta separata per ciascun AppVault.
+
+
+
+
+[[enable-metadata-encryption]]
+== Abilita la crittografia dei metadati
+
+Abiliti la crittografia dei metadati impostando un valore Helm per Trident Protect.
+
+.Fasi
+. Imposta `resourceBackupEncryptionEnabled` su `true` usando un `values.yaml` file:
++
+.. Aggiungi quanto segue al tuo `values.yaml` file:
++
+[source, yaml]
+----
+resourceBackupEncryptionEnabled: true
+----
+.. Applica il file:
++
+[source, console]
+----
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect -f values.yaml --reuse-values
+----
+
+
+. In alternativa, imposta `resourceBackupEncryptionEnabled` su `true` usando il flag Helm `--set`:
++
+[source, console]
+----
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect \
+  --set resourceBackupEncryptionEnabled=true \
+  --reuse-values
+----
+
+
+.Risultato
+Trident Protect crittografa i nuovi metadati di snapshot e backup.
+
+.Quali sono le prossime novità?
+Crea una password del vault personalizzata per ogni AppVault. Finché non lo fai, Trident Protect usa la password predefinita non sicura.
+
+
+
+[[create-a-custom-vault-password]]
+== Crea una password personalizzata per il vault
+
+Per usare la tua password, crea un Kubernetes Secret che contenga la password, quindi fai riferimento al Secret nell'AppVault.
+
+.A proposito di questa attività
+Se configuri la password personalizzata quando crei AppVault, prima che vengano memorizzati dati, AppVault utilizza immediatamente la password personalizzata. Non devi ruotare la password.
+
+Se AppVault contiene già repository Kopia o Restic, l'aggiunta di una nuova password non modifica la password di tali repository. Non usare i passaggi in questa sezione. Segui invece i passaggi in <<Ruota la password del vault>>.
+
+Il `VAULT_PASSWORD` valore deve soddisfare i seguenti requisiti:
+
+* Non deve essere vuoto
+* Deve essere più breve di 64 KiB
+* Non deve contenere il carattere NUL
+* Non deve contenere un'interruzione di riga
+* Non deve iniziare o terminare con uno spazio o altro carattere vuoto
+
+
+La password può contenere altri caratteri, inclusi caratteri non ASCII.
+
+.Fasi
+. Crea un Secret nello stesso namespace di AppVault. Il Secret deve contenere una chiave denominata `VAULT_PASSWORD`:
++
+[source, console]
+----
+kubectl -n trident-protect create secret generic vault-password \
+  --from-literal=VAULT_PASSWORD='<password>'
+----
++
+
+NOTE: Se AppVault segnala che la password non è valida, verifica il `VAULT_PASSWORD` valore rispetto ai requisiti sopra indicati. Le cause più comuni sono un valore vuoto, un carattere di fine riga finale o spazi all'inizio o alla fine della password.
+
+. Fai riferimento al segreto nel campo  `spec.vaultPasswordSecretRef` della CR AppVault:
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: my-vault
+  namespace: trident-protect
+spec:
+  vaultPasswordSecretRef: vault-password
+  providerType: <provider-type>
+  providerConfig:
+    <provider-configuration>
+----
++
+Se  `spec.vaultPasswordSecretRef` è vuoto, AppVault usa la password predefinita non sicura.
+
+
+
+.Risultato
+AppVault utilizza la tua password personalizzata per proteggere la chiave di crittografia dei metadati.
+
+
+
+[[rotate-the-vault-password]]
+== Ruota la password del vault
+
+Puoi ruotare la password per un AppVault che archivia già dati. Una rotazione crittografa di nuovo la chiave di crittografia dei metadati e sposta ogni repository Kopia e ogni repository Restic nel AppVault alla nuova password.
+
+.A proposito di questa attività
+Durante la rotazione, Trident Protect esegue le seguenti operazioni:
+
+* Attende il completamento dei processi di backup e ripristino in esecuzione per AppVault prima di avviarsi.
+* Protegge la chiave di crittografia dei metadati (`metadata-key.json`) con la nuova password. Non riscrive gli oggetti dell'archivio.
+* Trova ogni repository Kopia e ogni repository Restic con il prefisso AppVault e ne cambia la password con la nuova password. I repository che si aprono già con la nuova password non vengono modificati.
+* Salta i repository che un processo di backup o ripristino sta ancora utilizzando e li riprova più tardi.
+* Sospende le pianificazioni abilitate che fanno riferimento a AppVault. Per ogni pianificazione, Trident Protect imposta  `spec.enabled` su  `false` e aggiunge la seguente annotazione:
++
+[source, yaml]
+----
+protect.trident.netapp.io/vault-password-rotation-suspended: <namespace>/<appvault-name>
+----
+
+
+Al termine della rotazione, Trident Protect riattiva solo le pianificazioni che presentano questa annotazione. In caso di errore durante la rotazione, questa riprende dal punto in cui si era interrotta. I repository che utilizzano già la nuova password non vengono modificati nuovamente.
+
+.Prima di iniziare
+Assicurati di avere quanto segue:
+
+* Una nuova password che soddisfi <<Crea una password personalizzata per il vault,requisiti della password del vault>>.
+* Nessun altro AppVault sta ruotando la propria password. Se più AppVaults condividono lo stesso bucket e prefisso, solo uno di essi può ruotare la password. Consulta <<Gestisci la rotazione per AppVaults che condividono un bucket>>.
+
+
+.Fasi
+. Crea un nuovo Secret con un nome diverso da quello del Secret attuale:
++
+[source, console]
+----
+kubectl -n trident-protect create secret generic vault-password-new \
+  --from-literal=VAULT_PASSWORD='<new-password>'
+----
++
+
+IMPORTANT: Non modificare o eliminare il Secret corrente prima del completamento della rotazione. Trident Protect necessita della password corrente per accedere ai dati esistenti finché tutti i repository non utilizzano la nuova password. Se elimini il Secret corrente troppo presto, ricrealo con lo stesso nome e il valore originale `VAULT_PASSWORD`.
+
+. Abilita la rotazione e imposta AppVault in modo che utilizzi il nuovo Secret. Sostituisci `my-vault` con il nome del tuo AppVault:
++
+[source, console]
+----
+kubectl -n trident-protect patch appvault my-vault --type merge --patch '
+spec:
+  enableRotation: true
+  vaultPasswordSecretRef: vault-password-new
+'
+----
++
+
+NOTE: Devi impostare  `spec.enableRotation` su  `true` prima di cambiare la password. Se è  `false`, AppVault segnala che la rotazione è disabilitata e non cambia la password.
+
+. Monitora la rotazione seguendo i passaggi descritti in <<Monitora la rotazione delle password>>.
+. Al termine della rotazione, elimina il Secret precedente se nessun altro lo utilizza.
+
+
+.Risultato
+La chiave di crittografia dei metadati e ogni repository Kopia e Restic nell'AppVault sono protetti dalla nuova password e le pianificazioni che Trident Protect aveva sospeso sono di nuovo abilitate.
+
+
+
+[[monitor-password-rotation]]
+== Monitora la rotazione delle password
+
+Puoi verificare l'avanzamento della rotazione delle password e confermare che è completa.
+
+.Fasi
+. Visualizza AppVault:
++
+[source, console]
+----
+kubectl -n trident-protect get appvault my-vault --output yaml
+----
+. Nell'output, controlla la `status.vaultPasswordRotation` sezione. Durante la rotazione, ha questo aspetto:
++
+[source, yaml]
+----
+status:
+  vaultPasswordRotation:
+    state: Rotating
+    rotated: 3
+    pending: 1
+    message: <message>
+----
++
+Questa tabella descrive i campi:
+
++
+|===
+| Campo | Descrizione 
+
+
+| status.vaultPasswordRotation.state | Stato di rotazione attuale. 
+
+
+| stato.vaultPasswordRotation.ruotato | Numero di repository che ora utilizzano la nuova password. 
+
+
+| stato.vaultPasswordRotation.in sospeso | Numero di repository ignorati perché in uso da un backup o da un ripristino. 
+
+
+| stato.vaultPasswordRotation.messaggio | Ultimo messaggio di avanzamento o di errore. 
+|===
+
+
+.Risultato
+La rotazione è completa quando sono vere tutte le seguenti condizioni:
+
+* `status.vaultPasswordRotation` non è presente.
+* `status.previousRepositoryPasswordSecretRef` è vuoto.
+* `status.repositoryPasswordSecretRef`corrispondenze `spec.vaultPasswordSecretRef`.
+
+
+.Quali sono le prossime novità?
+Se la rotazione non termina, controlla quanto segue:
+
+* *La rotazione non si avvia*: `spec.enableRotation` potrebbe essere `false`. Impostalo su `true` e poi imposta `spec.vaultPasswordSecretRef` sul nuovo Secret.
+* *I repository rimangono in sospeso*: i processi di backup o ripristino li stanno ancora utilizzando. Attendi il completamento dei processi. Trident Protect riprova automaticamente i repository in sospeso.
+* *La rotazione non si avvia perché un altro AppVault possiede il lock*: fai riferimento a <<Gestisci la rotazione per AppVaults che condividono un bucket>>.
+* *Il campo messaggio segnala un errore*: Risolvi il problema descritto nel messaggio. La rotazione riprende da dove si era interrotta.
+
+
+
+
+[[migrate-from-datamoverpasswordsecretref]]
+== Migra da dataMoverPasswordSecretRef
+
+Se un AppVault esistente utilizza il campo `spec.dataMoverPasswordSecretRef` precedente, puoi spostarlo in `spec.vaultPasswordSecretRef`.
+
+.A proposito di questa attività
+Trident Protect mantiene `spec.dataMoverPasswordSecretRef` per la retrocompatibilità. Usa `spec.vaultPasswordSecretRef` per i nuovi AppVaults.
+
+.Fasi
+. Mantieni  `spec.dataMoverPasswordSecretRef` e il relativo Secret in posizione.
+. Ruota la password in un nuovo Secret utilizzando  `spec.vaultPasswordSecretRef`. Segui i passaggi in <<Ruota la password del vault>>.
+. Al termine della rotazione, rimuovi `spec.dataMoverPasswordSecretRef` da AppVault.
+. Elimina il vecchio Secret se nient'altro lo usa.
+
+
+
+
+[[manage-rotation-for-appvaults-that-share-a-bucket]]
+== Gestisci la rotazione per AppVaults che condividono un bucket
+
+Se diversi AppVaults utilizzano lo stesso bucket e prefisso, solo uno di essi può ruotare la password.
+
+.A proposito di questa attività
+La rotazione delle password utilizza un file di blocco denominato `password-rotation.lock`. Il blocco registra l'UID di AppVault autorizzato a ruotare la password per il bucket e il prefisso. Se un secondo AppVault ha `spec.enableRotation: true` e il blocco indica un AppVault diverso, il secondo AppVault non può eseguire la rotazione.
+
+.Fasi
+[role="tabbed-block"]
+====
+.Trasferisci la rotazione a un altro AppVault
+--
+. Su AppVault che possiede il blocco, cancella `spec.enableRotation`:
++
+[source, console]
+----
+kubectl -n trident-protect patch appvault <current-owner> --type merge --patch '
+spec:
+  enableRotation: false
+'
+----
+. Attendi che il blocco venga rimosso.
+. Sullo AppVault che dovrebbe ruotare successivamente, imposta `spec.enableRotation` su `true`:
++
+[source, console]
+----
+kubectl -n trident-protect patch appvault <new-owner> --type merge --patch '
+spec:
+  enableRotation: true
+'
+----
+
+
+--
+.Rimuovi un blocco lasciato da AppVault eliminato
+--
+Segui questi passaggi se AppVault, che possiede il blocco, non esiste più e il blocco non è stato rimosso, ad esempio dopo un arresto anomalo.
+
+. Elimina il  `password-rotation.lock` file dal prefisso AppVault nel tuo bucket.
+. Su AppVault che dovrebbe ruotare, imposta `spec.enableRotation` su `true`:
++
+[source, console]
+----
+kubectl -n trident-protect patch appvault <appvault-name> --type merge --patch '
+spec:
+  enableRotation: true
+'
+----
+
+
+--
+====
+
+
+[[related-information]]
+== Informazioni correlate
+
+* link:trident-protect-appvault-custom-resources.html["Utilizzare gli oggetti Trident Protect AppVault per gestire i bucket"]
+* link:trident-protect-customize-installation.html["Personalizza l'installazione Trident Protect"]
+* link:trident-protect-protect-apps.html["Proteggere le applicazioni"]
+* link:trident-protect-restore-apps.html["Ripristina le applicazioni utilizzando Trident Protect"]
+

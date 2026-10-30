@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-kubevirt-vms.html 
-keywords: kubevirt, openshift virtualization, virtual machine, vm, backup, restore, includedvirtualmachines 
-summary: Proteggi le macchine virtuali KubeVirt su OpenShift Virtualization con Trident Protect. Esegui il backup di tutte le VM in un namespace o di VM specifiche per nome. Ripristina selettivamente singole VM da un backup o da un archivio snapshot. 
+keywords: kubevirt, openshift virtualization, virtual machine, vm, backup, restore, includedvirtualmachines, mac address, retain-mac-address 
+summary: Proteggi le macchine virtuali KubeVirt su OpenShift Virtualization con Trident Protect. Esegui il backup di tutte le VM in un namespace o di VM specifiche per nome. Ripristina selettivamente singole VM da un backup o da un archivio snapshot.--- 
 ---
 = Proteggi le macchine virtuali KubeVirt con Trident Protect
 :hardbreaks:
@@ -41,9 +41,13 @@ Entrambe le modalità supportano filtri aggiuntivi:
 * Usa  `includedClusterScopedResources` per includere risorse compatibili con ambito cluster, come oggetti  `StorageClass`.
 
 
+[NOTE]
+====
+* Trident Protect può bloccare e sbloccare i filesystem delle VM KubeVirt durante le operazioni di protezione dei dati per garantire la coerenza. Per i dettagli di configurazione, vedi link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Protezione dei dati con le macchine virtuali KubeVirt"].
+* Per creare snapshot di tutti i dischi di una VM nello stesso momento, usa gli snapshot di gruppi di volumi. Fai riferimento a link:trident-protect-volume-group-snapshots.html["Utilizza gli snapshot dei gruppi di volumi con Trident Protect"].
 
-NOTE: Trident Protect può bloccare e sbloccare i filesystem delle VM KubeVirt durante le operazioni di protezione dei dati per garantire la coerenza. Per i dettagli di configurazione, vedi link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Protezione dei dati con le macchine virtuali KubeVirt"].
 
+====
 
 
 [[resources-collected-during-backup-and-snapshot]]
@@ -182,9 +186,13 @@ Durante il ripristino, Trident Protect applica trasformazioni compatibili con Ku
 
 | Pod (`virt-launcher`) | Saltato quando il pod ha l'etichetta  `kubevirt.io=virt-launcher`. 
 |===
+[NOTE]
+====
+* Trident Protect ripristina le risorse KubeVirt in un ordine definito per evitare problemi di dipendenza. I CDI DataVolumes (`cdi.kubevirt.io` vengono ripristinati per primi così i dati del disco della VM sono disponibili prima che vengano creati gli oggetti VM. Dopodiché, le VirtualMachines (`kubevirt.io` vengono ripristinate prima delle VirtualMachineInstances.
+* Per impostazione predefinita, Trident Protect rimuove l'indirizzo MAC dalla prima interfaccia di rete di ogni VM ripristinata. Per mantenerlo, usa l' `protect.trident.netapp.io/retain-mac-address`annotazione. Fai riferimento a link:trident-protect-restore-settings.html#supported-annotations["Utilizza le impostazioni di ripristino avanzate Trident Protect"].
 
-NOTE: Trident Protect ripristina le risorse KubeVirt in un ordine definito per evitare problemi di dipendenza. I CDI DataVolumes (`cdi.kubevirt.io` vengono ripristinati per primi così i dati del disco della VM sono disponibili prima che vengano creati gli oggetti VM. Dopodiché, le VirtualMachines (`kubevirt.io` vengono ripristinate prima delle VirtualMachineInstances.
 
+====
 
 
 [[dynamic-vm-protection-with-label-selectors]]
@@ -583,6 +591,7 @@ tridentctl-protect create application <application_name> \
 * link:trident-protect-protect-apps.html["Proteggere le applicazioni"]
 * link:trident-protect-restore-apps.html["Ripristina le applicazioni utilizzando Trident Protect"]
 * link:trident-protect-restore-settings.html["Usa le impostazioni di ripristino avanzate"]
+* link:trident-protect-use-snapmirror-replication.html["Replicare le applicazioni utilizzando NetApp SnapMirror e Trident Protect"]
 * link:trident-protect-cli.html["Installa il plugin Trident Protect CLI"]
 * link:trident-protect-appvault-custom-resources.html["Utilizzare gli oggetti AppVault per gestire i bucket"]
 

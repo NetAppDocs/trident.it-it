@@ -19,8 +19,8 @@ WARNING: Il `tridentctl` Il file binario per Linux fornito nel file zip del prog
 
 
 
-[[whats-new-in-26-06-2]]
-== Novità della versione 26.06.2
+[[whats-new-in-26-10]]
+== Novità della versione 26.10
 
 Scopri le novità in NetApp Trident e Trident Protect, inclusi miglioramenti, correzioni e deprecazioni.
 
@@ -35,10 +35,122 @@ Scopri le novità in NetApp Trident e Trident Protect, inclusi miglioramenti, co
 
 * *Kubernetes*:
 +
-** Aggiunto il supporto per Kubernetes 1.37.
+** Aggiunto il supporto per il provisioning dinamico basato su COSI dei bucket di storage a oggetti da StorageGRID. Per ulteriori informazioni, vedi link:trident-use/cosi.html["Esegui il provisioning dello storage a oggetti con COSI"].
+** Aggiunto il supporto per l'aggiornamento periodico dei LIF dati NVMe per rilevare e adattarsi alle modifiche di configurazione. Per ulteriori informazioni, consulta link:trident-use/refresh-nvme-data-lifs.html["Aggiorna i LIF dei dati NVMe"].
+** Aggiunto il supporto per il dimensionamento automatico di ONTAP sui nuovi volumi creati dai driver ONTAP-SAN e ONTAP-SAN-Economy. Per ulteriori informazioni, consulta link:trident-use/ontap-autosize.html["Configura il dimensionamento automatico del volume ONTAP"].
+** Aggiunto il supporto per Kubernetes 1.37. Per le versioni supportate e le immagini richieste, consulta link:trident-get-started/requirements.html["Requisiti Trident"].
+** Aggiunto il riconoscimento del PVC del clone di backup per i backup di CommVault e Rubrik per saltare la ONTAP Volume Recovery Queue (problema link:https://github.com/NetApp/trident/issues/1182["#1182"]).
+** Aggiunta l' `maxNamespacesPerSuperSubsystem`opzione backend per i nuovi volumi NVMe RWX. Per ulteriori informazioni, consulta link:trident-use/trident-nvme-rwx-subsystem-limits.html["Limiti del sottosistema NVMe RWX"].
+** Aggiunta la registrazione dei nodi CSI basata su CRD tramite `TridentNode` spec e status, in sostituzione del backchannel HTTPS del controller per le implementazioni Kubernetes.
+** Aggiunto il supporto del programma di installazione per la proiezione dei token dell'account di servizio con un'audience configurabile per Google Cloud Workload Identity Federation (WIF) su OpenShift. Per i dettagli sull'installazione e la configurazione del backend, vedi link:trident-use/gcnv.html#openshift-wif["Configura Google Cloud NetApp Volumes con Workload Identity Federation"].
+** Aggiunta un' `backend_state`etichetta alla `trident_backend_info` metrica per identificare lo stato di salute dei singoli backend in Prometheus (Issue link:https://github.com/NetApp/trident/issues/1088["#1088"]). Per informazioni sulle metriche di Trident, vedi link:trident-use/monitor-trident.html["Monitor Trident"].
+
+
+* Aggiunto il supporto per la crittografia LUKS per i volumi RWX sottoposti a provisioning dal driver ONTAP-SAN tramite iSCSI. Per ulteriori informazioni, consulta link:trident-reco/security-luks.html["Utilizzo di Linux Unified Key Setup (LUKS)"].
+* Aggiunto il supporto GA della concorrenza per il driver ONTAP-NAS-FlexGroup e Docker; la concorrenza di ASA r2 è ora GA, non più in Technical Preview. Per i driver supportati e il relativo comportamento, vedi link:trident-use/controller-scalability.html["Scalabilità del controller"].
+* Aggiunto il supporto per l'espansione del volume CSI quando non tutti i percorsi iSCSI sono disponibili, utilizzando la rimozione del percorso e l'autoriparazione iSCSI. Per ulteriori informazioni, vedi link:trident-use/vol-expansion.html["Espandere i volumi"].
+* Aggiunta l'annotazione `trident.netapp.io/unixGroupID` PVC per impostare, al momento della creazione, l'ID del gruppo UNIX del volume ONTAP per i volumi ONTAP-NAS e ONTAP-NAS-FlexGroup con root squash (Problema link:https://github.com/NetApp/trident/issues/1079["#1079"]).
+* Aggiunto il supporto di Talos OS per NVMe/TCP, NFSv4 e iSCSI (Issue link:https://github.com/NetApp/trident/issues/806["#806"]). Per le piattaforme supportate e i requisiti dei nodi worker, vedi link:trident-get-started/requirements.html["Requisiti Trident"] e link:trident-use/worker-node-prep.html["Preparare il nodo di lavoro"].
+* Aggiunto il parametro opzionale `storageAPITimeout` backend per configurare i timeout dei client ONTAP REST e ZAPI per ciascun backend.
+* Aggiunta l' `useRESTSQLBypass`opzione di backend ONTAP per aggiungere `SQL=false` alla ricerca dei nomi REST di ONTAP.
+* Promossa l'importazione qtree ONTAP-NAS-Economy da Technical Preview a GA. Per le istruzioni di importazione, vedi link:trident-use/vol-import.html["Importa i volumi Trident"].
 
 
 
+
+==== Correzioni
+
+* *Kubernetes*:
++
+** Corretto il problema per cui le regole della policy di esportazione ONTAP-NAS venivano eliminate erroneamente durante gli aggiornamenti del backend o i riavvii del controller quando `enableConcurrency` è `true` (Problemi link:https://github.com/NetApp/trident/issues/1166["#1166"], link:https://github.com/NetApp/trident/issues/1179["#1179"]). Per la configurazione della policy di esportazione, vedi link:trident-use/ontap-nas-examples.html["Opzioni ed esempi di configurazione del NAS ONTAP"].
+** Corretti gli aggiornamenti non sostanziali del backend, come le modifiche alle credenziali o alla QoS, che attivavano scansioni degli orfani per volume e potevano bloccare le operazioni CSI sui backend di grandi dimensioni. Ora le scansioni si eseguono solo quando cambiano la SVM o il prefisso di storage.
+** Corrette le credenziali visualizzate nei log di debug, inclusi i dump delle richieste CSI gRPC, l'output dell'ambiente di avvio e  `TridentBackendConfig`le specifiche registrate. L'output di avvio ora registra i valori solo per le variabili Trident `TRIDENT_*` ed elenca le altre variabili per nome.
+** Risolta una race condition tra la pubblicazione CSI e lo spostamento del volume che poteva collegare un volume con informazioni di accesso obsolete. Per i dettagli sullo spostamento del volume, consulta link:trident-use/vol-move.html["Sposta un volume"].
+** Risolto `NodeGetInfo` il problema della restituzione di etichette di topologia vuote prima del completamento della registrazione del nodo, che poteva causare errori di provisioning basati sulla topologia (Problema link:https://github.com/NetApp/trident/issues/1131["#1131"]). Per il provisioning basato sulla topologia, consulta link:trident-use/csi-topology.html["Esegui il provisioning dello storage usando la topologia CSI"].
+** Risolta una rara race condition nella disconnessione NVMe che poteva causare l'arresto di un sottosistema condiviso mentre un altro pod si stava collegando.
+** Risolti gli errori di pubblicazione dei cloni PVC NVMe e la mappatura errata del namespace padre durante la clonazione di un volume montato in modalità concorrente.
+** Risolti gli errori di creazione degli snapshot per i PVC sui backend ONTAP-SAN-Economy configurati con `nameTemplate`. Per esempi di configurazione del backend, vedi link:trident-use/ontap-san-examples.html["Opzioni ed esempi di configurazione DELLA SAN ONTAP"].
+** Risolto il problema per cui i backend REST di ONTAP lasciavano orfano un FlexVol appena creato se veniva eliminato prima che l'indice dei nomi REST si aggiornasse; Trident ora elimina i volumi tramite UUID.
+** Risolto il problema del blocco all'avvio del controller quando un LIF di backend non è raggiungibile. Il backend interessato viene contrassegnato `Failed` e l'avvio prosegue.
+** Risolto il problema per cui i pod del controller e del nodo gestiti dall'operatore si riavviavano a ogni riconciliazione quando configurati con un selettore di nodi multi-chiave. Per la configurazione del selettore di nodi, vedere link:trident-install/kubernetes-customize-deploy.html["Personalizzare l'installazione dell'operatore Trident"].
+** Risolto il problema delle risorse Azure NetApp Files `TridentBackendConfig` create da TridentConfigurator a cui mancava l'etichetta `trident.netapp.io/configurator` richiesta dalla convalida post-creazione.
+** Risolto il problema di registrazione del nodo che si verificava quando il servizio Trident CSI utilizzava un ClusterIP IPv6 (Problema link:https://github.com/NetApp/trident/issues/1164["#1164"]).
+** Risolto un problema per cui un nodo Trident veniva rimosso definitivamente quando un nodo worker veniva eliminato e si ricollegava mentre le pubblicazioni di volumi obsolete erano ancora in fase di annullamento della pubblicazione.
+** Risolto il problema per cui i volumi ONTAP-NAS perdevano l'accesso all'esportazione NFS sui nodi già collegati quando la policy di esportazione memorizzata nella cache di Trident non era aggiornata. Per la configurazione della policy di esportazione, vedi link:trident-use/ontap-nas-examples.html["Opzioni ed esempi di configurazione del NAS ONTAP"].
+** Risolta `tridentctl` la pulizia dell'installazione che elimina il CRD del modello di correzione del nodo, il che potrebbe impedire installazioni successive con distacco forzato abilitato. Per i dettagli sull'installazione, vedi link:trident-install/kubernetes-deploy-tridentctl.html["Installare Trident usando tridentctl"].
+** Risolto il problema delle chiamate di eliminazione degli snapshot che sovraccaricavano l'API ONTAP aggiungendo un ritardo per i tentativi. Per le operazioni sugli snapshot, vedere link:trident-use/vol-snapshots.html["Gestisci le istantanee"].
+** Corretto il commento dell'helper dell'immagine del grafico Helm dell'operatore Trident AutoSupport e la virgolettatura del valore cloudProvider.
+** Corretta la gestione di ONTAP ZAPI volume-create per processi occupati o esistenti, in modo che i tentativi di CSI non distruggano prematuramente FlexVols né causino cicli di creazione/distruzione.
+** Risolto un panic durante il nuovo tentativo di eseguire snapshot di gruppi di volumi per un gruppo di coerenza che non esiste più. Per gli snapshot di gruppi di volumi, vedi link:trident-use/vol-group-snapshots.html["Creare snapshot del gruppo di volumi"].
+** Rimosso l'avviso di supporto di Trident in base alle versioni minime e massime di Kubernetes supportate.
+
+
+* Risolta una race condition nei lock condivisi con nome che poteva consentire operazioni sovrapposte sulla stessa risorsa.
+* Risolto il problema di inizializzazione del driver ASA che si verificava quando non era possibile trovare uno snapshot.
+* Risolto il provisioning GCNV per i pool regionali Flex Unified quando i nodi del cluster non si trovano nella zona HA primaria; Trident non considera più tale zona HA come una topologia CSI obbligatoria. I pool zonali rimangono invariati. Per la configurazione di Flex Unified, vedi link:trident-use/gcnv-block.html["Configurare storage a blocchi (iSCSI)"].
+* Risolto il problema per cui i volumi GCNV Flex Unified NAS e SAN venivano erroneamente contrassegnati come orfani durante la riconciliazione del backend quando l'identità canonica del backend differiva dal nome del volume Trident (Problema link:https://github.com/NetApp/trident/issues/1189["#1189"]). Per la configurazione del backend GCNV, vedi link:trident-use/gcnv.html["Configurare Google Cloud NetApp Volumes"].
+* Risolto il problema di rilevamento di NVMe/TCP sugli host in cui il trasporto è integrato nel kernel (Problema link:https://github.com/NetApp/trident/issues/1019["#1019"]). Per i requisiti dei nodi, vedere link:trident-use/worker-node-prep.html["Preparare il nodo di lavoro"].
+* Risolto il problema per cui ONTAP-NAS e ONTAP-NAS-FlexGroup ritentavano l'espansione all'infinito quando il volume ONTAP era già sufficientemente grande per la richiesta, inclusa la riserva per gli snapshot. Per l'espansione del volume, vedi link:trident-use/vol-expansion.html["Espandere i volumi"].
+* Risolto il problema del montaggio di volumi fissi che non riusciva a causa di percorsi di giunzione mancanti. Per la configurazione NAS di ONTAP, vedi link:trident-use/ontap-nas.html["Configura i driver NAS di ONTAP"].
+* Risolto il problema di creazione del volume ONTAP-SAN-Economy che non riusciva quando `storagePrefix` conteneva trattini. Per le opzioni di configurazione del backend, vedere link:trident-use/ontap-san-examples.html["Opzioni ed esempi di configurazione DELLA SAN ONTAP"].
+* Corretta la pubblicazione del clone ONTAP-NAS di sola lettura con policy di esportazione automatiche, in modo da preservare le regole di esportazione del FlexVol di origine. Per la configurazione di ONTAP NAS, vedi link:trident-use/ontap-nas-examples.html["Opzioni ed esempi di configurazione del NAS ONTAP"].
+* Corretto il comportamento di nuovo tentativo del trasporto HTTP (Issue link:https://github.com/NetApp/trident/issues/1139["#1139"]).
+* Risolto il problema per cui il rilevamento dei dispositivi fantasma ignorava la rimozione del dispositivo SCSI (problema link:https://github.com/NetApp/trident/issues/1161["#1161"]).
+* Corretto il provisioning con gestione della concorrenza che selezionava una zona topologica diversa dalla zona preferita del nodo selezionato. Per informazioni sul comportamento in termini di concorrenza e topologia, vedi link:trident-use/controller-scalability.html["Scalabilità del controller"].
+* Risolto il problema del posizionamento asimmetrico dei volumi tra backend equivalenti quando la concorrenza è abilitata; i backend vengono ora selezionati in modo casuale e uniforme, come nel provisioning non concorrente. Per i dettagli, consulta link:trident-use/controller-scalability.html["Scalabilità del controller"].
+* Risolto il problema della registrazione di nodi con indirizzi IP mancanti, che poteva rimuovere le regole della policy di esportazione NFS quando la tabella degli indirizzi di rete dell'host cambiava durante l'avvio del pod del nodo Trident.
+* Risolto il problema per cui la creazione del clone continuava oltre il polling REST e associava il PVC come FlexClone non suddiviso; Trident ora rileva i successivi errori del job di creazione.
+* Risolto il problema relativo alla segnalazione di falsi errori di ridimensionamento durante l'espansione del volume ONTAP-SAN sul nodo. Per informazioni sull'espansione del volume, vedere link:trident-use/vol-expansion.html["Espandere i volumi"].
+
+
+
+
+==== Miglioramenti sperimentali
+
+
+NOTE: Non utilizzare in ambienti di produzione.
+
+* *[Anteprima tecnica]* *Kubernetes*: Aggiunto il supporto per il provisioning dinamico basato su COSI dei bucket di storage a oggetti da ONTAP S3. Per ulteriori informazioni, vedi link:trident-use/cosi.html["Esegui il provisioning dello storage a oggetti con COSI"].
+
+
+
+
+[[trident-protect]]
+=== Trident Protect
+
+
+
+==== Miglioramenti
+
+* Aggiunto il supporto per la crittografia dei metadati di snapshot e backup di AppVault. Usa una password del vault personalizzata per ogni AppVault. La rotazione della password del vault crittografa di nuovo la chiave di crittografia dei metadati e aggiorna ogni repository Kopia e Restic nell'AppVault. Per saperne di più, consulta link:trident-protect/trident-protect-encrypt-appvault-metadata.html["Crittografa i metadati di AppVault per snapshot e backup di Trident Protect"^].
+* Aggiunto il supporto per mantenere l'indirizzo MAC delle VM KubeVirt durante il ripristino, utile quando la licenza di un'applicazione è associata a un indirizzo MAC. Per abilitarlo, imposta l'annotazione protect.trident.netapp.io/retain-mac-address su "true". Per saperne di più, consulta link:trident-protect/trident-protect-restore-settings.html#supported-annotations["Utilizza le impostazioni di ripristino avanzate Trident Protect"^].
+* Aggiunto il supporto per gli snapshot dei gruppi di volumi, che acquisiscono le richieste di volume persistente correlate di un'applicazione nello stesso momento. Definisci i gruppi di volumi in `spec.volumeGroups` nella risorsa personalizzata Application per etichetta, per macchina virtuale KubeVirt o entrambe. Per saperne di più, consulta link:trident-protect/trident-protect-volume-group-snapshots.html["Utilizza gli snapshot dei gruppi di volumi con Trident Protect"^].
+* Aggiunto il supporto per il failover a uno snapshot precedente di un'applicazione replicata, che ti consente di eseguire il ripristino da un punto nel tempo precedente al danneggiamento o alla compromissione dei dati. Per ulteriori informazioni, consulta link:trident-protect/trident-protect-failover-older-snapshot.html["Esegui il failover a uno snapshot precedente usando Trident Protect"^].
+
+
+
+
+==== Correzioni
+
+* Risolto il problema per cui le installazioni di Trident Protect non riuscivano nel `trident-protect-pre-upgrade-hook` job perché mancava il `trident-protect-controller-manager` ServiceAccount (link:https://github.com/NetApp/trident/issues/1154["Issue #1154"]).
+* Corretti i ripristini solo PVC per includere un `ownerReference` solo quando il proprietario esiste.
+
+
+
+
+[[whats-new-in-26-06-2]]
+== Novità della versione 26.06.2
+
+Scopri le novità in NetApp Trident e Trident Protect, inclusi miglioramenti, correzioni e deprecazioni.
+
+
+
+[[trident]]
+=== Trident
+
+
+
+==== Miglioramenti
 
 
 
@@ -186,7 +298,7 @@ NOTE: Non utilizzare in ambienti di produzione.
 * Aggiunta l'integrazione con OpenShift Service CA Operator per automatizzare la gestione dei certificati TLS per il webhook di ammissione di Trident Protect. Abilita impostando  `useOpenshiftServiceCA` su  `true` nei tuoi valori Helm. Per saperne di più, consulta link:trident-protect/trident-protect-customize-installation.html["Personalizza l'installazione Trident Protect"^].
 * Aggiunto il supporto per il backup e il ripristino delle VM KubeVirt su OpenShift Virtualization. Proteggi tutte le VM in un namespace oppure seleziona VM specifiche per nome e ripristina singole VM da un backup o da uno snapshot. Per saperne di più, consulta link:trident-protect/trident-protect-kubevirt-vms.html["Proteggi le macchine virtuali KubeVirt con Trident Protect"^].
 * Aggiunto il supporto per le trasformazioni delle risorse, che ti permette di aggiungere, rimuovere e modificare gli attributi delle risorse Kubernetes durante il processo di ripristino. Per saperne di più, consulta link:trident-protect/trident-protect-resource-transformations.html["Modifica le risorse durante il ripristino utilizzando risorse personalizzate"].
-* Aggiunto il supporto per  `storageClassMapping` in AppMirrorRelationship (AMR), che consente la mappatura delle classi di archiviazione per i singoli PVC all'interno di una singola definizione AMR. Per saperne di più, consulta link:trident-protect/trident-protect-use-snapmirror-replication.html["Replicare le applicazioni utilizzando NetApp SnapMirror e Trident Protect"^].
+* Aggiunto il supporto per  `storageClassMapping` in AppMirrorRelationship (AMR), che consente la mappatura delle classi di archiviazione per i singoli PVC all'interno di una singola definizione AMR. Per saperne di più, consulta link:trident-protect/trident-protect-use-snapmirror-replication.html["Configura e gestisci la replica delle applicazioni utilizzando Trident Protect"^].
 
 
 
@@ -1127,7 +1239,7 @@ IMPORTANT: Force volume Detach for ONTAP-SAN-* Volumes è supportato solo con le
 == Cambiamenti nel 23.01
 
 
-IMPORTANT: Kubernetes 1,27 è ora supportato in Trident. Eseguire l'aggiornamento di Trident prima di eseguire l'aggiornamento di Kubernetes.
+IMPORTANT: Kubernetes 1.27 è ora supportato in Trident. Aggiornare Trident prima di aggiornare Kubernetes.
 
 
 

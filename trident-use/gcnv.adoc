@@ -29,7 +29,8 @@ I volumi a blocchi forniscono storage a blocchi raw e sono accessibili come disp
 Ciò si applica ai seguenti ambienti:
 
 * Trident 26.02 e versioni successive
-* Google Kubernetes Engine (GKE) o Red Hat OpenShift
+* Google Kubernetes Engine (GKE) o cluster Red Hat OpenShift in esecuzione su GCP
+* OpenShift Workload Identity Federation (WIF) richiede Trident 26.10 o versioni successive
 * Google Cloud NetApp Volumes pool di storage
 
 
@@ -42,7 +43,14 @@ Per configurare lo storage a blocchi (iSCSI), vedere link:gcnv-block.html["Confi
 
 L'identità cloud consente ai carichi di lavoro Kubernetes di accedere alle risorse di Google Cloud autenticandosi come identità del carico di lavoro anziché utilizzare credenziali statiche.
 
-Per utilizzare cloud identity con Google Cloud NetApp Volumes, è necessario disporre di:
+Prima di configurare l'identità del carico di lavoro, usa un account autorizzato a creare le risorse di identità richieste. Per GKE, questo richiede le autorizzazioni Google Cloud per creare e configurare un account di servizio Google Cloud. Per OpenShift, questo richiede l'autorizzazione a creare o selezionare la configurazione WIF del cluster e a configurare il Google Cloud Workload Identity Pool e il provider.
+
+
+
+[[use-gke-workload-identity]]
+=== Usa l'identità del carico di lavoro GKE
+
+Per utilizzare l'identità del carico di lavoro GKE con Google Cloud NetApp Volumes, devi avere:
 
 * Un cluster Kubernetes distribuito utilizzando Google Kubernetes Engine (GKE)
 * Identità del carico di lavoro abilitata sul cluster GKE e server dei metadati abilitato sui pool di nodi
@@ -92,6 +100,241 @@ tridentctl install \
 ----
 --
 ====
+
+
+[[use-workload-identity-federation-on-openshift]]
+[[openshift-wif]]
+=== Usa la federazione delle identità dei carichi di lavoro su OpenShift
+
+A partire da Trident 26.10, puoi utilizzare Google Cloud Workload Identity Federation (WIF) per autenticare i driver di Google Cloud NetApp Volumes sui cluster OpenShift in esecuzione su GCP. Questo vale per OpenShift Container Platform (OCP, incluse le implementazioni IPI) autogestito e per OpenShift Dedicated (OSD), e supporta sia i driver NAS (`google-cloud-netapp-volumes`) sia i driver SAN (`google-cloud-netapp-volumes-san`).
+
+WIF scambia un token dell'account di servizio Kubernetes proiettato con credenziali Google Cloud di breve durata. Trident utilizza queste credenziali per impersonare un account di servizio Google Cloud; i ruoli IAM di tale account di servizio autorizzano le sue chiamate API a Google Cloud NetApp Volumes. Ciò evita di memorizzare una chiave dell'account di servizio di lunga durata nella configurazione del backend.
+
+
+
+==== Prepara il cluster OpenShift
+
+Per OSD, crea o seleziona una configurazione GCP WIF durante la creazione del cluster. Ad esempio, la OpenShift Cluster Manager CLI può crearne una:
+
+[source, console]
+----
+ocm gcp create wif-config --name <wif-name> --project <gcp-project-id>
+----
+Seleziona Workload Identity Federation come tipo di autenticazione del cluster e associa la configurazione WIF al cluster. Per OCP autogestito, configura un provider OIDC di Google Cloud che si fidi dell'emittente del token dell'account di servizio del cluster. Le fasi di provisioning del cluster e di proiezione del token differiscono tra OSD e OCP autogestito; segui le linee guida Red Hat applicabili e rendi il token proiettato disponibile al controller Trident all'indirizzo `/var/run/secrets/wif-token/token`.
+
+L'autenticazione WIF di OSD viene configurata quando crei il cluster. L'audience WIF di Trident è un'impostazione di installazione separata; non devi ricreare il cluster per abilitare WIF per Trident.
+
+Prima di installare o configurare Trident, verifica che l'identità OpenShift utilizzata per l'installazione disponga delle autorizzazioni del cluster richieste dal metodo di installazione scelto. Dopo l'installazione, verifica che i pod del controller e dei nodi siano integri:
+
+[source, console]
+----
+oc whoami
+oc auth can-i create namespaces
+oc auth can-i create csidrivers.storage.k8s.io
+oc auth can-i create customresourcedefinitions.apiextensions.k8s.io
+oc auth can-i create securitycontextconstraints.security.openshift.io
+
+oc -n trident get pods
+oc -n trident rollout status deploy/trident-controller --timeout=300s
+oc -n trident rollout status ds/trident-node-linux --timeout=300s
+----
+
+
+==== Installa Trident con l'audience WIF
+
+Trident proietta il token per WIF solo quando configuri l'audience durante l'installazione. Usa la stessa audience nel provider Google Cloud e nel backend `wipCredentialConfig.audience`:
+
+[source, text]
+----
+//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>
+----
+Imposta `cloudProvider` su `GCP` e configura `gcpWIFAudience` utilizzando il metodo di installazione selezionato:
+
+[role="tabbed-block"]
+====
+.tridentctl
+--
+[source, console]
+----
+tridentctl install \
+  --cloud-provider GCP \
+  --gcp-wif-audience "<audience>" \
+  --namespace trident
+----
+--
+.Operatore Trident
+--
+Imposta questi campi nella `TridentOrchestrator` specifica:
+
+[source, yaml]
+----
+spec:
+  cloudProvider: GCP
+  gcpWIFAudience: "<audience>"
+----
+--
+.Timone
+--
+Imposta questi valori durante l'installazione del chart:
+
+[source, console]
+----
+helm install trident netapp-trident/trident-operator \
+  --set cloudProvider=GCP \
+  --set-string gcpWIFAudience="<audience>"
+----
+--
+====
+Non impostare anche l'opzione GKE `cloudIdentity` / `--cloud-identity` per OpenShift WIF. Non applicare patch al Deployment del controller Trident dopo l'installazione; l'operator ripristina le modifiche manuali. Il token proiettato è disponibile per il backend in  `/var/run/secrets/wif-token/token`. Il container  `trident-main` non include una shell, quindi ispeziona la configurazione del volume del Deployment del controller invece di usare  `oc exec` per controllare il file:
+
+[source, console]
+----
+oc -n trident get deploy trident-controller -o yaml
+----
+
+
+==== Configura la relazione di trust e le autorizzazioni di Google Cloud
+
+Configura un Google Cloud Workload Identity Pool e un provider OIDC per il cluster. L'issuer del provider deve corrispondere al claim  `iss` del token e la sua mappatura degli attributi deve mappare  `assertion.sub` su  `google.subject`. L'audience consentita del provider deve corrispondere al claim  `aud` del token proiettato.
+
+[CAUTION]
+====
+Per OSD, non sostituire né limitare l'elenco audience su un provider condiviso. Quando `allowedAudiences` è vuoto, Google accetta il nome della risorsa canonica del provider, con o senza il `https://` prefisso. L'impostazione `--allowed-audiences` sostituisce tale elenco predefinito e può impedire ad altri componenti OSD di scambiare token. Aggiungi un audience solo quando il provider ha già un elenco esplicito e conserva tutti i valori esistenti. Non aggiungere una condizione di attributo al provider condiviso di OSD. Vedi la documentazione di Google Cloud link:https://docs.cloud.google.com/iam/docs/reference/rest/v1/projects.locations.workloadIdentityPools.providers#Oidc["Riferimento del provider OIDC"^].
+
+====
+Gli endpoint pubblici `.well-known/openid-configuration` e JWKS sono richiesti solo quando usi il rilevamento OIDC. Google supporta anche il caricamento diretto del JWKS tramite `jwksJson` o `--jwk-json-path`.
+
+Assegna al principal WIF il `roles/iam.workloadIdentityUser`ruolo sull'account di servizio Google Cloud che Trident impersonerà. Per un soggetto del token di `system:serviceaccount:trident:trident-controller`, il principal ha questa forma:
+
+[source, text]
+----
+principal://iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/subject/system:serviceaccount:trident:trident-controller
+----
+Concedi l'autorizzazione all'account di servizio impersonato `roles/netapp.admin` sul progetto che contiene le risorse di Google Cloud NetApp Volumes, oppure un ruolo personalizzato equivalente con le autorizzazioni richieste. Si tratta di autorizzazioni separate: la prima consente l'impersonificazione, mentre la seconda autorizza le operazioni dell'API di storage.
+
+Se l'audience del token e la configurazione del provider non corrispondono, Google Security Token Service può rifiutare lo scambio con un `invalid_grant` errore di audience. Verifica la configurazione del provider con:
+
+[source, console]
+----
+gcloud iam workload-identity-pools providers describe <provider-id> \
+  --project=<wif-pool-project-id> \
+  --location=global \
+  --workload-identity-pool=<pool-id> \
+  --format="yaml(oidc.allowedAudiences,oidc.issuerUri,attributeMapping)"
+----
+Quando diagnostichi la configurazione del token, confronta i claim  `iss`,  `aud` e  `sub` del token con la configurazione del provider e di IAM. Non condividere né registrare nei log il token proiettato completo.
+
+
+
+==== Prepara lo storage Google Cloud NetApp Volumes
+
+Crea o identifica un pool di storage nella regione utilizzata dal backend. I backend NAS richiedono un pool FILE; i backend SAN usano i pool Flex Unified descritti in link:gcnv-block.html["Configurare storage a blocchi (iSCSI)"]. Assicurati che la configurazione VPC e Private Service Access (PSA) del pool sia appropriata per la rete del cluster.
+
+Ad esempio, elenca gli intervalli di peering VPC globali esistenti per una rete prima di selezionare l'intervallo PSA per un pool:
+
+[source, console]
+----
+gcloud compute addresses list \
+  --project <gcnv-project-id> \
+  --global \
+  --filter="purpose=VPC_PEERING AND network:<network-name>" \
+  --format="table(name,address,prefixLength,status,network,purpose)"
+----
+Usa la regione del pool in `location` e, quando necessario, seleziona esplicitamente il pool usando il percorso completo della risorsa in `storagePools`. Le incongruenze tra regione e posizione del pool, una rete errata o un pool non disponibile possono impedire il rilevamento o il provisioning anche se l'autenticazione riesce.
+
+
+
+==== Configura il backend di Trident
+
+Utilizza l'audience prevista del token sia nella configurazione del provider sia in `wipCredentialConfig.audience`. Il campo `projectNumber` identifica il progetto Google Cloud NetApp Volumes; l'audience usa il numero di progetto che contiene il Workload Identity Pool. Sostituisci i segnaposto in questo esempio con i valori del tuo ambiente:
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: gcnv-nas-wif
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: google-cloud-netapp-volumes
+  projectNumber: "<project-number>"
+  location: "<region>"
+  sdkTimeout: "600"
+  storage:
+  - labels:
+      cloud: gcp
+    network: "<vpc-network>"
+    serviceLevel: Premium
+  wipCredentialConfig:
+    type: external_account
+    audience: "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+    subject_token_type: urn:ietf:params:oauth:token-type:jwt
+    token_url: https://sts.googleapis.com/v1/token
+    credential_source:
+      file: /var/run/secrets/wif-token/token
+    service_account_impersonation_url: https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/<service-account-email>:generateAccessToken
+----
+Per un backend SAN, usa `google-cloud-netapp-volumes-san` come `storageDriverName` e le impostazioni del pool Flex Unified applicabili. La configurazione delle credenziali WIF è altrimenti la stessa per entrambi i driver.
+
+Applica il backend e verifica il suo stato osservato:
+
+[source, console]
+----
+oc apply -f <backend-file>.yaml
+oc -n trident get tridentbackendconfig <backend-name> -o yaml
+----
+Conferma che il backend sia  `Bound`attivo e che la sua ultima operazione sia riuscita prima di testare il provisioning. Ispeziona lo stato live  `spec`e `status`; un'annotazione di configurazione applicata in precedenza potrebbe non riflettere le modifiche successive. Non includere  `apiKey`credenziali statiche quando usi WIF.
+
+
+
+==== Verifica il provisioning end-to-end
+
+Crea una StorageClass che punti al backend, quindi un piccolo PVC di test. Ad esempio, una StorageClass NAS può selezionare un'etichetta di backend:
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gcnv-wif-smoke
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "google-cloud-netapp-volumes"
+  selector: "auth=wif"
+allowVolumeExpansion: true
+----
+Aggiungi l'etichetta `auth: wif` corrispondente alla voce di storage del backend NAS, crea un PVC utilizzando `gcnv-wif-smoke`, e verifica che raggiunga `Bound`. Per un test SAN di base, utilizza `google-cloud-netapp-volumes-san`, le impostazioni del driver SAN e un pool Flex Unified appropriato. Elimina il PVC di test e StorageClass al termine.
+
+
+
+==== Risolvi i problemi comuni
+
+[cols="1,2"]
+|===
+| Sintomo | Cosa controllare 
+
+
+| `invalid_grant` o mancata corrispondenza del pubblico | Confronta il token proiettato `aud` con gli audience consentiti del provider e `wipCredentialConfig.audience`. 
+
+
+| `iam.serviceAccounts.getAccessToken` autorizzazione negata | Verifica che il principal WIF esatto per il controller Trident `sub` abbia `roles/iam.workloadIdentityUser` sull'account di servizio impersonato. 
+
+
+| `netapp.storagePools.list` autorizzazione negata | Verifica che l'account di servizio impersonato disponga delle autorizzazioni per Google Cloud NetApp Volumes, ad esempio `roles/netapp.admin`, nel progetto corretto. 
+
+
+| Nessun pool trovato o pool non trovato | Verifica il backend `location`, la regione e il tipo del pool, la rete, la configurazione PSA e qualsiasi percorso della risorsa del pool di storage configurato esplicitamente. 
+
+
+| Il backend rimane non associato | Esamina i log del controller Trident e lo stato di TridentBackendConfig per individuare l'errore di autenticazione, autorizzazione o rilevamento del pool sottostante. 
+|===
+Per esaminare i log del controller alla ricerca di errori di riconciliazione del backend:
+
+[source, console]
+----
+oc -n trident logs deploy/trident-controller -c trident-main --tail=400
+----
 
 
 [[configure-nas-storage]]

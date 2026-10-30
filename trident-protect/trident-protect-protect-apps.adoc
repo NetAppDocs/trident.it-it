@@ -16,9 +16,13 @@ summary: Proteggi tutte le app eseguendo snapshot e backup utilizzando una polic
 [role="lead"]
 È possibile proteggere tutte le app gestite da Trident Protect eseguendo snapshot e backup tramite una policy di protezione automatizzata o su base ad hoc.
 
+[NOTE]
+====
+* È possibile configurare Trident Protect in modo che blocchi e sblocchi i file system durante le operazioni di protezione dei dati. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Scopri di più sulla configurazione del congelamento del file system con Trident Protect"].
+* Per creare snapshot dei volumi correlati di un'applicazione nello stesso momento, definisci i gruppi di volumi nell'applicazione. Fai riferimento a link:trident-protect-volume-group-snapshots.html["Utilizza gli snapshot dei gruppi di volumi con Trident Protect"].
 
-NOTE: È possibile configurare Trident Protect in modo che blocchi e sblocchi i file system durante le operazioni di protezione dei dati. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Scopri di più sulla configurazione del congelamento del file system con Trident Protect"].
 
+====
 
 
 [[create-an-on-demand-snapshot]]

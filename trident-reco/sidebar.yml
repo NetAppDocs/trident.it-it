@@ -18,5 +18,7 @@ entries:
     url: "/trident-reco/security-reco.html"
   - title: Linux Unified Key Setup (LUKS)
     url: "/trident-reco/security-luks.html"
+  - title: Risolvere un lease LUKS RWX bloccato
+    url: "/trident-reco/rwx-luks-stuck-lease.html"
   - title: Crittografia Kerberos in-flight
     url: "/trident-reco/kerberos-inflight-encryption.html"

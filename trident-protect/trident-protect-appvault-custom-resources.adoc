@@ -40,6 +40,9 @@ Quando si creano oggetti AppVault utilizzando CR o il plug-in Trident Protect CL
 
 
 
+NOTE: Per crittografare i metadati di snapshot e backup o per modificare la password del vault, utilizza il campo  `spec.vaultPasswordSecretRef`. Consulta link:trident-protect-encrypt-appvault-metadata.html["Crittografa i metadati di AppVault per snapshot e backup di Trident Protect"].
+
+
 
 ==== Creare una password segreta dell'archivio di spostamento dati
 
