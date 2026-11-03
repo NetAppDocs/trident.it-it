@@ -38,11 +38,49 @@ A partire da Trident 26.10, il driver SAN supporta Google Cloud Workload Identit
 
 WIF scambia un token dell'account di servizio Kubernetes proiettato con credenziali Google Cloud di breve durata. Trident utilizza queste credenziali per impersonare un account di servizio Google Cloud quando chiama l'API di Google Cloud NetApp Volumes.
 
-Configura un Google Cloud Workload Identity Pool e un provider OIDC per il cluster OpenShift. L'emittente del provider deve corrispondere alla rivendicazione  `iss` del token, la mappatura degli attributi deve mappare  `assertion.sub` a  `google.subject` e il pubblico consentito deve corrispondere alla rivendicazione  `aud` del token.
+Configura un Google Cloud Workload Identity Pool e un provider OIDC per il cluster OpenShift. L'issuer del provider deve corrispondere al claim  `iss` del token e la sua mappatura degli attributi deve mappare  `assertion.sub` su  `google.subject`.
 
-Assegna all'entità WIF per l'account di servizio del controller Trident il  `roles/iam.workloadIdentityUser` ruolo sull'account di servizio Google Cloud che Trident impersonerà. Per l'account di servizio del controller Trident predefinito, il soggetto del token è  `system:serviceaccount:trident:trident-controller`; usa il soggetto configurato per la tua installazione. Assegna all'account di servizio impersonato  `roles/netapp.admin`, o autorizzazioni equivalenti, sul progetto che contiene le risorse di Google Cloud NetApp Volumes.
+Installa Trident con il nome della risorsa del provider come audience WIF. Questo fa sì che Trident proietti il token dell'account di servizio del controller in `/var/run/secrets/wif-token/token`.
 
-Il token proiettato deve essere disponibile per il controller Trident in `/var/run/secrets/wif-token/token`. Imposta `wipCredentialConfig.audience` sullo stesso audience del token e sull'audience consentita dal provider. Aggiungi la seguente stanza al `spec` del backend SAN mostrato di seguito, sostituendo i segnaposto con i valori del tuo ambiente:
+.Operatore Trident
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  cloudProvider: GCP
+  gcpWIFAudience: "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+----
+.Timone
+[source, console]
+----
+helm install trident <trident-operator-package> \
+  --namespace trident \
+  --create-namespace \
+  --set cloudProvider=GCP \
+  --set-string gcpWIFAudience="//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+----
+.tridentctl
+[source, console]
+----
+tridentctl install \
+  --namespace trident \
+  --cloud-provider GCP \
+  --gcp-wif-audience "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+----
+Usa lo stesso pubblico per l'installazione di Trident e `wipCredentialConfig.audience`. Non configurare anche GKE `cloudIdentity` o `--cloud-identity`. Non applicare patch al Deployment del controller per aggiungere il token proiettato; il Trident operator può sovrascrivere questa modifica.
+
+[IMPORTANT]
+====
+Su OpenShift Dedicated, il provider OIDC può essere condiviso con altri componenti di OpenShift. Se l'elenco del provider `allowedAudiences` è vuoto, Google accetta il nome canonico della risorsa del provider, con o senza il `https://` prefisso, quindi non è necessario modificare il provider per il pubblico indicato sopra. Non impostare un elenco di destinatari esplicito solo per Trident. Se il provider ha già destinatari espliciti, aggiungi il destinatario di Trident mantenendo tutti i valori esistenti. La sostituzione dell'elenco può impedire ad altri componenti di OpenShift di scambiare token.
+
+====
+Assegna all'entità WIF per l'account di servizio del controller Trident il `roles/iam.workloadIdentityUser` ruolo nell'account di servizio Google Cloud che Trident impersonerà. Per l'account di servizio del controller Trident predefinito, il soggetto del token è `system:serviceaccount:trident:trident-controller`; utilizza il soggetto configurato per la tua installazione. Assegna all'account di servizio impersonato `roles/netapp.admin`, o autorizzazioni equivalenti, nel progetto che contiene le risorse Google Cloud NetApp Volumes.
+
+Aggiungi la seguente sezione alla `spec` del backend SAN:
 
 [source, yaml]
 ----
