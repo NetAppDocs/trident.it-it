@@ -100,7 +100,7 @@ Telemetria | `"http://proxy.example.com:8888"`
 | `logFormat` | Formato di registrazione Trident da utilizzare [text,json] | `"text"` 
 
 
-| `tridentImage` | Immagine Trident da installare | `"netapp/trident:26.10.0"` 
+| `tridentImage` | Immagine Trident da installare | `"netapp/trident:26.10.1"` 
 
 
 | `imageRegistry` | Percorso al registro interno, del formato

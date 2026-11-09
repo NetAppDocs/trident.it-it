@@ -81,8 +81,8 @@ Il pacchetto di installazione di Trident contiene tutto ciò che serve per distr
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v26.10.0/trident-installer-26.10.0.tar.gz
-tar -xf trident-installer-26.10.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v26.10.0/trident-installer-26.10.1.tar.gz
+tar -xf trident-installer-26.10.1.tar.gz
 cd trident-installer
 ----
 
@@ -101,10 +101,10 @@ kubectl create -f deploy/crds/<VERSION>.yaml
 [[step-3-update-the-registry-location-in-the-operator]]
 === Fase 3: Aggiornare la posizione del registro nell'operatore
 
-In `/deploy/operator.yaml`, aggiorna `image: docker.io/netapp/trident-operator:26.10.0` per riflettere la posizione del tuo registro delle immagini. Le tue link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Immagini Trident e CSI"] possono essere localizzate in un unico registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Ad esempio:
+In `/deploy/operator.yaml`, aggiorna `image: docker.io/netapp/trident-operator:26.10.1` per riflettere la posizione del tuo registro delle immagini. Le tue link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Immagini Trident e CSI"] possono essere localizzate in un unico registro o in registri diversi, ma tutte le immagini CSI devono trovarsi nello stesso registro. Ad esempio:
 
-* `image: <your-registry>/trident-operator:26.10.0` se tutte le immagini si trovano in un unico registro.
-* `image: <your-registry>/netapp/trident-operator:26.10.0` se la tua immagine Trident si trova in un registro diverso rispetto alle tue immagini CSI.
+* `image: <your-registry>/trident-operator:26.10.1` se tutte le immagini si trovano in un unico registro.
+* `image: <your-registry>/netapp/trident-operator:26.10.1` se la tua immagine Trident si trova in un registro diverso rispetto alle tue immagini CSI.
 
 
 
@@ -176,7 +176,7 @@ Il tuo link:../trident-get-started/requirements.html#container-images-and-corres
 ----
 imageRegistry: "<your-registry>"
 autosupportImage: "<your-registry>/trident-autosupport:26.10"
-tridentImage: "<your-registry>/trident:26.10.0"
+tridentImage: "<your-registry>/trident:26.10.1"
 ----
 --
 .Immagini in diversi registri
@@ -185,7 +185,7 @@ tridentImage: "<your-registry>/trident:26.10.0"
 ----
 imageRegistry: "<your-registry>"
 autosupportImage: "<your-registry>/trident-autosupport:26.10"
-tridentImage: "<your-registry>/trident:26.10.0"
+tridentImage: "<your-registry>/trident:26.10.1"
 ----
 --
 ====
@@ -215,7 +215,7 @@ Spec:
   Debug:              true
   Image Registry:     <your-registry>
   Namespace:          trident
-  Trident Image:      <your-registry>/trident:26.10.0
+  Trident Image:      <your-registry>/trident:26.10.1
 Status:
   Current Installation Params:
     IPv6:                       false
@@ -232,7 +232,7 @@ Status:
     Log Format:           text
     Probe Port:           17546
     Silence Autosupport:  false
-    Trident Image:        <your-registry>/trident:26.10.0
+    Trident Image:        <your-registry>/trident:26.10.1
   Message:                Trident installed
   Namespace:              trident
   Status:                 Installed
@@ -314,6 +314,6 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.10.0        | 26.10.0        |
+| 26.10.1        | 26.10.1        |
 +----------------+----------------+
 ----

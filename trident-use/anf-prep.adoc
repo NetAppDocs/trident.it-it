@@ -103,7 +103,7 @@ Per configurare e utilizzare un https://azure.microsoft.com/en-us/products/netap
 ====
 
 
-* Azure `location` che ne contiene almeno uno https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["subnet delegata"^]. A partire da Trident 22.01, il `location` parametro è un campo obbligatorio al livello superiore del file di configurazione back-end. I valori di posizione specificati nei pool virtuali vengono ignorati.
+* L'istanza Azure `location` che contiene almeno un https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["subnet delegata"^]. Il parametro `location` è obbligatorio al livello superiore del file di configurazione del backend. I valori di posizione specificati nei pool virtuali vengono ignorati.
 * Da utilizzare `Cloud Identity`, ottenere il `client ID` da un https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities["identità gestita assegnata dall'utente"^] E specificare tale ID in `azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx`.
 
 
