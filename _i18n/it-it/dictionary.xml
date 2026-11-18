@@ -7441,11 +7441,6 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="661e48e3ddcb4ee665d58f7e5e1c6681" category="list-text">I cluster di origine e di destinazione utilizzano backend di storage ONTAP con replica SnapMirror. Azure NetApp Files e altri backend non-ONTAP non sono supportati. Consulta <block ref="670bdb44a12521f652832ff70a2b48a9" category="inline-link-macro-rx"></block>.</block>
   <block id="ef284a298a0c724678206bb6ba103de7" category="list-text">Nell'applicazione di origine esiste una pianificazione di snapshot (con<block ref="460d2880d85882a9c98985b9b97c15f8" prefix=" " category="inline-code"></block> valore maggiore di 1).</block>
   <block id="5de50c48c56db2fa0806da49412703bd" category="section-title">Identifica l'istantanea</block>
-  <block id="1a157faa616e61a92bf557ba68abe72c" category="paragraph">Ogni istantanea ha un orario di completamento, quindi puoi scegliere il momento che desideri.</block>
-  <block id="0ac971abb32150cb232a1abb0082f500" category="list-text">Sul cluster di origine, elenca gli snapshot:</block>
-  <block id="2394dfdac35ebd284555d0101e404df3" category="list-text">Individua l'istantanea a cui eseguire il failover. Utilizza il<block ref="369e101dc6bf4c62661cf5aa4b24d2c8" prefix=" " category="inline-code"></block> valore per selezionare il momento desiderato.</block>
-  <block id="8480a49548657339b304ce0f98735b0b" category="list-text">Ottieni il percorso dell'archivio di quella snapshot:</block>
-  <block id="5ca06174a57c94edb13ef971d48bd2af" category="list-text">Registra l'ultima parte del percorso, ovvero tutto ciò che segue l'ultima barra. Questa parte è il _basename_. Ad esempio:</block>
   <block id="d4e5a5e14e40c7d660cb667ba2083dda" category="admonition">Usa il nome base, non il nome della risorsa personalizzata snapshot.</block>
   <block id="e8b0579b405ef1127f2cff3c747506d8" category="paragraph">Il nome di base dello snapshot selezionato viene registrato.</block>
   <block id="295f97215fb39c0acd113fe01d547678" category="section-title">Passa allo snapshot selezionato in caso di errore</block>
@@ -7957,4 +7952,13 @@ Opzionale quando si utilizzano identità gestite o identità cloud su un cluster
   <block id="0bb25bc3cf1d0c26ca853353a2dd7109" category="paragraph">systemctl start trident</block>
   <block id="f2f8542f9f112ea6545bf028e893aadc" category="paragraph">systemctl status trident</block>
   <block id="4e7dcfae0cbac5529245e0641c2da2e4" category="paragraph">Non aggiornare a Trident 26.10.0. Durante l'avvio, i pod del nodo Trident potrebbero scollegare volumi ancora in uso. I pod interessati potrebbero non funzionare con l'errore<block ref="8307b5796c66c457d6a138b37abe40c5" prefix=" " category="inline-code"></block>. Questo problema è risolto in Trident 26.10.1. Aggiorna invece a Trident 26.10.1 o versione successiva.</block>
+  <block id="79c2ec5d9abadd1928864428c124fbf6" category="paragraph">Ogni snapshot ha un tempo di completamento. Ottieni il percorso dell'archivio con<block ref="0f12ee5c9f1dd90158580f1c292b0d37" prefix=" " category="inline-code"></block> sul cluster di origine o con la CLI.</block>
+  <block id="9cf75acdd1d73c0ba1f192ebd7c1af71" category="admonition">Utilizza la CLI quando il cluster di origine non è attivo o la risorsa personalizzata snapshot non è disponibile. Esegui il comando sul cluster di destinazione o su qualsiasi cluster che ha AppVault di origine.</block>
+  <block id="5d4b81a0f1df6afa40e2dcbfe2ecdd96" category="open-title">Usa kubectl</block>
+  <block id="4f058c5bfefb1ec708b6b944c62f9a4d" category="paragraph">Usa<block ref="0f12ee5c9f1dd90158580f1c292b0d37" prefix=" " category="inline-code"></block> sul cluster di origine per ottenere il percorso dell'archivio.</block>
+  <block id="ad5d0860ae49b0980945c7619f60967c" category="list-text">Sul cluster di origine, elenca gli snapshot e annota il <block ref="369e101dc6bf4c62661cf5aa4b24d2c8" prefix=" " category="inline-code"></block> dello snapshot desiderato:</block>
+  <block id="3cc16137e98111ef3413864a0173b086" category="list-text">Ottieni il percorso dell'archivio:</block>
+  <block id="875a912cbb29f994f1b2176315627605" category="paragraph">Usa la CLI di Trident Protect per ottenere il percorso dell'archivio. Sul cluster di destinazione, o su qualsiasi cluster che abbia AppVault di origine, elenca gli snapshot.<block ref="87fb568bfdc633ffd5dee0f22cb4606c" prefix=" " category="inline-code"></block> è l'ora di completamento e<block ref="5ffb5f0d0de78321df46fc7c93ca64a3" prefix=" " category="inline-code"></block>è il percorso dell'archivio.</block>
+  <block id="a912c0a1c642f7dc58bec8536841ad2b" category="admonition">La risorsa personalizzata (CR) AppVault dell'applicazione di origine deve esistere sul cluster in cui esegui il comando e il tuo ambiente deve essere in grado di connettersi al bucket di storage a oggetti definito nella CR AppVault. Se le restrizioni di rete impediscono l'accesso, esegui la CLI dall'interno di un pod sul cluster.</block>
+  <block id="d9f64db02c827452abb5970dc13d7416" category="paragraph">Il basename è tutto ciò che segue l'ultima barra nel percorso. Ad esempio:</block>
 </blocks>
