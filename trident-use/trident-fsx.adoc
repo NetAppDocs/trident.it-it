@@ -12,7 +12,7 @@ summary: 'Utilizzando Trident con Amazon FSX per NetApp ONTAP, puoi assicurarti 
 
 
 [role="lead"]
-https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon FSX per NetApp ONTAP"^] è un servizio AWS completamente gestito che esegue file system basati sul sistema operativo per lo storage NetApp ONTAP. Fornisce funzionalità, prestazioni e amministrazione ONTAP con la scalabilità e la semplicità operativa di AWS. Un file system è la risorsa primaria in Amazon FSx ed è analogo a un cluster ONTAP on-premises. Ogni file system contiene una o più macchine virtuali di storage (SVM) e ogni SVM contiene uno o più volumi che archiviano file e directory. Questa integrazione consente ai cluster Kubernetes in esecuzione su Amazon Elastic Kubernetes Service (EKS) di eseguire il provisioning di volumi persistenti basati su ONTAP per carichi di lavoro a blocchi e file.
+https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon FSX per NetApp ONTAP"^] è un servizio AWS completamente gestito che esegue file system basati sul sistema operativo per lo storage NetApp ONTAP. Offre funzionalità, prestazioni e amministrazione ONTAP con la scalabilità e la semplicità operativa di AWS. Un file system è la risorsa principale in Amazon FSx ed è analogo a un cluster ONTAP on-premises. Ogni file system contiene una o più macchine virtuali di storage (SVM) e ogni SVM contiene uno o più volumi che archiviano file e directory. Questa integrazione consente ai cluster Kubernetes autogestiti, ai cluster Amazon Elastic Kubernetes Service (EKS) e ai cluster OpenShift autogestiti di eseguire il provisioning di volumi persistenti supportati da ONTAP per carichi di lavoro a blocchi e file.
 
 
 
@@ -21,7 +21,7 @@ https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon
 
 Oltre a link:../trident-get-started/requirements.html["Requisiti Trident"], per integrare FSX for ONTAP con Trident, hai bisogno di:
 
-* Un cluster Amazon EKS esistente o un cluster Kubernetes autogestito con `kubectl` installato.
+* Un cluster Kubernetes autogestito esistente o un cluster Amazon EKS con  `kubectl` installato, oppure un cluster OpenShift autogestito con  `oc` installato.
 * Una macchina virtuale di storage e file system Amazon FSX per NetApp ONTAP esistente raggiungibile dai nodi di lavoro del cluster.
 * Nodi di lavoro preparati per link:worker-node-prep.html["NFS o iSCSI"].
 +
@@ -40,6 +40,11 @@ NOTE: Assicurati di seguire la procedura di preparazione del nodo richiesta per 
 ** I volumi SMB sono supportati utilizzando `ontap-nas` solo driver.
 ** I volumi SMB non sono supportati con i componenti aggiuntivi Trident EKS.
 ** Trident supporta volumi SMB montati solo su pod in esecuzione su nodi Windows. Consultare link:worker-node-prep.html#prepare-to-provision-smb-volumes["Preparatevi al provisioning dei volumi SMB"] per i dettagli.
+
+
+* Cluster OpenShift autogestito:
++
+** Per l'integrazione Trident consigliata, che utilizza un segreto AWS Secrets Manager per le credenziali di FSx for ONTAP, i pod del controller Trident su OpenShift devono essere eseguiti con  `hostNetwork` impostato su  `true`.
 
 
 * Prima di Trident 24,02, Trident non ha potuto eliminare i volumi creati su file system Amazon FSX con backup automatici abilitati. Per evitare questo problema in Trident 24,02 o versioni successive, specificare `fsxFilesystemID` , AWS , AWS `apiRegion` `apikey` e AWS `secretKey` nel file di configurazione backend per AWS FSX for ONTAP.

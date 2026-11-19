@@ -35,7 +35,7 @@ NOTE: Se è la prima volta che utilizzi Kubernetes, dovresti familiarizzare con 
 
 Trident è supportato su una gamma di distribuzioni e piattaforme Kubernetes.
 
-Le piattaforme supportate includono: * Kubernetes upstream * Red Hat OpenShift * SUSE Harvester 1.7.0 (ONTAP iSCSI)
+Le piattaforme supportate includono: * Upstream Kubernetes * Red Hat OpenShift * SUSE Virtualization (Harvester) 1.8.x - 1.9.x (ONTAP NFS, iSCSI, NVMe/TCP e FC)
 
 
 

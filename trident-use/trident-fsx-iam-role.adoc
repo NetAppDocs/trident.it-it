@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-use/trident-fsx-iam-role.html 
 keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident 
-summary: 'Utilizzando Trident con Amazon FSX per NetApp ONTAP, puoi assicurarti che i tuoi cluster Kubernetes in esecuzione in Amazon Elastic Kubernetes Service (EKS) possano effettuare il provisioning di volumi persistenti di file e blocchi supportati da ONTAP.' 
+summary: Utilizzando Trident con Amazon FSx for NetApp ONTAP, puoi abilitare i cluster Kubernetes in esecuzione in Amazon EKS o Red Hat OpenShift a eseguire il provisioning di volumi persistenti a blocchi e file basati su ONTAP. 
 ---
-= Creare un ruolo IAM e un segreto AWS
+= Crea un ruolo IAM e un segreto di AWS Secrets Manager
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -15,36 +15,39 @@ summary: 'Utilizzando Trident con Amazon FSX per NetApp ONTAP, puoi assicurarti 
 Puoi configurare i pod Kubernetes in modo che accedano alle risorse AWS autenticandosi come ruolo AWS IAM invece di fornire credenziali AWS esplicite.
 
 
-NOTE: Per eseguire l'autenticazione usando un ruolo AWS IAM, devi disporre di un cluster Kubernetes implementato utilizzando EKS.
+NOTE: Per autenticarti usando un ruolo AWS IAM, devi disporre di un cluster Kubernetes implementato con Amazon EKS o Red Hat OpenShift.
 
 
 
-[[create-aws-secrets-manager-secret]]
-== Crea un segreto per AWS Secrets Manager
+[[create-an-aws-secrets-manager-secret]]
+== Creare un segreto AWS Secrets Manager
 
-Poiché Trident emetterà API su un vserver FSX per gestire lo storage in modo automatico, saranno necessarie le credenziali per farlo. Il modo sicuro per passare queste credenziali è tramite un segreto di AWS Secrets Manager. Pertanto, se non ne hai già uno, dovrai creare un segreto di AWS Secrets Manager che contenga le credenziali per l'account vsadmin.
+Trident necessita di credenziali per gestire lo storage sulla SVM FSx for ONTAP. Archivia le `vsadmin` credenziali in un segreto di AWS Secrets Manager.
 
 Questo esempio crea un segreto di Gestore segreti AWS per memorizzare le credenziali Trident CSI:
 
 [source, console]
 ----
-aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials"\
-  --secret-string "{\"username\":\"vsadmin\",\"password\":\"<svmpassword>\"}"
+aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials" \
+  --secret-string "{\"username\":\"vsadmin\",\"password\":\"<svm_password>\"}"
 ----
 
 
-[[create-iam-policy]]
-== Crea criterio IAM
+[[create-an-iam-policy]]
+== Crea una policy IAM
 
 Trident necessita anche delle autorizzazioni AWS per funzionare correttamente. Pertanto, è necessario creare un criterio che fornisca a Trident le autorizzazioni necessarie.
 
-I seguenti esempi creano una policy IAM utilizzando l'interfaccia a riga di comando di AWS:
+L'esempio seguente crea una policy IAM utilizzando l'AWS CLI:
 
 [source, console]
 ----
-aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document file://policy.json
-  --description "This policy grants access to Trident CSI to FSxN and Secrets manager"
+aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document file://policy.json \
+  --description "This policy grants Trident CSI access to FSx for ONTAP and AWS Secrets Manager" \
+  --query Policy.Arn --output text
 ----
+Il comando restituisce l'ARN della policy. Utilizzalo nei seguenti comandi.
+
 *Policy JSON esempio*:
 
 [source, json]
@@ -77,14 +80,14 @@ aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document 
 ----
 
 
-[[create-pod-identity-or-iam-role-for-service-account-association-irsa]]
-=== Crea l'identità del pod o il ruolo IAM per l'associazione dell'account di servizio (IRSA)
+[[create-an-iam-role-for-pod-identity-or-an-iam-role-for-a-service-account-irsa]]
+=== Crea un ruolo IAM per Pod Identity o un ruolo IAM per un service account (IRSA)
 
-È possibile configurare un account di servizio Kubernetes per assumere un ruolo AWS Identity and Access Management (IAM) con EKS Pod Identity o un ruolo IAM per l'associazione dell'account di servizio (IRSA). Tutti i Pod configurati per utilizzare l'account di servizio possono quindi accedere a qualsiasi servizio AWS per il quale il ruolo dispone delle autorizzazioni di accesso.
+Puoi configurare un account di servizio Kubernetes in modo che assuma un ruolo AWS Identity and Access Management (IAM) con EKS Pod Identity o con i ruoli IAM per gli account di servizio (IRSA). I pod configurati per utilizzare l'account di servizio possono quindi accedere ai servizi AWS a cui il ruolo è autorizzato ad accedere.
 
 [role="tabbed-block"]
 ====
-.Identità del pod
+.Identità del pod (EKS)
 --
 Le associazioni di identità dei pod Amazon EKS offrono la possibilità di gestire le credenziali per le applicazioni, in modo simile a come i profili delle istanze Amazon EC2 forniscono le credenziali alle istanze Amazon EC2.
 
@@ -96,7 +99,7 @@ Puoi creare l'identità del Pod tramite la console AWS o utilizzando il seguente
 ----
 aws eks create-addon --cluster-name <EKS_CLUSTER_NAME> --addon-name eks-pod-identity-agent
 ----
-Per maggiori informazioni fare riferimento a link:https://docs.aws.amazon.com/eks/latest/userguide/pod-id-agent-setup.html["Configurare l'agente di identità del pod Amazon EKS"] .
+Per ulteriori informazioni, consulta link:https://docs.aws.amazon.com/eks/latest/userguide/pod-id-agent-setup.html["Configurare l'agente di identità del pod Amazon EKS"].
 
 *Crea trust-relationship.json*:
 
@@ -110,7 +113,7 @@ aws iam create-role \
 ----
 *file trust-relationship.json*:
 
-[source, JSON]
+[source, json]
 ----
 
 {
@@ -141,7 +144,7 @@ aws iam attach-role-policy \
 ----
 *Crea un'associazione di identità pod*:
 
-Crea un'associazione di identità pod tra il ruolo IAM e l'account del servizio Trident (trident-controller)
+Crea un'associazione di identità del pod tra il ruolo IAM e l'account di servizio Trident (`trident-controller`).
 
 [listing]
 ----
@@ -151,7 +154,7 @@ aws eks create-pod-identity-association \
   --namespace trident --service-account trident-controller
 ----
 --
-.Ruolo IAM per l'associazione dell'account di servizio (IRSA)
+.Ruolo IAM per gli account di servizio (IRSA) (solo EKS)
 --
 *Utilizzando l'AWS CLI*:
 
@@ -162,7 +165,7 @@ aws iam create-role --role-name AmazonEKS_FSxN_CSI_DriverRole \
 ----
 *file trust-relation.json:*
 
-[source, JSON]
+[source, json]
 ----
 {
   "Version": "2012-10-17",
@@ -185,17 +188,17 @@ aws iam create-role --role-name AmazonEKS_FSxN_CSI_DriverRole \
 ----
 Aggiornare i seguenti valori nel `trust-relationship.json` file:
 
-* *<account_id>* - il tuo ID account AWS
-* *<oidc_provider>* - l'OIDC del tuo cluster EKS. È possibile ottenere oidc_provider eseguendo:
+* *<account_id>* - ID del tuo account AWS
+* *<oidc_provider>* - L'URL del provider OIDC per il tuo cluster EKS. Puoi ottenerlo eseguendo:
 +
 [source, console]
 ----
-aws eks describe-cluster --name my-cluster --query "cluster.identity.oidc.issuer"\
+aws eks describe-cluster --name my-cluster --query "cluster.identity.oidc.issuer" \
   --output text | sed -e "s/^https:\/\///"
 ----
 
 
-*Associare il ruolo IAM alla policy IAM*:
+*Associa la policy IAM al ruolo IAM*:
 
 Una volta creato il ruolo, allegare il criterio (creato nel passaggio precedente) al ruolo utilizzando questo comando:
 
@@ -203,9 +206,9 @@ Una volta creato il ruolo, allegare il criterio (creato nel passaggio precedente
 ----
 aws iam attach-role-policy --role-name my-role --policy-arn <IAM policy ARN>
 ----
-*Verificare che il provider OICD sia associato*:
+*Verifica l'associazione del fornitore OIDC*:
 
-Verifica che il tuo provider OIDC sia associato al cluster. È possibile verificarlo utilizzando il seguente comando:
+Verifica che il tuo provider OIDC sia associato al cluster eseguendo questo comando:
 
 [source, console]
 ----
@@ -217,13 +220,36 @@ Se l'output è vuoto, utilizzare il seguente comando per associare IAM OIDC al c
 ----
 eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
 ----
-*Se si utilizza eksctl*, utilizzare il seguente esempio per creare un ruolo IAM per l'account di servizio in EKS:
+Se stai utilizzando `eksctl`, usa il seguente esempio per creare un ruolo IAM per un account di servizio in EKS:
 
 [source, console]
 ----
 eksctl create iamserviceaccount --name trident-controller --namespace trident \
   --cluster <my-cluster> --role-name AmazonEKS_FSxN_CSI_DriverRole --role-only \
   --attach-policy-arn <IAM-Policy ARN> --approve
+----
+--
+.Ruolo IAM per l'autogestione di OpenShift
+--
+L'implementazione autogestita di OpenShift crea ruoli IAM e li associa ai nodi del cluster. Associa la policy IAM di Trident al ruolo assegnato a ciascun nodo.
+
+Per trovare gli ID delle istanze dei nodi nel tuo cluster, esegui il seguente comando:
+
+[source, console]
+----
+oc get nodes -o jsonpath='{range .items[*]}{.spec.providerID}{"\n"}{end}'
+----
+Per trovare il ruolo IAM associato a ciascuna istanza, esegui il seguente comando per ogni istanza:
+
+[source, console]
+----
+aws ec2 describe-instances --instance-ids <instance-id> --query 'Reservations[*].Instances[*].IamInstanceProfile.Arn' --output text
+----
+Associa la policy IAM a ciascun ruolo eseguendo il seguente comando:
+
+[source, console]
+----
+aws iam attach-role-policy --role-name <role-name> --policy-arn <IAM policy ARN>
 ----
 --
 ====

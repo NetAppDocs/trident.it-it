@@ -19,10 +19,20 @@ Il  https://kubernetes.io/docs/concepts/storage/storage-classes/["Oggetto Kubern
 [[create-a-storageclass-object]]
 == Crea un oggetto StorageClass
 
-Quando si crea una StorageClass per FSx for ONTAP, Trident creerà automaticamente la configurazione del backend.
+Quando crei una StorageClass per FSx for ONTAP, Trident può creare automaticamente la configurazione del backend.
+
+Per configurare manualmente il backend di storage, consulta <<create-a-kubernetes-storageclass-without-automatic-backend-configuration>> le istruzioni per creare separatamente il backend Trident e StorageClass.
 
 
-NOTE: Se desideri configurare manualmente il backend di storage, consulta la <<create-a-kubernetes-storageclass-without-automatic-backend-configuration>> sezione per sapere come creare separatamente il backend Trident e la storage class.
+NOTE: In OpenShift, devi creare separatamente il backend Trident e la StorageClass.
+
+
+
+==== Scopri come funziona la configurazione automatica del backend
+
+Trident deriva la configurazione del backend dalla definizione di StorageClass. Quando si applica la StorageClass, Trident convalida i parametri richiesti, crea il backend e annota la StorageClass con lo stato.
+
+Trident crea il VolumeSnapshotClass solo una volta. Trident riutilizza lo stesso VolumeSnapshotClass per i successivi StorageClasses.
 
 
 
@@ -42,7 +52,7 @@ I seguenti tre parametri devono essere definiti durante la creazione di un Stora
 | `storageDriverName` | Sì | stringa | Driver di storage Trident (ad esempio, `ontap-nas` o `ontap-san`) 
 
 
-| `credentialsName` | Sì | stringa | Nome del segreto Kubernetes che contiene le credenziali FSx for ONTAP 
+| `credentialsName` | Sì | stringa | Nome del Kubernetes Secret o dell'ARN del segreto di AWS Secrets Manager che contiene le credenziali di FSx for ONTAP 
 |===
 
 
@@ -193,14 +203,6 @@ Se desideri creare il backend Trident e la StorageClass separatamente, segui que
 
 
 
-==== Scopri come funziona la configurazione automatica del backend
-
-Trident deriva la configurazione del backend dalla definizione di StorageClass. Quando si applica la StorageClass, Trident convalida i parametri richiesti, crea il backend e annota la StorageClass con lo stato.
-
-Trident crea il VolumeSnapshotClass solo una volta. Trident riutilizza lo stesso VolumeSnapshotClass per i successivi StorageClasses.
-
-
-
 [[create-the-trident-backend]]
 === Crea il backend Trident
 
@@ -219,11 +221,14 @@ metadata:
   namespace: trident
 spec:
   version: 1
+  defaults:
+    skipRecoveryQueue: "true"
   storageDriverName: ontap-nas
   backendName: tbc-ontap-nas
   svm: svm-name
   aws:
     fsxFilesystemID: fs-xxxxxxxxxx
+    apiRegion: us-west-2
   credentials:
     name: "arn:aws:secretsmanager:us-west-2:xxxxxxxx:secret:secret-name"
     type: awsarn
@@ -243,13 +248,16 @@ spec:
   },
   "spec": {
     "version": 1,
+    "defaults": {
+      "skipRecoveryQueue": "true"
+    },
     "storageDriverName": "ontap-nas",
     "backendName": "tbc-ontap-nas",
     "svm": "svm-name",
     "aws": {
-      "fsxFilesystemID": "fs-xxxxxxxxxx"
+      "fsxFilesystemID": "fs-xxxxxxxxxx",
+      "apiRegion": "us-west-2"
     },
-    "managementLIF": null,
     "credentials": {
       "name": "arn:aws:secretsmanager:us-west-2:xxxxxxxx:secret:secret-name",
       "type": "awsarn"
@@ -314,7 +322,6 @@ Kubectl get tbc -n trident
 [listing]
 ----
 NAME                         BACKEND NAME         BACKEND UUID                           PHASE   STATUS
-
 backend-tbc-ontap-nas        tbc-ontap-nas        933e0071-66ce-4324-b9ff-f96d916ac5e9   Bound   Success
 ----
 
@@ -341,6 +348,9 @@ kind: StorageClass
 metadata:
   name: ontap-gold
 provisioner: csi.trident.netapp.io
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
 parameters:
   backendType: "ontap-nas"
   provisioningType: "thin"
@@ -448,7 +458,6 @@ kubectl get sc basic-csi
 ----
 NAME         PROVISIONER             AGE
 basic-csi    csi.trident.netapp.io   15h
-
 ----
 
 
