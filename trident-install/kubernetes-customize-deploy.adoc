@@ -76,11 +76,11 @@ Impostare sull'identità del workload ("Azure.workload.Identity/client-id: Xxxxx
 
 
 | `k8sTimeout`  a| 
-Timeout per le operazioni di Kubernetes.
+Timeout per le operazioni di Kubernetes, specificato come numero intero di secondi.
 
 
 NOTE: IL `k8sTimeout` il parametro è applicabile solo per l'installazione Trident .
-| `180sec` 
+| `180` 
 
 
 | `silenceAutosupport` | Non inviare pacchetti AutoSupport a NetApp
@@ -148,7 +148,12 @@ Limite di query al secondo (QPS) utilizzato dal controller durante la comunicazi
 
 
 | `enableConcurrency`  a| 
-Consente operazioni simultanee del controller Trident per un throughput migliore. Per ulteriori informazioni sui driver supportati, vedi il link: https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
+Consente operazioni simultanee del controller Trident per un throughput migliore.
+
+
+WARNING: Devi abilitare esplicitamente questa opzione durante l'installazione di Trident o quando aggiorni una distribuzione esistente.
+
+Per ulteriori informazioni sui driver supportati, vedi il link: https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
 | `enableCOSI` 
 
 

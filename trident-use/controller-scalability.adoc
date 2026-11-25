@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/controller-scalability.html 
 keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, ontap-nas-economy, ontap-san-economy, ontap-nas-flexgroup, asa-r2 
-summary: Comprendere la scalabilità del controller, il comportamento della concorrenza e la maturità delle funzionalità. 
+summary: Comprendi la scalabilità del controller, il comportamento in condizioni di concorrenza e i driver supportati. 
 ---
 = Scalabilità del controller
 :hardbreaks:
@@ -14,7 +14,7 @@ summary: Comprendere la scalabilità del controller, il comportamento della conc
 [role="lead"]
 Trident migliora la scalabilità del controller grazie a una maggiore concorrenza tra più driver di storage. Quando abiliti la scalabilità del controller, il controller Trident elabora le operazioni di storage in parallelo invece di serializzarle, il che aumenta il throughput negli ambienti Kubernetes con molte operazioni simultanee.
 
-Prima di distribuire, determina quali driver Trident supportano la scalabilità del controller nella disponibilità generale e quali driver sono disponibili come anteprima tecnica in Trident 26.10. Questo ti aiuta a prendere decisioni di distribuzione informate e a gestire il rischio. La scalabilità del controller è disabilitata per impostazione predefinita.
+Per impostazione predefinita,  `enableConcurrency` è impostato su  `false` e Trident opera in modalità seriale.
 
 
 
@@ -35,24 +35,16 @@ Quando abiliti la scalabilità del controller, le operazioni su volumi e backend
 [[default-behavior-serial-mode]]
 == Comportamento predefinito (modalità seriale)
 
-Per impostazione predefinita, il controller Trident elabora le operazioni una alla volta. Ogni richiesta di creazione, eliminazione, ridimensionamento o snapshot viene completata prima che Trident avvii la successiva. La modalità seriale è quella predefinita supportata per tutte le installazioni e non richiede configurazione.
-
-La modalità seriale è sufficiente per la maggior parte dei carichi di lavoro. Abilita la scalabilità del controller solo quando il volume delle operazioni crea un accumulo durante l'elaborazione in modalità seriale.
+Per impostazione predefinita, `enableConcurrency` è impostato su `false` e Trident opera in modalità seriale per tutte le nuove installazioni e gli aggiornamenti dalle versioni precedenti di Trident. La modalità seriale non richiede alcuna configurazione e tutti i backend e i driver funzionano normalmente senza configurazioni aggiuntive. Il comportamento in fase di esecuzione non cambia a meno che tu non imposti esplicitamente `enableConcurrency` su `true`.
 
 
 
 [[controller-scalability-support]]
 == Supporto per la scalabilità del controller
 
-Trident supporta la scalabilità del controller a diversi livelli di maturità per diversi driver di storage.
-
-
-
-[[general-availability]]
-=== Disponibilità generale
-
 I seguenti driver supportano la scalabilità del controller alla disponibilità generale in Trident 26.10:
 
+* `asa-r2` (SAN e NVMe)
 * `ontap-san`
 * `ontap-nas`
 * `ontap-nas-economy`
@@ -70,56 +62,40 @@ I  `google-cloud-netapp-volumes` e  `google-cloud-netapp-volumes-san` driver son
 ====
 
 
-[[technical-preview]]
-=== Anteprima tecnica
-
-Il seguente driver supporta la scalabilità del controller come funzionalità in anteprima tecnica in Trident 26.10:
-
-* `asa-r2` (SAN e NVMe)
-
-
-Questo driver presenta le seguenti limitazioni:
-
-* La funzionalità di concorrenza del controller è disponibile solo per valutazione e test.
-* Il comportamento può cambiare da una versione all'altra.
-* NetApp non consiglia l'utilizzo in ambienti di produzione.
-
-
-
-
 [[how-enableconcurrency-works]]
 == Come funziona enableConcurrency
 
-Quando imposti  `enableConcurrency` su  `true`, Trident applica l'elaborazione simultanea a tutti i backend gestiti dal controller. L'impostazione si applica a tutti i backend contemporaneamente. Non puoi abilitarla per singoli backend o singoli driver.
+L' `enableConcurrency`opzione è un'impostazione globale del tipo "tutto o niente". Non puoi limitarla a singoli driver o backend. Quando la imposti su `true`, tutti i backend passano contemporaneamente alla modalità concorrente.
 
-Ogni backend configurato deve utilizzare un driver presente nell'elenco di disponibilità generale o di anteprima tecnica. Se un backend utilizza un driver non supportato, Trident non si avvia e Trident non aggiunge un backend che utilizza un driver non supportato.
+[IMPORTANT]
+====
+Prima di abilitare la scalabilità del controller, verifica che ogni backend utilizzi un driver supportato. Se un backend utilizza un driver non supportato, Trident si rifiuterà di avviarsi e tutte le operazioni di archiviazione su tutti i backend falliranno. Trident si rifiuterà inoltre di aggiungere nuovi backend che utilizzano driver non supportati finché la concorrenza è abilitata.
 
-Per ripristinare l'avvio, rimuovi o riconfigura qualsiasi backend che utilizza un driver non supportato oppure disabilita la scalabilità del controller.
+====
+Per identificare i driver utilizzati dai tuoi backend, esegui:
+
+[source, console]
+----
+tridentctl get backends -n trident
+----
+Se Trident non si avvia perché un backend utilizza un driver non supportato, rimuovi o riconfigura tale backend oppure disabilita la scalabilità del controller.
 
 
 
 [[before-you-enable]]
 == Prima di abilitare
 
-[IMPORTANT]
-====
-Prima di abilitare la scalabilità del controller, assicurati che ogni backend configurato utilizzi un driver presente nell'elenco di disponibilità generale o di anteprima tecnica. Se un backend utilizza un driver non supportato, Trident non si avvia dopo che hai abilitato la funzionalità.
+Prima di abilitare la scalabilità del controller, identifica il tipo di driver per ogni backend nella tua installazione di Trident. Esegui `tridentctl get backends -n trident`, quindi utilizza la tabella seguente per determinare se il tuo ambiente è pronto.
 
-====
-Utilizza la tabella seguente per decidere se abilitare la scalabilità del controller.
-
-[cols="1,1"]
+[cols="2,1,1,3"]
 |===
-| Se il tuo ambiente | Poi 
+| Il tuo ambiente backend | Puoi abilitare la concorrenza? | Pronto per la produzione? | Guida 
 
 
-| Utilizzi solo driver supportati e riscontri un accumulo di operazioni del controller | Abilita la scalabilità del controller. 
+| Tutti i backend utilizzano i driver supportati (`asa-r2` SAN e NVMe, `ontap-san`, `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `ontap-san-economy`, `google-cloud-netapp-volumes`, `azure-netapp-files`, `solidfire-san`) | Sì | Sì | Sicuro da abilitare in produzione. Tutti i driver supportati funzioneranno in modalità concorrente. 
 
 
-| Utilizza un driver non supportato | Mantieni la modalità seriale predefinita. Non abilitare la scalabilità del controller. 
-
-
-| Gestisce bassi volumi di operazioni senza arretrati | Mantieni la modalità seriale predefinita. 
+| Qualsiasi backend utilizza un driver non supportato | No | No | Trident non si avvierà e tutte le operazioni di storage su tutti i backend non riusciranno. Rimuovi o migra i backend non supportati prima di abilitarlo. 
 |===
 
 
@@ -269,12 +245,11 @@ Quando la scalabilità del controller è abilitata, il controller Trident adotta
 
 Le seguenti considerazioni si applicano alla scalabilità del controller in Trident 26.10:
 
-* La scalabilità del controller supporta solo i driver presenti negli elenchi di disponibilità generale e di anteprima tecnica. Per dettagli, vedi <<before-you-enable,Prima di abilitare>>.
+* La scalabilità del controller supporta solo i driver elencati in <<before-you-enable,Prima di abilitare>>.
 * Il controller Trident gestisce la concorrenza internamente. Questa versione non prevede limiti di concorrenza configurabili dall'utente.
 * Il throughput complessivo dipende dal driver di storage in uso, dalla reattività del backend e dalle prestazioni del server API di Kubernetes.
 * Un'elevata concorrenza può aumentare il carico sui sistemi di storage back-end.
 * Il comportamento di scalabilità del controller non è identico per tutti i driver.
-* Il driver di anteprima tecnica può presentare prestazioni incoerenti sotto carico elevato e può cambiare comportamento tra una versione e l'altra.
 * Il debug di operazioni concorrenti può risultare più complesso a causa dell'esecuzione parallela. Metriche e log possono mostrare l'output delle operazioni interlacciate.
 
 
@@ -283,17 +258,17 @@ Le seguenti considerazioni si applicano alla scalabilità del controller in Trid
 [[recommendations]]
 == Raccomandazioni
 
-Prima di abilitare la scalabilità del controller, completa i seguenti passaggi:
+Prima di abilitare la scalabilità del controller:
 
-. Conferma che ogni backend configurato utilizza un driver presente nell'elenco di disponibilità generale o di anteprima tecnica.
-. Testa la modifica in un cluster non di produzione prima di applicarla in produzione.
-. Verifica che la scalabilità del controller sia abilitata dopo aver applicato la modifica.
+. Esegui  `tridentctl get backends -n trident` e annota il tipo di driver per ogni backend.
+. Verifica che ogni driver sia presente nell'elenco dei driver supportati per la tua versione di Trident.
+. Se un driver non è presente nell'elenco dei driver supportati, interrompi l'esecuzione. Non abilitare la concorrenza finché tali backend non vengono rimossi o migrati a un driver supportato.
+. Dopo l'attivazione, controlla i log del controller con `kubectl logs -n trident deploy/trident-controller | grep -i concurrency`.
+. Monitora le prestazioni del backend e del server API di Kubernetes dopo l'attivazione.
++
+** Usa i driver di disponibilità generale per gli ambienti di produzione che richiedono un'elevata scalabilità.
+** Monitora le prestazioni del backend e del controller quando operi su larga scala.
+** Non dare per scontato l'ordine delle operazioni negli script di automazione.
 
 
-Applica le seguenti raccomandazioni generali quando lavori con la scalabilità del controller:
-
-* Usa i driver di disponibilità generale per gli ambienti di produzione che richiedono un'elevata scalabilità.
-* Valuta il driver di anteprima tecnica solo in ambienti non di produzione.
-* Monitora le prestazioni del backend e del controller quando operi su larga scala.
-* Non dare per scontato l'ordine delle operazioni negli script di automazione.
 

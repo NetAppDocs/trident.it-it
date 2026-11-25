@@ -1433,7 +1433,7 @@ Utilizzo di configurazioni o utilizzo non multipathing di `find_multipaths: yes`
 [[changes-in-22-04]]
 == Cambiamenti nel 22.04
 
-NetApp continua a migliorare e migliorare i propri prodotti e servizi. Ecco alcune delle funzioni più recenti di Trident. Per le versioni precedenti, fare riferimento alla https://docs.netapp.com/us-en/trident/earlier-versions.html["Versioni precedenti della documentazione"].
+NetApp sta migliorando e perfezionando continuamente i suoi prodotti e servizi. Ecco alcune delle ultime funzionalità di Trident.
 
 
 IMPORTANT: Se si esegue l'aggiornamento da una release precedente di Trident e si utilizza Azure NetApp Files, il ``location`` il parametro di configurazione è ora un campo singleton obbligatorio.

@@ -213,6 +213,13 @@ Dividere un clone dal suo padre al momento della creazione, per impostazione pre
 
 
 
+| `cloneSplitDelay`  a| 
+Secondi di attesa prima che Trident inizi a suddividere un clone che mantiene occupato uno snapshot durante l'eliminazione dello snapshot. Il valore predefinito è di `86400` secondi (24 ore). Con il valore predefinito o superiore, Trident applica un backoff esponenziale a partire da 5 minuti e fino a 1 ora quando ONTAP restituisce un errore "snapshot busy"; i tentativi entro un intervallo non chiamano ONTAP. Al di sotto di `86400`, Trident chiama ONTAP per ogni tentativo CSI e non utilizza il backoff.
+ a| 
+`86400`
+
+
+
 | `encryption`  a| 
 Attiva NetApp Volume Encryption (NVE) sul nuovo volume; l'impostazione predefinita è `false`. NVE deve essere concesso in licenza e abilitato sul cluster per utilizzare questa opzione.
 

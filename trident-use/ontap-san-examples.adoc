@@ -152,7 +152,7 @@ NOTE: NVMe è supportato solo con le API REST ONTAP e non con ONTAPI (ZAPI).
 
  a| 
 `sanType`
-| Utilizzare per selezionare `iscsi` iSCSI, `nvme` NVMe/TCP o `fcp` SCSI over Fibre Channel (FC). | `iscsi` se vuoto 
+| Usa per selezionare(`iscsi` per iSCSI, `nvme` per NVMe/TCP o `fcp` per SCSI su Fibre Channel (FC). NOTA: il `ontap-san-economy` driver supporta solo iSCSI (`iscsi`). | `iscsi` se vuoto 
 
 
 | `formatOptions`  a| 
@@ -235,6 +235,9 @@ Trident consiglia le seguenti opzioni per velocizzare il processo di formattazio
 | `splitOnClone` | Separare un clone dal suo padre al momento della creazione | "falso" 
 
 
+| `cloneSplitDelay` | Secondi di attesa prima che Trident inizi a suddividere un clone che mantiene occupato uno snapshot durante l'eliminazione dello snapshot. Il valore predefinito è di `86400` secondi (24 ore). Con il valore predefinito o superiore, Trident applica un backoff esponenziale a partire da 5 minuti e fino a 1 ora quando ONTAP restituisce un errore "snapshot busy"; i tentativi entro un intervallo non chiamano ONTAP. Al di sotto di `86400`, Trident chiama ONTAP per ogni tentativo CSI e non utilizza il backoff. | `86400` 
+
+
 | `encryption` | Abilita NetApp Volume Encryption (NVE) sul nuovo volume; il valore predefinito è  `false`. NVE deve essere concesso in licenza e abilitato sul cluster per usare questa opzione. Se NAE è abilitato sul backend, qualsiasi volume effettuato il provisioning in Trident è abilitato per NAE. Per ulteriori informazioni, consulta: link:../trident-reco/security-reco.html["Come funziona Trident con NVE e NAE"]. | "false" *Se specificato, impostare su  `true` per sistemi ASA r2*. 
 
 
@@ -242,6 +245,9 @@ Trident consiglia le seguenti opzioni per velocizzare il processo di formattazio
 
 
 | `tieringPolicy` | Criterio di suddivisione in livelli per utilizzare "none" *Non specificare per i sistemi ASA r2*. |  
+
+
+| `skipRecoveryQueue` | Durante l'eliminazione del volume, ignorare la coda di ripristino nell'archiviazione ed eliminare immediatamente il volume. | `""` 
 
 
 | `nameTemplate` | Modello per creare nomi di volume personalizzati. | "" 
